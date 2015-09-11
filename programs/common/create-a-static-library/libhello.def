@@ -1,0 +1,6 @@
+; libhello.def
+; all exported functions from the archive libhello.a
+; the exported functions can be obtained with "nm -g libhello.a"
+
+extern  WriteString
+extern  Exit

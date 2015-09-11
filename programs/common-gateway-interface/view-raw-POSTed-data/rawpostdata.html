@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- script source from http://www.openjs.com/articles/ajax/ajax_file_upload/response_data.php -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Raw POST Data</title>
+<script src="/js/jsl.js" type="text/javascript"></script>
+<script src="/js/common.js" type="text/javascript"></script>
+<script type="text/javascript">
+function init() {
+        $("file_upload_form").onsubmit=function() {
+                $("file_upload_form").target = "upload_target";
+        }
+}
+function uploadDone() { //Function will be called when iframe is loaded
+        var ret = frames['upload_target'].document.getElementsByTagName("body")[0].innerHTML;
+        var data = eval("("+ret+")");
+        if(data.failure) { //Upload failed - show user the reason.
+                alert("Upload Failed: " + data.failure);
+        }
+}
+</script>
+</head>
+<body><pre><h1>RAW POST DATA</h1><form id="file_upload_form" method="post" enctype="multipart/form-data" action="/bin/rawpostdata">
+<span>WARNING: If the filesize is more then 5kB, the file will be rejected for processing.  You can change this in the source code.</span>
+&nbsp;
+<input name="file" id="file" size="27" type="file" /><input type="submit" name="action" value="Upload File" />
+&nbsp;
+<iframe id="upload_target" name="upload_target" src="" style="width:100%;height:600px;border:none;"></iframe>
+</form>
+</pre>
+
+</body></html>

@@ -1,0 +1,8 @@
+; libmodulo97.def
+; all exported functions from the archive libmodulo97.a
+; the exported functions can be obtained with "nm -g libmodulo97.a"
+
+extern Modulo97.Calculate
+extern Modulo97.Check
+extern Modulo97.CheckLength
+extern Modulo97.ParseNumber

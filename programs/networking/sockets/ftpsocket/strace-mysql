@@ -1,0 +1,381 @@
+agguro@aspire ~/Nasm/socket $ strace mysql -h127.0.0.1 -P3306 -uroot -p
+execve("/usr/bin/mysql", ["mysql", "-h127.0.0.1", "-P3306", "-uroot", "-p"], [/* 68 vars */]) = 0
+brk(0)                                  = 0x7fa4cc639000
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa4cbb86000
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+open("/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=173720, ...}) = 0
+mmap(NULL, 173720, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7fa4cbb5b000
+close(3)                                = 0
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+open("/lib/x86_64-linux-gnu/libpthread.so.0", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0po\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=141574, ...}) = 0
+mmap(NULL, 2217264, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fa4cb748000
+mprotect(0x7fa4cb761000, 2093056, PROT_NONE) = 0
+mmap(0x7fa4cb960000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x18000) = 0x7fa4cb960000
+mmap(0x7fa4cb962000, 13616, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7fa4cb962000
+close(3)                                = 0
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+open("/lib/x86_64-linux-gnu/libreadline.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\3200\1\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=282352, ...}) = 0
+mmap(NULL, 2382936, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fa4cb502000
+mprotect(0x7fa4cb53f000, 2097152, PROT_NONE) = 0
+mmap(0x7fa4cb73f000, 32768, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x3d000) = 0x7fa4cb73f000
+mmap(0x7fa4cb747000, 3160, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7fa4cb747000
+close(3)                                = 0
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+open("/lib/x86_64-linux-gnu/libz.so.1", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\36\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=100728, ...}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa4cbb5a000
+mmap(NULL, 2195784, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fa4cb2e9000
+mprotect(0x7fa4cb301000, 2093056, PROT_NONE) = 0
+mmap(0x7fa4cb500000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x17000) = 0x7fa4cb500000
+close(3)                                = 0
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+open("/lib/x86_64-linux-gnu/libdl.so.2", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\320\16\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=14664, ...}) = 0
+mmap(NULL, 2109744, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fa4cb0e5000
+mprotect(0x7fa4cb0e8000, 2093056, PROT_NONE) = 0
+mmap(0x7fa4cb2e7000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2000) = 0x7fa4cb2e7000
+close(3)                                = 0
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+open("/lib/x86_64-linux-gnu/libm.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\20V\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=1071552, ...}) = 0
+mmap(NULL, 3166568, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fa4caddf000
+mprotect(0x7fa4caee4000, 2093056, PROT_NONE) = 0
+mmap(0x7fa4cb0e3000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x104000) = 0x7fa4cb0e3000
+close(3)                                = 0
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+open("/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\320\37\2\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=1845024, ...}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa4cbb59000
+mmap(NULL, 3953344, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fa4caa19000
+mprotect(0x7fa4cabd4000, 2097152, PROT_NONE) = 0
+mmap(0x7fa4cadd4000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1bb000) = 0x7fa4cadd4000
+mmap(0x7fa4cadda000, 17088, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7fa4cadda000
+close(3)                                = 0
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+open("/lib/x86_64-linux-gnu/libtinfo.so.5", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\320\303\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=167096, ...}) = 0
+mmap(NULL, 2264288, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fa4ca7f0000
+mprotect(0x7fa4ca815000, 2093056, PROT_NONE) = 0
+mmap(0x7fa4caa14000, 20480, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x24000) = 0x7fa4caa14000
+close(3)                                = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa4cbb58000
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa4cbb56000
+arch_prctl(ARCH_SET_FS, 0x7fa4cbb56740) = 0
+mprotect(0x7fa4cadd4000, 16384, PROT_READ) = 0
+mprotect(0x7fa4caa14000, 16384, PROT_READ) = 0
+mprotect(0x7fa4cb0e3000, 4096, PROT_READ) = 0
+mprotect(0x7fa4cb2e7000, 4096, PROT_READ) = 0
+mprotect(0x7fa4cb500000, 4096, PROT_READ) = 0
+mprotect(0x7fa4cb73f000, 8192, PROT_READ) = 0
+mprotect(0x7fa4cb960000, 4096, PROT_READ) = 0
+mprotect(0x7fa4cc04e000, 20480, PROT_READ) = 0
+mprotect(0x7fa4cbb88000, 4096, PROT_READ) = 0
+munmap(0x7fa4cbb5b000, 173720)          = 0
+set_tid_address(0x7fa4cbb56a10)         = 4043
+set_robust_list(0x7fa4cbb56a20, 24)     = 0
+futex(0x7fff3ca9b180, FUTEX_WAIT_BITSET_PRIVATE|FUTEX_CLOCK_REALTIME, 1, NULL, 7fa4cbb56740) = -1 EAGAIN (Resource temporarily unavailable)
+rt_sigaction(SIGRTMIN, {0x7fa4cb74e9f0, [], SA_RESTORER|SA_SIGINFO, 0x7fa4cb758340}, NULL, 8) = 0
+rt_sigaction(SIGRT_1, {0x7fa4cb74ea80, [], SA_RESTORER|SA_RESTART|SA_SIGINFO, 0x7fa4cb758340}, NULL, 8) = 0
+rt_sigprocmask(SIG_UNBLOCK, [RTMIN RT_1], NULL, 8) = 0
+getrlimit(RLIMIT_STACK, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+brk(0)                                  = 0x7fa4cc639000
+brk(0x7fa4cc65a000)                     = 0x7fa4cc65a000
+mmap(NULL, 8392704, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7fa4c9fef000
+mprotect(0x7fa4c9fef000, 4096, PROT_NONE) = 0
+clone(child_stack=0x7fa4ca7eefb0, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, parent_tidptr=0x7fa4ca7ef9d0, tls=0x7fa4ca7ef700, child_tidptr=0x7fa4ca7ef9d0) = 4044
+futex(0x7fa4ca7ef9d0, FUTEX_WAIT, 4044, NULL) = 0
+ioctl(0, SNDCTL_TMR_TIMEBASE or SNDRV_TIMER_IOCTL_NEXT_DEVICE or TCGETS, {B38400 opost isig icanon echo ...}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or SNDRV_TIMER_IOCTL_NEXT_DEVICE or TCGETS, {B38400 opost isig icanon echo ...}) = 0
+dup(1)                                  = 3
+close(3)                                = 0
+stat("/etc/my.cnf", 0x7fff3ca978d0)     = -1 ENOENT (No such file or directory)
+stat("/etc/mysql/my.cnf", {st_mode=S_IFREG|0644, st_size=3505, ...}) = 0
+open("/etc/mysql/my.cnf", O_RDONLY)     = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=3505, ...}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa4cbb85000
+read(3, "#\n# The MySQL database server co"..., 4096) = 3505
+openat(AT_FDCWD, "/etc/mysql/conf.d/", O_RDONLY|O_NONBLOCK|O_DIRECTORY|O_CLOEXEC) = 4
+getdents(4, /* 4 entries */, 32768)     = 128
+getdents(4, /* 0 entries */, 32768)     = 0
+close(4)                                = 0
+stat("/etc/mysql/conf.d/mysqld_safe_syslog.cnf", {st_mode=S_IFREG|0644, st_size=21, ...}) = 0
+open("/etc/mysql/conf.d/mysqld_safe_syslog.cnf", O_RDONLY) = 4
+fstat(4, {st_mode=S_IFREG|0644, st_size=21, ...}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa4cbb84000
+read(4, "[mysqld_safe]\nsyslog\n", 4096) = 21
+read(4, "", 4096)                       = 0
+close(4)                                = 0
+munmap(0x7fa4cbb84000, 4096)            = 0
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+munmap(0x7fa4cbb85000, 4096)            = 0
+stat("/usr/etc/my.cnf", 0x7fff3ca978d0) = -1 ENOENT (No such file or directory)
+stat("/home/agguro/.my.cnf", 0x7fff3ca978d0) = -1 ENOENT (No such file or directory)
+open("/dev/tty", O_RDWR|O_CREAT|O_TRUNC|O_CLOEXEC, 0666) = 3
+ioctl(3, SNDCTL_TMR_TIMEBASE or SNDRV_TIMER_IOCTL_NEXT_DEVICE or TCGETS, {B38400 opost isig icanon echo ...}) = 0
+ioctl(3, SNDCTL_TMR_TIMEBASE or SNDRV_TIMER_IOCTL_NEXT_DEVICE or TCGETS, {B38400 opost isig icanon echo ...}) = 0
+ioctl(3, SNDCTL_TMR_CONTINUE or SNDRV_TIMER_IOCTL_GPARAMS or TCSETSF, {B38400 opost -isig icanon -echo ...}) = 0
+ioctl(3, SNDCTL_TMR_TIMEBASE or SNDRV_TIMER_IOCTL_NEXT_DEVICE or TCGETS, {B38400 opost -isig icanon -echo ...}) = 0
+fstat(3, {st_mode=S_IFCHR|0666, st_rdev=makedev(5, 0), ...}) = 0
+ioctl(3, SNDCTL_TMR_TIMEBASE or SNDRV_TIMER_IOCTL_NEXT_DEVICE or TCGETS, {B38400 opost -isig icanon -echo ...}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa4cbb85000
+
+write(3, "Enter password: ", 16Enter password: )        = 16
+read(3, "66102644933\n", 4096)          = 12
+write(3, "\n", 1
+)                       = 1
+
+ioctl(3, SNDCTL_TMR_TIMEBASE or SNDRV_TIMER_IOCTL_NEXT_DEVICE or TCGETS, {B38400 opost -isig icanon -echo ...}) = 0
+ioctl(3, SNDCTL_TMR_CONTINUE or SNDRV_TIMER_IOCTL_GPARAMS or TCSETSF, {B38400 opost isig icanon echo ...}) = 0
+ioctl(3, SNDCTL_TMR_TIMEBASE or SNDRV_TIMER_IOCTL_NEXT_DEVICE or TCGETS, {B38400 opost isig icanon echo ...}) = 0
+close(3)                                = 0
+munmap(0x7fa4cbb85000, 4096)            = 0
+
+socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 3
+connect(3, {sa_family=AF_LOCAL, sun_path="/var/run/nscd/socket"}, 110) = -1 ENOENT (No such file or directory)
+close(3)                                = 0
+socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 3
+connect(3, {sa_family=AF_LOCAL, sun_path="/var/run/nscd/socket"}, 110) = -1 ENOENT (No such file or directory)
+close(3)                                = 0
+open("/etc/nsswitch.conf", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=507, ...}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa4cbb85000
+read(3, "# /etc/nsswitch.conf\n#\n# Example"..., 4096) = 507
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+munmap(0x7fa4cbb85000, 4096)            = 0
+open("/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=173720, ...}) = 0
+mmap(NULL, 173720, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7fa4cbb5b000
+close(3)                                = 0
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+open("/lib/x86_64-linux-gnu/tls/x86_64/libnss_db.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/lib/x86_64-linux-gnu/tls/x86_64", 0x7fff3ca9a500) = -1 ENOENT (No such file or directory)
+open("/lib/x86_64-linux-gnu/tls/libnss_db.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/lib/x86_64-linux-gnu/tls", 0x7fff3ca9a500) = -1 ENOENT (No such file or directory)
+open("/lib/x86_64-linux-gnu/x86_64/libnss_db.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/lib/x86_64-linux-gnu/x86_64", 0x7fff3ca9a500) = -1 ENOENT (No such file or directory)
+open("/lib/x86_64-linux-gnu/libnss_db.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/lib/x86_64-linux-gnu", {st_mode=S_IFDIR|0755, st_size=12288, ...}) = 0
+open("/usr/lib/x86_64-linux-gnu/tls/x86_64/libnss_db.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/usr/lib/x86_64-linux-gnu/tls/x86_64", 0x7fff3ca9a500) = -1 ENOENT (No such file or directory)
+open("/usr/lib/x86_64-linux-gnu/tls/libnss_db.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/usr/lib/x86_64-linux-gnu/tls", 0x7fff3ca9a500) = -1 ENOENT (No such file or directory)
+open("/usr/lib/x86_64-linux-gnu/x86_64/libnss_db.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/usr/lib/x86_64-linux-gnu/x86_64", 0x7fff3ca9a500) = -1 ENOENT (No such file or directory)
+open("/usr/lib/x86_64-linux-gnu/libnss_db.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/usr/lib/x86_64-linux-gnu", {st_mode=S_IFDIR|0755, st_size=94208, ...}) = 0
+open("/lib/tls/x86_64/libnss_db.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/lib/tls/x86_64", 0x7fff3ca9a500) = -1 ENOENT (No such file or directory)
+open("/lib/tls/libnss_db.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/lib/tls", 0x7fff3ca9a500)        = -1 ENOENT (No such file or directory)
+open("/lib/x86_64/libnss_db.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/lib/x86_64", 0x7fff3ca9a500)     = -1 ENOENT (No such file or directory)
+open("/lib/libnss_db.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/lib", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+open("/usr/lib/tls/x86_64/libnss_db.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/usr/lib/tls/x86_64", 0x7fff3ca9a500) = -1 ENOENT (No such file or directory)
+open("/usr/lib/tls/libnss_db.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/usr/lib/tls", 0x7fff3ca9a500)    = -1 ENOENT (No such file or directory)
+open("/usr/lib/x86_64/libnss_db.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/usr/lib/x86_64", 0x7fff3ca9a500) = -1 ENOENT (No such file or directory)
+open("/usr/lib/libnss_db.so.2", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+stat("/usr/lib", {st_mode=S_IFDIR|0755, st_size=36864, ...}) = 0
+munmap(0x7fa4cbb5b000, 173720)          = 0
+open("/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=173720, ...}) = 0
+mmap(NULL, 173720, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7fa4cbb5b000
+close(3)                                = 0
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+open("/lib/x86_64-linux-gnu/libnss_files.so.2", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\240\"\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=47712, ...}) = 0
+mmap(NULL, 2144392, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fa4c9bcd000
+mprotect(0x7fa4c9bd8000, 2093056, PROT_NONE) = 0
+mmap(0x7fa4c9dd7000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xa000) = 0x7fa4c9dd7000
+close(3)                                = 0
+mprotect(0x7fa4c9dd7000, 4096, PROT_READ) = 0
+munmap(0x7fa4cbb5b000, 173720)          = 0
+open("/etc/services", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=19558, ...}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa4cbb85000
+read(3, "# Network services, Internet sty"..., 4096) = 4096
+read(3, "\t\t# IPX\nipx\t\t213/udp\nimap3\t\t220/"..., 4096) = 4096
+read(3, "nessus\t\t1241/tcp\t\t\t# Nessus vuln"..., 4096) = 4096
+close(3)                                = 0
+munmap(0x7fa4cbb85000, 4096)            = 0
+rt_sigaction(SIGPIPE, {SIG_IGN, [PIPE], SA_RESTORER|SA_RESTART, 0x7fa4caa4fc30}, {SIG_DFL, [], 0}, 8) = 0
+
+socket(PF_INET, SOCK_STREAM, IPPROTO_TCP) = 3
+connect(3, {sa_family=AF_INET, sin_port=htons(3306), sin_addr=inet_addr("127.0.0.1")}, 16) = 0
+
+fcntl(3, F_SETFL, O_RDONLY)             = 0
+fcntl(3, F_GETFL)                       = 0x2 (flags O_RDWR)
+
+setsockopt(3, SOL_SOCKET, SO_RCVTIMEO, "\2003\341\1\0\0\0\0\0\0\0\0\0\0\0\0", 16) = 0
+setsockopt(3, SOL_SOCKET, SO_SNDTIMEO, "\2003\341\1\0\0\0\0\0\0\0\0\0\0\0\0", 16) = 0
+setsockopt(3, SOL_IP, IP_TOS, [8], 4)   = 0
+setsockopt(3, SOL_TCP, TCP_NODELAY, [1], 4) = 0
+setsockopt(3, SOL_SOCKET, SO_KEEPALIVE, [1], 4) = 0
+
+read(3, "[\0\0\0\n5.5.40-0ubuntu0.14.04.1\0/\0\0"..., 16384) = 95
+open("/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 4
+fstat(4, {st_mode=S_IFREG|0644, st_size=3179824, ...}) = 0
+mmap(NULL, 3179824, PROT_READ, MAP_PRIVATE, 4, 0) = 0x7fa4c98c4000
+close(4)                                = 0
+stat("/usr/share/mysql/charsets/Index.xml", {st_mode=S_IFREG|0644, st_size=18307, ...}) = 0
+brk(0x7fa4cc67b000)                     = 0x7fa4cc67b000
+open("/usr/share/mysql/charsets/Index.xml", O_RDONLY) = 4
+read(4, "<?xml version='1.0' encoding=\"ut"..., 18307) = 18307
+close(4)                                = 0
+brk(0x7fa4cc676000)                     = 0x7fa4cc676000
+futex(0x7fa4cc0df668, FUTEX_WAKE_PRIVATE, 2147483647) = 0
+
+write(3, "P\0\0\1\5\246\17\0\0\0\0\1!\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"..., 84) = 84
+
+read(3, "\7\0\0\2\0\0\0\2\0\0\0", 16384) = 11
+
+rt_sigaction(SIGINT, {0x7fa4cbbbde00, [INT], SA_RESTORER|SA_RESTART, 0x7fa4caa4fc30}, {SIG_DFL, [], 0}, 8) = 0
+rt_sigaction(SIGQUIT, {0x7fa4cbbbdb20, [QUIT], SA_RESTORER|SA_RESTART, 0x7fa4caa4fc30}, {SIG_DFL, [], 0}, 8) = 0
+rt_sigaction(SIGWINCH, {0x7fa4cbbbac30, [WINCH], SA_RESTORER|SA_RESTART, 0x7fa4caa4fc30}, {SIG_DFL, [], 0}, 8) = 0
+ioctl(0, TIOCGWINSZ, {ws_row=38, ws_col=268, ws_xpixel=0, ws_ypixel=0}) = 0
+fstat(1, {st_mode=S_IFCHR|0600, st_rdev=makedev(136, 2), ...}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa4cbb85000
+
+// WELCOME //
+
+write(1, "Welcome to the MySQL monitor.  C"..., 58Welcome to the MySQL monitor.  Commands end with ; or \g.
+) = 58
+poll([{fd=3, events=POLLIN|POLLPRI}], 1, 0) = 0 (Timeout)
+write(3, "!\0\0\0\3select @@version_comment li"..., 37) = 37
+read(3, "\1\0\0\1\1'\0\0\2\3def\0\0\0\21@@version_comme"..., 16384) = 79
+write(1, "Your MySQL connection id is 47\nS"..., 80Your MySQL connection id is 47
+Server version: 5.5.40-0ubuntu0.14.04.1 (Ubuntu)
+) = 80
+write(1, "\n", 1
+)                       = 1
+write(1, "Copyright (c) 2000, 2014, Oracle"..., 214Copyright (c) 2000, 2014, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+) = 214
+write(1, "\n", 1
+)                       = 1
+readlink("/home/agguro/.mysql_history", 0x7fff3ca9afc0, 511) = -1 EINVAL (Invalid argument)
+open("/home/agguro/.mysql_history", O_RDONLY) = 4
+fstat(4, {st_mode=S_IFREG|0600, st_size=436, ...}) = 0
+read(4, "show schema\n;\nshow databases;\nSE"..., 436) = 436
+close(4)                                = 0
+write(1, "Type 'help;' or '\\h' for help. T"..., 79Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+) = 79
+write(1, "\n", 1
+)                       = 1
+open("/etc/localtime", O_RDONLY|O_CLOEXEC) = 4
+fstat(4, {st_mode=S_IFREG|0644, st_size=2944, ...}) = 0
+fstat(4, {st_mode=S_IFREG|0644, st_size=2944, ...}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa4cbb84000
+read(4, "TZif2\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\n\0\0\0\n\0\0\0\0"..., 4096) = 2944
+lseek(4, -1877, SEEK_CUR)               = 1067
+read(4, "TZif2\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\f\0\0\0\f\0\0\0\0"..., 4096) = 1877
+close(4)                                = 0
+munmap(0x7fa4cbb84000, 4096)            = 0
+open("/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY) = 4
+fstat(4, {st_mode=S_IFREG|0644, st_size=26258, ...}) = 0
+mmap(NULL, 26258, PROT_READ, MAP_SHARED, 4, 0) = 0x7fa4cbb7e000
+close(4)                                = 0
+futex(0x7fa4cadd9a70, FUTEX_WAKE_PRIVATE, 2147483647) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or SNDRV_TIMER_IOCTL_NEXT_DEVICE or TCGETS, {B38400 opost isig icanon echo ...}) = 0
+stat("/home/agguro/.terminfo", 0x7fa4cc659160) = -1 ENOENT (No such file or directory)
+stat("/etc/terminfo", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/lib/terminfo", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+stat("/usr/share/terminfo", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+access("/etc/terminfo/x/xterm", R_OK)   = -1 ENOENT (No such file or directory)
+access("/lib/terminfo/x/xterm", R_OK)   = 0
+open("/lib/terminfo/x/xterm", O_RDONLY) = 4
+fstat(4, {st_mode=S_IFREG|0644, st_size=3315, ...}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fa4cbb7d000
+read(4, "\32\1)\0&\0\17\0\235\1Z\5xterm|xterm-debian|X"..., 4096) = 3315
+read(4, "", 4096)                       = 0
+close(4)                                = 0
+munmap(0x7fa4cbb7d000, 4096)            = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or SNDRV_TIMER_IOCTL_NEXT_DEVICE or TCGETS, {B38400 opost isig icanon echo ...}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or SNDRV_TIMER_IOCTL_NEXT_DEVICE or TCGETS, {B38400 opost isig icanon echo ...}) = 0
+ioctl(1, TIOCGWINSZ, {ws_row=38, ws_col=268, ws_xpixel=0, ws_ypixel=0}) = 0
+ioctl(0, TIOCGWINSZ, {ws_row=38, ws_col=268, ws_xpixel=0, ws_ypixel=0}) = 0
+ioctl(0, TIOCGWINSZ, {ws_row=38, ws_col=268, ws_xpixel=0, ws_ypixel=0}) = 0
+ioctl(0, SNDRV_TIMER_IOCTL_STATUS or TIOCSWINSZ, {ws_row=38, ws_col=268, ws_xpixel=0, ws_ypixel=0}) = 0
+ioctl(0, SNDCTL_TMR_TIMEBASE or SNDRV_TIMER_IOCTL_NEXT_DEVICE or TCGETS, {B38400 opost isig icanon echo ...}) = 0
+stat("/home/agguro/.inputrc", 0x7fff3ca9ada0) = -1 ENOENT (No such file or directory)
+stat("/etc/inputrc", {st_mode=S_IFREG|0644, st_size=1721, ...}) = 0
+open("/etc/inputrc", O_RDONLY)          = 4
+read(4, "# /etc/inputrc - global inputrc "..., 1721) = 1721
+close(4)                                = 0
+ioctl(0, TIOCGWINSZ, {ws_row=38, ws_col=268, ws_xpixel=0, ws_ypixel=0}) = 0
+ioctl(0, SNDRV_TIMER_IOCTL_STATUS or TIOCSWINSZ, {ws_row=38, ws_col=268, ws_xpixel=0, ws_ypixel=0}) = 0
+ioctl(0, SNDCTL_TMR_TIMEBASE or SNDRV_TIMER_IOCTL_NEXT_DEVICE or TCGETS, {B38400 opost isig icanon echo ...}) = 0
+ioctl(0, SNDCTL_TMR_TIMEBASE or SNDRV_TIMER_IOCTL_NEXT_DEVICE or TCGETS, {B38400 opost isig icanon echo ...}) = 0
+ioctl(0, SNDCTL_TMR_STOP or SNDRV_TIMER_IOCTL_GINFO or TCSETSW, {B38400 opost isig -icanon -echo ...}) = 0
+ioctl(0, SNDCTL_TMR_TIMEBASE or SNDRV_TIMER_IOCTL_NEXT_DEVICE or TCGETS, {B38400 opost isig -icanon -echo ...}) = 0
+rt_sigprocmask(SIG_BLOCK, [HUP INT QUIT ALRM TERM TSTP TTIN TTOU], [], 8) = 0
+rt_sigaction(SIGINT, {0x7fa4cb529ab0, [], SA_RESTORER, 0x7fa4cb758340}, {0x7fa4cbbbde00, [INT], SA_RESTORER|SA_RESTART, 0x7fa4caa4fc30}, 8) = 0
+rt_sigaction(SIGTERM, {0x7fa4cb529ab0, [], SA_RESTORER, 0x7fa4cb758340}, {SIG_DFL, [], 0}, 8) = 0
+rt_sigaction(SIGHUP, {0x7fa4cb529ab0, [], SA_RESTORER, 0x7fa4cb758340}, {SIG_DFL, [], 0}, 8) = 0
+rt_sigaction(SIGQUIT, {0x7fa4cb529ab0, [], SA_RESTORER, 0x7fa4cb758340}, {0x7fa4cbbbdb20, [QUIT], SA_RESTORER|SA_RESTART, 0x7fa4caa4fc30}, 8) = 0
+rt_sigaction(SIGALRM, {0x7fa4cb529ab0, [], SA_RESTORER, 0x7fa4cb758340}, {SIG_DFL, [], 0}, 8) = 0
+rt_sigaction(SIGTSTP, {0x7fa4cb529ab0, [], SA_RESTORER, 0x7fa4cb758340}, {SIG_DFL, [], 0}, 8) = 0
+rt_sigaction(SIGTTOU, {0x7fa4cb529ab0, [], SA_RESTORER, 0x7fa4cb758340}, {SIG_DFL, [], 0}, 8) = 0
+rt_sigaction(SIGTTIN, {0x7fa4cb529ab0, [], SA_RESTORER, 0x7fa4cb758340}, {SIG_DFL, [], 0}, 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigaction(SIGWINCH, {0x7fa4cb529090, [], SA_RESTORER|SA_RESTART, 0x7fa4cb758340}, {0x7fa4cbbbac30, [WINCH], SA_RESTORER|SA_RESTART, 0x7fa4caa4fc30}, 8) = 0
+write(1, "mysql> ", 7mysql> )                  = 7
+read(0, "q", 1)                         = 1
+write(1, "q", 1q)                        = 1
+read(0, "u", 1)                         = 1
+write(1, "u", 1u)                        = 1
+read(0, "i", 1)                         = 1
+write(1, "i", 1i)                        = 1
+read(0, "t", 1)                         = 1
+write(1, "t", 1t)                        = 1
+read(0, "\r", 1)                        = 1
+write(1, "\n", 1
+)                       = 1
+ioctl(0, SNDCTL_TMR_TIMEBASE or SNDRV_TIMER_IOCTL_NEXT_DEVICE or TCGETS, {B38400 opost isig -icanon -echo ...}) = 0
+ioctl(0, SNDCTL_TMR_STOP or SNDRV_TIMER_IOCTL_GINFO or TCSETSW, {B38400 opost isig icanon echo ...}) = 0
+ioctl(0, SNDCTL_TMR_TIMEBASE or SNDRV_TIMER_IOCTL_NEXT_DEVICE or TCGETS, {B38400 opost isig icanon echo ...}) = 0
+rt_sigaction(SIGINT, {0x7fa4cbbbde00, [INT], SA_RESTORER|SA_RESTART, 0x7fa4cb758340}, {0x7fa4cb529ab0, [], SA_RESTORER, 0x7fa4cb758340}, 8) = 0
+rt_sigaction(SIGTERM, {SIG_DFL, [], SA_RESTORER, 0x7fa4cb758340}, {0x7fa4cb529ab0, [], SA_RESTORER, 0x7fa4cb758340}, 8) = 0
+rt_sigaction(SIGHUP, {SIG_DFL, [], SA_RESTORER, 0x7fa4cb758340}, {0x7fa4cb529ab0, [], SA_RESTORER, 0x7fa4cb758340}, 8) = 0
+rt_sigaction(SIGQUIT, {0x7fa4cbbbdb20, [QUIT], SA_RESTORER|SA_RESTART, 0x7fa4cb758340}, {0x7fa4cb529ab0, [], SA_RESTORER, 0x7fa4cb758340}, 8) = 0
+rt_sigaction(SIGALRM, {SIG_DFL, [], SA_RESTORER, 0x7fa4cb758340}, {0x7fa4cb529ab0, [], SA_RESTORER, 0x7fa4cb758340}, 8) = 0
+rt_sigaction(SIGTSTP, {SIG_DFL, [], SA_RESTORER, 0x7fa4cb758340}, {0x7fa4cb529ab0, [], SA_RESTORER, 0x7fa4cb758340}, 8) = 0
+rt_sigaction(SIGTTOU, {SIG_DFL, [], SA_RESTORER, 0x7fa4cb758340}, {0x7fa4cb529ab0, [], SA_RESTORER, 0x7fa4cb758340}, 8) = 0
+rt_sigaction(SIGTTIN, {SIG_DFL, [], SA_RESTORER, 0x7fa4cb758340}, {0x7fa4cb529ab0, [], SA_RESTORER, 0x7fa4cb758340}, 8) = 0
+rt_sigaction(SIGWINCH, {0x7fa4cbbbac30, [WINCH], SA_RESTORER|SA_RESTART, 0x7fa4cb758340}, {0x7fa4cb529090, [], SA_RESTORER|SA_RESTART, 0x7fa4cb758340}, 8) = 0
+rt_sigaction(SIGQUIT, {SIG_IGN, [QUIT], SA_RESTORER|SA_RESTART, 0x7fa4caa4fc30}, {0x7fa4cbbbdb20, [QUIT], SA_RESTORER|SA_RESTART, 0x7fa4cb758340}, 8) = 0
+rt_sigaction(SIGINT, {SIG_IGN, [INT], SA_RESTORER|SA_RESTART, 0x7fa4caa4fc30}, {0x7fa4cbbbde00, [INT], SA_RESTORER|SA_RESTART, 0x7fa4cb758340}, 8) = 0
+write(3, "\1\0\0\0\1", 5)               = 5
+shutdown(3, SHUT_RDWR)                  = 0
+close(3)                                = 0
+rename("/home/agguro/.mysql_history.TMP", "/home/agguro/.mysql_history.TMP-") = -1 ENOENT (No such file or directory)
+open("/home/agguro/.mysql_history.TMP", O_WRONLY|O_CREAT|O_TRUNC, 0600) = 3
+write(3, "show schema\n;\nshow databases;\nSE"..., 436) = 436
+close(3)                                = 0
+unlink("/home/agguro/.mysql_history.TMP-") = -1 ENOENT (No such file or directory)
+rename("/home/agguro/.mysql_history.TMP", "/home/agguro/.mysql_history") = 0
+write(1, "Bye\n", 4Bye
+)                    = 4
+exit_group(0)                           = ?
++++ exited with 0 +++
+agguro@aspire ~/Nasm/socket $ 

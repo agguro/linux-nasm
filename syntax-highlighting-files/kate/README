@@ -1,0 +1,9 @@
+Extended nasm.xml syntax file for Kate text editor.
+
+need to be copied as root in   /usr/share/kde4/apps/katepart/syntax/
+or as user in                 ~/.kde/share/apps/katepart/syntax/
+
+february 13, 2015
+added instructions
+added 64 bits registers
+added some nasm directives
