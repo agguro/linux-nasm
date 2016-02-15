@@ -1,6 +1,0 @@
-# test programma
-R0     LDA R8		# laad A met geheugen R8
-R1		SUB		R9
-#	R2	HLT # halt programma
-RF		   HLT
-# EINDE PROGRAMMA
