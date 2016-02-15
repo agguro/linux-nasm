@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>PEM 1 | Blockdiagram</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <link type="text/css" rel="stylesheet" href="css/pem1.css">
+        <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+        <script type="text/javascript" src="js/pem1.js"></script>
+        <script type="text/javascript" >
+
+</script>
+</head>
+
+<body>
+
+
+<div id="pem1">
+    <button id="start">start</button><button id="clock" disabled>CPU Clock</button>
+<div class="controls column00 row00001">
+<div class="label">&nbsp;Fases:</div>
+<div id="remarkt0" class="ctrl remark C1 row000">t0</div><div id="t0" class="tctrl bullet column002 row0001"></div>
+<div id="remarkt1" class="ctrl remark C1 row001">t1</div><div id="t1" class="tctrl bullet column002 row0011"></div>
+<div id="remarkt2" class="ctrl remark C1 row002">t2</div><div id="t2" class="tctrl bullet column002 row0021"></div>
+<div id="remarkt3" class="ctrl remark C1 row003">t3</div><div id="t3" class="tctrl bullet column002 row0031"></div>
+<div id="remarkt4" class="ctrl remark C1 row004">t4</div><div id="t4" class="tctrl bullet column002 row0041"></div>
+<div id="remarkt5" class="ctrl remark C1 row005">t5</div><div id="t5" class="tctrl bullet column002 row0051"></div>
+</div>
+<div class="opcodes column00 row00002">
+<div class="label">&nbsp;Opcodes:</div>
+<div id="remarklda" class="opc remark C1 row000">LDA</div><div id="lda" class="topc bullet column002 row0001"></div>
+<div id="remarkadd" class="opc remark C1 row001">ADD</div><div id="add" class="topc bullet column002 row0011"></div>
+<div id="remarksub" class="opc remark C1 row002">SUB</div><div id="sub" class="topc bullet column002 row0021"></div>
+<div id="remarkout" class="opc remark C1 row003">OUT</div><div id="out" class="topc bullet column002 row0031"></div>
+<div id="remarkhlt" class="opc remark C1 row004">HLT</div><div id="hlt" class="topc bullet column002 row0041"></div>
+</div>
+	<div class="ctrl ctrlcp column00000 row2 label">C<sub>P</sub></div>
+	<div class="ctrl ctrlcp column11111 row201 line"></div>
+	<div id="lblclkpc" class="column00000 row21 label clock">CLK</div>
+	<div id="clkpc" class="column11111 row202 clk left clock"></div>
+	<div id="lblclrpc" class="column00000 row22 label clear">CLR</div>
+	<div id="clrpc" class="column11111 row211 clear line"></div>
+	<div class="ctrl ctrlep column00000 row23 label">E<sub>P</sub></div>
+	<div class="ctrl ctrlep column11111 row23 line"></div>
+	<div class="ctrl ctrllm column00000 row24 label">L<sub>M</sub></div>
+	<div class="ctrl ctrllm column11111 row240 line"></div>
+	<div id="lblclkmar" class="column00000 row25 label clock">CLK</div>
+	<div id="clkmr" class="column11111 row246 clk clock left"></div>
+	<div class="ctrler ctrl column00000 row26 label">E<sub>R</sub></div>
+	<div class="ctrler ctrl column11111 row265 line"></div>
+	<div class="ctrlli ctrl column00000 row27 label">L<sub>I</sub></div>
+	<div class="ctrlli ctrl column11111 row275 line"></div>
+	<div id="lblclkir" class="column00000 row28 label clock">CLK</div>
+	<div id="clkir" class="column11111 row276 clk clock left"></div>
+	<div id="lblclrir" class="column00000 row29 label clear">CLR</div>
+	<div id="clrir" class="column11111 row295 line clear"></div>
+	<div class="ctrlei ctrl column00000 row2a label">E<sub>I</sub></div>
+	<div class="ctrlei ctrl column11111 row2a0 line"></div>
+	<div id="pc" class="column2 row1 component" ><div class="column01 tag"><span> PC </span></div></div>
+	<div id="mar" class="column2 row3 component"><div class="column01 tag"><span> MAR </span></div></div>
+	<div id="prom" class="column2 row5 component"><div class="column01 remark"><span>16 x 8</span></div><div class="column01 tag"><span> PROM </span></div></div>
+	<div id="ir" class="column2 row7 component"><div class="column01 tag"><span> IR </span></div></div>
+	<div id="con" class="column2 row9 component"><div class="column01 tag"><span> CON </span></div></div>
+	<div id="busmar2prom" class="column3 row4 dbus vertical down"><div class="remark vertical"><span>4</span></div></div>
+	<div id="busir2con" class="column3 row8 dbus vertical down"><div class="remark vertical"><span>4</span></div></div>
+	<div id="busctrllines" class="column3 row11 dbus vertical down"><div class="remark vertical"><span>12</span></div></div>
+	<div id="buspc2wbus" class="column302 row71 dbus horizontal right"><div class="remark horizontal"><span>4</span></div></div>
+	<div id="buswbus2mar" class="column302 row232 dbus horizontal left"><div class="remark horizontal"><span>4</span></div></div>
+	<div id="busprom2wbus" class="column302 row394 dbus horizontal right"><div class="remark horizontal"><span>8</span></div></div>
+	<div id="buswbus2ir" class="column302 row533 dbus horizontal left"><div class="remark horizontal"><span>8</span></div></div>
+	<div id="busir2wbus" class="column302 row574 dbus horizontal right"><div class="remark horizontal"><span>8</span></div></div>
+	<div id="conclk" class="column302 row698 ctrlline clock right"><div class="column70 label clock"><span class="clock"> CLK </span></div></div>
+	<div id="conclr " class="column302 row723 ctrlline clear right"><div class="column70 label clear"><span class="clear"> CLR </span></div></div>
+	<div id="wbus" class="column4 row1"><div class="wbus tag"><span>W bus</span></div><div class="wbus remark"><span>8</span></div></div>
+	<div id="buswbus2accu" class="column502 row51 dbus horizontal right"><div class="remark horizontal"><span>8</span></div></div>
+	<div id="busaccu2wbus" class="column502 row91 dbus horizontal left"><div class="remark horizontal"><span>8</span></div></div>
+	<div id="busalu2wbus" class="column502 row232 dbus horizontal left"><div class="remark horizontal"><span>8</span></div></div>
+	<div id="buswbus2breg" class="column502 row394 dbus horizontal right"><div class="remark horizontal"><span>8</span></div></div>
+	<div id="buswbus2out" class="column502 row554 dbus horizontal right"><div class="remark horizontal"><span>8</span></div></div>
+	<div id="busaccu2alu" class="column573 row155 dbus vertical down"><div class="remark vertical"><span>8</span></div></div>
+	<div id="busbreg2alu" class="column573 row4 dbus vertical up"><div class="remark vertical"><span>8</span></div></div>
+	<div id="busout2d" class="column573 row8 dbus vertical down"><div class="remark vertical"><span>8</span></div></div>
+	<div id="accu" class="column99997 row1 component"><div class="column01 tag"><span> ACCU </span></div></div>
+	<div id="alu" class="column99997 row3 component"><div class="column01 tag"><span> ALU </span></div></div>
+	<div id="breg" class="column99997 row5 component"><div class="column01 tag"><span> B </span></div></div>
+	<div id="outreg" class="column99997 row7 component"><div class="column01 tag"><span> O </span></div></div>
+	<div id="bin" class="column99997 row9 component"><div class="column01 tag"><span> D </span></div></div>
+	<div class="ctrlla ctrl column69 row201 line"></div>
+	<div class="ctrlla ctrl column99999 row2 label">L<sub>A</sub></div>
+	<div id="clkaccu" class="column69 row202 clk clock right"></div>
+	<div id="lblclkaccu" class="column99999 row21 label clock">CLK</div>
+	<div class="ctrlea ctrl column69 row23 line"></div>
+	<div class="ctrlea ctrl column99999 row23 label">E<sub>A</sub></div>
+	<div class="ctrlsu ctrl column69 row240 line"></div>
+	<div class="ctrlsu ctrl column99999 row24 label">S<sub>U</sub></div>
+	<div class="ctrleu ctrl column69 row302 line"></div>
+	<div class="ctrleu ctrl column99999 row302 label">E<sub>U</sub></div>
+	<div class="ctrllb ctrl column69 row367 line"></div>
+	<div class="ctrllb ctrl column99999 row367 label">L<sub>B</sub></div>
+	<div id="clkbreg" class="column69 row409 clk clock right"></div>
+	<div id="lblclkbreg" class="column99999 row409 label clock">CLK</div>
+	<div class="ctrllo ctrl column69 row275 line"></div>
+	<div class="ctrllo ctrl column99999 row27 label">L<sub>O</sub></div>
+	<div id="clkout" class="column69 row276 clk clock right"></div>
+	<div id="lblclkout" class="column99999 row28 label clock">CLK</div>
+	<div class="row847">
+		<div class="ctrlcp ctrl remark columna1">C<sub>P</sub></div>
+		<div class="ctrlep ctrl remark columna2">E<sub>P</sub></div>
+		<div class="ctrllm ctrl remark columna3">L<sub>M</sub></div>
+		<div class="ctrler ctrl remark columna4">E<sub>R</sub></div>
+		<div class="ctrlli ctrl remark columna5">L<sub>I</sub></div>
+		<div class="ctrlei ctrl remark columna6">E<sub>I</sub></div>
+		<div class="ctrlla ctrl remark columna7">L<sub>A</sub></div>
+		<div class="ctrlea ctrl remark columna8">E<sub>A</sub></div>
+		<div class="ctrlsu ctrl remark columna9">S<sub>U</sub></div>
+		<div class="ctrleu ctrl remark columna10">E<sub>U</sub></div>
+		<div class="ctrllb ctrl remark columna11">L<sub>B</sub></div>
+		<div class="ctrllo ctrl remark column99996">L<sub>O</sub></div>
+	</div>
+	<div class="row9999 column99998 label">&copy; 2014 by <a class="label" href="http://www.agguro.be">agguro</a></div>
+</div>
+
+</body>
+</html>

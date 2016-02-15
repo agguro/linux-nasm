@@ -1,0 +1,442 @@
+     1                                  ; ==================================================================
+     2                                  ; MikeOS -- The Mike Operating System kernel
+     3                                  ; Copyright (C) 2006 - 2013 MikeOS Developers -- see doc/LICENSE.TXT
+     4                                  ;
+     5                                  ; This is loaded from the drive by BOOTLOAD.BIN, as KERNEL.BIN.
+     6                                  ; First we have the system call vectors, which start at a static point
+     7                                  ; for programs to use. Following that is the main kernel code and
+     8                                  ; then additional system call code is included.
+     9                                  ; ==================================================================
+    10                                  
+    11                                  
+    12                                  	BITS 16
+    13                                  
+    14                                  	%DEFINE VERSION '1.0'    	; OS version number
+    15                                  
+    16                                  	; This is the location in RAM for kernel disk operations, 24K
+    17                                  	; after the point where the kernel has loaded; it's 8K in size,
+    18                                  	; because external programs load after it at the 32K point:
+    19                                  
+    20                                  	disk_buffer	equ	24576
+    21                                  
+    22                                  
+    23                                  ; ------------------------------------------------------------------
+    24                                  ; OS CALL VECTORS -- Static locations for system call vectors
+    25                                  ; Note: these cannot be moved, or it'll break the calls!
+    26                                  
+    27                                  ; The comments show exact locations of instructions in this section,
+    28                                  ; and are used in programs/mikedev.inc so that an external program can
+    29                                  ; use a MikeOS system call without having to know its exact position
+    30                                  ; in the kernel source code...
+    31                                  
+    32                                  os_call_vectors:
+    33 00000000 EB00                    	jmp os_main			; 0000h -- Called from bootloader
+    34                                  ;	jmp os_print_string		; 0003h
+    35                                  ;	jmp os_move_cursor		; 0006h
+    36                                  ;	jmp os_clear_screen		; 0009h
+    37                                  ;	jmp os_print_horiz_line		; 000Ch
+    38                                  ;	jmp os_print_newline		; 000Fh
+    39                                  ;	jmp os_wait_for_key		; 0012h
+    40                                  ;	jmp os_check_for_key		; 0015h
+    41                                  ;	jmp os_int_to_string		; 0018h
+    42                                  ;	jmp os_speaker_tone		; 001Bh
+    43                                  ;	jmp os_speaker_off		; 001Eh
+    44                                  ;	jmp os_load_file		; 0021h
+    45                                  ;	jmp os_pause			; 0024h
+    46                                  ;	jmp os_fatal_error		; 0027h
+    47                                  ;	jmp os_draw_background		; 002Ah
+    48                                  ;	jmp os_string_length		; 002Dh
+    49                                  ;	jmp os_string_uppercase		; 0030h
+    50                                  ;	jmp os_string_lowercase		; 0033h
+    51                                  ;	jmp os_input_string		; 0036h
+    52                                  ;	jmp os_string_copy		; 0039h
+    53                                  ;	jmp os_dialog_box		; 003Ch
+    54                                  ;	jmp os_string_join		; 003Fh
+    55                                  ;	jmp os_get_file_list		; 0042h
+    56                                  ;	jmp os_string_compare		; 0045h
+    57                                  ;	jmp os_string_chomp		; 0048h
+    58                                  ;	jmp os_string_strip		; 004Bh
+    59                                  ;	jmp os_string_truncate		; 004Eh
+    60                                  ;	jmp os_bcd_to_int		; 0051h
+    61                                  ;	jmp os_get_time_string		; 0054h
+    62                                  ;	jmp os_get_api_version		; 0057h
+    63                                  ;	jmp os_file_selector		; 005Ah
+    64                                  ;	jmp os_get_date_string		; 005Dh
+    65                                  ;	jmp os_send_via_serial		; 0060h
+    66                                  ;	jmp os_get_via_serial		; 0063h
+    67                                  ;	jmp os_find_char_in_string	; 0066h
+    68                                  ;	jmp os_get_cursor_pos		; 0069h
+    69                                  ;	jmp os_print_space		; 006Ch
+    70                                  ;	jmp os_dump_string		; 006Fh
+    71                                  ;	jmp os_print_digit		; 0072h
+    72                                  ;	jmp os_print_1hex		; 0075h
+    73                                  ;	jmp os_print_2hex		; 0078h
+    74                                  ;	jmp os_print_4hex		; 007Bh
+    75                                  ;	jmp os_long_int_to_string	; 007Eh
+    76                                  ;	jmp os_long_int_negate		; 0081h
+    77                                  ;	jmp os_set_time_fmt		; 0084h
+    78                                  ;	jmp os_set_date_fmt		; 0087h
+    79                                  ;	jmp os_show_cursor		; 008Ah
+    80                                  ;	jmp os_hide_cursor		; 008Dh
+    81                                  ;	jmp os_dump_registers		; 0090h
+    82                                  ;	jmp os_string_strincmp		; 0093h
+    83                                  ;	jmp os_write_file		; 0096h
+    84                                  ;	jmp os_file_exists		; 0099h
+    85                                  ;	jmp os_create_file		; 009Ch
+    86                                  ;	jmp os_remove_file		; 009Fh
+    87                                  ;	jmp os_rename_file		; 00A2h
+    88                                  ;	jmp os_get_file_size		; 00A5h
+    89                                  ;	jmp os_input_dialog		; 00A8h
+    90                                  ;	jmp os_list_dialog		; 00ABh
+    91                                  ;	jmp os_string_reverse		; 00AEh
+    92                                  ;	jmp os_string_to_int		; 00B1h
+    93                                  ;	jmp os_draw_block		; 00B4h
+    94                                  ;	jmp os_get_random		; 00B7h
+    95                                  ;	jmp os_string_charchange	; 00BAh
+    96                                  ;	jmp os_serial_port_enable	; 00BDh
+    97                                  ;	jmp os_sint_to_string		; 00C0h
+    98                                  ;	jmp os_string_parse		; 00C3h
+    99                                  ;	jmp os_run_basic		; 00C6h
+   100                                  ;	jmp os_port_byte_out		; 00C9h
+   101                                  ;	jmp os_port_byte_in		; 00CCh
+   102                                  ;	jmp os_string_tokenize		; 00CFh
+   103                                  
+   104                                  
+   105                                  ; ------------------------------------------------------------------
+   106                                  ; START OF MAIN KERNEL CODE
+   107                                  
+   108                                  os_main:
+   109 00000002 FA                      	cli				; Clear interrupts
+   110 00000003 B80000                  	mov ax, 0
+   111 00000006 8ED0                    	mov ss, ax			; Set stack segment and pointer
+   112 00000008 BCFFFF                  	mov sp, 0FFFFh
+   113 0000000B FB                      	sti				; Restore interrupts
+   114                                  
+   115 0000000C FC                      	cld				; The default direction for string operations
+   116                                  					; will be 'up' - incrementing address in RAM
+   117                                  
+   118 0000000D B80020                  	mov ax, 2000h			; Set all segments to match where kernel is loaded
+   119 00000010 8ED8                    	mov ds, ax			; After this, we don't need to bother with
+   120 00000012 8EC0                    	mov es, ax			; segments ever again, as MikeOS and its programs
+   121 00000014 8EE0                    	mov fs, ax			; live entirely in 64K
+   122 00000016 8EE8                    	mov gs, ax
+   123                                  
+   124 00000018 80FA00                  	cmp dl, 0
+   125 0000001B 741B                    	je no_change
+   126 0000001D 8816[1101]              	mov [bootdev], dl		; Save boot device number
+   127 00000021 06                      	push es
+   128 00000022 B408                    	mov ah, 8			; Get drive parameters
+   129 00000024 CD13                    	int 13h
+   130 00000026 07                      	pop es
+   131 00000027 83E13F                  	and cx, 3Fh			; Maximum sector number
+   132 0000002A 890E[0F01]              	mov [SecsPerTrack], cx		; Sector numbers start at 1
+   133 0000002E 0FB6D6                  	movzx dx, dh			; Maximum head number
+   134 00000031 83C201                  	add dx, 1			; Head numbers start at 0 - add 1 for total
+   135 00000034 8916[0D01]              	mov [Sides], dx
+   136                                  
+   137                                  no_change:
+   138 00000038 B80310                  	mov ax, 1003h			; Set text output with certain attributes
+   139 0000003B BB0000                  	mov bx, 0			; to be bright, and not blinking
+   140 0000003E CD10                    	int 10h
+   141                                  
+   142                                  ;	call os_seed_random		; Seed random number generator
+   143                                  
+   144                                  
+   145                                  	; Let's see if there's a file called AUTORUN.BIN and execute
+   146                                  	; it if so, before going to the program launcher menu
+   147                                  
+   148                                  ;	mov ax, autorun_bin_file_name
+   149                                  ;	call os_file_exists
+   150                                  ;	jc no_autorun_bin		; Skip next three lines if AUTORUN.BIN doesn't exist
+   151                                  
+   152                                  ;	mov cx, 32768			; Otherwise load the program into RAM...
+   153                                  ;	call os_load_file
+   154                                  ;	jmp execute_bin_program		; ...and move on to the executing part
+   155                                  
+   156 00000040 E82E00                          call    os_clear_screen
+   157 00000043 BE[9200]                        mov     si, os_init_msg
+   158 00000046 E81A00                          call    os_print_string
+   159 00000049 B8004F                          mov     ax, 0x4F00
+   160 0000004C BF[1201]                        mov     di, vgabuffer
+   161 0000004F CD0A                            int     10
+   162 00000051 3C4F                            cmp     al, 0x4F
+   163 00000053 7505                            jne     @graph_no_vga
+   164 00000055 BE[E900]                        mov     si, graph_vga_present_msg
+   165 00000058 EB03                            jmp     @print
+   166                                  @graph_no_vga:
+   167 0000005A BE[BC00]                        mov     si, graph_no_vga_msg
+   168                                  @print:        
+   169 0000005D E80300                          call    os_print_string
+   170                                                  
+   171                                  os_loop:        
+   172 00000060 F4                              hlt
+   173 00000061 EBFD                            jmp     os_loop
+   174                                  
+   175                                  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;        
+   176                                  os_print_string:
+   177 00000063 60                              pusha
+   178 00000064 B40E                            mov ah, 0Eh                     ; int 10h teletype function
+   179                                  .repeat:
+   180 00000066 AC                              lodsb                           ; Get char from string
+   181 00000067 3C00                            cmp al, 0
+   182 00000069 7404                            je .done                        ; If char is zero, end of string
+   183 0000006B CD10                            int 10h                         ; Otherwise, print it
+   184 0000006D EBF7                            jmp .repeat                     ; And move on to next char
+   185                                  .done:
+   186 0000006F 61                              popa
+   187 00000070 C3                              ret
+   188                                          
+   189                                  os_clear_screen:
+   190 00000071 60                              pusha
+   191 00000072 BA0000                          mov dx, 0                       ; Position cursor at top-left
+   192 00000075 E81100                          call os_move_cursor
+   193 00000078 B406                            mov ah, 6                       ; Scroll full-screen
+   194 0000007A B000                            mov al, 0                       ; Normal white on black
+   195 0000007C B707                            mov bh, 7                       ;
+   196 0000007E B90000                          mov cx, 0                       ; Top-left
+   197 00000081 B618                            mov dh, 24                      ; Bottom-right
+   198 00000083 B24F                            mov dl, 79
+   199 00000085 CD10                            int 10h
+   200 00000087 61                              popa
+   201 00000088 C3                              ret
+   202                                  
+   203                                  os_move_cursor:
+   204 00000089 60                              pusha
+   205                                  
+   206 0000008A B700                            mov bh, 0
+   207 0000008C B402                            mov ah, 2
+   208 0000008E CD10                            int 10h                         ; BIOS interrupt to move cursor
+   209                                  
+   210 00000090 61                              popa
+   211 00000091 C3                              ret
+   212                                          
+   213                                  ;	mov ax, os_init_msg		; Set up the welcome screen
+   214                                  ;	mov bx, os_version_msg
+   215                                  ;	mov cx, 10011111b		; Colour: white text on light blue
+   216                                  ;	call os_draw_background
+   217                                  
+   218                                  ;	mov ax, dialog_string_1		; Ask if user wants app selector or command-line
+   219                                  ;	mov bx, dialog_string_2
+   220                                  ;	mov cx, dialog_string_3
+   221                                  ;	mov dx, 1			; We want a two-option dialog box (OK or Cancel)
+   222                                  ;	call os_dialog_box
+   223                                  
+   224                                  ;	cmp ax, 1			; If OK (option 0) chosen, start app selector
+   225                                  ;	jne near app_selector
+   226                                  ;
+   227                                  ;	call os_clear_screen		; Otherwise clean screen and start the CLI
+   228                                  ;	call os_command_line
+   229                                  ;
+   230                                  ;	jmp option_screen		; Offer menu/CLI choice after CLI has exited
+   231                                  
+   232                                  
+   233                                  	; Data for the above code...
+   234                                  
+   235 00000092 50454D20312053696D-     	os_init_msg		        db "PEM 1 Simulator by Agguro - Version ", VERSION, 10, 13, 0
+   236 0000009B 756C61746F72206279-
+   237 000000A4 2041676775726F202D-
+   238 000000AD 2056657273696F6E20-
+   239 000000B6 312E300A0D00       
+   240 000000BC 546869732067726170-     	graph_no_vga_msg                db "This graphics adapter doesn't support sVGA", 10, 13, 0
+   241 000000C5 686963732061646170-
+   242 000000CE 74657220646F65736E-
+   243 000000D7 277420737570706F72-
+   244 000000E0 7420735647410A0D00 
+   245 000000E9 735647412047726170-             graph_vga_present_msg           db "sVGA Graphics adapter detected", 10, 13, 0
+   246 000000F2 686963732061646170-
+   247 000000FB 746572206465746563-
+   248 00000104 7465640A0D00       
+   249                                          
+   250                                  ;	dialog_string_1		db 'Thanks for trying out MikeOS!', 0
+   251                                  ;	dialog_string_2		db 'Please select an interface: OK for the', 0
+   252                                  ;	dialog_string_3		db 'program menu, Cancel for command line.', 0
+   253                                  
+   254                                  
+   255                                  
+   256                                  ;app_selector:
+   257                                  ;	mov ax, os_init_msg		; Draw main screen layout
+   258                                  ;	mov bx, os_version_msg
+   259                                  ;	mov cx, 10011111b		; Colour: white text on light blue
+   260                                  ;	call os_draw_background
+   261                                  
+   262                                  ;	call os_file_selector		; Get user to select a file, and store
+   263                                  ;					; the resulting string location in AX
+   264                                  					; (other registers are undetermined)
+   265                                  
+   266                                  ;	jc option_screen		; Return to the CLI/menu choice screen if Esc pressed
+   267                                  ;
+   268                                  ;	mov si, ax			; Did the user try to run 'KERNEL.BIN'?
+   269                                  ;	mov di, kern_file_name
+   270                                  ;	call os_string_compare
+   271                                  ;	jc no_kernel_execute		; Show an error message if so
+   272                                  
+   273                                  
+   274                                  	; Next, we need to check that the program we're attempting to run is
+   275                                  	; valid -- in other words, that it has a .BIN extension
+   276                                  
+   277                                  ;	push si				; Save filename temporarily
+   278                                  ;
+   279                                  ;	mov bx, si
+   280                                  ;	mov ax, si
+   281                                  ;	call os_string_length
+   282                                  
+   283                                  ;	mov si, bx
+   284                                  ;	add si, ax			; SI now points to end of filename...
+   285                                  ;
+   286                                  ;	dec si
+   287                                  ;	dec si
+   288                                  ;	dec si				; ...and now to start of extension!
+   289                                  
+   290                                  ;	mov di, bin_ext
+   291                                  ;	mov cx, 3
+   292                                  ;	rep cmpsb			; Are final 3 chars 'BIN'?
+   293                                  ;	jne not_bin_extension		; If not, it might be a '.BAS'
+   294                                  
+   295                                  ;	pop si				; Restore filename
+   296                                  
+   297                                  
+   298                                  ;	mov ax, si
+   299                                  ;	mov cx, 32768			; Where to load the program file
+   300                                  ;	call os_load_file		; Load filename pointed to by AX
+   301                                  
+   302                                  
+   303                                  ;execute_bin_program:
+   304                                  ;	call os_clear_screen		; Clear screen before running
+   305                                  
+   306                                  ;	mov ax, 0			; Clear all registers
+   307                                  ;	mov bx, 0
+   308                                  ;	mov cx, 0
+   309                                  ;	mov dx, 0
+   310                                  ;	mov si, 0
+   311                                  ;	mov di, 0
+   312                                  
+   313                                  ;	call 32768			; Call the external program code,
+   314                                  					; loaded at second 32K of segment
+   315                                  					; (program must end with 'ret')
+   316                                  
+   317                                  ;	call os_clear_screen		; When finished, clear screen
+   318                                  ;	jmp app_selector		; and go back to the program list
+   319                                  
+   320                                  
+   321                                  ;no_kernel_execute:			; Warn about trying to executing kernel!
+   322                                  ;	mov ax, kerndlg_string_1
+   323                                  ;	mov bx, kerndlg_string_2
+   324                                  ;	mov cx, kerndlg_string_3
+   325                                  ;	mov dx, 0			; One button for dialog box
+   326                                  ;	call os_dialog_box
+   327                                  
+   328                                  ;	jmp app_selector		; Start over again...
+   329                                  
+   330                                  
+   331                                  ;not_bin_extension:
+   332                                  ;	pop si				; We pushed during the .BIN extension check
+   333                                  
+   334                                  ;	push si				; Save it again in case of error...
+   335                                  
+   336                                  ;	mov bx, si
+   337                                  ;	mov ax, si
+   338                                  ;	call os_string_length
+   339                                  
+   340                                  ;	mov si, bx
+   341                                  ;	add si, ax			; SI now points to end of filename...
+   342                                  
+   343                                  ;	dec si
+   344                                  ;	dec si
+   345                                  ;	dec si				; ...and now to start of extension!
+   346                                  
+   347                                  ;	mov di, bas_ext
+   348                                  ;	mov cx, 3
+   349                                  ;	rep cmpsb			; Are final 3 chars 'BAS'?
+   350                                  ;	jne not_bas_extension		; If not, error out
+   351                                  
+   352                                  
+   353                                  ;	pop si
+   354                                  
+   355                                  ;	mov ax, si
+   356                                  ;	mov cx, 32768			; Where to load the program file
+   357                                  ;	call os_load_file		; Load filename pointed to by AX
+   358                                  ;
+   359                                  ;	call os_clear_screen		; Clear screen before running
+   360                                  ;
+   361                                  ;	mov ax, 32768
+   362                                  ;	mov si, 0			; No params to pass
+   363                                  ;	call os_run_basic		; And run our BASIC interpreter on the code!
+   364                                  ;
+   365                                  ;	mov si, basic_finished_msg
+   366                                  ;	call os_print_string
+   367                                  ;	call os_wait_for_key
+   368                                  ;
+   369                                  ;	call os_clear_screen
+   370                                  ;	jmp app_selector		; and go back to the program list
+   371                                  ;
+   372                                  ;
+   373                                  ;not_bas_extension:
+   374                                  ;	pop si
+   375                                  
+   376                                  ;	mov ax, ext_string_1
+   377                                  ;	mov bx, ext_string_2
+   378                                  ;	mov cx, 0
+   379                                  ;	mov dx, 0			; One button for dialog box
+   380                                  ;	call os_dialog_box
+   381                                  ;
+   382                                  ;	jmp app_selector		; Start over again...
+   383                                  ;
+   384                                  ;
+   385                                  ;	; And now data for the above code...
+   386                                  ;
+   387                                  ;	kern_file_name		db 'KERNEL.BIN', 0
+   388                                  ;
+   389                                  ;	autorun_bin_file_name	db 'AUTORUN.BIN', 0
+   390                                  ;	autorun_bas_file_name	db 'AUTORUN.BAS', 0
+   391                                  ;
+   392                                  ;	bin_ext			db 'BIN'
+   393                                  ;	bas_ext			db 'BAS'
+   394                                  ;
+   395                                  ;	kerndlg_string_1	db 'Cannot load and execute MikeOS kernel!', 0
+   396                                  ;	kerndlg_string_2	db 'KERNEL.BIN is the core of MikeOS, and', 0
+   397                                  ;	kerndlg_string_3	db 'is not a normal program.', 0
+   398                                  ;
+   399                                  ;	ext_string_1		db 'Invalid filename extension! You can', 0
+   400                                  ;	ext_string_2		db 'only execute .BIN or .BAS programs.', 0
+   401                                  ;
+   402                                  ;	basic_finished_msg	db '>>> BASIC program finished -- press a key', 0
+   403                                  
+   404                                  
+   405                                  ; ------------------------------------------------------------------
+   406                                  ; SYSTEM VARIABLES -- Settings for programs and system calls
+   407                                  
+   408                                  
+   409                                  	; Time and date formatting
+   410                                  
+   411 0000010A 00                      	fmt_12_24	db 0		; Non-zero = 24-hr format
+   412                                  
+   413 0000010B 002F                    	fmt_date	db 0, '/'	; 0, 1, 2 = M/D/Y, D/M/Y or Y/M/D
+   414                                  					; Bit 7 = use name for months
+   415                                  					; If bit 7 = 0, second byte = separator character
+   416 0000010D 0200                            Sides dw 2
+   417 0000010F 1200                            SecsPerTrack dw 18
+   418                                  ; ******************************************************************
+   419 00000111 00                              bootdev db 0                    ; Boot device number
+   420                                  ; ******************************************************************
+   421 00000112 00<rept>                        vgabuffer times    256 db 0
+   422                                          
+   423                                  ; ------------------------------------------------------------------
+   424                                  ; FEATURES -- Code to pull into the kernel
+   425                                  
+   426                                  
+   427                                  ;	%INCLUDE "features/cli.asm"
+   428                                  ; 	%INCLUDE "features/disk.asm"
+   429                                  ;	%INCLUDE "features/keyboard.asm"
+   430                                  ;	%INCLUDE "features/math.asm"
+   431                                  ;	%INCLUDE "features/misc.asm"
+   432                                  ;	%INCLUDE "features/ports.asm"
+   433                                  ;	%INCLUDE "features/screen.asm"
+   434                                  ;	%INCLUDE "features/sound.asm"
+   435                                  ;	%INCLUDE "features/string.asm"
+   436                                  ;	%INCLUDE "features/basic.asm"
+   437                                  
+   438                                  
+   439                                  ; ==================================================================
+   440                                  ; END OF KERNEL
+   441                                  ; ==================================================================
+   442                                  

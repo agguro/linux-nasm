@@ -1,0 +1,100 @@
+     1                                  ; parity.asm
+     2                                  ; calculate parity bit
+     3                                  ;
+     4                                  ; Source: Hacker's Delight - 5.2
+     5                                   
+   403                                  [list -]
+   404                                   
+   405                                  bits 64
+   406                                   
+   407                                  section .bss
+   408 00000000 <res 00000001>                buffer: resb 1
+   409                                   
+   410                                  section .data
+   411 00000000 206861732070617269-           message:       db " has parity bit .",0x0A
+   412 00000009 747920626974202E0A 
+   413                                        .length:       equ $-message
+   414                                   
+   415                                  section .text
+   416                                  global _start
+   417                                   
+   418                                  _start:
+   419                                   
+   420 00000000 B84C300000                    mov     rax, 12364
+   421 00000005 E895000000                    call    printBinary
+   422 0000000A E841000000                    call    parity
+   423 0000000F 50                            push    rax
+   424 00000010 48BE-                         mov     rsi, message
+   425 00000012 [0000000000000000] 
+   426 0000001A BA10000000                    mov     rdx, 16
+   427 0000001F E8A9000000                    call    print
+   428 00000024 58                            pop     rax
+   429 00000025 E842000000                    call    printDecimal
+   430 0000002A 48BE-                         mov     rsi, message
+   431 0000002C [0000000000000000] 
+   432 00000034 4883C610                      add     rsi, 16
+   433 00000038 BA12000000                    mov     rdx, message.length
+   434 0000003D 4883EA10                      sub     rdx, 16
+   435 00000041 E887000000                    call    print
+   436 00000046 4831FF                        xor     rdi, rdi
+   437 00000049 B83C000000                    mov     rax, SYS_EXIT
+   438 0000004E 0F05                          syscall
+   439                                   
+   440                                  parity:                                            ; calculate parity bit 0 = even, 1 is odd
+   441 00000050 B920000000                    mov       rcx, 32
+   442                                  repeat:      
+   443 00000055 4889C3                        mov       rbx, rax
+   444 00000058 48D3EB                        shr       rbx, cl
+   445 0000005B 4831D8                        xor       rax, rbx
+   446 0000005E 48D1E9                        shr       rcx, 1
+   447 00000061 4883F900                      cmp       rcx, 0
+   448 00000065 75EE                          jne       repeat
+   449 00000067 4883E001                      and       rax, 1                             ; rightmost bit is parity bit
+   450 0000006B C3                            ret
+   451                                   
+   452                                  printDecimal:
+   453                                        ; maximum 64 bits in a qword, so we divide first by 10
+   454 0000006C 50                            push      rax
+   455 0000006D 4831D2                        xor       rdx, rdx
+   456 00000070 BB0A000000                    mov       rbx, 10
+   457 00000075 48F7FB                        idiv      rbx
+   458 00000078 4883F800                      cmp       rax, 0
+   459 0000007C 7410                          je        .last
+   460 0000007E 0430                          add       al, 0x30                ; make ascii
+   461 00000080 880425[00000000]              mov       BYTE[buffer], al
+   462 00000087 52                            push      rdx
+   463 00000088 E831000000                    call      printBuffer
+   464 0000008D 5A                            pop       rdx
+   465                                  .last:
+   466 0000008E 80C230                        add       dl, 0x30                ; make ascii
+   467 00000091 881425[00000000]              mov       BYTE[buffer], dl
+   468 00000098 E821000000                    call      printBuffer
+   469 0000009D 58                            pop       rax
+   470 0000009E C3                            ret
+   471                                   
+   472                                  printBinary:
+   473 0000009F 50                            push      rax
+   474 000000A0 B940000000                    mov       rcx, 64                 ; 64 bits to display
+   475 000000A5 F8                            clc                               ; clear carry flag
+   476                                  .repeat:
+   477 000000A6 48D1D0                        rcl       rax, 1                  ; start with leftmost bit
+   478 000000A9 801425[00000000]30            adc       BYTE[buffer],0x30       ; make it ASCII
+   479 000000B1 51                            push      rcx
+   480 000000B2 50                            push      rax
+   481 000000B3 E806000000                    call      printBuffer
+   482 000000B8 58                            pop       rax
+   483 000000B9 59                            pop       rcx
+   484 000000BA E2EA                          loop      .repeat
+   485 000000BC 58                            pop       rax
+   486 000000BD C3                            ret
+   487                                   
+   488                                  printBuffer:
+   489 000000BE 48BE-                         mov       rsi, buffer
+   490 000000C0 [0000000000000000] 
+   491 000000C8 BA01000000                    mov       rdx, 1
+   492                                  print:      
+   493 000000CD B801000000                    mov       rax, SYS_WRITE
+   494 000000D2 BF01000000                    mov       rdi, STDOUT
+   495 000000D7 0F05                          syscall
+   496 000000D9 802425[00000000]00            and       BYTE[buffer],0          ; clear buffer
+   497 000000E1 C3                            ret

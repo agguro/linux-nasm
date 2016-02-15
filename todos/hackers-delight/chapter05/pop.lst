@@ -1,0 +1,133 @@
+     1                                  ; pop.asm
+     2                                  ; counting 1 bits
+     3                                  ;
+     4                                  ; Source: Hacker's Delight 
+     5                                   
+   403                                  [list -]
+   404                                   
+   405                                  bits 64
+   406                                   
+   407                                  section .bss
+   408 00000000 <res 00000001>                buffer: resb 1
+   409                                   
+   410                                  section .data
+   411 00000000 20686173206F6E6520-           message:       db " has one bits.",0x0A
+   412 00000009 626974732E0A       
+   413                                        .length:       equ $-message
+   414                                   
+   415                                  section .text
+   416                                  global _start
+   417                                   
+   418                                  _start:
+   419                                   
+   420 00000000 48B861C41DF32A0000-           mov     rax, 184467440737
+   421 00000009 00                 
+   422 0000000A E810010000                    call    printBinary
+   423 0000000F E841000000                    call    pop
+   424 00000014 50                            push    rax
+   425 00000015 48BE-                         mov     rsi, message
+   426 00000017 [0000000000000000] 
+   427 0000001F BA05000000                    mov     rdx, 5
+   428 00000024 E824010000                    call    print
+   429 00000029 58                            pop     rax
+   430 0000002A E8BD000000                    call    printDecimal
+   431 0000002F 48BE-                         mov     rsi, message
+   432 00000031 [0000000000000000] 
+   433 00000039 4883C604                      add     rsi, 4
+   434 0000003D BA0F000000                    mov     rdx, message.length
+   435 00000042 4883EA04                      sub     rdx, 4
+   436 00000046 E802010000                    call    print
+   437 0000004B 4831FF                        xor     rdi, rdi
+   438 0000004E B83C000000                    mov     rax, SYS_EXIT
+   439 00000053 0F05                          syscall
+   440                                   
+   441                                  pop:                                            ; count 1 bits
+   442 00000055 4889C3                        mov       rbx, rax
+   443 00000058 48B955555555555555-           mov       rcx, 0x5555555555555555
+   444 00000061 55                 
+   445 00000062 4821CB                        and       rbx, rcx
+   446 00000065 48D1E8                        shr       rax, 1
+   447 00000068 4821C8                        and       rax, rcx
+   448 0000006B 4801D8                        add       rax, rbx
+   449 0000006E 4889C3                        mov       rbx, rax
+   450 00000071 48B933333333333333-           mov       rcx, 0x3333333333333333
+   451 0000007A 33                 
+   452 0000007B 4821CB                        and       rbx, rcx
+   453 0000007E 48C1E802                      shr       rax, 2
+   454 00000082 4821C8                        and       rax, rcx
+   455 00000085 4801D8                        add       rax, rbx
+   456 00000088 4889C3                        mov       rbx, rax
+   457 0000008B 48B90F0F0F0F0F0F0F-           mov       rcx, 0x0F0F0F0F0F0F0F0F
+   458 00000094 0F                 
+   459 00000095 4821CB                        and       rbx, rcx
+   460 00000098 48C1E804                      shr       rax, 4
+   461 0000009C 4821C8                        and       rax, rcx
+   462 0000009F 4801D8                        add       rax, rbx
+   463 000000A2 4889C3                        mov       rbx, rax
+   464 000000A5 48B9FF00FF00FF00FF-           mov       rcx, 0x00FF00FF00FF00FF
+   465 000000AE 00                 
+   466 000000AF 4821CB                        and       rbx, rcx
+   467 000000B2 48C1E808                      shr       rax, 8
+   468 000000B6 4821C8                        and       rax, rcx
+   469 000000B9 4801D8                        add       rax, rbx
+   470 000000BC 4889C3                        mov       rbx, rax
+   471 000000BF 48B9FFFF0000FFFF00-           mov       rcx, 0x0000FFFF0000FFFF
+   472 000000C8 00                 
+   473 000000C9 4821CB                        and       rbx, rcx
+   474 000000CC 48C1E810                      shr       rax, 16
+   475 000000D0 4821C8                        and       rax, rcx
+   476 000000D3 4801D8                        add       rax, rbx
+   477 000000D6 4889C3                        mov       rbx, rax
+   478 000000D9 B9FFFFFFFF                    mov       rcx, 0x00000000FFFFFFFF
+   479 000000DE 4821CB                        and       rbx, rcx
+   480 000000E1 48C1E820                      shr       rax, 32
+   481 000000E5 4821C8                        and       rax, rcx
+   482 000000E8 4801D8                        add       rax, rbx
+   483 000000EB C3                            ret
+   484                                   
+   485                                  printDecimal:
+   486                                        ; maximum 64 bits in a qword, so we divide first by 10
+   487 000000EC 50                            push      rax
+   488 000000ED 4831D2                        xor       rdx, rdx
+   489 000000F0 BB0A000000                    mov       rbx, 10
+   490 000000F5 48F7FB                        idiv      rbx
+   491 000000F8 4883F800                      cmp       rax, 0
+   492 000000FC 7410                          je        .last
+   493 000000FE 0430                          add       al, 0x30                ; make ascii
+   494 00000100 880425[00000000]              mov       BYTE[buffer], al
+   495 00000107 52                            push      rdx
+   496 00000108 E831000000                    call      printBuffer
+   497 0000010D 5A                            pop       rdx
+   498                                  .last:
+   499 0000010E 80C230                        add       dl, 0x30                ; make ascii
+   500 00000111 881425[00000000]              mov       BYTE[buffer], dl
+   501 00000118 E821000000                    call      printBuffer
+   502 0000011D 58                            pop       rax
+   503 0000011E C3                            ret
+   504                                   
+   505                                  printBinary:
+   506 0000011F 50                            push      rax
+   507 00000120 B940000000                    mov       rcx, 64                 ; 64 bits to display
+   508 00000125 F8                            clc                               ; clear carry flag
+   509                                  .repeat:
+   510 00000126 48D1D0                        rcl       rax, 1                  ; start with leftmost bit
+   511 00000129 801425[00000000]30            adc       BYTE[buffer],0x30       ; make it ASCII
+   512 00000131 51                            push      rcx
+   513 00000132 50                            push      rax
+   514 00000133 E806000000                    call      printBuffer
+   515 00000138 58                            pop       rax
+   516 00000139 59                            pop       rcx
+   517 0000013A E2EA                          loop      .repeat
+   518 0000013C 58                            pop       rax
+   519 0000013D C3                            ret
+   520                                   
+   521                                  printBuffer:
+   522 0000013E 48BE-                         mov       rsi, buffer
+   523 00000140 [0000000000000000] 
+   524 00000148 BA01000000                    mov       rdx, 1
+   525                                  print:      
+   526 0000014D B801000000                    mov       rax, SYS_WRITE
+   527 00000152 BF01000000                    mov       rdi, STDOUT
+   528 00000157 0F05                          syscall
+   529 00000159 802425[00000000]00            and       BYTE[buffer],0          ; clear buffer
+   530 00000161 C3                            ret

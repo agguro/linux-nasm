@@ -1,0 +1,116 @@
+     1                                  org 0x7C00
+     2                                  BITS 16
+     3                                  
+     4 00000000 EB22                         jmp       start
+     5 00000002 50454D31206C6F6164-     pemloading:  db   'PEM1 loading, please wait....', 10, 13, 0
+     6 0000000B 696E672C20706C6561-
+     7 00000014 736520776169742E2E-
+     8 0000001D 2E2E0A0D00         
+     9 00000022 0000                    videomode:   dw   0
+    10                                  
+    11                                  start:
+    12                                  %define FIRSTBANK  0
+    13                                  %define STARTBANK 10
+    14                                  %define LASTBANK  79
+    15                                  %define ENDBANK   LASTBANK
+    16                                  %define LINES_PER_BANK 13
+    17                                  %define PIXELS_PER_LINE 1280
+    18                                  %define SCAN_LINES 1240
+    19                                  %define DISPLACEMENT 256
+    20                                  ; 1280 * 1024 = 1310720 pixels / screen
+    21                                  ; 13 * 1280 = 16640 pixels per bank
+    22                                  ; 1310720 / 16640 = 78,7 banks per screen (79)
+    23                                  
+    24 00000024 B800A0                  mov ax, 0xA000
+    25 00000027 8EC0                    mov es:ax
+    26 00000029 8ED8                    mov ds:ax
+    27                                  
+    28 0000002B B90A00                  mov cx, STARTBANK                                              ; banknumber
+    29                                  nextbank:
+    30                                  ; switch bank
+    31 0000002E B8054F                   mov ax, 0x4F05
+    32 00000031 BB0000                   mov bx, 0
+    33 00000034 89CA                     mov dx, cx                                            ; switch to banknumber in cx
+    34 00000036 CD10                     int 0x10
+    35                                   ; draw again
+    36 00000038 B80001                   mov ax, DISPLACEMENT                                            ; banknr * displacement 256
+    37 0000003B 89CB                     mov bx, cx
+    38 0000003D F7E3                     mul bx
+    39 0000003F 89C7                     mov di, ax
+    40 00000041 B204                     mov dl, 00000100b                                       
+    41 00000043 51                       push cx                                                 ; save banknumber
+    42 00000044 B90041                   mov cx, PIXELS_PER_LINE*LINES_PER_BANK
+    43 00000047 51                       push cx
+    44                                   repeat:
+    45 00000048 59                       pop  cx
+    46 00000049 AC                       lodsb
+    47 0000004A 08D0                     or al, dl
+    48 0000004C AA                       stosb
+    49 0000004D 49                       dec cx
+    50 0000004E 21C9                     and cx, cx
+    51 00000050 51                       push cx
+    52 00000051 75F5                     jnz repeat
+    53 00000053 59                       pop cx
+    54 00000054 59                       pop cx                                                ; restore banknumber
+    55 00000055 41                       inc cx
+    56 00000056 83F94F                   cmp cx, ENDBANK
+    57 00000059 75D3                     jne nextbank
+    58                                   
+    59 0000005B B8054F                  mov ax, 0x4F05
+    60 0000005E BB0000                   mov bx, 0
+    61 00000061 BA0000                   mov dx, FIRSTBANK                                            ; switch to banknumber in cx
+    62 00000064 CD10                     int 0x10
+    63                                  
+    64                                   ;%define BANK 10
+    65                                   ;string:
+    66                                   ;mov  ax, 0x4f05
+    67                                   ;mov  bx, 0
+    68                                   ;mov  dx, BANK
+    69                                   ;int  0x10
+    70                                   
+    71                                   ;mov ax, 0xA000
+    72                                   ;mov es, ax
+    73                                   ;mov di, BANK*256
+    74                                   ;mov al, 255
+    75                                   ;mov cx, 1280*13
+    76                                   ;rep movsb
+    77                                   
+    78                                   
+    79                                   ;mov  ax, 0x4f05
+    80                                   ;mov  bx, 0
+    81                                   ;mov  dx, 0
+    82                                   ;int  0x10
+    83 00000066 8CC8                         mov       ax, cs
+    84 00000068 8EC0                         mov       es, ax
+    85 0000006A 8ED8                         mov       ds, ax
+    86 0000006C BE[0200]                     mov       si, pemloading
+    87                                       ; test if stack behaves
+    88 0000006F 56                           push      si
+    89 00000070 31F6                         xor       si, si
+    90 00000072 5E                           pop       si
+    91 00000073 E80100                       call      Print
+    92 00000076 CB                           retf
+    93                                  
+    94                                  Print:
+    95 00000077 60                           pusha
+    96 00000078 B40E                         mov       ah, 0Eh              ; int 10h teletype function
+    97 0000007A BB0F00                       mov       bx, 0x000F
+    98                                  .repeat:
+    99 0000007D AC                           lodsb                    ; Get char from string
+   100 0000007E 3C00                         cmp       al, 0
+   101 00000080 7404                         je        .done          ; If char is zero, end of string
+   102 00000082 CD10                         int       10h            ; Otherwise, print it
+   103 00000084 EBF7                         jmp       .repeat        ; And move on to next char
+   104                                  .done:
+   105 00000086 61                           popa
+   106 00000087 C3                           ret
+   107                                       
+   108                                       
+   109                                  ;0 = black               8 = dark grey
+   110                                  ;1 = dark blue           9 = bright blue
+   111                                  ;2 = dark green          a = bright green
+   112                                  ;3 = dark cyan           b = bright cyan
+   113                                  ;4 = dark red            c = bright red
+   114                                  ;5 = dark purple         d = bright purple
+   115                                  ;6 = brown               e = yellow
+   116                                  ;7 = light grey          f = white     

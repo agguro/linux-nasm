@@ -1,0 +1,11 @@
+     1                                  ORG 0
+     2                                  BITS 16
+     3                                  
+     4                                  BootCat:
+     5 00000000 01000000                     DD   1
+     6 00000004 50686F656E69782054-          DB   "Phoenix Technologies LTD4"
+     7 0000000D 6563686E6F6C6F6769-
+     8 00000016 6573204C544434     
+     9 0000001D E4                           DB   0xE4
+    10 0000001E 55AA                         DB   0x55, 0xAA                              ; must be last
+    11 00000020 00<rept>                TIMES 2048-($-BootCat)   DB 0

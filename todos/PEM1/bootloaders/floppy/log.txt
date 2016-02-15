@@ -1,0 +1,34 @@
+nasm -f bin -o bootload.bin bootload.asm -l bootload.lst
+nasm -f bin -o kernel.bin kernel.asm -l bootload.lst
+
+cd /home/agguro/Repository/nasm/nasm-todo/PEM/PEM1
+agguro@aspire ~ $ cd /home/agguro/Repository/nasm/nasm-todo/PEM/PEM1
+agguro@aspire ~/Repository/nasm/nasm-todo/PEM/PEM1 $ nasm -f bin -o bootload.bin bootload.asm -l bootload.lst
+agguro@aspire ~/Repository/nasm/nasm-todo/PEM/PEM1 $ nasm -f bin -o kernel.bin kernel.asm -l bootload.lst
+agguro@aspire ~/Repository/nasm/nasm-todo/PEM/PEM1 $ mkdir images
+agguro@aspire ~/Repository/nasm/nasm-todo/PEM/PEM1 $ mkdosfs -C images/pem1.flp 1440
+mkfs.fat 3.0.26 (2014-03-07)
+agguro@aspire ~/Repository/nasm/nasm-todo/PEM/PEM1 $ dd status=noxfer conv=notrunc if=bootload.bin of=images/pem1.flp
+1+0 records in
+1+0 records out
+agguro@aspire ~/Repository/nasm/nasm-todo/PEM/PEM1 $ mkdir tmploop
+agguro@aspire ~/Repository/nasm/nasm-todo/PEM/PEM1 $ sudo mount -o loop -t vfat images/pem1.flp tmploop
+[sudo] password for agguro: 
+agguro@aspire ~/Repository/nasm/nasm-todo/PEM/PEM1 $ cp kernel.bin tmp
+tmploop/  tmp-loop/ 
+agguro@aspire ~/Repository/nasm/nasm-todo/PEM/PEM1 $ cp kernel.bin tmploop/
+cp: cannot create regular file ‘tmploop/kernel.bin’: Permission denied
+agguro@aspire ~/Repository/nasm/nasm-todo/PEM/PEM1 $ sudo cp kernel.bin tmploop/
+agguro@aspire ~/Repository/nasm/nasm-todo/PEM/PEM1 $ sudo umount tmploop/
+agguro@aspire ~/Repository/nasm/nasm-todo/PEM/PEM1 $ mkisofs -quiet -V 'AGGURO PEM1' -input-charset iso8859-1 -o images/pem1.iso -b images/pem1.flp images/
+genisoimage: Uh oh, I cant find the boot image 'images/pem1.flp' !                                                                                                                                                                                                          
+agguro@aspire ~/Repository/nasm/nasm-todo/PEM/PEM1 $ mkisofs -quiet -V 'AGGURO PEM1' -input-charset iso8859-1 -o images/pem1.iso -b pem1.flp images/                                                                                                                 
+agguro@aspire ~/Repository/nasm/nasm-todo/PEM/PEM1 $ ls                                                                                                                                                                                                                     
+bootload.asm  bootload.bin  bootload.lst  build-pem1boot.sh  images  kernel.asm  kernel.bin  makefile  tmploop  tmp-loop                                                                                                                                                    
+agguro@aspire ~/Repository/nasm/nasm-todo/PEM/PEM1 $ ls                                                                                                                                                                                                                     
+bootload.asm  bootload.bin  bootload.lst  build-pem1boot.sh  images  kernel.asm  kernel.bin  makefile  tmploop  tmp-loop                                                                                                                                                    
+agguro@aspire ~/Repository/nasm/nasm-todo/PEM/PEM1 $ cd images                                                                                                                                                                                                              
+agguro@aspire ~/Repository/nasm/nasm-todo/PEM/PEM1/images $ ls                                                                                                                                                                                                              
+pem1.flp  pem1.iso                                                                                                                                                                                                                                                          
+agguro@aspire ~/Repository/nasm/nasm-todo/PEM/PEM1/images $ qemu-system-i386 -cdrom pem1.iso                                                                                                                                                                                
+agguro@aspire ~/Repository/nasm/nasm-todo/PEM/PEM1/images $     

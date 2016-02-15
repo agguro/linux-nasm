@@ -1,0 +1,391 @@
+     1                                  %include "../includes/startup.inc"
+     2                              <1> %ifndef _ASM_BOOTCD_INC_
+     3                              <1>      %define   _ASM_BOOTCD_INC_ 1
+     4                              <1> 
+     5                              <1>      %define   KERNELSTARTCS   0x0070   ; we load the kernel at 0070:0000 the I/O drivers from IO.SYS and IBMBIO.COM
+     6                              <1>      %define   KERNELSTARTIP   0x0000   ; this gives us 0070:0000 - 07C0:0000 memory to use for kernel.bin
+     7                              <1>      %define   PEMCS           0x3000
+     8                              <1>      %define   PEMIP           0x0000
+     9                              <1>      %define   PEMSS           0x7000
+    10                              <1>      %define   PEMSP           0xFFFE
+    11                              <1>      
+    12                              <1> STRUC SPECIFICATION_PACKET_STRUC
+    13 00000000 <res 00000001>      <1>      .packed_size:                 resb      1
+    14 00000001 <res 00000001>      <1>      .boot_media_type:             resb      1
+    15 00000002 <res 00000001>      <1>      .drive_number:                resb      1
+    16 00000003 <res 00000001>      <1>      .controller_index:            resb      1
+    17 00000004 <res 00000004>      <1>      .logical_block_address:       resd      1
+    18 00000008 <res 00000002>      <1>      .device_specification:        resw      1
+    19 0000000A <res 00000002>      <1>      .buffer_segment:              resw      1
+    20 0000000C <res 00000002>      <1>      .load_segment:                resw      1
+    21 0000000E <res 00000002>      <1>      .virtual_sectors:             resw      1
+    22 00000010 <res 00000001>      <1>      .cylinder_count:              resb      1
+    23 00000011 <res 00000001>      <1>      .sector_count:                resb      1
+    24 00000012 <res 00000001>      <1>      .head_count:                  resb      1
+    25                              <1> ENDSTRUC
+    26                              <1> 
+    27                              <1> %macro SPECIFICATION_PACKET 1
+    28                              <1>      %1:  ISTRUC SPECIFICATION_PACKET_STRUC
+    29                              <1>           at   SPECIFICATION_PACKET_STRUC.packed_size,                 db        0x13
+    30                              <1>           at   SPECIFICATION_PACKET_STRUC.boot_media_type,             db        0
+    31                              <1>           at   SPECIFICATION_PACKET_STRUC.drive_number,                db        0
+    32                              <1>           at   SPECIFICATION_PACKET_STRUC.controller_index,            db        0
+    33                              <1>           at   SPECIFICATION_PACKET_STRUC.logical_block_address,       dd        0
+    34                              <1>           at   SPECIFICATION_PACKET_STRUC.device_specification,        dw        0
+    35                              <1>           at   SPECIFICATION_PACKET_STRUC.buffer_segment,              dw        0
+    36                              <1>           at   SPECIFICATION_PACKET_STRUC.load_segment,                dw        0
+    37                              <1>           at   SPECIFICATION_PACKET_STRUC.virtual_sectors,             dw        0
+    38                              <1>           at   SPECIFICATION_PACKET_STRUC.cylinder_count,              db        0
+    39                              <1>           at   SPECIFICATION_PACKET_STRUC.sector_count,                db        0
+    40                              <1>           at   SPECIFICATION_PACKET_STRUC.head_count,                  db        0
+    41                              <1>      IEND
+    42                              <1>      %define %1.packed_size                 %1+SPECIFICATION_PACKET_STRUC.packed_size
+    43                              <1>      %define %1.boot_media_type             %1+SPECIFICATION_PACKET_STRUC.boot_media_type
+    44                              <1>      %define %1.drive_number                %1+SPECIFICATION_PACKET_STRUC.drive_number
+    45                              <1>      %define %1.controller_index            %1+SPECIFICATION_PACKET_STRUC.controller_index
+    46                              <1>      %define %1.logical_block_address       %1+SPECIFICATION_PACKET_STRUC.logical_block_address
+    47                              <1>      %define %1.device_specification        %1+SPECIFICATION_PACKET_STRUC.device_specification
+    48                              <1>      %define %1.buffer_segment              %1+SPECIFICATION_PACKET_STRUC.buffer_segment
+    49                              <1>      %define %1.load_segment                %1+SPECIFICATION_PACKET_STRUC.load_segment
+    50                              <1>      %define %1.virtual_sectors             %1+SPECIFICATION_PACKET_STRUC.virtual_sectors
+    51                              <1>      %define %1.cylinder_count              %1+SPECIFICATION_PACKET_STRUC.cylinder_count
+    52                              <1>      %define %1.sector_count                %1+SPECIFICATION_PACKET_STRUC.sector_count
+    53                              <1>      %define %1.head_count                  %1+SPECIFICATION_PACKET_STRUC.head_count
+    54                              <1> %endmacro
+    55                              <1> 
+    56                              <1> STRUC DISK_ADDRESS_PACKET_STRUC
+    57 00000000 <res 00000001>      <1>      .size:                        resb      1
+    58 00000001 <res 00000001>      <1>      .reserved:                    resb      1
+    59 00000002 <res 00000002>      <1>      .sectors_to_read:             resw      1
+    60 00000004 <res 00000002>      <1>      .offset:                      resw      1
+    61 00000006 <res 00000002>      <1>      .segment:                     resw      1
+    62 00000008 <res 00000004>      <1>      .start_absolute_sector:       resd      1
+    63 0000000C <res 00000004>      <1>      .transfer_buffer_address:     resd      1
+    64                              <1> ENDSTRUC
+    65                              <1> 
+    66                              <1> %macro DISK_ADDRESS_PACKET 3
+    67                              <1>      %1:  ISTRUC DISK_ADDRESS_PACKET_STRUC
+    68                              <1>           at   DISK_ADDRESS_PACKET_STRUC.size,                        db        16
+    69                              <1>           at   DISK_ADDRESS_PACKET_STRUC.reserved,                    db        0
+    70                              <1>           at   DISK_ADDRESS_PACKET_STRUC.sectors_to_read,             dw        1
+    71                              <1>           at   DISK_ADDRESS_PACKET_STRUC.offset,                      dw        %3
+    72                              <1>           at   DISK_ADDRESS_PACKET_STRUC.segment,                     dw        %2
+    73                              <1>           at   DISK_ADDRESS_PACKET_STRUC.start_absolute_sector,       dd        16
+    74                              <1>           at   DISK_ADDRESS_PACKET_STRUC.transfer_buffer_address,     dd        0
+    75                              <1>      IEND
+    76                              <1>      %define %1.size                         %1+DISK_ADDRESS_PACKET_STRUC.size
+    77                              <1>      %define %1.sectors_to_read              %1+DISK_ADDRESS_PACKET_STRUC.sectors_to_read
+    78                              <1>      %define %1.offset                       %1+DISK_ADDRESS_PACKET_STRUC.offset
+    79                              <1>      %define %1.segment                      %1+DISK_ADDRESS_PACKET_STRUC.segment
+    80                              <1>      %define %1.start_absolute_sector        %1+DISK_ADDRESS_PACKET_STRUC.start_absolute_sector
+    81                              <1>      %define %1.transfer_buffer_address      %1+DISK_ADDRESS_PACKET_STRUC.transfer_buffer_address
+    82                              <1> %endmacro
+    83                              <1> 
+    84                              <1> %endif
+    85                                  
+    86                                       BITS 16
+    87                                       
+    88                                  os_main:
+    89                                       ; initialisation of kernel
+    90                                       ; cs, ds, es, fs, gs and ss points to same segment (where kernel is loaded)
+    91                                       ; sp points to last word of stacksegment
+    92 00000000 FC                           cld
+    93 00000001 8CC8                         mov       ax, cs                   ; Set all segments to match where kernel is loaded
+    94 00000003 8ED8                         mov       ds, ax                   
+    95 00000005 8EC0                         mov       es, ax                   
+    96 00000007 8EE0                         mov       fs, ax                   
+    97 00000009 8EE8                         mov       gs, ax
+    98 0000000B FA                           cli                                ; Clear interrupts
+    99 0000000C 8ED0                         mov       ss, ax                   ; Set stack segment and pointer
+   100 0000000E BCFEFF                       mov       sp, 0FFFEh
+   101 00000011 FB                           sti                                ; Restore interrupts
+   102 00000012 8816[8900]                   mov       byte[bootdrive], dl      ; save boot drive letter
+   103                                       
+   104 00000016 B8024F                       mov       ax, 0x4F02
+   105 00000019 BB0701                       mov       bx, 0x107              ; <-1280x1024 256 = 107h colors
+   106 0000001C B8024F                       mov       ax,0x4F02
+   107 0000001F CD10                         int       0x10
+   108                                  
+   109                                       ; print welcome screen
+   110 00000021 BE[5400]                     mov       si, welcome
+   111 00000024 E8E201                       call      Print
+   112                                       
+   113                                       ; load file from cd
+   114 00000027 BE[8C00]                     mov       si, pem1
+   115 0000002A E8ED01                       call      LoadFile     
+   116 0000002D 7205                         jc        NotFound                 ; file wasn't found, so not loaded and will not be executed
+   117 0000002F E8DB02                       call      Execute
+   118 00000032 EB17                         jmp       Continue
+   119                                       
+   120                                  NotFound:
+   121 00000034 8B36[8A00]                   mov       si, [fileName]
+   122 00000038 E8CE01                       call      Print
+   123 0000003B BE[B101]                     mov       si, notfound
+   124 0000003E E8C801                       call      Print
+   125 00000041 BE[BF01]                     mov       si, pressAnyKey
+   126 00000044 E8C201                       call      Print
+   127 00000047 30E4                         xor       ah, ah
+   128 00000049 CD16                         int       0x16                                                   ; wait for key press
+   129                                  
+   130                                  Continue: 
+   131                                  
+   132 0000004B BE[5400]                     mov       si, welcome
+   133 0000004E E8B801                       call      Print
+   134                                       
+   135                                  osloop:
+   136                                  
+   137 00000051 F4                           hlt
+   138 00000052 EBFD                         jmp       osloop
+   139                                          
+   140 00000054 4D696E69204B65726E-     welcome:       db   'Mini Kernel example by Agguro - Version 1.0.0 Beta', 10, 13, 0
+   141 0000005D 656C206578616D706C-
+   142 00000066 652062792041676775-
+   143 0000006F 726F202D2056657273-
+   144 00000078 696F6E20312E302E30-
+   145 00000081 20426574610A0D00   
+   146 00000089 00                      bootdrive:     db   0
+   147 0000008A 0000                    fileName:      dw   0
+   148 0000008C 50454D312E42494E00      pem1:          db   'PEM1.BIN', 0
+   149 00000095 50454D322E42494E00      pem2:          db   'PEM2.BIN', 0
+   150 0000009E 50454D332E42494E00      pem3:          db   'PEM3.BIN', 0
+   151                                  
+   152 000000A7 00                      directoryEntrySize:      db   0
+   153 000000A8 00000000                fileSector:              dd   0
+   154 000000AC 00000000                fileSize:                dd   0
+   155 000000B0 00                      fileNameLength:          db   0
+   156 000000B1 20<rept>                fileNameEntry:           TIMES 255 db ' '     
+   157 000001B0 00                      fileEntryNumber:         db   0
+   158 000001B1 206E6F7420666F756E-     notfound:                db   " not found.",10,13,0
+   159 000001BA 642E0A0D00         
+   160 000001BF 707265737320616E79-     pressAnyKey:             db   "press any key to continue...",10,13,0
+   161 000001C8 206B657920746F2063-
+   162 000001D1 6F6E74696E75652E2E-
+   163 000001DA 2E0A0D00           
+   164 000001DE 0000                    stackpointer:            dw   0
+   165                                  
+   166 000001E0 3030680A0D00            databyte:  db "00h",10,13,0
+   167                                  
+   168                                  SPECIFICATION_PACKET     specificationPacket
+   169                              <1>  %1: ISTRUC SPECIFICATION_PACKET_STRUC
+   170 000001E6 13                  <1>  at SPECIFICATION_PACKET_STRUC.packed_size, db 0x13
+   171 000001E7 00                  <1>  at SPECIFICATION_PACKET_STRUC.boot_media_type, db 0
+   172 000001E8 00                  <1>  at SPECIFICATION_PACKET_STRUC.drive_number, db 0
+   173 000001E9 00                  <1>  at SPECIFICATION_PACKET_STRUC.controller_index, db 0
+   174 000001EA 00000000            <1>  at SPECIFICATION_PACKET_STRUC.logical_block_address, dd 0
+   175 000001EE 0000                <1>  at SPECIFICATION_PACKET_STRUC.device_specification, dw 0
+   176 000001F0 0000                <1>  at SPECIFICATION_PACKET_STRUC.buffer_segment, dw 0
+   177 000001F2 0000                <1>  at SPECIFICATION_PACKET_STRUC.load_segment, dw 0
+   178 000001F4 0000                <1>  at SPECIFICATION_PACKET_STRUC.virtual_sectors, dw 0
+   179 000001F6 00                  <1>  at SPECIFICATION_PACKET_STRUC.cylinder_count, db 0
+   180 000001F7 00                  <1>  at SPECIFICATION_PACKET_STRUC.sector_count, db 0
+   181 000001F8 00                  <1>  at SPECIFICATION_PACKET_STRUC.head_count, db 0
+   182                              <1>  IEND
+   183                              <1>  %define %1.packed_size %1+SPECIFICATION_PACKET_STRUC.packed_size
+   184                              <1>  %define %1.boot_media_type %1+SPECIFICATION_PACKET_STRUC.boot_media_type
+   185                              <1>  %define %1.drive_number %1+SPECIFICATION_PACKET_STRUC.drive_number
+   186                              <1>  %define %1.controller_index %1+SPECIFICATION_PACKET_STRUC.controller_index
+   187                              <1>  %define %1.logical_block_address %1+SPECIFICATION_PACKET_STRUC.logical_block_address
+   188                              <1>  %define %1.device_specification %1+SPECIFICATION_PACKET_STRUC.device_specification
+   189                              <1>  %define %1.buffer_segment %1+SPECIFICATION_PACKET_STRUC.buffer_segment
+   190                              <1>  %define %1.load_segment %1+SPECIFICATION_PACKET_STRUC.load_segment
+   191                              <1>  %define %1.virtual_sectors %1+SPECIFICATION_PACKET_STRUC.virtual_sectors
+   192                              <1>  %define %1.cylinder_count %1+SPECIFICATION_PACKET_STRUC.cylinder_count
+   193                              <1>  %define %1.sector_count %1+SPECIFICATION_PACKET_STRUC.sector_count
+   194                              <1>  %define %1.head_count %1+SPECIFICATION_PACKET_STRUC.head_count
+   195                                  DISK_ADDRESS_PACKET      diskAddressPacket,PEMCS,PEMIP
+   196                              <1>  %1: ISTRUC DISK_ADDRESS_PACKET_STRUC
+   197 000001F9 10                  <1>  at DISK_ADDRESS_PACKET_STRUC.size, db 16
+   198 000001FA 00                  <1>  at DISK_ADDRESS_PACKET_STRUC.reserved, db 0
+   199 000001FB 0100                <1>  at DISK_ADDRESS_PACKET_STRUC.sectors_to_read, dw 1
+   200 000001FD 0000                <1>  at DISK_ADDRESS_PACKET_STRUC.offset, dw %3
+   201 000001FF 0030                <1>  at DISK_ADDRESS_PACKET_STRUC.segment, dw %2
+   202 00000201 10000000            <1>  at DISK_ADDRESS_PACKET_STRUC.start_absolute_sector, dd 16
+   203 00000205 00000000            <1>  at DISK_ADDRESS_PACKET_STRUC.transfer_buffer_address, dd 0
+   204                              <1>  IEND
+   205                              <1>  %define %1.size %1+DISK_ADDRESS_PACKET_STRUC.size
+   206                              <1>  %define %1.sectors_to_read %1+DISK_ADDRESS_PACKET_STRUC.sectors_to_read
+   207                              <1>  %define %1.offset %1+DISK_ADDRESS_PACKET_STRUC.offset
+   208                              <1>  %define %1.segment %1+DISK_ADDRESS_PACKET_STRUC.segment
+   209                              <1>  %define %1.start_absolute_sector %1+DISK_ADDRESS_PACKET_STRUC.start_absolute_sector
+   210                              <1>  %define %1.transfer_buffer_address %1+DISK_ADDRESS_PACKET_STRUC.transfer_buffer_address
+   211                                       
+   212                                  Print:
+   213 00000209 60                           pusha
+   214 0000020A B40E                         mov       ah, 0Eh             ; int 10h teletype function
+   215 0000020C BB0F00                       mov       bx, 0x000F
+   216                                  .repeat:
+   217 0000020F AC                           lodsb                         ; Get char from string
+   218 00000210 3C00                         cmp       al, 0
+   219 00000212 7404                         je        .done               ; If char is zero, end of string
+   220 00000214 CD10                         int       10h                 ; Otherwise, print it
+   221 00000216 EBF7                         jmp       .repeat             ; And move on to next char
+   222                                  .done:
+   223 00000218 61                           popa
+   224 00000219 C3                           ret
+   225                                  
+   226                                  LoadFile:
+   227                                  ; Call Check Extensions Present?
+   228 0000021A 8936[8A00]                   mov       [fileName], si
+   229 0000021E 6660                         pushad
+   230 00000220 8E06[FF01]                   mov       es, word[diskAddressPacket.segment]
+   231 00000224 8B3E[FD01]                   mov       di, word[diskAddressPacket.offset]
+   232 00000228 8A16[8900]                   mov       dl, byte[bootdrive]                                    ; Prepare to read CD-ROM, load boot drive
+   233                                       
+   234 0000022C B442                         mov       ah, 0x42                                               ; Read from drive function, DL holds the boot drive
+   235 0000022E BE[F901]                     mov       si, diskAddressPacket                                  ; Load SI with address of the Disk Address Packet
+   236 00000231 CD13                         int       0x13                                                   ; Call read sector from drive
+   237 00000233 7213                         jc        NonBootable
+   238 00000235 26668B859E00                 mov       eax, dword[es:di+158]                                  ; LBA of root directory, where all things start.
+   239 0000023B 66A3[0102]                   mov       dword[diskAddressPacket.start_absolute_sector], eax    ; Load packet with new address on CD of the root directory
+   240 0000023F B442                         mov       ah, 0x42                                               ; Read from drive function, DL holds the boot drive
+   241 00000241 BE[F901]                     mov       si, diskAddressPacket                                  ; Load SI with address of DAP
+   242 00000244 CD13                         int       0x13
+   243 00000246 7304                         jnc       SearchFile
+   244                                  
+   245                                  NonBootable:
+   246 00000248 6661                         popad
+   247 0000024A F9                           stc
+   248 0000024B C3                           ret                                                              ; reboot system
+   249                                  
+   250                                  SearchFile:     
+   251                                  .nextDirEntry:
+   252                                      
+   253 0000024C 268A05                       mov       al, byte[es:di]                                        ; Length of the current directory entry
+   254 0000024F A2[A700]                     mov       byte[directoryEntrySize],al
+   255 00000252 26668B4502                   mov       eax, dword[es:di+2]                                    ; Starting sector of directory entry
+   256 00000257 66A3[A800]                   mov       dword[fileSector], eax
+   257 0000025B 26668B450A                   mov       eax, dword[es:di+10]                                   ; Size of file on CD/DVD/BD
+   258 00000260 66A3[AC00]                   mov       dword[fileSize], eax
+   259                                  
+   260 00000264 268A4520                     mov       al, byte[es:di+32]                                     ; File's name length (see El Torito of ISO:9660 or CDROM.ASM)
+   261 00000268 FEC8                         dec       al                                                     ; for trailing ;
+   262 0000026A FEC8                         dec       al                                                     ; for trailing 1
+   263 0000026C A2[B000]                     mov       byte[fileNameLength], al
+   264                                  
+   265 0000026F 31DB                         xor       bx, bx
+   266 00000271 31C9                         xor       cx, cx
+   267 00000273 89FE                         mov       si, di
+   268 00000275 83C621                       add       si, 33
+   269 00000278 BB[B100]                     mov       bx, fileNameEntry
+   270 0000027B A0[B000]                     mov       al, byte[fileNameLength]
+   271                                  
+   272                                  .LoopFileNameEntry:
+   273                                  
+   274 0000027E 268A04                       mov       al, byte[es:si]
+   275 00000281 3E8807                       mov       byte[ds:bx], al
+   276 00000284 43                           inc       bx
+   277 00000285 41                           inc       cx
+   278 00000286 46                           inc       si
+   279 00000287 31C0                         xor       ax, ax
+   280 00000289 A0[B000]                     mov       al, byte[fileNameLength]
+   281 0000028C 39C1                         cmp       cx, ax
+   282 0000028E 75EE                         jne        .LoopFileNameEntry
+   283                                  
+   284 00000290 3EC60700                     mov       byte[ds:bx],0
+   285                                  
+   286 00000294 BE[B100]                     mov       si, fileNameEntry
+   287 00000297 57                           push      di
+   288 00000298 8B3E[8A00]                   mov       di, [fileName]
+   289                                      
+   290                                  .CompareLoop:
+   291                                  
+   292 0000029C 8A04                         mov       al, byte[si]        ; Grab byte from ESI
+   293 0000029E 8A1D                         mov       bl, byte[di]        ; Grab byte from EDI
+   294 000002A0 38D8                         cmp       al, bl              ; Compare if they are equal
+   295 000002A2 7508                         jne       .NotEqual           ; They aren't equal
+   296                                  
+   297 000002A4 20C0                         and       al, al              ; Both bytes are null
+   298 000002A6 7407                         jz        .compareDone
+   299                                  
+   300 000002A8 47                           inc       di             ; Increment EDI
+   301 000002A9 46                           inc       si             ; Increment ESI
+   302 000002AA EBF0                         jmp       .CompareLoop           ; Start looping
+   303                                  
+   304                                  .NotEqual:
+   305 000002AC F9                           stc                        ; Set the carry flag to indicate failure
+   306 000002AD EB01                         jmp       .compareEnd
+   307                                  
+   308                                  .compareDone:
+   309                                  
+   310 000002AF F8                           clc                 ; Clear the carry flag to indicate success
+   311                                  
+   312                                  .compareEnd:
+   313                                      
+   314 000002B0 5F                           pop       di
+   315 000002B1 7326                         jnc       .nextsector
+   316                                       
+   317 000002B3 31C9                         xor       cx, cx                                   ; Prepare CX to do math for DI
+   318 000002B5 8A0E[A700]                   mov       cl, byte[directoryEntrySize]                 ; Get the size of the directory entry
+   319 000002B9 01CF                         add       di, cx                                   ; Add that size to the DI to get to the next record
+   320 000002BB 26803D00                     cmp       byte[es:di],0                          ; Is the next entry = 0?
+   321 000002BF 7487                         je        NonBootable                                     ; If so, we're at the end of the directory, move on
+   322                                  
+   323 000002C1 31C9                         xor       cx, cx
+   324 000002C3 BB[B100]                     mov       bx, fileNameEntry
+   325                                  
+   326                                  .ClearFileNameEntry:
+   327                                  
+   328 000002C6 3EC60700                     mov       byte[ds:bx],0                           ; Erase the begin
+   329 000002CA 43                           inc       bx
+   330 000002CB 41                           inc       cx
+   331 000002CC 81F9FE00                     cmp       cx, 254
+   332 000002D0 72F4                         jb        .ClearFileNameEntry
+   333 000002D2 3EC60700                     mov       byte[ds:bx],0
+   334 000002D6 E973FF                       jmp       SearchFile.nextDirEntry
+   335                                  
+   336                                  .nextsector:     
+   337 000002D9 66A1[A800]                   mov       eax, dword[fileSector]
+   338 000002DD 66A3[0102]                   mov       dword[diskAddressPacket.start_absolute_sector], eax             ; Save the starting sector into DAP
+   339 000002E1 66A1[AC00]                   mov       eax, dword[fileSize]
+   340 000002E5 6631D2                       xor       edx, edx
+   341 000002E8 66BB00080000                 mov       ebx, 2048
+   342 000002EE 66F7F3                       div       ebx
+   343 000002F1 6640                         inc       eax
+   344 000002F3 A3[FB01]                     mov       [diskAddressPacket.sectors_to_read], ax    ; Save number of sectors to read
+   345                                  
+   346 000002F6 8A16[8900]                   mov       dl, byte[bootdrive]                      ; boot drive in DL
+   347 000002FA B442                         mov       ah,0x42                                  ; Read from drive function
+   348 000002FC BE[F901]                     mov       si,diskAddressPacket                    ; Load SI with address of the Disk Address Packet
+   349 000002FF CD13                         int       0x13                                     ; Call read sector from drive
+   350 00000301 0F8243FF                     jc        NonBootable                                  ; Nope, hosed, get out
+   351                                       
+   352 00000305 66A1[F901]                   mov       eax,dword[diskAddressPacket]
+   353 00000309 6661                         popad
+   354 0000030B F8                           clc
+   355 0000030C C3                           ret
+   356                                  
+   357                                  Execute:
+   358                                       ; pushing stackpointer onto stack won't work
+   359 0000030D 8926[DE01]                   mov       word[stackpointer], sp        ; save stackpointer in memory
+   360 00000311 B80030                       mov       ax, PEMCS                     ; Set all segments to match where kernel is loaded
+   361 00000314 8ED8                         mov       ds, ax                   
+   362 00000316 8EC0                         mov       es, ax                   
+   363 00000318 8EE0                         mov       fs, ax                   
+   364 0000031A 8EE8                         mov       gs, ax
+   365 0000031C B80070                       mov       ax, PEMSS               ; stacksegment at last useable segment in low RAM
+   366 0000031F FA                           cli
+   367 00000320 54                           push      sp
+   368 00000321 8ED0                         mov       ss, ax
+   369 00000323 BCFEFF                       mov       sp, PEMSP               ; stackpointer at last word of stack
+   370 00000326 FB                           sti
+   371 00000327 F8                           clc
+   372 00000328 FC                           cld
+   373 00000329 31C0                         xor       ax, ax
+   374 0000032B 31DB                         xor       bx, bx
+   375 0000032D 31C9                         xor       cx, cx
+   376 0000032F 31D2                         xor       dx, dx
+   377 00000331 31F6                         xor       si, si
+   378 00000333 31FF                         xor       di, di
+   379 00000335 31ED                         xor       bp, bp
+   380 00000337 9A00000030                   call      PEMCS:PEMIP
+   381 0000033C 8CC8                         mov       ax, cs
+   382 0000033E FA                           cli
+   383 0000033F 8ED0                         mov       ss, ax
+   384 00000341 5C                           pop       sp
+   385 00000342 FB                           sti
+   386 00000343 8ED8                         mov       ds, ax                   
+   387 00000345 8EC0                         mov       es, ax                   
+   388 00000347 8EE0                         mov       fs, ax                   
+   389 00000349 8EE8                         mov       gs, ax
+   390 0000034B 8B26[DE01]                   mov       sp, word[stackpointer]
+   391 0000034F C3                           ret       

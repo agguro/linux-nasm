@@ -1,0 +1,293 @@
+     1                                  ; Name:         bits.asm
+     2                                  ; Build:        see makefile
+     3                                  ; Description:  Testprogram for PEM1
+     4                                  
+     5                                  BITS 64
+     6                                  
+   777                                  [list -]
+   778                                  
+   779                                  section .bss
+   780                                      
+   781                                  section .data
+   782 00000000 626974206120686173-         message1:    db "bit a has changed - "
+   783 00000009 206368616E67656420-
+   784 00000012 2D20               
+   785                                       .length:    equ $-message1
+   786 00000014 626974206220686173-         message2:    db "bit b has changed - "
+   787 0000001D 206368616E67656420-
+   788 00000026 2D20               
+   789                                       .length:    equ $-message2
+   790 00000028 626974206973207365-         message3:    db "bit is set",10
+   791 00000031 740A               
+   792                                       .length:    equ $-message3
+   793 00000033 626974206973207265-         message4:    db "bit is reset",10
+   794 0000003C 7365740A           
+   795                                       .length:    equ $-message4
+   796                                       
+   797                                      BIT a
+   798                              <1> 
+   799                              <1>  %ifndef BITMACROS
+   800                              <1>  %define BITMACROS
+   801                              <1> 
+   802                              <1>  %macro BITSET 1
+   803                              <1>  mov rax, %1+BIT_STRUC.Set
+   804                              <1>  call QWORD [rax]
+   805                              <1>  %endmacro
+   806                              <1> 
+   807                              <1>  %macro BITRESET 1
+   808                              <1>  mov rax, %1+BIT_STRUC.Reset
+   809                              <1>  call QWORD [rax]
+   810                              <1>  %endmacro
+   811                              <1> 
+   812                              <1>  %macro BITINVERT 1
+   813                              <1>  mov rax, %1+BIT_STRUC.Invert
+   814                              <1>  call QWORD [rax]
+   815                              <1>  %endmacro
+   816                              <1> 
+   817                              <1>  %macro BITGET 1
+   818                              <1>  mov rax, %1+BIT_STRUC.Get
+   819                              <1>  call QWORD [rax]
+   820                              <1>  %endmacro
+   821                              <1> 
+   822                              <1>  %macro BITLOAD 1
+   823                              <1>  mov rax, %1+BIT_STRUC.Load
+   824                              <1>  call QWORD [rax]
+   825                              <1>  %endmacro
+   826                              <1> 
+   827                              <1>  %macro BITONCHANGED 1
+   828                              <1>  mov rax, %1+BIT_STRUC.OnChanged
+   829                              <1>  mov [rax], rdx
+   830                              <1>  %endmacro
+   831                              <1> 
+   832                              <1>  %macro BITONSET 1
+   833                              <1>  mov rax, %1+BIT_STRUC.OnSet
+   834                              <1>  mov [rax], rdx
+   835                              <1>  %endmacro
+   836                              <1> 
+   837                              <1>  %macro BITONRESET 1
+   838                              <1>  mov rax, %1+BIT_STRUC.OnReset
+   839                              <1>  mov [rax], rdx
+   840                              <1>  %endmacro
+   841                              <1> 
+   842                              <1>  %endif
+   843                              <1> 
+   844                              <1>  %define %1.ptr %1+BIT_STRUC.value
+   845                              <1>  %define %1.Set BITSET %1
+   846                              <1>  %define %1.Reset BITRESET %1
+   847                              <1>  %define %1.Invert BITINVERT %1
+   848                              <1>  %define %1.Get BITGET %1
+   849                              <1>  %define %1.Load BITLOAD %1
+   850                              <1>  %define %1.OnChanged BITONCHANGED %1
+   851                              <1>  %define %1.OnSet BITONSET %1
+   852                              <1>  %define %1.OnReset BITONRESET %1
+   853                              <1>  %define %1.value BYTE [%1+BIT_STRUC.value]
+   854                              <1> 
+   855                              <1>  [section .data]
+   856                              <1>  %1: ISTRUC BIT_STRUC
+   857 00000040 00                  <1>  at BIT_STRUC.value, db 0
+   858 00000041 [1400000000000000]  <1>  at BIT_STRUC.Set, dq BITSet
+   859 00000049 [0900000000000000]  <1>  at BIT_STRUC.Reset, dq BITReset
+   860 00000051 [2900000000000000]  <1>  at BIT_STRUC.Invert, dq BITInvert
+   861 00000059 [1F00000000000000]  <1>  at BIT_STRUC.Get, dq BITGet
+   862 00000061 [0000000000000000]  <1>  at BIT_STRUC.Load, dq BITLoad
+   863 00000069 0000000000000000    <1>  at BIT_STRUC.OnChanged, dq 0
+   864 00000071 0000000000000000    <1>  at BIT_STRUC.OnSet, dq 0
+   865 00000079 0000000000000000    <1>  at BIT_STRUC.OnReset, dq 0
+   866                              <1>  IEND
+   867                                      BIT b
+   868                              <1> 
+   869                              <1>  %ifndef BITMACROS
+   870                              <1>  %define BITMACROS
+   871                              <1> 
+   872                              <1>  %macro BITSET 1
+   873                              <1>  mov rax, %1+BIT_STRUC.Set
+   874                              <1>  call QWORD [rax]
+   875                              <1>  %endmacro
+   876                              <1> 
+   877                              <1>  %macro BITRESET 1
+   878                              <1>  mov rax, %1+BIT_STRUC.Reset
+   879                              <1>  call QWORD [rax]
+   880                              <1>  %endmacro
+   881                              <1> 
+   882                              <1>  %macro BITINVERT 1
+   883                              <1>  mov rax, %1+BIT_STRUC.Invert
+   884                              <1>  call QWORD [rax]
+   885                              <1>  %endmacro
+   886                              <1> 
+   887                              <1>  %macro BITGET 1
+   888                              <1>  mov rax, %1+BIT_STRUC.Get
+   889                              <1>  call QWORD [rax]
+   890                              <1>  %endmacro
+   891                              <1> 
+   892                              <1>  %macro BITLOAD 1
+   893                              <1>  mov rax, %1+BIT_STRUC.Load
+   894                              <1>  call QWORD [rax]
+   895                              <1>  %endmacro
+   896                              <1> 
+   897                              <1>  %macro BITONCHANGED 1
+   898                              <1>  mov rax, %1+BIT_STRUC.OnChanged
+   899                              <1>  mov [rax], rdx
+   900                              <1>  %endmacro
+   901                              <1> 
+   902                              <1>  %macro BITONSET 1
+   903                              <1>  mov rax, %1+BIT_STRUC.OnSet
+   904                              <1>  mov [rax], rdx
+   905                              <1>  %endmacro
+   906                              <1> 
+   907                              <1>  %macro BITONRESET 1
+   908                              <1>  mov rax, %1+BIT_STRUC.OnReset
+   909                              <1>  mov [rax], rdx
+   910                              <1>  %endmacro
+   911                              <1> 
+   912                              <1>  %endif
+   913                              <1> 
+   914                              <1>  %define %1.ptr %1+BIT_STRUC.value
+   915                              <1>  %define %1.Set BITSET %1
+   916                              <1>  %define %1.Reset BITRESET %1
+   917                              <1>  %define %1.Invert BITINVERT %1
+   918                              <1>  %define %1.Get BITGET %1
+   919                              <1>  %define %1.Load BITLOAD %1
+   920                              <1>  %define %1.OnChanged BITONCHANGED %1
+   921                              <1>  %define %1.OnSet BITONSET %1
+   922                              <1>  %define %1.OnReset BITONRESET %1
+   923                              <1>  %define %1.value BYTE [%1+BIT_STRUC.value]
+   924                              <1> 
+   925                              <1>  [section .data]
+   926                              <1>  %1: ISTRUC BIT_STRUC
+   927 00000081 00                  <1>  at BIT_STRUC.value, db 0
+   928 00000082 [1400000000000000]  <1>  at BIT_STRUC.Set, dq BITSet
+   929 0000008A [0900000000000000]  <1>  at BIT_STRUC.Reset, dq BITReset
+   930 00000092 [2900000000000000]  <1>  at BIT_STRUC.Invert, dq BITInvert
+   931 0000009A [1F00000000000000]  <1>  at BIT_STRUC.Get, dq BITGet
+   932 000000A2 [0000000000000000]  <1>  at BIT_STRUC.Load, dq BITLoad
+   933 000000AA 0000000000000000    <1>  at BIT_STRUC.OnChanged, dq 0
+   934 000000B2 0000000000000000    <1>  at BIT_STRUC.OnSet, dq 0
+   935 000000BA 0000000000000000    <1>  at BIT_STRUC.OnReset, dq 0
+   936                              <1>  IEND
+   937                                      
+   938                                  section .text
+   939                                      global _start
+   940                                  _start:
+   941                                  
+   942 00000069 48BA-                       mov rdx, OnBitAChanged 
+   943 0000006B [6101000000000000] 
+   944                                      a.OnChanged
+   945 00000073 48B8-               <1>  mov rax, %1+BIT_STRUC.OnChanged
+   946 00000075 [6900000000000000]  <1>
+   947 0000007D 488910              <1>  mov [rax], rdx
+   948 00000080 48BA-                       mov rdx, OnBitBChanged 
+   949 00000082 [B501000000000000] 
+   950                                      b.OnChanged
+   951 0000008A 48B8-               <1>  mov rax, %1+BIT_STRUC.OnChanged
+   952 0000008C [AA00000000000000]  <1>
+   953 00000094 488910              <1>  mov [rax], rdx
+   954 00000097 48BA-                       mov rdx, OnBitSet
+   955 00000099 [7D01000000000000] 
+   956                                      a.OnSet
+   957 000000A1 48B8-               <1>  mov rax, %1+BIT_STRUC.OnSet
+   958 000000A3 [7100000000000000]  <1>
+   959 000000AB 488910              <1>  mov [rax], rdx
+   960                                      b.OnSet
+   961 000000AE 48B8-               <1>  mov rax, %1+BIT_STRUC.OnSet
+   962 000000B0 [B200000000000000]  <1>
+   963 000000B8 488910              <1>  mov [rax], rdx
+   964 000000BB 48BA-                       mov rdx, OnBitReset
+   965 000000BD [9901000000000000] 
+   966                                      a.OnReset
+   967 000000C5 48B8-               <1>  mov rax, %1+BIT_STRUC.OnReset
+   968 000000C7 [7900000000000000]  <1>
+   969 000000CF 488910              <1>  mov [rax], rdx
+   970                                      b.OnReset   
+   971 000000D2 48B8-               <1>  mov rax, %1+BIT_STRUC.OnReset
+   972 000000D4 [BA00000000000000]  <1>
+   973 000000DC 488910              <1>  mov [rax], rdx
+   974                                      
+   975                                      a.Set
+   976 000000DF 48B8-               <1>  mov rax, %1+BIT_STRUC.Set
+   977 000000E1 [4100000000000000]  <1>
+   978 000000E9 FF10                <1>  call QWORD [rax]
+   979                                      a.Set
+   980 000000EB 48B8-               <1>  mov rax, %1+BIT_STRUC.Set
+   981 000000ED [4100000000000000]  <1>
+   982 000000F5 FF10                <1>  call QWORD [rax]
+   983                                      a.Set
+   984 000000F7 48B8-               <1>  mov rax, %1+BIT_STRUC.Set
+   985 000000F9 [4100000000000000]  <1>
+   986 00000101 FF10                <1>  call QWORD [rax]
+   987                                      a.Reset
+   988 00000103 48B8-               <1>  mov rax, %1+BIT_STRUC.Reset
+   989 00000105 [4900000000000000]  <1>
+   990 0000010D FF10                <1>  call QWORD [rax]
+   991                                      a.Reset
+   992 0000010F 48B8-               <1>  mov rax, %1+BIT_STRUC.Reset
+   993 00000111 [4900000000000000]  <1>
+   994 00000119 FF10                <1>  call QWORD [rax]
+   995                                      a.Invert
+   996 0000011B 48B8-               <1>  mov rax, %1+BIT_STRUC.Invert
+   997 0000011D [5100000000000000]  <1>
+   998 00000125 FF10                <1>  call QWORD [rax]
+   999                                      a.Invert
+  1000 00000127 48B8-               <1>  mov rax, %1+BIT_STRUC.Invert
+  1001 00000129 [5100000000000000]  <1>
+  1002 00000131 FF10                <1>  call QWORD [rax]
+  1003                                      ; implies a connection between bits
+  1004                                      a.Get
+  1005 00000133 48B8-               <1>  mov rax, %1+BIT_STRUC.Get
+  1006 00000135 [5900000000000000]  <1>
+  1007 0000013D FF10                <1>  call QWORD [rax]
+  1008                                      b.Load
+  1009 0000013F 48B8-               <1>  mov rax, %1+BIT_STRUC.Load
+  1010 00000141 [A200000000000000]  <1>
+  1011 00000149 FF10                <1>  call QWORD [rax]
+  1012                                      
+  1013                                      b.Reset
+  1014 0000014B 48B8-               <1>  mov rax, %1+BIT_STRUC.Reset
+  1015 0000014D [8A00000000000000]  <1>
+  1016 00000155 FF10                <1>  call QWORD [rax]
+  1017                                      
+  1018                                      syscall.exit ENOERR
+  1019                              <1> %if %1==0
+  1020 00000157 4831FF              <1>  xor rdi, rdi
+  1021                              <1> %elif
+  1022                              <1>  mov rdi, %2
+  1023                              <1> %endif
+  1024 0000015A B83C000000          <1>  mov rax, SYS_EXIT
+  1025 0000015F 0F05                <1>  syscall
+  1026                                  
+  1027                                  OnBitAChanged:
+  1028                                      syscall.write message1
+  1029 00000161 BF01000000          <1>  mov rdi, STDOUT
+  1030 00000166 48BE-               <1>  mov rsi, %1
+  1031 00000168 [0000000000000000]  <1>
+  1032 00000170 BA14000000          <1>  mov rdx, %1.length
+  1033 00000175 B801000000          <1>  mov rax, SYS_WRITE
+  1034 0000017A 0F05                <1>  syscall
+  1035 0000017C C3                          ret
+  1036                                  OnBitSet:
+  1037                                      syscall.write message3
+  1038 0000017D BF01000000          <1>  mov rdi, STDOUT
+  1039 00000182 48BE-               <1>  mov rsi, %1
+  1040 00000184 [2800000000000000]  <1>
+  1041 0000018C BA0B000000          <1>  mov rdx, %1.length
+  1042 00000191 B801000000          <1>  mov rax, SYS_WRITE
+  1043 00000196 0F05                <1>  syscall
+  1044 00000198 C3                          ret
+  1045                                  OnBitReset:
+  1046                                      syscall.write message4
+  1047 00000199 BF01000000          <1>  mov rdi, STDOUT
+  1048 0000019E 48BE-               <1>  mov rsi, %1
+  1049 000001A0 [3300000000000000]  <1>
+  1050 000001A8 BA0D000000          <1>  mov rdx, %1.length
+  1051 000001AD B801000000          <1>  mov rax, SYS_WRITE
+  1052 000001B2 0F05                <1>  syscall
+  1053 000001B4 C3                          ret
+  1054                                      
+  1055                                  OnBitBChanged:
+  1056                                      syscall.write message2
+  1057 000001B5 BF01000000          <1>  mov rdi, STDOUT
+  1058 000001BA 48BE-               <1>  mov rsi, %1
+  1059 000001BC [1400000000000000]  <1>
+  1060 000001C4 BA14000000          <1>  mov rdx, %1.length
+  1061 000001C9 B801000000          <1>  mov rax, SYS_WRITE
+  1062 000001CE 0F05                <1>  syscall
+  1063 000001D0 C3                          ret

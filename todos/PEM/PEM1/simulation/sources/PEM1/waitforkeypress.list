@@ -1,0 +1,172 @@
+     1                                  ; Name:         pem1.asm
+     2                                  ; Build:        see makefile
+     3                                  ; Run:          ./waitforkeypress
+     4                                  ; Description: 
+     5                                  ;       Displays a message, in this case "press any key to exit..." and wait until the user hits
+     6                                  ;       a key. With a buffer, large enough and wich you erases entirely after hitting a key
+     7                                  ;       or key sequence (like ALT-[somekey], the remains of a hotkey aren't displayed neither.
+     8                                  ;       The program works on most keys however CTRL or ALT doesn't give the desired effect.
+     9                                  ;       For a solution on that we must use the scancode of a key.
+    10                                  
+    11                                  BITS 64
+    12                                  
+   600                                  [list -]
+   601                                  
+   602                                  
+   603                                  section .bss
+   604                                      buffer: BUFFER 1
+   605                              <1>  buffer: 
+   606 00000000 <res 00000001>      <1>  .start: resb %1
+   607                              <1>  .length: equ $-.start
+   608                                                                             
+   609                                  section .data
+   610                                  
+   611                                      TERMIOS termios             ; termios structure
+   612                              <1>  %1: ISTRUC TERMIOS_STRUC
+   613 00000000 00000000            <1>  at TERMIOS_STRUC.c_iflag, dd 0
+   614 00000004 00000000            <1>  at TERMIOS_STRUC.c_oflag, dd 0
+   615 00000008 00000000            <1>  at TERMIOS_STRUC.c_cflag, dd 0
+   616 0000000C 00000000            <1>  at TERMIOS_STRUC.c_lflag, dd 0
+   617 00000010 00                  <1>  at TERMIOS_STRUC.c_line, db 0
+   618 00000011 00<rept>            <1>  at TERMIOS_STRUC.c_cc, times 19 db 0
+   619                              <1>  IEND
+   620                              <1>  %define %1.c_iflag %1+TERMIOS_STRUC.c_iflag
+   621                              <1>  %define %1.c_oflag %1+TERMIOS_STRUC.c_oflag
+   622                              <1>  %define %1.c_cflag %1+TERMIOS_STRUC.c_cflag
+   623                              <1>  %define %1.c_lflag %1+TERMIOS_STRUC.c_lflag
+   624                              <1>  %define %1.c_line %1+TERMIOS_STRUC.c_line
+   625                              <1>  %define %1.c_cc %1+TERMIOS_STRUC.c_cc
+   626                                      
+   627                                      message: STRING {"Press any key to exit..."}
+   628                              <1>  message: 
+   629 00000024 507265737320616E79- <1>  .start: db %1
+   630 0000002D 206B657920746F2065- <1>
+   631 00000036 7869742E2E2E        <1>
+   632                              <1>  .length: equ $-.start
+   633                                  
+   634                                  section .text
+   635                                          global _start
+   636                                  
+   637                                  _start:
+   638                                  
+   639                                      ; first write a message to STDOUT
+   640                                      syscall.write message
+   641 00000000 48BE-               <1>  mov rsi, %1
+   642 00000002 [2400000000000000]  <1>
+   643 0000000A BA18000000          <1>  mov rdx, %1.length
+   644 0000000F BF01000000          <1>  mov rdi, STDOUT
+   645 00000014 B801000000          <1>  mov rax, SYS_WRITE
+   646 00000019 0F05                <1>  syscall
+   647 0000001B E84C000000                  call    Screen.Prepare
+   648                                  
+   649                                  ReadKey:
+   650                                      syscall.read buffer
+   651 00000020 48BE-               <1>  mov rsi, %1
+   652 00000022 [0000000000000000]  <1>
+   653 0000002A BA01000000          <1>  mov rdx, %1.length
+   654 0000002F BF00000000          <1>  mov rdi, STDIN
+   655 00000034 B800000000          <1>  mov rax, SYS_READ
+   656 00000039 0F05                <1>  syscall
+   657                                      
+   658                                      ; clear the buffer
+   659 0000003B 48C7060A000000              mov     QWORD[rsi], ASCII_LF
+   660                                      syscall.write buffer
+   661 00000042 48BE-               <1>  mov rsi, %1
+   662 00000044 [0000000000000000]  <1>
+   663 0000004C BA01000000          <1>  mov rdx, %1.length
+   664 00000051 BF01000000          <1>  mov rdi, STDOUT
+   665 00000056 B801000000          <1>  mov rax, SYS_WRITE
+   666 0000005B 0F05                <1>  syscall
+   667                                  
+   668                                      ; Don't forget to switch canonical mode on
+   669 0000005D E815000000                  call    Screen.Restore
+   670                                      
+   671                                      syscall.exit ENOERR
+   672                              <1>  %if %1==0
+   673 00000062 4831FF              <1>  xor rdi, rdi
+   674                              <1>  %elif
+   675                              <1>  mov rdi, %1
+   676                              <1>  %endif
+   677 00000065 B83C000000          <1>  mov rax, SYS_EXIT
+   678 0000006A 0F05                <1>  syscall
+   679                                  
+   680                                  
+   681                                  Screen:
+   682                                  .Prepare:
+   683 0000006C E818000000                  call    TermIOS.Canonical.OFF      ; switch canonical mode off
+   684 00000071 E821000000                  call    TermIOS.Echo.OFF           ; no echo
+   685 00000076 C3                          ret
+   686                                      
+   687                                  .Restore:
+   688 00000077 E806000000                  call    TermIOS.Canonical.ON       ; switch canonical mode back on
+   689 0000007C E80F000000                  call    TermIOS.Echo.ON            ; restore echo
+   690 00000081 C3                          ret
+   691                                      
+   692                                  ; **********************************************************************************************    
+   693                                  ; TERMIOS functions:
+   694                                  ; TermIOS.Canonical.ON        : switch canonical mode on
+   695                                  ; TermIOS.Canonical.OFF       : switch canonical mode off
+   696                                  ; TermIOS.Echo.ON             : switch echo mode on
+   697                                  ; TermIOS.Echo.OFF            : switch echo mode off
+   698                                  ; TermIOS.LocalModeFlag.SET   : set the localmode flag described in RAX
+   699                                  ; TermIOS.LocalModeFlag.CLEAR : clear the localmode flag described in RAX 
+   700                                  ; TermIOS.STDIN.Read          : Read the TERMIO flags
+   701                                  ; TermIOS.STDIN.Write         : Write the TERMIO flags
+   702                                  ; TermIOS.IOCTL               : Read or write the localmode flags to or from TERMIOS
+   703                                  ; **********************************************************************************************
+   704                                  
+   705                                  TermIOS.Canonical:
+   706                                  .ON:
+   707 00000082 B802000000                  mov     rax, ICANON
+   708 00000087 EB15                        jmp     TermIOS.LocalModeFlag.SET
+   709                                  
+   710                                  .OFF:
+   711 00000089 B802000000                  mov     rax,ICANON
+   712 0000008E EB20                        jmp     TermIOS.LocalModeFlag.CLEAR
+   713                                  
+   714                                  TermIOS.Echo:
+   715                                  .ON:
+   716 00000090 B80A000000                  mov     rax,ECHO
+   717 00000095 EB07                        jmp     TermIOS.LocalModeFlag.SET
+   718                                  
+   719                                  .OFF:
+   720 00000097 B80A000000                  mov     rax,ECHO
+   721 0000009C EB12                        jmp     TermIOS.LocalModeFlag.CLEAR
+   722                                  
+   723                                  TermIOS.LocalModeFlag:
+   724                                  .SET:
+   725 0000009E E821000000                  call    TermIOS.STDIN.READ
+   726 000000A3 090425[0C000000]            or      dword [termios.c_lflag], eax
+   727 000000AA E81C000000                  call    TermIOS.STDIN.WRITE
+   728 000000AF C3                          ret
+   729                                  
+   730                                  .CLEAR:
+   731 000000B0 E80F000000                  call    TermIOS.STDIN.READ
+   732 000000B5 F7D0                        not     eax
+   733 000000B7 210425[0C000000]            and     [termios.c_lflag], eax
+   734 000000BE E808000000                  call    TermIOS.STDIN.WRITE
+   735 000000C3 C3                          ret
+   736                                  
+   737                                  ; subroutine for all TCGETS operation on the syscall IOCTL
+   738                                  ; the original value of RCX is restored on exit
+   739                                  TermIOS.STDIN:
+   740                                  .READ:
+   741 000000C4 BE01540000                  mov     rsi, TCGETS
+   742 000000C9 EB05                        jmp     TermIOS.IOCTL
+   743                                  
+   744                                  ; subroutine for all TCSETS operation on the syscall IOCTL
+   745                                  ; the original value of RCX is restored on exit
+   746                                  .WRITE:
+   747 000000CB BE02540000                  mov     rsi, TCSETS
+   748                                  
+   749                                  ; subroutine for operations on the syscall IOCTL for STDIN
+   750                                  ; all registers are restored to their original values on exit of the subroutine
+   751                                  TermIOS.IOCTL:
+   752 000000D0 50                          push    rax             ; we need to store RAX or TermIOS.LocalFlag functions fail
+   753 000000D1 B810000000                  mov     rax, SYS_IOCTL
+   754 000000D6 BF00000000                  mov     rdi, STDIN
+   755 000000DB 48BA-                       mov     rdx, termios
+   756 000000DD [0000000000000000] 
+   757 000000E5 0F05                        syscall
+   758 000000E7 58                          pop     rax
+   759 000000E8 C3                          ret

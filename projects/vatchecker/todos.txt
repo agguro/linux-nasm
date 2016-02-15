@@ -1,7 +1,0 @@
-to do:
-   - review code with subroutines, first version was a bit of easyness and lazyness :)
-   - check valid length before sending request for each country
-   - add U automatically when dealing with Austrian VAT numbers.
-   - perform vatnumber check before sending request.
-   - config file with vatid.eu ipaddress and port stored, in case the ipaddress changes.
-   - build timer in application to avoid long periods to wait (still no problems with this, response is still fast enough).

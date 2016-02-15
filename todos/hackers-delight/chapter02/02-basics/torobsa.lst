@@ -1,0 +1,62 @@
+     1                                  ; torobsa.asm
+     2                                  ; turn off rightmost one bit, set all other bits
+     3                                  ; create a word with a single 0-bit at the position of the rightmost 1-bit
+     4                                  
+   402                                  [list -]
+   403                                  
+   404                                  bits 64
+   405                                  
+   406                                  section .bss
+   407 00000000 <res 00000001>            buffer: resb 1
+   408                                  
+   409                                  section .data
+   410                                    
+   411                                  section .text
+   412                                  global _start
+   413                                  
+   414                                  _start:
+   415                                  
+   416 00000000 48B810520400000000-           mov     rax, 0x8000000000045210
+   417 00000009 80                 
+   418 0000000A E821000000                    call    printBinary
+   419 0000000F E80F000000                    call    torobsa
+   420 00000014 E817000000                    call    printBinary
+   421                                  
+   422 00000019 4831FF                        xor     rdi, rdi
+   423 0000001C B83C000000                    mov     rax, SYS_EXIT
+   424 00000021 0F05                          syscall
+   425                                  
+   426                                  torobsa:                                ; turn off rightmost one bit, set all other bits
+   427 00000023 4889C3                        mov     rbx, rax
+   428 00000026 48FFCB                        dec     rbx
+   429 00000029 48F7D0                        not     rax
+   430 0000002C 4809D8                        or      rax, rbx
+   431 0000002F C3                            ret
+   432                                        
+   433                                  printBinary:
+   434 00000030 50                            push      rax
+   435 00000031 B940000000                    mov       rcx, 64                 ; 64 bits to display
+   436 00000036 F8                            clc                               ; clear carry flag
+   437                                  .repeat:
+   438 00000037 48D1D0                        rcl       rax, 1                  ; start with leftmost bit
+   439 0000003A 801425[00000000]30            adc       BYTE[buffer],0x30       ; make it ASCII
+   440 00000042 51                            push      rcx
+   441 00000043 50                            push      rax
+   442 00000044 E813000000                    call      printBuffer
+   443 00000049 58                            pop       rax
+   444 0000004A 59                            pop       rcx
+   445 0000004B E2EA                          loop      .repeat
+   446 0000004D C60425[00000000]0A            mov       BYTE[buffer],0x0A
+   447 00000055 E802000000                    call      printBuffer
+   448 0000005A 58                            pop       rax
+   449 0000005B C3                            ret
+   450                                  
+   451                                  printBuffer:
+   452 0000005C B801000000                    mov       rax, SYS_WRITE
+   453 00000061 BF01000000                    mov       rdi, STDOUT
+   454 00000066 48BE-                         mov       rsi, buffer
+   455 00000068 [0000000000000000] 
+   456 00000070 BA01000000                    mov       rdx, 1
+   457 00000075 0F05                          syscall
+   458 00000077 802425[00000000]00            and       BYTE[buffer],0          ; clear buffer
+   459 0000007F C3                            ret

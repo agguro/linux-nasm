@@ -1,0 +1,39 @@
+/**
+ * Log message severity -- Emergency: system is unusable.
+ */
+define('WATCHDOG_EMERGENCY', 0);
+
+/**
+ * Log message severity -- Alert: action must be taken immediately.
+ */
+define('WATCHDOG_ALERT', 1);
+
+/**
+ * Log message severity -- Critical conditions.
+ */
+define('WATCHDOG_CRITICAL', 2);
+
+/**
+ * Log message severity -- Error conditions.
+ */
+define('WATCHDOG_ERROR', 3);
+
+/**
+ * Log message severity -- Warning conditions.
+ */
+define('WATCHDOG_WARNING', 4);
+
+/**
+ * Log message severity -- Normal but significant conditions.
+ */
+define('WATCHDOG_NOTICE', 5);
+
+/**
+ * Log message severity -- Informational messages.
+ */
+define('WATCHDOG_INFO', 6);
+
+/**
+ * Log message severity -- Debug-level messages.
+ */
+define('WATCHDOG_DEBUG', 7);

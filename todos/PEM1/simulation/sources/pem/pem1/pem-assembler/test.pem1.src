@@ -1,0 +1,23 @@
+# PEM 1 test source
+
+R0 LDA 8			# remark LDA R8
+R1 ADD 9			# remark
+R2 SUB 1			# remark
+R3 OUT
+R4 HLT
+RA SUB 9			#
+RB .DB 9
+RC .DB DB
+
+R0 LDA 8			# remark LDA R8
+R1 ADD 9			# remark
+R2 SUB 1			# remark
+R3 OUT
+R4 HLT
+RA SUB 9			#
+RB .DB 9
+RC .DB db
+Rd .DB Da
+
+# remark
+

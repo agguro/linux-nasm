@@ -1,0 +1,234 @@
+; DATABUS Class
+; Defines an array of 8 logical bits presented as a databus of 8 bits
+; Although not really needed and in fact it must be private, the individual bit values are accessable.
+; The user have to keep in mind when using this form of addressing no events wil be triggered what so ever.
+; The benefit is that we can initialize a databus before any event will be triggered but also this can be avoid
+; when first initialising and then assigning the procedures to the event properties.
+; Calling:
+;   section .data
+;       DATABUS [databusname]
+;
+; Methods
+; [databusname].bit[nr].Set         ; sets the corresponding bit in the databus
+; [databusname].bit[nr].Reset       ; resets the corresponding bit in the databus
+; [databusname].bit[nr].Invert      ; inverts the corresponding bit in the databus
+; [databusname].bit[nr].Get         ; gets the corresponding bit value in the databus in DL
+; [databusname].bit[nr].Load        ; loads the value of DL in the corresponding bit in the databus
+;
+; Events
+; [databusname].bit[nr].OnSet       ; is triggered when the corresponding bit is set
+; [databusname].bit[nr].OnReset     ; is triggered when the corresponding bit is reset
+; [databusname].bit[nr].OnChanged   ; is triggered when the corresponding bit has changed value
+;
+; Properties
+; [databusname].ptr                 ; pointer to the databus in memory
+; [databusname].bit[nr].ptr         ; pointer to the corresponding bit in the databus memory space
+; [databusname].bit[nr].value       ; value of the corresponding bit in the databus
+
+
+%ifndef _ASM_DATABUS_CLASS_
+%define _ASM_DATABUS_CLASS_
+
+    %include "../classes/bit.class"
+
+    STRUC DATABUS_STRUC
+    .bit0:        resq    1   ; LSB
+    .bit1:        resq    1   ;
+    .bit2:        resq    1   ;
+    .bit3:        resq    1   ;
+    .bit4:        resq    1   ;
+    .bit5:        resq    1   ;
+    .bit6:        resq    1   ;
+    .bit7:        resq    1   ; MSB
+    ENDSTRUC
+
+    %macro DATABUS 1
+
+    %ifndef DATABUSMACROS
+    %define DATABUSMACROS
+       
+        %macro DATABUSBITSET 1
+            mov     rax, %1
+            mov     rax, [rax]
+            add     rax, BIT_STRUC.Set
+            call    [rax]
+        %endmacro
+        
+        %macro DATABUSBITRESET 1
+            mov     rax, %1
+            mov     rax, [rax]
+            add     rax, BIT_STRUC.Reset
+            call    QWORD [rax]
+        %endmacro
+
+        %macro DATABUSBITINVERT 1
+            mov     rax, %1
+            mov     rax, [rax]
+            add     rax, BIT_STRUC.Invert
+            call    QWORD [rax]
+        %endmacro
+
+        %macro DATABUSBITGET 1
+            mov     rax, %1
+            mov     rax, [rax]
+            add     rax, BIT_STRUC.Get
+            call    QWORD [rax]
+        %endmacro
+        
+        %macro DATABUSBITLOAD 1
+            mov     rax, %1
+            mov     rax, [rax]
+            add     rax, BIT_STRUC.Load
+            call    QWORD [rax]
+        %endmacro
+        
+        %macro  DATABUSBITONCHANGED 1
+            mov     rax, %1
+            mov     rax, [rax]
+            add     rax, BIT_STRUC.OnChanged
+            mov     [rax], rdx
+        %endmacro
+        
+        %macro  DATABUSBITONSET 1
+            mov     rax, %1
+            mov     rax, [rax]
+            add     rax, BIT_STRUC.Set
+            mov     [rax], rdx
+        %endmacro
+
+        %macro  DATABUSBITONRESET 1
+            mov     rax, %1
+            mov     rax, [rax]
+            add     rax, BIT_STRUC.OnReset
+            mov     [rax], rdx
+        %endmacro
+
+    %endif
+        
+        %define %1.ptr     %1+DATABUS_STRUC
+        
+        %define %1.bit0    %1+DATABUS_STRUC.bit0
+        %define %1.bit1    %1+DATABUS_STRUC.bit1
+        %define %1.bit2    %1+DATABUS_STRUC.bit2
+        %define %1.bit3    %1+DATABUS_STRUC.bit3
+        %define %1.bit4    %1+DATABUS_STRUC.bit4
+        %define %1.bit5    %1+DATABUS_STRUC.bit5
+        %define %1.bit6    %1+DATABUS_STRUC.bit6
+        %define %1.bit7    %1+DATABUS_STRUC.bit7
+        
+        %define %1.bit0.ptr    QWORD [%1+DATABUS_STRUC.bit0]
+        %define %1.bit1.ptr    QWORD [%1+DATABUS_STRUC.bit1]
+        %define %1.bit2.ptr    QWORD [%1+DATABUS_STRUC.bit2]
+        %define %1.bit3.ptr    QWORD [%1+DATABUS_STRUC.bit3]
+        %define %1.bit4.ptr    QWORD [%1+DATABUS_STRUC.bit4]
+        %define %1.bit5.ptr    QWORD [%1+DATABUS_STRUC.bit5]
+        %define %1.bit6.ptr    QWORD [%1+DATABUS_STRUC.bit6]
+        %define %1.bit7.ptr    QWORD [%1+DATABUS_STRUC.bit7]
+        
+        %define %1.bit0.value   BYTE [%1.BIT0]
+        %define %1.bit1.value   BYTE [%1.BIT1]
+        %define %1.bit2.value   BYTE [%1.BIT2]
+        %define %1.bit3.value   BYTE [%1.BIT3]
+        %define %1.bit4.value   BYTE [%1.BIT4]
+        %define %1.bit5.value   BYTE [%1.BIT5]
+        %define %1.bit6.value   BYTE [%1.BIT6]
+        %define %1.bit7.value   BYTE [%1.BIT7]
+        
+        %define %1.bit0.Set     DATABUSBITSET %1.bit0
+        %define %1.bit1.Set     DATABUSBITSET %1.bit1
+        %define %1.bit2.Set     DATABUSBITSET %1.bit2
+        %define %1.bit3.Set     DATABUSBITSET %1.bit3
+        %define %1.bit4.Set     DATABUSBITSET %1.bit4
+        %define %1.bit5.Set     DATABUSBITSET %1.bit5
+        %define %1.bit6.Set     DATABUSBITSET %1.bit6
+        %define %1.bit7.Set     DATABUSBITSET %1.bit7
+        
+        %define %1.bit0.Reset     DATABUSBITRESET %1.bit0
+        %define %1.bit1.Reset     DATABUSBITRESET %1.bit1
+        %define %1.bit2.Reset     DATABUSBITRESET %1.bit2
+        %define %1.bit3.Reset     DATABUSBITRESET %1.bit3
+        %define %1.bit4.Reset     DATABUSBITRESET %1.bit4
+        %define %1.bit5.Reset     DATABUSBITRESET %1.bit5
+        %define %1.bit6.Reset     DATABUSBITRESET %1.bit6
+        %define %1.bit7.Reset     DATABUSBITRESET %1.bit7
+        
+        %define %1.bit0.Invert     DATABUSBITINVERT %1.bit0
+        %define %1.bit1.Invert     DATABUSBITINVERT %1.bit1
+        %define %1.bit2.Invert     DATABUSBITINVERT %1.bit2
+        %define %1.bit3.Invert     DATABUSBITINVERT %1.bit3
+        %define %1.bit4.Invert     DATABUSBITINVERT %1.bit4
+        %define %1.bit5.Invert     DATABUSBITINVERT %1.bit5
+        %define %1.bit6.Invert     DATABUSBITINVERT %1.bit6
+        %define %1.bit7.Invert     DATABUSBITINVERT %1.bit7
+        
+        %define %1.bit0.Get     DATABUSBITGET %1.bit0
+        %define %1.bit1.Get     DATABUSBITGET %1.bit1
+        %define %1.bit2.Get     DATABUSBITGET %1.bit2
+        %define %1.bit3.Get     DATABUSBITGET %1.bit3
+        %define %1.bit4.Get     DATABUSBITGET %1.bit4
+        %define %1.bit5.Get     DATABUSBITGET %1.bit5
+        %define %1.bit6.Get     DATABUSBITGET %1.bit6
+        %define %1.bit7.Get     DATABUSBITGET %1.bit7
+        
+        %define %1.bit0.Load     DATABUSBITLOAD %1.bit0
+        %define %1.bit1.Load     DATABUSBITLOAD %1.bit1
+        %define %1.bit2.Load     DATABUSBITLOAD %1.bit2
+        %define %1.bit3.Load     DATABUSBITLOAD %1.bit3
+        %define %1.bit4.Load     DATABUSBITLOAD %1.bit4
+        %define %1.bit5.Load     DATABUSBITLOAD %1.bit5
+        %define %1.bit6.Load     DATABUSBITLOAD %1.bit6
+        %define %1.bit7.Load     DATABUSBITLOAD %1.bit7
+        
+        %define %1.bit0.OnChanged     DATABUSBITONCHANGED %1.bit0
+        %define %1.bit1.OnChanged     DATABUSBITONCHANGED %1.bit1
+        %define %1.bit2.OnChanged     DATABUSBITONCHANGED %1.bit2
+        %define %1.bit3.OnChanged     DATABUSBITONCHANGED %1.bit3
+        %define %1.bit4.OnChanged     DATABUSBITONCHANGED %1.bit4
+        %define %1.bit5.OnChanged     DATABUSBITONCHANGED %1.bit5
+        %define %1.bit6.OnChanged     DATABUSBITONCHANGED %1.bit6
+        %define %1.bit7.OnChanged     DATABUSBITONCHANGED %1.bit7
+
+        %define %1.bit0.OnSet     DATABUSBITONSET %1.bit0
+        %define %1.bit1.OnSet     DATABUSBITONSET %1.bit1
+        %define %1.bit2.OnSet     DATABUSBITONSET %1.bit2
+        %define %1.bit3.OnSet     DATABUSBITONSET %1.bit3
+        %define %1.bit4.OnSet     DATABUSBITONSET %1.bit4
+        %define %1.bit5.OnSet     DATABUSBITONSET %1.bit5
+        %define %1.bit6.OnSet     DATABUSBITONSET %1.bit6
+        %define %1.bit7.OnSet     DATABUSBITONSET %1.bit7
+
+        %define %1.bit0.OnReset     DATABUSBITONRESET %1.bit0
+        %define %1.bit1.OnReset     DATABUSBITONRESET %1.bit1
+        %define %1.bit2.OnReset     DATABUSBITONRESET %1.bit2
+        %define %1.bit3.OnReset     DATABUSBITONRESET %1.bit3
+        %define %1.bit4.OnReset     DATABUSBITONRESET %1.bit4
+        %define %1.bit5.OnReset     DATABUSBITONRESET %1.bit5
+        %define %1.bit6.OnReset     DATABUSBITONRESET %1.bit6
+        %define %1.bit7.OnReset     DATABUSBITONRESET %1.bit7
+
+        [section .data]
+        
+        %1: ISTRUC DATABUS_STRUC
+                at  DATABUS_STRUC.bit0,     dq .BIT0
+                at  DATABUS_STRUC.bit1,     dq .BIT1
+                at  DATABUS_STRUC.bit2,     dq .BIT2
+                at  DATABUS_STRUC.bit3,     dq .BIT3
+                at  DATABUS_STRUC.bit4,     dq .BIT4
+                at  DATABUS_STRUC.bit5,     dq .BIT5
+                at  DATABUS_STRUC.bit6,     dq .BIT6
+                at  DATABUS_STRUC.bit7,     dq .BIT7
+            IEND
+            
+        ; the first BIT is the datatype structure, the second with numbering the name of the memoryaddress
+        BIT .BIT0
+        BIT .BIT1
+        BIT .BIT2
+        BIT .BIT3
+        BIT .BIT4
+        BIT .BIT5
+        BIT .BIT6
+        BIT .BIT7
+        
+    %endmacro
+
+%endif
