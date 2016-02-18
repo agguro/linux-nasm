@@ -15,6 +15,14 @@
   %define CPUID_VENDOR_SIS          "SiS SiS SiS "
   %define CPUID_VENDOR_NSC          "Geode by NSC"
   %define CPUID_VENDOR_RISE         "RiseRiseRise"
+  %define CPUID_VENDOR_VIA		   "VIA VIA VIA "
+  %define CPUID_VENDOR_VORTEX	   "Vortex86 SoC"
+; Virtual machines
+  %define CPUID_VENDOR_KVM          "KVMKVMKVM"
+  %define CPUID_VENDOR_MS_HYPERV	    "Microsoft Hv"
+  %define CPUID_VENDOR_PARALLELS     " lrpepyh vr"
+  %define CPUID_VENDOR_VMWARE        "VMwareVMware"
+  %define CPUID_VENDOR_XENHVM        ""XenVMMXenVMM"
 
   %define CPUID_FEAT_ECX_SSE3        1 << 0 
   %define CPUID_FEAT_ECX_PCLMUL      1 << 1
