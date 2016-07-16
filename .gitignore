@@ -1,3 +1,7 @@
+# database configuration files
+
+database.conf
+
 # C++ objects and libs
 
 *.slo
