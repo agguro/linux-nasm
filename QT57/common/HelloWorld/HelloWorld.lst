@@ -1,0 +1,29 @@
+     1                                  ; Name:         helloworld.asm
+     2                                  ; Build:        see makefile
+     3                                  ; Run:          ./helloworld
+     4                                  ; Description:  Writes 'Hello world!" to STDOUT
+     5                                  ;
+     6                                  ; build: nasm "-felf64" hello.asm -l hello.lst -o hello.o
+     7                                  ;        ld -s -melf_x86_64 -o hello hello.o 
+     8                                  ;
+     9                                  ; definitly not the shortest code but it's a _start
+    10                                  
+   765                                  [list -]
+   766                                  
+   767                                  BITS 64
+   768                                  
+   769                                  section .data
+   770                                  
+   771 00000000 48656C6C6F20776F72-          message:   db "Hello world!",10
+   772 00000009 6C64210A           
+   773                                       .length:	equ $-message
+   774                                          
+   775                                  section .text
+   776                                       global _start
+   777                                  _start:
+   778 00000000 BA0D00000048BE-             syscall write,STDOUT,message,message.length
+   779 00000007 [0000000000000000]-
+   780 0000000F BF01000000B8010000-
+   781 00000018 000F05             
+   782 0000001B 4831FFB83C0000000F-         syscall exit, 0
+   783 00000024 05                 
