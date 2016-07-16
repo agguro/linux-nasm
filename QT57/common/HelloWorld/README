@@ -1,0 +1,3 @@
+In this directory Qt 5.7 is used as IDE to build assembly programs.
+All examples will be ported to here, at least I will get rid of the
+texteditors and continiously switchingg to the terminal. :)
