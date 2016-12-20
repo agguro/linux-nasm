@@ -6,7 +6,7 @@
 ; Description:  static library (archivefile) demonstration
 
 [list -]
-     %include "unistd.inc"
+    %include "unistd.inc"
 [list +]     
 
 bits 64
@@ -18,11 +18,9 @@ global  Exit
 section .text
 
 WriteString:
-        mov     rdi, STDOUT
-        mov     rax, SYS_WRITE
-        syscall
-        ret
+    ; string and length is already in RSI, RDX
+    syscall write, stdout, rsi, rdx
+    ret
         
 Exit:
-        mov     rax, SYS_EXIT
-        syscall
+    syscall exit, 0
