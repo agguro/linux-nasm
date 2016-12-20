@@ -1,14 +1,20 @@
-; Name:     hello
-; Build:    see makefile
-; Run:      ./hello
-; Description: Writes 'Hello world!" to STDOUT with the use of a shared library
+; Name:         hello
+; Build:        nasm -felf64 -o hello.o hello.asm -l hello.lst
+;               nasm -felf64 -o libhello.o libhello.asm -l libhello.lst
+;               ld -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 -shared -soname libhello.so -o libhello.so.1.0 libhello.o
+;               ld -s -melf_x86_64 hello.o -o hello -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 "libhello.so" -R .
+;               ---
+;               or use the makefile
+;
+; Run:          ./hello
+; Description:  Writes 'Hello world!" to STDOUT with the use of a shared library
 
 [list -]
      %include "unistd.inc"
      %include "libhello.def"
 [list +]
 
-BITS 64
+bits 64
 align 16
 
 section .data
@@ -24,6 +30,7 @@ section .data
         
 section .text
      global _start
+     
 _start:
 
      ; write the programs message
@@ -33,22 +40,20 @@ _start:
 
      ; write the string from library directly
      mov       rsi, hellostring wrt ..sym
-     mov       rdx, QWORD[hellostring.length wrt ..sym]
+     mov       rdx, qword[hellostring.length wrt ..sym]
      call      WriteExternalString
 
      ; get the string and his length and write to stdout
      call      GetString
-     mov       rdi, STDOUT
-     mov       rax, SYS_WRITE
-     syscall
+     syscall    write, stdout, rsi, rdx
      
      ; write library string
      call      WriteInternalString
 
      ; overwrite library string pointer and length
      mov       rax, messageagain
-     mov       QWORD[hellostring.pointer wrt ..sym], rax
-     mov       QWORD[hellostring.length wrt ..sym], messageagain.length
+     mov       qword[hellostring.pointer wrt ..sym], rax
+     mov       qword[hellostring.length wrt ..sym], messageagain.length
      
      ; and recall libary WriteInternalString
      call      WriteInternalString
@@ -76,6 +81,4 @@ _start:
      
      call      WriteInternalString
      
-     xor       rdi, rdi
-     mov       rax, SYS_EXIT
-     syscall
+     syscall exit, 0

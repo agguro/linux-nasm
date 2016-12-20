@@ -1,0 +1,238 @@
+     1                                  ; Name:         libhello
+     2                                  ; Build:        see makefile
+     3                                  ; Description:	A "simple" shared library to use with hello.asm
+     4                                  ;
+     5                                  ; My conclusion is that there is no such thing as an easy way to create shared libraries.
+     6                                  ; At least not when you are a true beginner.
+     7                                  ; Looking at the programcode you will understand why dynamic libraries aren't a good option to improve speed.
+     8                                  ; My general rule is: don't make shared libraries unless it is really needed.
+     9                                  ;
+    10                                  ; Also it is wise to keep the ABI in consideration when you want to use shared libraries in your C (C++) programs.
+    11                                  ; This is NOT being done in this example.
+    12                                  
+    13                                  bits 64
+    14                                  
+   769                                  [list -]
+   770          ******************       warning: using 64 bits syscalls
+   771                                  
+   772                                  align 16
+   773                                  
+   774                                  extern  _GLOBAL_OFFSET_TABLE_
+   775                                  
+   776                                  ; five macros to make life a bit easier
+   777                                  ; each global function/method/routine (whatever you call it) must start with the PROLOGUE
+   778                                  %macro PROLOGUE 0
+   779                                      push      rbp 
+   780                                      mov       rbp,rsp 
+   781                                      push      rbx 
+   782                                      call      .get_GOT 
+   783                                  .get_GOT: 
+   784                                      pop       rbx 
+   785                                      add       rbx,_GLOBAL_OFFSET_TABLE_+$$-.get_GOT wrt ..gotpc 
+   786                                  %endmacro
+   787                                  
+   788                                  ; each global function/method/routine (whatever you call it) must end with the EPILOGUE
+   789                                  %macro EPILOGUE 0
+   790                                      mov       rbx,[rbp-8] 
+   791                                      mov       rsp,rbp 
+   792                                      pop       rbp 
+   793                                      ret
+   794                                  %endmacro
+   795                                  
+   796                                  ; macro to initiate and export the global procedure while defining it as a PROCEDURE, so we don't forget to export it
+   797                                  %macro PROCEDURE 1
+   798                                      global    %1:function
+   799                                      %1:
+   800                                          PROLOGUE
+   801                                  %endmacro
+   802                                  
+   803                                  ; macro to end the procedure
+   804                                  %macro ENDP 1
+   805                                          EPILOGUE
+   806                                  %endmacro    
+   807                                  
+   808                                  ; self defined macro to declare global data and export it the same time
+   809                                  %macro GLOBALDATA 3
+   810                                      global    %1:data (%1.end - %1)
+   811                                      section   .data
+   812                                      %1:	%2	%3
+   813                                      %1.end:
+   814                                  %endmacro
+   815                                  
+   816                                  ; data section
+   817                                  
+   818                                      GLOBALDATA	 hellostring,db,{"hello from the library...", 10}
+   819                              <1>  global %1:data (%1.end - %1)
+   820                              <1>  section .data
+   821 00000000 68656C6C6F2066726F- <1>  %1: %2 %3
+   822 00000009 6D20746865206C6962- <1>
+   823 00000012 726172792E2E2E0A    <1>
+   824                              <1>  %1.end:
+   825                                      GLOBALDATA   hellostring.length,dq,hellostring.end-hellostring
+   826                              <1>  global %1:data (%1.end - %1)
+   827                              <1>  section .data
+   828 0000001A 1A00000000000000    <1>  %1: %2 %3
+   829                              <1>  %1.end:
+   830                                      GLOBALDATA	 hellostring.pointer,dq,hellostring
+   831                              <1>  global %1:data (%1.end - %1)
+   832                              <1>  section .data
+   833 00000022 [0000000000000000]  <1>  %1: %2 %3
+   834                              <1>  %1.end:
+   835                                  
+   836                                  ; code section
+   837                                  
+   838                                  section .text
+   839                                  
+   840                                  _start:
+   841                                  
+   842                                  PROCEDURE WriteInternalString
+   843                              <1>  global %1:function
+   844                              <1>  %1:
+   845                              <1>  PROLOGUE
+   846 00000000 55                  <2>  push rbp
+   847 00000001 4889E5              <2>  mov rbp,rsp
+   848 00000004 53                  <2>  push rbx
+   849 00000005 E800000000          <2>  call .get_GOT
+   850                              <2> .get_GOT:
+   851 0000000A 5B                  <2>  pop rbx
+   852 0000000B 4881C3[F6FFFFFF]    <2>  add rbx,_GLOBAL_OFFSET_TABLE_+$$-.get_GOT wrt ..gotpc
+   853                                  
+   854 00000012 E83C000000                  call     GetString
+   855                                      ; offset and length of message already in rsi, rdx
+   856 00000017 BF01000000B8010000-         syscall write, stdout, rsi, rdx
+   857 00000020 000F05             
+   858                                      
+   859                                  ENDP WriteInternalString
+   860                              <1>  EPILOGUE
+   861 00000023 488B5DF8            <2>  mov rbx,[rbp-8]
+   862 00000027 4889EC              <2>  mov rsp,rbp
+   863 0000002A 5D                  <2>  pop rbp
+   864 0000002B C3                  <2>  ret
+   865                                  
+   866                                  ; this procedure has RSI, RDX set to the string and his length we want to print
+   867                                  PROCEDURE WriteExternalString
+   868                              <1>  global %1:function
+   869                              <1>  %1:
+   870                              <1>  PROLOGUE
+   871 0000002C 55                  <2>  push rbp
+   872 0000002D 4889E5              <2>  mov rbp,rsp
+   873 00000030 53                  <2>  push rbx
+   874 00000031 E800000000          <2>  call .get_GOT
+   875                              <2> .get_GOT:
+   876 00000036 5B                  <2>  pop rbx
+   877 00000037 4881C3[CAFFFFFF]    <2>  add rbx,_GLOBAL_OFFSET_TABLE_+$$-.get_GOT wrt ..gotpc
+   878                                      
+   879                                      ; offset and length of message already in rsi, rdx
+   880 0000003E BF01000000B8010000-         syscall write, stdout, rsi, rdx
+   881 00000047 000F05             
+   882                                      
+   883                                  ENDP WriteExternalString
+   884                              <1>  EPILOGUE
+   885 0000004A 488B5DF8            <2>  mov rbx,[rbp-8]
+   886 0000004E 4889EC              <2>  mov rsp,rbp
+   887 00000051 5D                  <2>  pop rbp
+   888 00000052 C3                  <2>  ret
+   889                                  
+   890                                  
+   891                                  ; get the pointer to the libary string and his length
+   892                                  PROCEDURE GetString
+   893                              <1>  global %1:function
+   894                              <1>  %1:
+   895                              <1>  PROLOGUE
+   896 00000053 55                  <2>  push rbp
+   897 00000054 4889E5              <2>  mov rbp,rsp
+   898 00000057 53                  <2>  push rbx
+   899 00000058 E800000000          <2>  call .get_GOT
+   900                              <2> .get_GOT:
+   901 0000005D 5B                  <2>  pop rbx
+   902 0000005E 4881C3[A3FFFFFF]    <2>  add rbx,_GLOBAL_OFFSET_TABLE_+$$-.get_GOT wrt ..gotpc
+   903                                  
+   904 00000065 E815000000                  call    GetStringPointer
+   905 0000006A 4889F0                      mov     rax, rsi                 ; move pointer to stringpointer in RAX
+   906 0000006D 488B30                      mov     rsi, [rax]               ; move stringpointer in RSI
+   907 00000070 4889D0                      mov 	rax, rdx
+   908 00000073 488B10                      mov 	rdx, [rax]
+   909                                        
+   910                                  ENDP GetString
+   911                              <1>  EPILOGUE
+   912 00000076 488B5DF8            <2>  mov rbx,[rbp-8]
+   913 0000007A 4889EC              <2>  mov rsp,rbp
+   914 0000007D 5D                  <2>  pop rbp
+   915 0000007E C3                  <2>  ret
+   916                                  
+   917                                  
+   918                                  ; set pointer to string and length of string
+   919                                  PROCEDURE GetStringPointer
+   920                              <1>  global %1:function
+   921                              <1>  %1:
+   922                              <1>  PROLOGUE
+   923 0000007F 55                  <2>  push rbp
+   924 00000080 4889E5              <2>  mov rbp,rsp
+   925 00000083 53                  <2>  push rbx
+   926 00000084 E800000000          <2>  call .get_GOT
+   927                              <2> .get_GOT:
+   928 00000089 5B                  <2>  pop rbx
+   929 0000008A 4881C3[77FFFFFF]    <2>  add rbx,_GLOBAL_OFFSET_TABLE_+$$-.get_GOT wrt ..gotpc
+   930                                  
+   931 00000091 488BB3[22000000]            mov 	rsi, qword [rbx + hellostring.pointer wrt ..got]
+   932 00000098 488B93[1A000000]            mov 	rdx, qword [rbx + hellostring.length wrt ..got]
+   933                                      
+   934                                  ENDP GetStringPointer
+   935                              <1>  EPILOGUE
+   936 0000009F 488B5DF8            <2>  mov rbx,[rbp-8]
+   937 000000A3 4889EC              <2>  mov rsp,rbp
+   938 000000A6 5D                  <2>  pop rbp
+   939 000000A7 C3                  <2>  ret
+   940                                  
+   941                                  
+   942                                  ; set pointer to string and length of string
+   943                                  PROCEDURE SetStringPointer
+   944                              <1>  global %1:function
+   945                              <1>  %1:
+   946                              <1>  PROLOGUE
+   947 000000A8 55                  <2>  push rbp
+   948 000000A9 4889E5              <2>  mov rbp,rsp
+   949 000000AC 53                  <2>  push rbx
+   950 000000AD E800000000          <2>  call .get_GOT
+   951                              <2> .get_GOT:
+   952 000000B2 5B                  <2>  pop rbx
+   953 000000B3 4881C3[4EFFFFFF]    <2>  add rbx,_GLOBAL_OFFSET_TABLE_+$$-.get_GOT wrt ..gotpc
+   954                                  
+   955 000000BA 4889B3[22000000]            mov 	qword [rbx + hellostring.pointer wrt ..got], rsi
+   956 000000C1 488993[1A000000]            mov 	qword [rbx + hellostring.length wrt ..got], rdx
+   957                                      
+   958                                  ENDP SetStringPointer
+   959                              <1>  EPILOGUE
+   960 000000C8 488B5DF8            <2>  mov rbx,[rbp-8]
+   961 000000CC 4889EC              <2>  mov rsp,rbp
+   962 000000CF 5D                  <2>  pop rbp
+   963 000000D0 C3                  <2>  ret
+   964                                  
+   965                                  
+   966                                  ; next code is NOT the same as in SetStringPointer.
+   967                                  ; Here we modify the stringpointer directly by obtaining the address to it in RAX and put the stringpointer in that location.
+   968                                  ; example of indirect addressing
+   969                                  PROCEDURE SetString
+   970                              <1>  global %1:function
+   971                              <1>  %1:
+   972                              <1>  PROLOGUE
+   973 000000D1 55                  <2>  push rbp
+   974 000000D2 4889E5              <2>  mov rbp,rsp
+   975 000000D5 53                  <2>  push rbx
+   976 000000D6 E800000000          <2>  call .get_GOT
+   977                              <2> .get_GOT:
+   978 000000DB 5B                  <2>  pop rbx
+   979 000000DC 4881C3[25FFFFFF]    <2>  add rbx,_GLOBAL_OFFSET_TABLE_+$$-.get_GOT wrt ..gotpc
+   980                                  
+   981 000000E3 488B83[22000000]            mov     rax, qword [rbx + hellostring.pointer wrt ..got]
+   982 000000EA 488930                      mov 	[rax], rsi
+   983                                  ; same as for the lengtgh of the string      
+   984 000000ED 488B83[1A000000]            mov 	rax, qword [rbx + hellostring.length wrt ..got]
+   985 000000F4 488910                      mov 	[rax], rdx
+   986                                      
+   987                                  ENDP SetString
+   988                              <1>  EPILOGUE
+   989 000000F7 488B5DF8            <2>  mov rbx,[rbp-8]
+   990 000000FB 4889EC              <2>  mov rsp,rbp
+   991 000000FE 5D                  <2>  pop rbp
+   992 000000FF C3                  <2>  ret

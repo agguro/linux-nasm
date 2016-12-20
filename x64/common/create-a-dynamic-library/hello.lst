@@ -1,0 +1,97 @@
+     1                                  ; Name:         hello
+     2                                  ; Build:        nasm -felf64 -o hello.o hello.asm -l hello.lst
+     3                                  ;               nasm -felf64 -o libhello.o libhello.asm -l libhello.lst
+     4                                  ;               ld -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 -shared -soname libhello.so -o libhello.so.1.0 libhello.o
+     5                                  ;               ld -s -melf_x86_64 hello.o -o hello -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 "libhello.so" -R .
+     6                                  ;               ---
+     7                                  ;               or use the makefile
+     8                                  ;
+     9                                  ; Run:          ./hello
+    10                                  ; Description:  Writes 'Hello world!" to STDOUT with the use of a shared library
+    11                                  
+   835                                  [list -]
+   836          ******************       warning: using 64 bits syscalls
+   837                                  
+   838                                  bits 64
+   839                                  align 16
+   840                                  
+   841                                  section .data
+   842                                  
+   843 00000000 68656C6C6F2066726F-          message:                  db   "hello from mainprogram!",10
+   844 00000009 6D206D61696E70726F-
+   845 00000012 6772616D210A       
+   846                                       .length:                  equ  $-message
+   847 00000018 68656C6C6F20616761-          messageagain:             db   "hello again from mainprogram!",10
+   848 00000021 696E2066726F6D206D-
+   849 0000002A 61696E70726F677261-
+   850 00000033 6D210A             
+   851                                       .length:                  equ  $-messageagain
+   852 00000036 656E642070726F6772-          messageend:               db   "end program", 10
+   853 0000003F 616D0A             
+   854                                       .length:                  equ  $-messageend
+   855 00000042 [3600000000000000]           addressmessageend:        dq   messageend
+   856 0000004A 0C00000000000000             .length:                  dq   messageend.length
+   857                                          
+   858                                  section .text
+   859                                       global _start
+   860                                       
+   861                                  _start:
+   862                                  
+   863                                       ; write the programs message
+   864 00000000 48BE-                        mov       rsi, message
+   865 00000002 [0000000000000000] 
+   866 0000000A BA18000000                   mov       rdx, message.length
+   867 0000000F E8(00000000)                 call      WriteExternalString
+   868                                  
+   869                                       ; write the string from library directly
+   870 00000014 48BE-                        mov       rsi, hellostring wrt ..sym
+   871 00000016 [0000000000000000] 
+   872 0000001E 488B1425[00000000]           mov       rdx, qword[hellostring.length wrt ..sym]
+   873 00000026 E8(00000000)                 call      WriteExternalString
+   874                                  
+   875                                       ; get the string and his length and write to stdout
+   876 0000002B E8(00000000)                 call      GetString
+   877 00000030 BF01000000B8010000-          syscall    write, stdout, rsi, rdx
+   878 00000039 000F05             
+   879                                       
+   880                                       ; write library string
+   881 0000003C E8(00000000)                 call      WriteInternalString
+   882                                  
+   883                                       ; overwrite library string pointer and length
+   884 00000041 48B8-                        mov       rax, messageagain
+   885 00000043 [1800000000000000] 
+   886 0000004B 48890425[00000000]           mov       qword[hellostring.pointer wrt ..sym], rax
+   887 00000053 48C70425[00000000]-          mov       qword[hellostring.length wrt ..sym], messageagain.length
+   888 0000005B 1E000000           
+   889                                       
+   890                                       ; and recall libary WriteInternalString
+   891 0000005F E8(00000000)                 call      WriteInternalString
+   892                                  
+   893                                       ; overwrite library string again but with library function
+   894 00000064 48BE-                        mov       rsi, message
+   895 00000066 [0000000000000000] 
+   896 0000006E BA18000000                   mov       rdx, message.length
+   897 00000073 E8(00000000)                 call      SetString
+   898                                       
+   899                                       ; and recall library WriteInternalString again
+   900 00000078 E8(00000000)                 call      WriteInternalString
+   901                                  
+   902                                       ; get the string pointer and length in RSI, RDX, same as GetString
+   903 0000007D E8(00000000)                 call      GetStringPointer
+   904 00000082 4889F0                       mov       rax, rsi            ; load address to stringpointer in RAX
+   905 00000085 488B30                       mov       rsi, [rax]          ; load stringpointer in RSI
+   906 00000088 4889D0                       mov       rax, rdx            ; load address to stringlength in RAX
+   907 0000008B 488B10                       mov       rdx, [rax]          ; load stringlength in RDX
+   908                                       
+   909 0000008E E8(00000000)                 call      WriteExternalString
+   910                                       
+   911 00000093 48BE-                        mov       rsi, addressmessageend
+   912 00000095 [4200000000000000] 
+   913 0000009D 48BA-                        mov       rdx, addressmessageend.length
+   914 0000009F [4A00000000000000] 
+   915 000000A7 E8(00000000)                 call      SetStringPointer
+   916                                       
+   917 000000AC E8(00000000)                 call      WriteInternalString
+   918                                       
+   919 000000B1 4831FFB83C0000000F-          syscall exit, 0
+   920 000000BA 05                 
