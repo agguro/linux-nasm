@@ -80,7 +80,7 @@ ENDSTRUC
           semaem:        resq      1
      ENDSTRUC
 
-     %macro SEMINFO 1
+     %macro SEM_INFO 1
           %1: 
           ISTRUC SEMINFO_STRUC
                at   SEMINFO_STRUC.semmap,         dq   0
@@ -116,7 +116,7 @@ ENDSTRUC
           .sem_flg:      resq      1
      ENDSTRUC
 
-     %macro SEMBUF 1
+     %macro SEM_BUF 1
           %1:
           ISTRUC SEMBUF_STRUC
                at   SEMBUF_STRUC.sem_num,         dq   0
