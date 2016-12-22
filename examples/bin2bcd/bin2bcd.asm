@@ -1,11 +1,14 @@
-; bin2bcd.asm
+; Name:         bin2bcd.asm
+;
+; Build:        nasm "-felf64" bin2bcd.asm -l bin2bcd.lst -o bin2bcd.o
+;               ld -s -melf_x86_64 -o bin2bcd bin2bcd.o
 ;
 ; Description:  Convert binary to packed bcd
-; There is no output, so you have to run it in a debugger.
 ;
+; Remark:
 ; The procedure is three times optimized.
 ; Normally we should calculate the BDC number of x on all 64 bits.  Checking each nibble in the result
-; leads us to 64 bits * 16 nibbles = 1024 iterations.  It's ok for large numbers but for the lesserit's a
+; leads us to 64 bits * 16 nibbles = 1024 iterations.  It's ok for large numbers but for the lesser it's a
 ; bit too much.
 ;
 ; First optimization step:
@@ -22,7 +25,7 @@
 ; is needed.
 ;
 ; Source: nlz() Hacker's Delight - second edition (number of leading zeros
-; No output on screen, you need a debugger
+; This program must be run in a debugger (no output)
 
 bits 64
 align 16
@@ -33,16 +36,18 @@ align 16
 
 section .data
 
+    msg:       db  "This program must be viewed in a debugger.", 10
+    .length:   equ     $-msg
+     
 section .text
-     global _start
+        global _start
      
 _start:
 
     mov       rdi, 0x002386f26fc0ffff         ; should give 9999999999999999
     call      Bin2bcd
-    mov       rdi, 0
-    mov       rax, SYS_EXIT
-    syscall
+    syscall   write, stdout, msg, msg.length
+    syscall   exit, 0
 
 ;*********************************************************************************************************
 ; Bin2bcd       converts binary number in RDI to BCD in RAX

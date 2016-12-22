@@ -1,4 +1,7 @@
-; bcd2bin.asm
+; Name:         bcd2bin.asm
+;
+; Build:        nasm "-felf64" bcd2bin.asm -l bcd2bin.lst -o bcd2bin.o
+;               ld -s -melf_x86_64 -o bcd2bin bcd2bin.o 
 ;
 ; Description:  Convert "packed bcd" to "binary"
 ;
@@ -22,7 +25,7 @@
 ; The most obvious but often forgotten optimization is to check if a given number is lower than 10.  If so
 ; the result is already in RDI and we just copy RDI to RAX, which returns the result.
 ;
-; Source : nlz() : Hacker's Delight - seconbd edition (number of leading zeros.
+; Source : nlz() : Hacker's Delight - second edition (number of leading zeros.)
 ; This program must be run in a debugger (no output)
 
 bits 64
@@ -33,17 +36,19 @@ align 16
 [list +]
 
 section .data
-
+    
+     msg:       db  "This program must be viewed in a debugger.", 10
+     .length:   equ     $-msg
+     
 section .text
      global _start
+     
 _start:
-
     ; remember to store the decimal as hexadecimal number
     mov       rdi, 0x9999999999999999
     call      Bcd2bin
-    mov       rdi, 0
-    mov       rax, SYS_EXIT
-    syscall
+    syscall   write, stdout, msg, msg.length
+    syscall   exit, 0
 
 ;*********************************************************************************************************
 ; Bcd2bin:      convert number in RDI to BCD in RAX
@@ -52,7 +57,6 @@ _start:
 ; Used registers must be saved by caller
 ;*********************************************************************************************************
 Bcd2bin:
-    
     ; calculate of how many significant bits RDI exists
     ; check if RDI is less than 10, if so the quickest way to convert is doing nothing
     cmp       rdi, 9
