@@ -23,6 +23,7 @@ Changes from 1.0:
   24/07/2011: Version 1.4 from Lyle Putnam (lcputnam@gmail.com):
     The above change to fix the regex for hex numbers was incorrect on Kate
     3.6.2. Fixed.
+  23/02/2015; Added 64 bit registers, instructions and directives (admin@agguro.org)
 
   GNU GENERAL PUBLIC LICENCE
 
