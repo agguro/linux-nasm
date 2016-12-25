@@ -7,3 +7,6 @@ february 13, 2015
 added instructions
 added 64 bits registers
 added some nasm directives
+
+december 25, 2016
+Since Linux mint version 18 the home directory is changed to ~/.local/share/katepart5/syntax/
