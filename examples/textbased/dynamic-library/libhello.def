@@ -1,0 +1,14 @@
+; this file can be created with "nm -D libhello.so"
+
+; the lines here below can be obtained by "objdump -T libhello.so | grep "DF"
+extern GetStringPointer
+extern WriteExternalString
+extern GetString
+extern WriteInternalString
+extern SetString
+extern SetStringPointer
+
+; the lines here below can be obtained by "objdump -T libhello.so | grep "DO"
+extern hellostring
+extern hellostring.length
+extern hellostring.pointer
