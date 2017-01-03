@@ -1,1 +1,0 @@
-http://zetcode.com/tutorials/gtktutorial/
