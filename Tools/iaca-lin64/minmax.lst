@@ -1,0 +1,71 @@
+     1                                  ; Name:         minmax.asm
+     2                                  ;
+     3                                  ; Build:        nasm "-felf64" minmax.asm -l minmax.lst -o minmax.o
+     4                                  ;               ld -s -melf_x86_64 -o minmax minmax.o
+     5                                  ;
+     6                                  ; Description:  Determine the minimum and maximum from a list of integers (wordsize).
+     7                                  ;               If only one integer is given, that integer will be minimum and maximum.
+     8                                  
+     9                                  bits 64
+    10                                  
+   765                                  [list -]
+   766          ******************       warning: using 64 bits syscalls
+   767                                  
+   768                                  section .data
+   769                                  
+   770                                      ; the list
+   771 00000000 38002D00240043004C-         numlist:    dw 56, 45, 36, 67, 76, 22, 89, 12, 29, 83
+   772 00000009 00160059000C001D00-
+   773 00000012 5300               
+   774                                      ; the list length from which we will cacluate the number of integers in the list
+   775                                      .length:    equ $-numlist
+   776 00000014 0000                        min:        dw 0
+   777 00000016 0000                        max:        dw 0
+   778                                      
+   779                                  section .text
+   780                                       global _start
+   781                                  
+   782                                  _start:
+   783                                  
+   784 00000000 BB14000000                  mov       rbx, numlist.length      ; size in bytes of numbers
+   785 00000005 4821DB                      and       rbx, rbx                 ; is list empty?
+   786 00000008 745C                        jz        Exit                     ; nothing to do list is empty
+   787 0000000A 48D1EB                      shr       rbx, 1                   ; divided by two (2 bytes in one word) gives number of integers
+   788 0000000D 48BE-                       mov       rsi, numlist             ; start of integer list
+   789 0000000F [0000000000000000] 
+   790 00000017 FC                          cld                                ; D flag should be zero, make zero just to be sure
+   791 00000018 4889D9                      mov       rcx, rbx                 ; move number of integers in RCX (= loop counter)
+   792                                      
+   793 0000001B BB6F000000                   mov ebx, 111          ; Start marker bytes
+   794 00000020 646790                      db 0x64, 0x67, 0x90   ; Start marker bytes
+   795                                      
+   796                                  repeat:
+   797 00000023 66AD                        lodsw                              ; load word in ax
+   798 00000025 4839D9                      cmp       rcx, rbx                 ; is it first number in list?
+   799 00000028 7420                        je        firstMinMax              ; yes, min and max are both the same at this point
+   800 0000002A 663B0425[16000000]          cmp       ax, word [max]           ; not the first number in the list compare with maximum
+   801 00000032 7F1E                        jg        newMax                   ; if greater than current max then ax has new maximum (use jg for signed integers else use ja)
+   802 00000034 663B0425[14000000]          cmp       ax, word [min]           ; not greater, lower perhaps?
+   803 0000003C 7C1E                        jl        newMin                   ; yes, ax has new minimum (use jl for signed integers else use jb)
+   804                                  next:
+   805 0000003E E2E3                        loop      repeat                   ; if RCX isn't zero then there are more integers in the list, so repeat loop
+   806 00000040 BBDE000000                  mov ebx, 222          ; End marker bytes
+   807 00000045 646790                      db 0x64, 0x67, 0x90   ; End marker bytes
+   808                                      
+   809 00000048 EB1C                        jmp       Exit                     ; otherwise we exit the program, WORD[min] has minimum from list, WORD[max] has the maximum from the list
+   810                                  firstMinMax:
+   811 0000004A 66890425[14000000]          mov       word [min], ax           ; store first minimum
+   812                                  newMax:
+   813 00000052 66890425[16000000]          mov       word [max], ax           ; store (new or first) maximum
+   814 0000005A EBE2                        jmp       next                     ; check for next integer
+   815                                  newMin:
+   816 0000005C 66890425[14000000]          mov       word [min], ax           ; store new minimum
+   817 00000064 EBD8                        jmp       next                     ; check for next integer
+   818                                  
+   819                                  Exit:
+   820 00000066 668B0425[14000000]          mov       ax, word [min]           ; minimum in ax
+   821 0000006E 668B1C25[16000000]          mov       bx, word [max]           ; maximum in bx
+   822 00000076 4831FFB83C0000000F-         syscall   exit, 0
+   823 0000007F 05                 
+   824                                  
+   825                                      
