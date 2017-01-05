@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/agguro/Repository/Github/edb-debugger-0.9.21/edb-debugger-0.9.21/build/plugins/DebuggerCore/proc-pid-mem-write_automoc.cpp
+
+/home/agguro/Repository/Github/edb-debugger-0.9.21/edb-debugger-0.9.21/plugins/DebuggerCore/unix/linux/detect/proc-pid-mem-write.cpp
+cstddef
+-
+cstdio
+-
+cstdlib
+-
+cstring
+-
+ctime
+-
+fstream
+-
+iomanip
+-
+iostream
+-
+sstream
+-
+string
+-
+sys/ptrace.h
+-
+sys/types.h
+-
+sys/wait.h
+-
+unistd.h
+-
+fcntl.h
+-
+
