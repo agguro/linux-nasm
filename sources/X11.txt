@@ -1,3 +1,0 @@
-http://en.wikibooks.org/wiki/X_Window_Programming/XLib
-http://xwindow.angelfire.com/page1.html
-http://www.unix-manuals.com/tutorials/xlib/xlib.html
