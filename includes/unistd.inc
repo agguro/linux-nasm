@@ -5,7 +5,6 @@
    %warning "using 32 bits syscalls"
    %include "unistd32.inc"
 %elif __BITS__ == 64
-   %warning "using 64 bits syscalls"
    %include "unistd64.inc"
    %include "obsolete_syscalls.inc"          ; this file will be removed once all examples are updated
 %endif
