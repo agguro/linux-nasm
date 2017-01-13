@@ -54,21 +54,48 @@
 %define F_UNLCK          2
 
 ; for old implementation of bsd flock ()
-%define F_EXLCK          4    ;; or 3 */
-%define F_SHLCK          8    ;; or 4 */
+%define F_EXLCK          4    ; or 3
+%define F_SHLCK          8    ; or 4
 
 ; operations for bsd flock(), also used by the kernel implementation */
-%define LOCK_SH          1    ;; shared lock */
-%define LOCK_EX          2    ;; exclusive lock */
-%define LOCK_NB          4    ;; or'd with one of the above to prevent blocking */
-%define LOCK_UN          8    ;; remove lock */
+%define LOCK_SH           1    ; shared lock
+%define LOCK_EX           2    ; exclusive lock
+%define LOCK_NB           4    ; or'd with one of the above to prevent blocking
+%define LOCK_UN           8    ; remove lock 
 
-%define LOCK_MAND   32   ;; This is a mandatory flock ... */
-%define LOCK_READ   64   ;; which allows concurrent read operations */
-%define LOCK_WRITE  128  ;; which allows concurrent write operations */
-%define LOCK_RW          192  ;; which allows concurrent read & write ops */
+%define LOCK_MAND		 32			; This is a mandatory flock ... 
+%define LOCK_READ		 64			; which allows concurrent read operations 
+%define LOCK_WRITE		128			; which allows concurrent write operations
+%define LOCK_RW         192         ; which allows concurrent read & write ops
 
-%define F_LINUX_SPECIFIC_BASE 1024
+;/*
+; * Types of seals
+; */
+%define F_SEAL_SEAL	0x0001			; prevent further seals from being set
+%define F_SEAL_SHRINK	0x0002		; prevent file from shrinking
+%define F_SEAL_GROW	0x0004			; prevent file from growing
+%define F_SEAL_WRITE	0x0008		; prevent writes
+;/* (1U << 31) is reserved for signed error codes */
+
+;/*
+; * Types of directory notifications that may be requested.
+; */
+%define DN_ACCESS	0x00000001		; File accessed
+%define DN_MODIFY	0x00000002		; File modified
+%define DN_CREATE	0x00000004		; File created 
+%define DN_DELETE	0x00000008		; File removed 
+%define DN_RENAME	0x00000010		; File renamed 
+%define DN_ATTRIB	0x00000020		; File changed attibutes 
+%define DN_MULTISHOT	0x80000000	; Don't remove notifier 
+
+%define AT_FDCWD			-100    ; Special value used to indicate openat should use the current working directory.
+%define AT_SYMLINK_NOFOLLOW	0x100   ; Do not follow symbolic links.
+%define AT_REMOVEDIR		0x200   ; Remove directory instead ofunlinking file.
+%define AT_SYMLINK_FOLLOW	0x400   ; Follow symbolic links.
+%define AT_NO_AUTOMOUNT		0x800	; Suppress terminal automount traversal
+%define AT_EMPTY_PATH		0x1000	; Allow empty relative pathname
+
+
 
      STRUC FLOCK_STRUC
           .l_type:          resw 1
