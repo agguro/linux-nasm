@@ -308,6 +308,7 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>divps</item>
       <item>divsd</item>
       <item>divss</item>
+      <item>dpps</item>
       <item>emms</item>
       <item>enter</item>
       <item>f2xm1</item>
@@ -426,6 +427,7 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>ins</item>
       <item>insb</item>
       <item>insd</item>
+      <item>insertps</item>
       <item>insw</item>
       <item>int</item>
       <item>int1</item>
