@@ -614,6 +614,7 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>pdep</item>
       <item>pext</item>
       <item>pdistib</item>
+      <item>pextrb</item>
       <item>pextrw</item>
       <item>pf2id</item>
       <item>pf2iw</item>
@@ -634,6 +635,7 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>pfrsqrt</item>
       <item>pfsub</item>
       <item>pfsubr</item>
+      <item>phaddd</item>
       <item>pi2fd</item>
       <item>pi2fw</item>
       <item>pinsrw</item>
@@ -1000,6 +1002,7 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>vperm2f128</item>
       <item>vpgatherdq</item>
       <item>vphaddd</item>
+      <item>phaddw</item>
       <item>vphsubd</item>
       <item>vpmaxsw</item>
       <item>vpminsw</item>
