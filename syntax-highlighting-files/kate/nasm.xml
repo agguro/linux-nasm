@@ -190,6 +190,9 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>andps</item>
       <item>arpl</item>
       <item>bextr</item>
+      <item>blsi</item>
+      <item>blsmsk</item>
+      <item>blsr</item>
       <item>bound</item>
       <item>bsf</item>
       <item>bsr</item>
@@ -198,6 +201,7 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>btc</item>
       <item>btr</item>
       <item>bts</item>
+      <item>bzhi</item>
       <item>call</item>
       <item>cbw</item>
       <item>cdq</item>
@@ -607,6 +611,8 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>pcmpgtw</item>
       <item>pcmpistri</item>
       <item>pcmpistrm</item>
+      <item>pdep</item>
+      <item>pext</item>
       <item>pdistib</item>
       <item>pextrw</item>
       <item>pf2id</item>
@@ -729,6 +735,7 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>retn</item>
       <item>rol</item>
       <item>ror</item>
+      <item>roxr</item>
       <item>rsdc</item>
       <item>rsldt</item>
       <item>rsm</item>
@@ -841,8 +848,14 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>vandpd</item>
       <item>vandps</item>
       <item>vblendvps</item>
+      <item>vbroadcastb</item>
+      <item>vbroadcastw</item>
+      <item>vbroadcastd</item>
+      <item>vbroadcastq</item>
       <item>vbroadcastsd</item>
       <item>vbroadcastss</item>
+      <item>vbroadcastf128</item>
+      <item>vbroadcasti128</item>
       <item>vcmpeqpd</item>
       <item>vcmpeqsd</item>
       <item>vcmpgepd</item>
@@ -861,16 +874,89 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>vcmpunordsd</item>
       <item>vcomisd</item>
       <item>vcvtsi2sd</item>
+      <item>vcvtph2ps</item>
+      <item>vcvtps2ph</item>
       <item>vdivps</item>
       <item>vdivsd</item>
       <item>verr</item>
       <item>verw</item>
       <item>vextractf128</item>
       <item>vextracti128</item>
+      <item>vfmadd132pd</item>
+      <item>vfmadd132ps</item>
+      <item>vfmadd132sd</item>
+      <item>vfmadd132ss</item>
+      <item>vfmadd213pd</item>
+      <item>vfmadd213ps</item>
+      <item>vfmadd213sd</item>
+      <item>vfmadd213ss</item>
+      <item>vfmadd231pd</item>
+      <item>vfmadd231ps</item>
+      <item>vfmadd231sd</item>
       <item>vfmadd231ss</item>
+      <item>vfmsub132pd</item>
+      <item>vfmsub132ps</item>
+      <item>vfmsub132sd</item>
+      <item>vfmsub132ss</item>
+      <item>vfmsub213pd</item>
+      <item>vfmsub213ps</item>
+      <item>vfmsub213sd</item>
+      <item>vfmsub213ss</item>
+      <item>vfmsub231pd</item>
+      <item>vfmsub231ps</item>
+      <item>vfmsub231sd</item>
+      <item>vfmsub231ss</item>
+      <item>vfmaddsub132pd</item>
+      <item>vfmaddsub132ps</item>
+      <item>vfmaddsub213pd</item>
+      <item>vfmaddsub213ps</item>
+      <item>vfmaddsub231pd</item>
+      <item>vfmaddsub231ps</item>
+      <item>vfmsubadd132pd</item>
+      <item>vfmsubadd132ps</item>
+      <item>vfmsubadd213pd</item>
+      <item>vfmsubadd213ps</item>
+      <item>vfmsubadd231pd</item>
+      <item>vfmsubadd231ps</item>
+      <item>vfnmadd132pd</item>
+      <item>vfnmadd132ps</item>
+      <item>vfnmadd132sd</item>
+      <item>vfnmadd132ss</item>
+      <item>vfnmadd213pd</item>
+      <item>vfnmadd213ps</item>
+      <item>vfnmadd213sd</item>
+      <item>vfnmadd213ss</item>
+      <item>vfnmadd231pd</item>
+      <item>vfnmadd231ps</item>
+      <item>vfnmadd231sd</item>
+      <item>vfnmadd231ss</item>
+      <item>vfnmsub132pd</item>
+      <item>vfnmsub132ps</item>
+      <item>vfnmsub132sd</item>
+      <item>vfnmsub132ss</item>
+      <item>vfnmsub213pd</item>
+      <item>vfnmsub213ps</item>
+      <item>vfnmsub213sd</item>
+      <item>vfnmsub213ss</item>
+      <item>vfnmsub231pd</item>
+      <item>vfnmsub231ps</item>
+      <item>vfnmsub231sd</item>
+      <item>vfnmsub231ss</item>
+      <item>vgatherdpd</item>
+      <item>vgatherqpd</item>
       <item>vgatherdps</item>
+      <item>vgatherqps</item>
+      <item>vgatherdd</item>
+      <item>vgatherqd</item>
+      <item>vgatherdq</item>
+      <item>vgatherqq</item>
       <item>vhaddpd</item>
       <item>vhsubpd</item>
+      <item>vinserti128</item>
+      <item>vmaskmovps</item>
+      <item>vmaskmovpd</item>
+      <item>vmaskmovd</item>
+      <item>vmaskmovq</item>
       <item>vmaxpd</item>
       <item>vmaxsd</item>
       <item>vminpd</item>
@@ -898,14 +984,20 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>vpaddw</item>
       <item>vpand</item>
       <item>vpandn</item>
+      <item>vpblendd</item>
       <item>vpblendvb</item>
       <item>vpbroadcastb</item>
       <item>vpbroadcastd</item>
       <item>vpbroadcastq</item>
       <item>vpcmpgtb</item>
       <item>vpermd</item>
-      <item>vpermilps</item>
+      <item>vpermpd</item>
       <item>vpermps</item>
+      <item>vpermq</item>
+      <item>vperm2i128</item>
+      <item>vpermilpd</item>      
+      <item>vpermilps</item>
+      <item>vperm2f128</item>
       <item>vpgatherdq</item>
       <item>vphaddd</item>
       <item>vphsubd</item>
@@ -915,7 +1007,10 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>vpmulld</item>
       <item>vpor</item>
       <item>vpsllvd</item>
+      <item>vpsllvq</item>
       <item>vpsravd</item>
+      <item>vpsrlvd</item>
+      <item>vpsrlvq</item>
       <item>vpsubb</item>
       <item>vpsubsw</item>
       <item>vpsubw</item>
@@ -928,6 +1023,7 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>vpxor</item>
       <item>vsqrtpd</item>
       <item>vsqrtsd</item>
+      <item>vsqrtss</item>
       <item>vsubps</item>
       <item>vsubsd</item>
       <item>vxorpd</item>
