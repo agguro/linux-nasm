@@ -43,7 +43,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 added instructions sil, dil, bpl, spl  - dec 12, 2016
 
 -->
-<language name="Intel x86 (NASM)" section="Assembler" version="3" kateversion="2.3" extensions="*.asm" mimetype="" author="Nicola Gigante (nicola.gigante@gmail.com)" license="GPLv2+">
+<language name="Intel x86 (NASM)" section="Assembler" version="3" kateversion="2.3" extensions="*.asm" mimetype="text/x-asm" author="Nicola Gigante (nicola.gigante@gmail.com)" license="GPLv2+">
   <highlighting>
     <list name="registers">
       <!-- General purpose registers -->
