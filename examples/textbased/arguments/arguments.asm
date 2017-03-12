@@ -1,6 +1,6 @@
 ; Name:         arguments
 ;
-; Build:        nasm "-felf64" arguments.asm -l arguments.lst -o arguments.o
+; Build:        nasm  -felf64 arguments.asm -l arguments.lst -o arguments.o
 ;               ld -s -melf_x86_64 -o arguments arguments.o 
 ;
 ; Description:  Read the number of arguments and if any write it to the STDOUT device.
@@ -109,7 +109,7 @@ Write:
      syscall   write, stdout, buffer, 1
      xor       rdx, 1
      jnz       .done
-     mov       byte [rsi],0
+     mov       byte[rsi],0
      pop       rcx
      pop       rsi                           ; restore used registers
 .done:
@@ -122,7 +122,7 @@ Convert:
      xor       rdx,rdx                       ; the remainder
      div       rbx                           ; divide RAX by 10, remainder in RDX
      or        dl,0x30                       ; convert to ASCII
-     mov       byte [rsi],dl                 ; remainder in byte pointed to by RSI
+     mov       byte[rsi],dl                  ; remainder in byte pointed to by RSI
      and       rax, rax                      ; quotient = 0? 
      je        .done                         ; yes, stop converting
      dec       rsi
