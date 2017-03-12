@@ -1,6 +1,6 @@
 ; Name:         xorshift.asm
 ;
-; Build:        nasm "-felf64" xorshift.asm -l xorshift.lst -o xorshift.o
+; Build:        nasm -felf64 xorshift.asm -l xorshift.lst -o xorshift.o
 ;               ld -s -melf_x86_64 -o xorshift xorshift.o 
 ;
 ; Description:  Create pseudo random number x in an interval [a,b] using the 
@@ -31,13 +31,12 @@ section .data
      
 section .text
         global _start
+        
 _start:
-
     mov       rcx, MAXNUMBERS                 ; initialize outer-loop counter
-nextRandom:      
+.repeat:      
     push      rcx
     mov       rdi, random                     ; bufferaddress in RDI
-repeat:
     ; generate numbers in the interval [1,9]
     mov       rax, 1                          ; lower boundary of interval
     mov       rdx, 9                          ; higher boundary of interval
@@ -58,18 +57,18 @@ repeat:
     pop       rcx                             ; restore outer-loop counter
     dec       rcx
     and       rcx, rcx
-    jz        printStatistics
+    jz        .printStatistics
     push      rcx                             ; syscall changes RCX !!
     mov       al, ","
     call      WriteChar
     pop       rcx
-    jmp       nextRandom
-printStatistics:
+    jmp       .repeat
+.printStatistics:
     mov       al, LF
     call      WriteChar
     mov       rcx, 9
     mov       rsi, table
-nextLine:
+.nextLine:
     push      rsi
     mov       rsi, tableline1
     mov       rdx, tableline1.length
@@ -88,7 +87,7 @@ nextLine:
     call      WriteDecimal
     mov       al, 10
     call      WriteChar
-    loop      nextLine
+    loop      .nextLine
     mov       rax, SYS_EXIT
     xor       rdi, rdi
     syscall
@@ -155,13 +154,13 @@ WriteChar:
     mov       byte [buffer], al
     mov       rdx, 1
     mov       rsi, buffer
-    jmp       _write
+    jmp       WriteLine.write
     
     ; write a string pointed by RSI with length RDX to STDOUT
 WriteLine:
     push      rdx
     push      rsi
-_write:
+.write:
     push      rdi
     push      rcx
     push      rax
@@ -185,14 +184,14 @@ BYTEtoDecASCII:
     xor       rcx, rcx
     xor       r8, r8
     mov       rbx, 10
-.@@1:      
+.l1:      
     xor       rdx, rdx
     idiv      rbx
     or        dl, "0"
     shrd      r8, rdx, 8
     inc       rcx
     and       al, al
-    jnz        .@@1
+    jnz        .l1
     shl       rcx, 3
     shld      rax, r8, cl
     pop       r8
@@ -208,7 +207,7 @@ NIBBLEtoHexASCII:
     and       al, 0x0F
     or        al, "0"
     cmp       al, "9"
-    jbe       .@@1
+    jbe       .l1
     add       al, 7
-.@@1:
+.l1:
     ret
