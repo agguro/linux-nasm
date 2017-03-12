@@ -1,6 +1,6 @@
 ; Name:         rotatenbitsleft.asm
 ;
-; Build:        nasm "-felf64" rotatenbitsleft.asm -l rotatenbitsleft.lst -o rotatenbitsleft.o
+; Build:        nasm -felf64 rotatenbitsleft.asm -l rotatenbitsleft.lst -o rotatenbitsleft.o
 ;               ld -s -melf_x86_64 -o rotatenbitsleft rotatenbitsleft.o 
 ;
 ; Description:  Rotate databits (consisting of n bits in a 64 register) left by 1
@@ -21,7 +21,7 @@
 ; third pass  :         5
 ; turns out that you need to be on the fifth place to survive.
 ;
-; Numberphile discovered that when you write 10 binary 1010b and one rotate this value
+; Numberphile discovered that when you write 10 binary 1010b and rotate this value
 ; one position to the left, we have 0101b which is 5 decimal and which is equal to the
 ; surviving position.
 ;
