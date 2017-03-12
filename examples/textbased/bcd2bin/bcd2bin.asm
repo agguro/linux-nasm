@@ -1,6 +1,6 @@
 ; Name:         bcd2bin.asm
 ;
-; Build:        nasm "-felf64" bcd2bin.asm -l bcd2bin.lst -o bcd2bin.o
+; Build:        nasm -felf64 bcd2bin.asm -l bcd2bin.lst -o bcd2bin.o
 ;               ld -s -melf_x86_64 -o bcd2bin bcd2bin.o 
 ;
 ; Description:  Convert "packed bcd" to "binary"
