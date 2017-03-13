@@ -23,7 +23,6 @@ section .data
 
     SIGACTION   sigaction
 
-    got_sigfpe:         db      0
     ; the messages
     msgDivisionByZero:  db      "Division by zero error", 10
     .length:            equ     $-msgDivisionByZero
