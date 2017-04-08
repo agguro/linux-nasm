@@ -126,6 +126,14 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>xmm5</item>
       <item>xmm6</item>
       <item>xmm7</item>
+      <item>xmm8</item>
+      <item>xmm9</item>
+      <item>xmm10</item>
+      <item>xmm11</item>
+      <item>xmm12</item>
+      <item>xmm13</item>
+      <item>xmm14</item>
+      <item>xmm15</item>
       <!-- AVX registers -->
       <item>ymm0</item>
       <item>ymm1</item>
@@ -135,6 +143,14 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>ymm5</item>
       <item>ymm6</item>
       <item>ymm7</item>
+      <item>ymm8</item>
+      <item>ymm9</item>
+      <item>ymm10</item>
+      <item>ymm11</item>
+      <item>ymm12</item>
+      <item>ymm13</item>
+      <item>ymm14</item>
+      <item>ymm15</item>
       <!-- 64 bits registers -->
       <item>r8</item>
       <item>r8d</item>
@@ -638,6 +654,7 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>phaddd</item>
       <item>pi2fd</item>
       <item>pi2fw</item>
+      <item>pinsrq</item>
       <item>pinsrw</item>
       <item>pmachriw</item>
       <item>pmaddwd</item>
