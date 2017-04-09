@@ -16,6 +16,15 @@ GreatestCommonDivisor:
     push    rbx
     mov     rax,rdi                 ;rax=u
     mov     rbx,rsi                 ;rbx=v
+    ;make rdi and rsi positive if not
+    and     rax,rax
+    jns     .uispositive
+    neg     rax
+.uispositive:
+    and     rbx,rbx
+    jns     .vispositive
+    neg     rbx
+.vispositive:
     ;gcd(0,v)=v, gcd(u,0)=u,gcd(0,0)=0
     ;if v==0 return u
     and     rbx,rbx
