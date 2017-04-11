@@ -41,7 +41,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 
 added instructions sil, dil, bpl, spl  - dec 12, 2016
-
+added more than 1000 instructions
 -->
 <language name="Intel x86 (NASM)" section="Assembler" version="3" kateversion="2.3" extensions="*.asm" mimetype="text/x-asm" author="Nicola Gigante (nicola.gigante@gmail.com)" license="GPLv2+">
   <highlighting>
@@ -191,6 +191,7 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>aam</item>
       <item>aas</item>
       <item>adc</item>
+      <item>adcx</item>
       <item>add</item>
       <item>addpd</item>
       <item>addps</item>
@@ -198,6 +199,13 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>addss</item>
       <item>addsubpd</item>
       <item>addsubps</item>
+      <item>adox</item>
+      <item>aesdec</item>
+      <item>aesdeclast</item>
+      <item>aesenc</item>
+      <item>aesenclast</item>
+      <item>aesimc</item>
+      <item>aeskeygenassist</item>
       <item>and</item>
       <item>andn</item>
       <item>andnpd</item>
@@ -205,10 +213,30 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>andpd</item>
       <item>andps</item>
       <item>arpl</item>
+      <item>bb0_reset</item>
+      <item>bb1_reset</item>
       <item>bextr</item>
+      <item>blcfill</item>
+      <item>blci</item>
+      <item>blcic</item>
+      <item>blcmsk</item>
+      <item>blcs</item>
+      <item>blendpd</item>
+      <item>blendps</item>
+      <item>blendvpd</item>
+      <item>blendvps</item>
+      <item>blsfill</item>
       <item>blsi</item>
+      <item>blsic</item>
       <item>blsmsk</item>
       <item>blsr</item>
+      <item>bndcl</item>
+      <item>bndcn</item>
+      <item>bndcu</item>
+      <item>bndldx</item>
+      <item>bndmk</item>
+      <item>bndmov</item>
+      <item>bndstx</item>
       <item>bound</item>
       <item>bsf</item>
       <item>bsr</item>
@@ -222,12 +250,16 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>cbw</item>
       <item>cdq</item>
       <item>cdqe</item>
+      <item>clac</item>
       <item>clc</item>
       <item>cld</item>
       <item>clflush</item>
+      <item>clflushopt</item>
       <item>clgi</item>
       <item>cli</item>
       <item>clts</item>
+      <item>clwb</item>
+      <item>clzero</item>
       <item>cmc</item>
       <item>cmova</item>
       <item>cmovae</item>
@@ -259,22 +291,6 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>cmovpo</item>
       <item>cmovs</item>
       <item>cmovz</item>
-      <item>cmp</item>
-      <item>cmpeqpd</item>
-      <item>cmpeqps</item>
-      <item>cmpeqsd</item>
-      <item>cmpeqss</item>
-      <item>cmplepd</item>
-      <item>cmpleps</item>
-      <item>cmplesd</item>
-      <item>cmpless</item>
-      <item>cmpltpd</item>
-      <item>cmpltps</item>
-      <item>cmpltsd</item>
-      <item>cmpltss</item>
-      <item>cmpneqpd</item>
-      <item>cmpneqps</item>
-      <item>cmpneqsd</item>
       <item>cmpneqss</item>
       <item>cmpnlepd</item>
       <item>cmpnleps</item>
@@ -290,9 +306,9 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>cmpordss</item>
       <item>cmppd</item>
       <item>cmpps</item>
-      <item>cmps</item>
       <item>cmpsb</item>
       <item>cmpsd</item>
+      <item>cmpsq</item>
       <item>cmpss</item>
       <item>cmpsw</item>
       <item>cmpunordpd</item>
@@ -305,8 +321,11 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>cmpxchg8b</item>
       <item>comisd</item>
       <item>comiss</item>
+      <item>cpu_read</item>
+      <item>cpu_write</item>
       <item>cpuid</item>
       <item>cqo</item>
+      <item>crc32</item>
       <item>cvtdq2pd</item>
       <item>cvtdq2ps</item>
       <item>cvtpd2dq</item>
@@ -339,9 +358,14 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>divps</item>
       <item>divsd</item>
       <item>divss</item>
+      <item>dmint</item>
+      <item>dppd</item>
       <item>dpps</item>
       <item>emms</item>
       <item>enter</item>
+      <item>equ</item>
+      <item>extractps</item>
+      <item>extrq</item>
       <item>f2xm1</item>
       <item>fabs</item>
       <item>fadd</item>
@@ -409,7 +433,6 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>fnstcw</item>
       <item>fnstenv</item>
       <item>fnstsw</item>
-      <item>fnwait</item>
       <item>fpatan</item>
       <item>fprem</item>
       <item>fprem1</item>
@@ -441,70 +464,167 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>fxam</item>
       <item>fxch</item>
       <item>fxrstor</item>
+      <item>fxrstor64</item>
       <item>fxsave</item>
+      <item>fxsave64</item>
       <item>fxtract</item>
       <item>fyl2x</item>
       <item>fyl2xp1</item>
+      <item>getsec</item>
       <item>haddpd</item>
       <item>haddps</item>
+      <item>hint_nop0</item>
+      <item>hint_nop1</item>
+      <item>hint_nop10</item>
+      <item>hint_nop11</item>
+      <item>hint_nop12</item>
+      <item>hint_nop13</item>
+      <item>hint_nop14</item>
+      <item>hint_nop15</item>
+      <item>hint_nop16</item>
+      <item>hint_nop17</item>
+      <item>hint_nop18</item>
+      <item>hint_nop19</item>
+      <item>hint_nop2</item>
+      <item>hint_nop20</item>
+      <item>hint_nop21</item>
+      <item>hint_nop22</item>
+      <item>hint_nop23</item>
+      <item>hint_nop24</item>
+      <item>hint_nop25</item>
+      <item>hint_nop26</item>
+      <item>hint_nop27</item>
+      <item>hint_nop28</item>
+      <item>hint_nop29</item>
+      <item>hint_nop3</item>
+      <item>hint_nop30</item>
+      <item>hint_nop31</item>
+      <item>hint_nop32</item>
+      <item>hint_nop33</item>
+      <item>hint_nop34</item>
+      <item>hint_nop35</item>
+      <item>hint_nop36</item>
+      <item>hint_nop37</item>
+      <item>hint_nop38</item>
+      <item>hint_nop39</item>
+      <item>hint_nop4</item>
+      <item>hint_nop40</item>
+      <item>hint_nop41</item>
+      <item>hint_nop42</item>
+      <item>hint_nop43</item>
+      <item>hint_nop44</item>
+      <item>hint_nop45</item>
+      <item>hint_nop46</item>
+      <item>hint_nop47</item>
+      <item>hint_nop48</item>
+      <item>hint_nop49</item>
+      <item>hint_nop5</item>
+      <item>hint_nop50</item>
+      <item>hint_nop51</item>
+      <item>hint_nop52</item>
+      <item>hint_nop53</item>
+      <item>hint_nop54</item>
+      <item>hint_nop55</item>
+      <item>hint_nop56</item>
+      <item>hint_nop57</item>
+      <item>hint_nop58</item>
+      <item>hint_nop59</item>
+      <item>hint_nop6</item>
+      <item>hint_nop60</item>
+      <item>hint_nop61</item>
+      <item>hint_nop62</item>
+      <item>hint_nop63</item>
+      <item>hint_nop7</item>
+      <item>hint_nop8</item>
+      <item>hint_nop9</item>
       <item>hlt</item>
       <item>hsubpd</item>
       <item>hsubps</item>
       <item>ibts</item>
+      <item>icebp</item>
       <item>idiv</item>
       <item>imul</item>
       <item>in</item>
       <item>inc</item>
-      <item>ins</item>
+      <item>incbin</item>
       <item>insb</item>
       <item>insd</item>
       <item>insertps</item>
+      <item>insertq</item>
       <item>insw</item>
       <item>int</item>
+      <item>int01</item>
+      <item>int03</item>
       <item>int1</item>
       <item>int3</item>
       <item>into</item>
       <item>invd</item>
+      <item>invept</item>
       <item>invlpg</item>
       <item>invlpga</item>
+      <item>invpcid</item>
+      <item>invvpid</item>
       <item>iret</item>
       <item>iretd</item>
       <item>iretq</item>
       <item>iretw</item>
-      <item>ja</item>
-      <item>jae</item>
-      <item>jb</item>
-      <item>jbe</item>
-      <item>jc</item>
+      <item>jcc</item>
       <item>jcxz</item>
-      <item>je</item>
       <item>jecxz</item>
-      <item>jg</item>
-      <item>jge</item>
-      <item>jl</item>
-      <item>jle</item>
       <item>jmp</item>
-      <item>jna</item>
-      <item>jnae</item>
-      <item>jnb</item>
-      <item>jnbe</item>
-      <item>jnc</item>
-      <item>jne</item>
-      <item>jng</item>
-      <item>jnge</item>
-      <item>jnl</item>
-      <item>jnle</item>
-      <item>jno</item>
-      <item>jnp</item>
-      <item>jns</item>
-      <item>jnz</item>
-      <item>jo</item>
-      <item>jp</item>
-      <item>jpe</item>
-      <item>jpo</item>
+      <item>jmpe</item>
       <item>jrcxz</item>
-      <item>js</item>
-      <item>jz</item>
+      <item>kaddb</item>
+      <item>kaddd</item>
+      <item>kaddq</item>
+      <item>kaddw</item>
+      <item>kandb</item>
+      <item>kandd</item>
+      <item>kandnb</item>
+      <item>kandnd</item>
+      <item>kandnq</item>
+      <item>kandnw</item>
+      <item>kandq</item>
+      <item>kandw</item>
+      <item>kmovb</item>
+      <item>kmovd</item>
+      <item>kmovq</item>
+      <item>kmovw</item>
+      <item>knotb</item>
+      <item>knotd</item>
+      <item>knotq</item>
+      <item>knotw</item>
+      <item>korb</item>
+      <item>kord</item>
+      <item>korq</item>
+      <item>kortestb</item>
+      <item>kortestd</item>
+      <item>kortestq</item>
+      <item>kortestw</item>
+      <item>korw</item>
+      <item>kshiftlb</item>
+      <item>kshiftld</item>
+      <item>kshiftlq</item>
+      <item>kshiftlw</item>
+      <item>kshiftrb</item>
+      <item>kshiftrd</item>
+      <item>kshiftrq</item>
+      <item>kshiftrw</item>
+      <item>ktestb</item>
+      <item>ktestd</item>
+      <item>ktestq</item>
+      <item>ktestw</item>
+      <item>kunpckbw</item>
+      <item>kunpckdq</item>
+      <item>kunpckwd</item>
+      <item>kxnorb</item>
+      <item>kxnord</item>
+      <item>kxnorq</item>
+      <item>kxnorw</item>
+      <item>kxorb</item>
+      <item>kxord</item>
+      <item>kxorq</item>
+      <item>kxorw</item>
       <item>lahf</item>
       <item>lar</item>
       <item>lddqu</item>
@@ -519,10 +639,10 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>lgs</item>
       <item>lidt</item>
       <item>lldt</item>
+      <item>llwpcb</item>
       <item>lmsw</item>
       <item>loadall</item>
       <item>loadall286</item>
-      <item>lods</item>
       <item>lodsb</item>
       <item>lodsd</item>
       <item>lodsq</item>
@@ -535,6 +655,8 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>lsl</item>
       <item>lss</item>
       <item>ltr</item>
+      <item>lwpins</item>
+      <item>lwpval</item>
       <item>lzcnt</item>
       <item>maskmovdqu</item>
       <item>maskmovq</item>
@@ -548,9 +670,12 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>minsd</item>
       <item>minss</item>
       <item>monitor</item>
+      <item>monitorx</item>
+      <item>montmul</item>
       <item>mov</item>
       <item>movapd</item>
       <item>movaps</item>
+      <item>movbe</item>
       <item>movd</item>
       <item>movddup</item>
       <item>movdq2q</item>
@@ -565,13 +690,15 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>movmskpd</item>
       <item>movmskps</item>
       <item>movntdq</item>
+      <item>movntdqa</item>
       <item>movnti</item>
       <item>movntpd</item>
       <item>movntps</item>
       <item>movntq</item>
+      <item>movntsd</item>
+      <item>movntss</item>
       <item>movq</item>
       <item>movq2dq</item>
-      <item>movs</item>
       <item>movsb</item>
       <item>movsd</item>
       <item>movshdup</item>
@@ -584,6 +711,7 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>movupd</item>
       <item>movups</item>
       <item>movzx</item>
+      <item>mpsadbw</item>
       <item>mul</item>
       <item>mulpd</item>
       <item>mulps</item>
@@ -591,6 +719,7 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>mulss</item>
       <item>mulx</item>
       <item>mwait</item>
+      <item>mwaitx</item>
       <item>neg</item>
       <item>nop</item>
       <item>not</item>
@@ -598,39 +727,59 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>orpd</item>
       <item>orps</item>
       <item>out</item>
-      <item>outs</item>
       <item>outsb</item>
       <item>outsd</item>
       <item>outsw</item>
+      <item>pabsb</item>
+      <item>pabsd</item>
+      <item>pabsw</item>
       <item>packssdw</item>
       <item>packsswb</item>
+      <item>packusdw</item>
       <item>packuswb</item>
       <item>paddb</item>
       <item>paddd</item>
       <item>paddq</item>
       <item>paddsb</item>
+      <item>paddsiw</item>
       <item>paddsw</item>
       <item>paddusb</item>
       <item>paddusw</item>
       <item>paddw</item>
+      <item>palignr</item>
       <item>pand</item>
       <item>pandn</item>
       <item>pause</item>
+      <item>paveb</item>
       <item>pavgb</item>
       <item>pavgusb</item>
       <item>pavgw</item>
+      <item>pblendvb</item>
+      <item>pblendw</item>
+      <item>pclmulhqhqdq</item>
+      <item>pclmulhqlqdq</item>
+      <item>pclmullqhqdq</item>
+      <item>pclmullqlqdq</item>
+      <item>pclmulqdq</item>
       <item>pcmpeqb</item>
       <item>pcmpeqd</item>
+      <item>pcmpeqq</item>
       <item>pcmpeqw</item>
+      <item>pcmpestri</item>
+      <item>pcmpestrm</item>
       <item>pcmpgtb</item>
       <item>pcmpgtd</item>
+      <item>pcmpgtq</item>
       <item>pcmpgtw</item>
       <item>pcmpistri</item>
       <item>pcmpistrm</item>
+      <item>pcommit</item>
       <item>pdep</item>
-      <item>pext</item>
       <item>pdistib</item>
+      <item>pext</item>
       <item>pextrb</item>
+      <item>pextrd</item>
+      <item>pextrq</item>
       <item>pextrw</item>
       <item>pf2id</item>
       <item>pf2iw</item>
@@ -647,25 +796,59 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>pfrcp</item>
       <item>pfrcpit1</item>
       <item>pfrcpit2</item>
+      <item>pfrcpv</item>
       <item>pfrsqit1</item>
       <item>pfrsqrt</item>
+      <item>pfrsqrtv</item>
       <item>pfsub</item>
       <item>pfsubr</item>
       <item>phaddd</item>
+      <item>phaddsw</item>
+      <item>phaddw</item>
+      <item>phminposuw</item>
+      <item>phsubd</item>
+      <item>phsubsw</item>
+      <item>phsubw</item>
       <item>pi2fd</item>
       <item>pi2fw</item>
+      <item>pinsrb</item>
+      <item>pinsrd</item>
       <item>pinsrq</item>
       <item>pinsrw</item>
       <item>pmachriw</item>
+      <item>pmaddubsw</item>
       <item>pmaddwd</item>
       <item>pmagw</item>
+      <item>pmaxsb</item>
+      <item>pmaxsd</item>
       <item>pmaxsw</item>
       <item>pmaxub</item>
+      <item>pmaxud</item>
+      <item>pmaxuw</item>
+      <item>pminsb</item>
+      <item>pminsd</item>
       <item>pminsw</item>
       <item>pminub</item>
+      <item>pminud</item>
+      <item>pminuw</item>
       <item>pmovmskb</item>
+      <item>pmovsxbd</item>
+      <item>pmovsxbq</item>
+      <item>pmovsxbw</item>
+      <item>pmovsxdq</item>
+      <item>pmovsxwd</item>
+      <item>pmovsxwq</item>
+      <item>pmovzxbd</item>
+      <item>pmovzxbq</item>
+      <item>pmovzxbw</item>
+      <item>pmovzxdq</item>
+      <item>pmovzxwd</item>
+      <item>pmovzxwq</item>
       <item>pmuldq</item>
-      <item>pmulhrw</item>
+      <item>pmulhriw</item>
+      <item>pmulhrsw</item>
+      <item>pmulhrwa</item>
+      <item>pmulhrwc</item>
       <item>pmulhuw</item>
       <item>pmulhw</item>
       <item>pmulld</item>
@@ -691,12 +874,16 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>prefetcht1</item>
       <item>prefetcht2</item>
       <item>prefetchw</item>
+      <item>prefetchwt1</item>
       <item>psadbw</item>
       <item>pshufb</item>
       <item>pshufd</item>
       <item>pshufhw</item>
       <item>pshuflw</item>
       <item>pshufw</item>
+      <item>psignb</item>
+      <item>psignd</item>
+      <item>psignw</item>
       <item>pslld</item>
       <item>pslldq</item>
       <item>psllq</item>
@@ -717,6 +904,7 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>psubusw</item>
       <item>psubw</item>
       <item>pswapd</item>
+      <item>ptest</item>
       <item>punpckhbw</item>
       <item>punpckhdq</item>
       <item>punpckhqdq</item>
@@ -738,23 +926,28 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>rcpps</item>
       <item>rcpss</item>
       <item>rcr</item>
+      <item>rdfsbase</item>
+      <item>rdgsbase</item>
+      <item>rdm</item>
       <item>rdmsr</item>
+      <item>rdpid</item>
+      <item>rdpkru</item>
       <item>rdpmc</item>
       <item>rdrand</item>
+      <item>rdseed</item>
       <item>rdshr</item>
       <item>rdtsc</item>
       <item>rdtscp</item>
-      <item>rep</item>
-      <item>repe</item>
-      <item>repne</item>
-      <item>repnz</item>
-      <item>repz</item>
       <item>ret</item>
       <item>retf</item>
       <item>retn</item>
       <item>rol</item>
       <item>ror</item>
-      <item>roxr</item>
+      <item>rorx</item>
+      <item>roundpd</item>
+      <item>roundps</item>
+      <item>roundsd</item>
+      <item>roundss</item>
       <item>rsdc</item>
       <item>rsldt</item>
       <item>rsm</item>
@@ -767,7 +960,6 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>sar</item>
       <item>sarx</item>
       <item>sbb</item>
-      <item>scas</item>
       <item>scasb</item>
       <item>scasd</item>
       <item>scasq</item>
@@ -802,9 +994,6 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>setpo</item>
       <item>sets</item>
       <item>setz</item>
-      <item>sfence</item>
-      <item>sgdt</item>
-      <item>shl</item>
       <item>shld</item>
       <item>shlx</item>
       <item>shr</item>
@@ -815,6 +1004,7 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>sidt</item>
       <item>skinit</item>
       <item>sldt</item>
+      <item>slwpcb</item>
       <item>smi</item>
       <item>smint</item>
       <item>smintold</item>
@@ -823,12 +1013,12 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>sqrtps</item>
       <item>sqrtsd</item>
       <item>sqrtss</item>
+      <item>stac</item>
       <item>stc</item>
       <item>std</item>
       <item>stgi</item>
       <item>sti</item>
       <item>stmxcsr</item>
-      <item>stos</item>
       <item>stosb</item>
       <item>stosd</item>
       <item>stosq</item>
@@ -847,13 +1037,17 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>sysenter</item>
       <item>sysexit</item>
       <item>sysret</item>
+      <item>t1mskc</item>
       <item>test</item>
       <item>tzcnt</item>
+      <item>tzmsk</item>
       <item>ucomisd</item>
       <item>ucomiss</item>
       <item>ud0</item>
       <item>ud1</item>
       <item>ud2</item>
+      <item>ud2a</item>
+      <item>ud2b</item>
       <item>umov</item>
       <item>unpckhpd</item>
       <item>unpckhps</item>
@@ -863,44 +1057,302 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>vaddps</item>
       <item>vaddsd</item>
       <item>vaddss</item>
-      <item>vandpd</item>
+      <item>vaddsubpd</item>
+      <item>vaddsubps</item>
+      <item>vaesdec</item>
+      <item>vaesdeclast</item>
+      <item>vaesenc</item>
+      <item>vaesenclast</item>
+      <item>vaesimc</item>
+      <item>vaeskeygenassist</item>
+      <item>valignd</item>
+      <item>valignq</item>
+      <item>vandnpd</item>
+      <item>vandnps</item>
       <item>vandpd</item>
       <item>vandps</item>
+      <item>vblendmpd</item>
+      <item>vblendmps</item>
+      <item>vblendpd</item>
+      <item>vblendps</item>
+      <item>vblendvpd</item>
       <item>vblendvps</item>
-      <item>vbroadcastb</item>
-      <item>vbroadcastw</item>
-      <item>vbroadcastd</item>
-      <item>vbroadcastq</item>
+      <item>vbroadcastf128</item>
+      <item>vbroadcastf32x2</item>
+      <item>vbroadcastf32x4</item>
+      <item>vbroadcastf32x8</item>
+      <item>vbroadcastf64x2</item>
+      <item>vbroadcastf64x4</item>
+      <item>vbroadcasti128</item>
+      <item>vbroadcasti32x2</item>
+      <item>vbroadcasti32x4</item>
+      <item>vbroadcasti32x8</item>
+      <item>vbroadcasti64x2</item>
+      <item>vbroadcasti64x4</item>
       <item>vbroadcastsd</item>
       <item>vbroadcastss</item>
-      <item>vbroadcastf128</item>
-      <item>vbroadcasti128</item>
+      <item>vcmpeq_ospd</item>
+      <item>vcmpeq_osps</item>
+      <item>vcmpeq_ossd</item>
+      <item>vcmpeq_osss</item>
+      <item>vcmpeq_uqpd</item>
+      <item>vcmpeq_uqps</item>
+      <item>vcmpeq_uqsd</item>
+      <item>vcmpeq_uqss</item>
+      <item>vcmpeq_uspd</item>
+      <item>vcmpeq_usps</item>
+      <item>vcmpeq_ussd</item>
+      <item>vcmpeq_usss</item>
       <item>vcmpeqpd</item>
+      <item>vcmpeqps</item>
       <item>vcmpeqsd</item>
+      <item>vcmpeqss</item>
+      <item>vcmpfalse_oqpd</item>
+      <item>vcmpfalse_oqps</item>
+      <item>vcmpfalse_oqsd</item>
+      <item>vcmpfalse_oqss</item>
+      <item>vcmpfalse_ospd</item>
+      <item>vcmpfalse_osps</item>
+      <item>vcmpfalse_ossd</item>
+      <item>vcmpfalse_osss</item>
+      <item>vcmpfalsepd</item>
+      <item>vcmpfalseps</item>
+      <item>vcmpfalsesd</item>
+      <item>vcmpfalsess</item>
+      <item>vcmpge_oqpd</item>
+      <item>vcmpge_oqps</item>
+      <item>vcmpge_oqsd</item>
+      <item>vcmpge_oqss</item>
+      <item>vcmpge_ospd</item>
+      <item>vcmpge_osps</item>
+      <item>vcmpge_ossd</item>
+      <item>vcmpge_osss</item>
       <item>vcmpgepd</item>
+      <item>vcmpgeps</item>
       <item>vcmpgesd</item>
+      <item>vcmpgess</item>
+      <item>vcmpgt_oqpd</item>
+      <item>vcmpgt_oqps</item>
+      <item>vcmpgt_oqsd</item>
+      <item>vcmpgt_oqss</item>
+      <item>vcmpgt_ospd</item>
+      <item>vcmpgt_osps</item>
+      <item>vcmpgt_ossd</item>
+      <item>vcmpgt_osss</item>
       <item>vcmpgtpd</item>
+      <item>vcmpgtps</item>
       <item>vcmpgtsd</item>
+      <item>vcmpgtss</item>
+      <item>vcmple_oqpd</item>
+      <item>vcmple_oqps</item>
+      <item>vcmple_oqsd</item>
+      <item>vcmple_oqss</item>
+      <item>vcmple_ospd</item>
+      <item>vcmple_osps</item>
+      <item>vcmple_ossd</item>
+      <item>vcmple_osss</item>
       <item>vcmplepd</item>
+      <item>vcmpleps</item>
       <item>vcmplesd</item>
+      <item>vcmpless</item>
+      <item>vcmplt_oqpd</item>
+      <item>vcmplt_oqps</item>
+      <item>vcmplt_oqsd</item>
+      <item>vcmplt_oqss</item>
+      <item>vcmplt_ospd</item>
+      <item>vcmplt_osps</item>
+      <item>vcmplt_ossd</item>
+      <item>vcmplt_osss</item>
       <item>vcmpltpd</item>
+      <item>vcmpltps</item>
       <item>vcmpltsd</item>
+      <item>vcmpltss</item>
+      <item>vcmpneq_oqpd</item>
+      <item>vcmpneq_oqps</item>
+      <item>vcmpneq_oqsd</item>
+      <item>vcmpneq_oqss</item>
+      <item>vcmpneq_ospd</item>
+      <item>vcmpneq_osps</item>
+      <item>vcmpneq_ossd</item>
+      <item>vcmpneq_osss</item>
+      <item>vcmpneq_uqpd</item>
+      <item>vcmpneq_uqps</item>
+      <item>vcmpneq_uqsd</item>
+      <item>vcmpneq_uqss</item>
+      <item>vcmpneq_uspd</item>
+      <item>vcmpneq_usps</item>
+      <item>vcmpneq_ussd</item>
+      <item>vcmpneq_usss</item>
       <item>vcmpneqpd</item>
+      <item>vcmpneqps</item>
       <item>vcmpneqsd</item>
+      <item>vcmpneqss</item>
+      <item>vcmpnge_uqpd</item>
+      <item>vcmpnge_uqps</item>
+      <item>vcmpnge_uqsd</item>
+      <item>vcmpnge_uqss</item>
+      <item>vcmpnge_uspd</item>
+      <item>vcmpnge_usps</item>
+      <item>vcmpnge_ussd</item>
+      <item>vcmpnge_usss</item>
+      <item>vcmpngepd</item>
+      <item>vcmpngeps</item>
+      <item>vcmpngesd</item>
+      <item>vcmpngess</item>
+      <item>vcmpngt_uqpd</item>
+      <item>vcmpngt_uqps</item>
+      <item>vcmpngt_uqsd</item>
+      <item>vcmpngt_uqss</item>
+      <item>vcmpngt_uspd</item>
+      <item>vcmpngt_usps</item>
+      <item>vcmpngt_ussd</item>
+      <item>vcmpngt_usss</item>
+      <item>vcmpngtpd</item>
+      <item>vcmpngtps</item>
+      <item>vcmpngtsd</item>
+      <item>vcmpngtss</item>
+      <item>vcmpnle_uqpd</item>
+      <item>vcmpnle_uqps</item>
+      <item>vcmpnle_uqsd</item>
+      <item>vcmpnle_uqss</item>
+      <item>vcmpnle_uspd</item>
+      <item>vcmpnle_usps</item>
+      <item>vcmpnle_ussd</item>
+      <item>vcmpnle_usss</item>
+      <item>vcmpnlepd</item>
+      <item>vcmpnleps</item>
+      <item>vcmpnlesd</item>
+      <item>vcmpnless</item>
+      <item>vcmpnlt_uqpd</item>
+      <item>vcmpnlt_uqps</item>
+      <item>vcmpnlt_uqsd</item>
+      <item>vcmpnlt_uqss</item>
+      <item>vcmpnlt_uspd</item>
+      <item>vcmpnlt_usps</item>
+      <item>vcmpnlt_ussd</item>
+      <item>vcmpnlt_usss</item>
+      <item>vcmpnltpd</item>
+      <item>vcmpnltps</item>
+      <item>vcmpnltsd</item>
+      <item>vcmpnltss</item>
+      <item>vcmpord_qpd</item>
+      <item>vcmpord_qps</item>
+      <item>vcmpord_qsd</item>
+      <item>vcmpord_qss</item>
+      <item>vcmpord_spd</item>
+      <item>vcmpord_sps</item>
+      <item>vcmpord_ssd</item>
+      <item>vcmpord_sss</item>
       <item>vcmpordpd</item>
+      <item>vcmpordps</item>
       <item>vcmpordsd</item>
+      <item>vcmpordss</item>
+      <item>vcmppd</item>
+      <item>vcmpps</item>
+      <item>vcmpsd</item>
+      <item>vcmpss</item>
+      <item>vcmptrue_uqpd</item>
+      <item>vcmptrue_uqps</item>
+      <item>vcmptrue_uqsd</item>
+      <item>vcmptrue_uqss</item>
+      <item>vcmptrue_uspd</item>
+      <item>vcmptrue_usps</item>
+      <item>vcmptrue_ussd</item>
+      <item>vcmptrue_usss</item>
+      <item>vcmptruepd</item>
+      <item>vcmptrueps</item>
+      <item>vcmptruesd</item>
+      <item>vcmptruess</item>
+      <item>vcmpunord_qpd</item>
+      <item>vcmpunord_qps</item>
+      <item>vcmpunord_qsd</item>
+      <item>vcmpunord_qss</item>
+      <item>vcmpunord_spd</item>
+      <item>vcmpunord_sps</item>
+      <item>vcmpunord_ssd</item>
+      <item>vcmpunord_sss</item>
       <item>vcmpunordpd</item>
+      <item>vcmpunordps</item>
       <item>vcmpunordsd</item>
+      <item>vcmpunordss</item>
       <item>vcomisd</item>
-      <item>vcvtsi2sd</item>
+      <item>vcomiss</item>
+      <item>vcompresspd</item>
+      <item>vcompressps</item>
+      <item>vcvtdq2pd</item>
+      <item>vcvtdq2ps</item>
+      <item>vcvtpd2dq</item>
+      <item>vcvtpd2ps</item>
+      <item>vcvtpd2qq</item>
+      <item>vcvtpd2udq</item>
+      <item>vcvtpd2uqq</item>
       <item>vcvtph2ps</item>
+      <item>vcvtps2dq</item>
+      <item>vcvtps2pd</item>
       <item>vcvtps2ph</item>
+      <item>vcvtps2qq</item>
+      <item>vcvtps2udq</item>
+      <item>vcvtps2uqq</item>
+      <item>vcvtqq2pd</item>
+      <item>vcvtqq2ps</item>
+      <item>vcvtsd2si</item>
+      <item>vcvtsd2ss</item>
+      <item>vcvtsd2usi</item>
+      <item>vcvtsi2sd</item>
+      <item>vcvtsi2ss</item>
+      <item>vcvtss2sd</item>
+      <item>vcvtss2si</item>
+      <item>vcvtss2usi</item>
+      <item>vcvttpd2dq</item>
+      <item>vcvttpd2qq</item>
+      <item>vcvttpd2udq</item>
+      <item>vcvttpd2uqq</item>
+      <item>vcvttps2dq</item>
+      <item>vcvttps2qq</item>
+      <item>vcvttps2udq</item>
+      <item>vcvttps2uqq</item>
+      <item>vcvttsd2si</item>
+      <item>vcvttsd2usi</item>
+      <item>vcvttss2si</item>
+      <item>vcvttss2usi</item>
+      <item>vcvtudq2pd</item>
+      <item>vcvtudq2ps</item>
+      <item>vcvtuqq2pd</item>
+      <item>vcvtuqq2ps</item>
+      <item>vcvtusi2sd</item>
+      <item>vcvtusi2ss</item>
+      <item>vdbpsadbw</item>
+      <item>vdivpd</item>
       <item>vdivps</item>
       <item>vdivsd</item>
+      <item>vdivss</item>
+      <item>vdppd</item>
+      <item>vdpps</item>
       <item>verr</item>
       <item>verw</item>
+      <item>vexp2pd</item>
+      <item>vexp2ps</item>
+      <item>vexpandpd</item>
+      <item>vexpandps</item>
       <item>vextractf128</item>
+      <item>vextractf32x4</item>
+      <item>vextractf32x8</item>
+      <item>vextractf64x2</item>
+      <item>vextractf64x4</item>
       <item>vextracti128</item>
+      <item>vextracti32x4</item>
+      <item>vextracti32x8</item>
+      <item>vextracti64x2</item>
+      <item>vextracti64x4</item>
+      <item>vextractps</item>
+      <item>vfixupimmpd</item>
+      <item>vfixupimmps</item>
+      <item>vfixupimmsd</item>
+      <item>vfixupimmss</item>
+      <item>vfmadd123pd</item>
+      <item>vfmadd123ps</item>
+      <item>vfmadd123sd</item>
+      <item>vfmadd123ss</item>
       <item>vfmadd132pd</item>
       <item>vfmadd132ps</item>
       <item>vfmadd132sd</item>
@@ -913,6 +1365,36 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>vfmadd231ps</item>
       <item>vfmadd231sd</item>
       <item>vfmadd231ss</item>
+      <item>vfmadd312pd</item>
+      <item>vfmadd312ps</item>
+      <item>vfmadd312sd</item>
+      <item>vfmadd312ss</item>
+      <item>vfmadd321pd</item>
+      <item>vfmadd321ps</item>
+      <item>vfmadd321sd</item>
+      <item>vfmadd321ss</item>
+      <item>vfmaddpd</item>
+      <item>vfmaddps</item>
+      <item>vfmaddsd</item>
+      <item>vfmaddss</item>
+      <item>vfmaddsub123pd</item>
+      <item>vfmaddsub123ps</item>
+      <item>vfmaddsub132pd</item>
+      <item>vfmaddsub132ps</item>
+      <item>vfmaddsub213pd</item>
+      <item>vfmaddsub213ps</item>
+      <item>vfmaddsub231pd</item>
+      <item>vfmaddsub231ps</item>
+      <item>vfmaddsub312pd</item>
+      <item>vfmaddsub312ps</item>
+      <item>vfmaddsub321pd</item>
+      <item>vfmaddsub321ps</item>
+      <item>vfmaddsubpd</item>
+      <item>vfmaddsubps</item>
+      <item>vfmsub123pd</item>
+      <item>vfmsub123ps</item>
+      <item>vfmsub123sd</item>
+      <item>vfmsub123ss</item>
       <item>vfmsub132pd</item>
       <item>vfmsub132ps</item>
       <item>vfmsub132sd</item>
@@ -925,18 +1407,36 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>vfmsub231ps</item>
       <item>vfmsub231sd</item>
       <item>vfmsub231ss</item>
-      <item>vfmaddsub132pd</item>
-      <item>vfmaddsub132ps</item>
-      <item>vfmaddsub213pd</item>
-      <item>vfmaddsub213ps</item>
-      <item>vfmaddsub231pd</item>
-      <item>vfmaddsub231ps</item>
+      <item>vfmsub312pd</item>
+      <item>vfmsub312ps</item>
+      <item>vfmsub312sd</item>
+      <item>vfmsub312ss</item>
+      <item>vfmsub321pd</item>
+      <item>vfmsub321ps</item>
+      <item>vfmsub321sd</item>
+      <item>vfmsub321ss</item>
+      <item>vfmsubadd123pd</item>
+      <item>vfmsubadd123ps</item>
       <item>vfmsubadd132pd</item>
       <item>vfmsubadd132ps</item>
       <item>vfmsubadd213pd</item>
       <item>vfmsubadd213ps</item>
       <item>vfmsubadd231pd</item>
       <item>vfmsubadd231ps</item>
+      <item>vfmsubadd312pd</item>
+      <item>vfmsubadd312ps</item>
+      <item>vfmsubadd321pd</item>
+      <item>vfmsubadd321ps</item>
+      <item>vfmsubaddpd</item>
+      <item>vfmsubaddps</item>
+      <item>vfmsubpd</item>
+      <item>vfmsubps</item>
+      <item>vfmsubsd</item>
+      <item>vfmsubss</item>
+      <item>vfnmadd123pd</item>
+      <item>vfnmadd123ps</item>
+      <item>vfnmadd123sd</item>
+      <item>vfnmadd123ss</item>
       <item>vfnmadd132pd</item>
       <item>vfnmadd132ps</item>
       <item>vfnmadd132sd</item>
@@ -949,6 +1449,22 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>vfnmadd231ps</item>
       <item>vfnmadd231sd</item>
       <item>vfnmadd231ss</item>
+      <item>vfnmadd312pd</item>
+      <item>vfnmadd312ps</item>
+      <item>vfnmadd312sd</item>
+      <item>vfnmadd312ss</item>
+      <item>vfnmadd321pd</item>
+      <item>vfnmadd321ps</item>
+      <item>vfnmadd321sd</item>
+      <item>vfnmadd321ss</item>
+      <item>vfnmaddpd</item>
+      <item>vfnmaddps</item>
+      <item>vfnmaddsd</item>
+      <item>vfnmaddss</item>
+      <item>vfnmsub123pd</item>
+      <item>vfnmsub123ps</item>
+      <item>vfnmsub123sd</item>
+      <item>vfnmsub123ss</item>
       <item>vfnmsub132pd</item>
       <item>vfnmsub132ps</item>
       <item>vfnmsub132sd</item>
@@ -961,107 +1477,554 @@ added instructions sil, dil, bpl, spl  - dec 12, 2016
       <item>vfnmsub231ps</item>
       <item>vfnmsub231sd</item>
       <item>vfnmsub231ss</item>
+      <item>vfnmsub312pd</item>
+      <item>vfnmsub312ps</item>
+      <item>vfnmsub312sd</item>
+      <item>vfnmsub312ss</item>
+      <item>vfnmsub321pd</item>
+      <item>vfnmsub321ps</item>
+      <item>vfnmsub321sd</item>
+      <item>vfnmsub321ss</item>
+      <item>vfnmsubpd</item>
+      <item>vfnmsubps</item>
+      <item>vfnmsubsd</item>
+      <item>vfnmsubss</item>
+      <item>vfpclasspd</item>
+      <item>vfpclassps</item>
+      <item>vfpclasssd</item>
+      <item>vfpclassss</item>
+      <item>vfrczpd</item>
+      <item>vfrczps</item>
+      <item>vfrczsd</item>
+      <item>vfrczss</item>
       <item>vgatherdpd</item>
-      <item>vgatherqpd</item>
       <item>vgatherdps</item>
+      <item>vgatherpf0dpd</item>
+      <item>vgatherpf0dps</item>
+      <item>vgatherpf0qpd</item>
+      <item>vgatherpf0qps</item>
+      <item>vgatherpf1dpd</item>
+      <item>vgatherpf1dps</item>
+      <item>vgatherpf1qpd</item>
+      <item>vgatherpf1qps</item>
+      <item>vgatherqpd</item>
       <item>vgatherqps</item>
-      <item>vgatherdd</item>
-      <item>vgatherqd</item>
-      <item>vgatherdq</item>
-      <item>vgatherqq</item>
+      <item>vgetexppd</item>
+      <item>vgetexpps</item>
+      <item>vgetexpsd</item>
+      <item>vgetexpss</item>
+      <item>vgetmantpd</item>
+      <item>vgetmantps</item>
+      <item>vgetmantsd</item>
+      <item>vgetmantss</item>
       <item>vhaddpd</item>
+      <item>vhaddps</item>
       <item>vhsubpd</item>
+      <item>vhsubps</item>
+      <item>vinsertf128</item>
+      <item>vinsertf32x4</item>
+      <item>vinsertf32x8</item>
+      <item>vinsertf64x2</item>
+      <item>vinsertf64x4</item>
       <item>vinserti128</item>
-      <item>vmaskmovps</item>
+      <item>vinserti32x4</item>
+      <item>vinserti32x8</item>
+      <item>vinserti64x2</item>
+      <item>vinserti64x4</item>
+      <item>vinsertps</item>
+      <item>vlddqu</item>
+      <item>vldmxcsr</item>
+      <item>vldqqu</item>
+      <item>vmaskmovdqu</item>
       <item>vmaskmovpd</item>
-      <item>vmaskmovd</item>
-      <item>vmaskmovq</item>
+      <item>vmaskmovps</item>
       <item>vmaxpd</item>
+      <item>vmaxps</item>
       <item>vmaxsd</item>
+      <item>vmaxss</item>
+      <item>vmcall</item>
+      <item>vmclear</item>
+      <item>vmfunc</item>
       <item>vminpd</item>
+      <item>vminps</item>
       <item>vminsd</item>
+      <item>vminss</item>
+      <item>vmlaunch</item>
       <item>vmload</item>
       <item>vmmcall</item>
       <item>vmovapd</item>
       <item>vmovaps</item>
       <item>vmovd</item>
+      <item>vmovddup</item>
       <item>vmovdqa</item>
+      <item>vmovdqa32</item>
+      <item>vmovdqa64</item>
+      <item>vmovdqu</item>
+      <item>vmovdqu16</item>
+      <item>vmovdqu32</item>
+      <item>vmovdqu64</item>
+      <item>vmovdqu8</item>
+      <item>vmovhlps</item>
+      <item>vmovhpd</item>
+      <item>vmovhps</item>
+      <item>vmovlhps</item>
+      <item>vmovlpd</item>
+      <item>vmovlps</item>
       <item>vmovmskpd</item>
+      <item>vmovmskps</item>
+      <item>vmovntdq</item>
+      <item>vmovntdqa</item>
+      <item>vmovntpd</item>
+      <item>vmovntps</item>
+      <item>vmovntqq</item>
+      <item>vmovq</item>
+      <item>vmovqqa</item>
+      <item>vmovqqu</item>
       <item>vmovsd</item>
+      <item>vmovshdup</item>
+      <item>vmovsldup</item>
       <item>vmovss</item>
       <item>vmovupd</item>
       <item>vmovups</item>
+      <item>vmpsadbw</item>
+      <item>vmptrld</item>
+      <item>vmptrst</item>
+      <item>vmread</item>
+      <item>vmresume</item>
       <item>vmrun</item>
       <item>vmsave</item>
       <item>vmulpd</item>
       <item>vmulps</item>
       <item>vmulsd</item>
       <item>vmulss</item>
+      <item>vmwrite</item>
+      <item>vmxoff</item>
+      <item>vmxon</item>
+      <item>vorpd</item>
+      <item>vorps</item>
+      <item>vpabsb</item>
+      <item>vpabsd</item>
+      <item>vpabsq</item>
+      <item>vpabsw</item>
       <item>vpackssdw</item>
+      <item>vpacksswb</item>
+      <item>vpackusdw</item>
+      <item>vpackuswb</item>
       <item>vpaddb</item>
+      <item>vpaddd</item>
+      <item>vpaddq</item>
+      <item>vpaddsb</item>
       <item>vpaddsw</item>
+      <item>vpaddusb</item>
+      <item>vpaddusw</item>
       <item>vpaddw</item>
+      <item>vpalignr</item>
       <item>vpand</item>
+      <item>vpandd</item>
       <item>vpandn</item>
+      <item>vpandnd</item>
+      <item>vpandnq</item>
+      <item>vpandq</item>
+      <item>vpavgb</item>
+      <item>vpavgw</item>
       <item>vpblendd</item>
+      <item>vpblendmb</item>
+      <item>vpblendmd</item>
+      <item>vpblendmq</item>
+      <item>vpblendmw</item>
       <item>vpblendvb</item>
+      <item>vpblendw</item>
       <item>vpbroadcastb</item>
       <item>vpbroadcastd</item>
+      <item>vpbroadcastmb2q</item>
+      <item>vpbroadcastmw2d</item>
       <item>vpbroadcastq</item>
+      <item>vpbroadcastw</item>
+      <item>vpclmulhqhqdq</item>
+      <item>vpclmulhqlqdq</item>
+      <item>vpclmullqhqdq</item>
+      <item>vpclmullqlqdq</item>
+      <item>vpclmulqdq</item>
+      <item>vpcmov</item>
+      <item>vpcmpb</item>
+      <item>vpcmpd</item>
+      <item>vpcmpeqb</item>
+      <item>vpcmpeqd</item>
+      <item>vpcmpeqq</item>
+      <item>vpcmpeqw</item>
+      <item>vpcmpestri</item>
+      <item>vpcmpestrm</item>
       <item>vpcmpgtb</item>
+      <item>vpcmpgtd</item>
+      <item>vpcmpgtq</item>
+      <item>vpcmpgtw</item>
+      <item>vpcmpistri</item>
+      <item>vpcmpistrm</item>
+      <item>vpcmpq</item>
+      <item>vpcmpub</item>
+      <item>vpcmpud</item>
+      <item>vpcmpuq</item>
+      <item>vpcmpuw</item>
+      <item>vpcmpw</item>
+      <item>vpcomb</item>
+      <item>vpcomd</item>
+      <item>vpcompressd</item>
+      <item>vpcompressq</item>
+      <item>vpcomq</item>
+      <item>vpcomub</item>
+      <item>vpcomud</item>
+      <item>vpcomuq</item>
+      <item>vpcomuw</item>
+      <item>vpcomw</item>
+      <item>vpconflictd</item>
+      <item>vpconflictq</item>
+      <item>vperm2f128</item>
+      <item>vperm2i128</item>
+      <item>vpermb</item>
       <item>vpermd</item>
+      <item>vpermi2b</item>
+      <item>vpermi2d</item>
+      <item>vpermi2pd</item>
+      <item>vpermi2ps</item>
+      <item>vpermi2q</item>
+      <item>vpermi2w</item>
+      <item>vpermilpd</item>
+      <item>vpermilps</item>
       <item>vpermpd</item>
       <item>vpermps</item>
       <item>vpermq</item>
-      <item>vperm2i128</item>
-      <item>vpermilpd</item>      
-      <item>vpermilps</item>
-      <item>vperm2f128</item>
+      <item>vpermt2b</item>
+      <item>vpermt2d</item>
+      <item>vpermt2pd</item>
+      <item>vpermt2ps</item>
+      <item>vpermt2q</item>
+      <item>vpermt2w</item>
+      <item>vpermw</item>
+      <item>vpexpandd</item>
+      <item>vpexpandq</item>
+      <item>vpextrb</item>
+      <item>vpextrd</item>
+      <item>vpextrq</item>
+      <item>vpextrw</item>
+      <item>vpgatherdd</item>
       <item>vpgatherdq</item>
+      <item>vpgatherqd</item>
+      <item>vpgatherqq</item>
+      <item>vphaddbd</item>
+      <item>vphaddbq</item>
+      <item>vphaddbw</item>
       <item>vphaddd</item>
-      <item>phaddw</item>
+      <item>vphadddq</item>
+      <item>vphaddsw</item>
+      <item>vphaddubd</item>
+      <item>vphaddubq</item>
+      <item>vphaddubw</item>
+      <item>vphaddudq</item>
+      <item>vphadduwd</item>
+      <item>vphadduwq</item>
+      <item>vphaddw</item>
+      <item>vphaddwd</item>
+      <item>vphaddwq</item>
+      <item>vphminposuw</item>
+      <item>vphsubbw</item>
       <item>vphsubd</item>
+      <item>vphsubdq</item>
+      <item>vphsubsw</item>
+      <item>vphsubw</item>
+      <item>vphsubwd</item>
+      <item>vpinsrb</item>
+      <item>vpinsrd</item>
+      <item>vpinsrq</item>
+      <item>vpinsrw</item>
+      <item>vplzcntd</item>
+      <item>vplzcntq</item>
+      <item>vpmacsdd</item>
+      <item>vpmacsdqh</item>
+      <item>vpmacsdql</item>
+      <item>vpmacssdd</item>
+      <item>vpmacssdqh</item>
+      <item>vpmacssdql</item>
+      <item>vpmacsswd</item>
+      <item>vpmacssww</item>
+      <item>vpmacswd</item>
+      <item>vpmacsww</item>
+      <item>vpmadcsswd</item>
+      <item>vpmadcswd</item>
+      <item>vpmadd52huq</item>
+      <item>vpmadd52luq</item>
+      <item>vpmaddubsw</item>
+      <item>vpmaddwd</item>
+      <item>vpmaskmovd</item>
+      <item>vpmaskmovq</item>
+      <item>vpmaxsb</item>
+      <item>vpmaxsd</item>
+      <item>vpmaxsq</item>
       <item>vpmaxsw</item>
+      <item>vpmaxub</item>
+      <item>vpmaxud</item>
+      <item>vpmaxuq</item>
+      <item>vpmaxuw</item>
+      <item>vpminsb</item>
+      <item>vpminsd</item>
+      <item>vpminsq</item>
       <item>vpminsw</item>
+      <item>vpminub</item>
+      <item>vpminud</item>
+      <item>vpminuq</item>
+      <item>vpminuw</item>
+      <item>vpmovb2m</item>
+      <item>vpmovd2m</item>
+      <item>vpmovdb</item>
+      <item>vpmovdw</item>
+      <item>vpmovm2b</item>
+      <item>vpmovm2d</item>
+      <item>vpmovm2q</item>
+      <item>vpmovm2w</item>
       <item>vpmovmskb</item>
+      <item>vpmovq2m</item>
+      <item>vpmovqb</item>
+      <item>vpmovqd</item>
+      <item>vpmovqw</item>
+      <item>vpmovsdb</item>
+      <item>vpmovsdw</item>
+      <item>vpmovsqb</item>
+      <item>vpmovsqd</item>
+      <item>vpmovsqw</item>
+      <item>vpmovswb</item>
+      <item>vpmovsxbd</item>
+      <item>vpmovsxbq</item>
+      <item>vpmovsxbw</item>
+      <item>vpmovsxdq</item>
+      <item>vpmovsxwd</item>
+      <item>vpmovsxwq</item>
+      <item>vpmovusdb</item>
+      <item>vpmovusdw</item>
+      <item>vpmovusqb</item>
+      <item>vpmovusqd</item>
+      <item>vpmovusqw</item>
+      <item>vpmovuswb</item>
+      <item>vpmovw2m</item>
+      <item>vpmovwb</item>
+      <item>vpmovzxbd</item>
+      <item>vpmovzxbq</item>
+      <item>vpmovzxbw</item>
+      <item>vpmovzxdq</item>
+      <item>vpmovzxwd</item>
+      <item>vpmovzxwq</item>
+      <item>vpmuldq</item>
+      <item>vpmulhrsw</item>
+      <item>vpmulhuw</item>
+      <item>vpmulhw</item>
       <item>vpmulld</item>
+      <item>vpmullq</item>
+      <item>vpmullw</item>
+      <item>vpmultishiftqb</item>
+      <item>vpmuludq</item>
       <item>vpor</item>
+      <item>vpord</item>
+      <item>vporq</item>
+      <item>vpperm</item>
+      <item>vprold</item>
+      <item>vprolq</item>
+      <item>vprolvd</item>
+      <item>vprolvq</item>
+      <item>vprord</item>
+      <item>vprorq</item>
+      <item>vprorvd</item>
+      <item>vprorvq</item>
+      <item>vprotb</item>
+      <item>vprotd</item>
+      <item>vprotq</item>
+      <item>vprotw</item>
+      <item>vpsadbw</item>
+      <item>vpscatterdd</item>
+      <item>vpscatterdq</item>
+      <item>vpscatterqd</item>
+      <item>vpscatterqq</item>
+      <item>vpshab</item>
+      <item>vpshad</item>
+      <item>vpshaq</item>
+      <item>vpshaw</item>
+      <item>vpshlb</item>
+      <item>vpshld</item>
+      <item>vpshlq</item>
+      <item>vpshlw</item>
+      <item>vpshufb</item>
+      <item>vpshufd</item>
+      <item>vpshufhw</item>
+      <item>vpshuflw</item>
+      <item>vpsignb</item>
+      <item>vpsignd</item>
+      <item>vpsignw</item>
+      <item>vpslld</item>
+      <item>vpslldq</item>
+      <item>vpsllq</item>
       <item>vpsllvd</item>
       <item>vpsllvq</item>
+      <item>vpsllvw</item>
+      <item>vpsllw</item>
+      <item>vpsrad</item>
+      <item>vpsraq</item>
       <item>vpsravd</item>
+      <item>vpsravq</item>
+      <item>vpsravw</item>
+      <item>vpsraw</item>
+      <item>vpsrld</item>
+      <item>vpsrldq</item>
+      <item>vpsrlq</item>
       <item>vpsrlvd</item>
       <item>vpsrlvq</item>
+      <item>vpsrlvw</item>
+      <item>vpsrlw</item>
       <item>vpsubb</item>
+      <item>vpsubd</item>
+      <item>vpsubq</item>
+      <item>vpsubsb</item>
       <item>vpsubsw</item>
+      <item>vpsubusb</item>
+      <item>vpsubusw</item>
       <item>vpsubw</item>
+      <item>vpternlogd</item>
+      <item>vpternlogq</item>
+      <item>vptest</item>
+      <item>vptestmb</item>
+      <item>vptestmd</item>
+      <item>vptestmq</item>
+      <item>vptestmw</item>
+      <item>vptestnmb</item>
+      <item>vptestnmd</item>
+      <item>vptestnmq</item>
+      <item>vptestnmw</item>
       <item>vpunpckhbw</item>
       <item>vpunpckhdq</item>
+      <item>vpunpckhqdq</item>
       <item>vpunpckhwd</item>
       <item>vpunpcklbw</item>
       <item>vpunpckldq</item>
+      <item>vpunpcklqdq</item>
       <item>vpunpcklwd</item>
       <item>vpxor</item>
+      <item>vpxord</item>
+      <item>vpxorq</item>
+      <item>vrangepd</item>
+      <item>vrangeps</item>
+      <item>vrangesd</item>
+      <item>vrangess</item>
+      <item>vrcp14pd</item>
+      <item>vrcp14ps</item>
+      <item>vrcp14sd</item>
+      <item>vrcp14ss</item>
+      <item>vrcp28pd</item>
+      <item>vrcp28ps</item>
+      <item>vrcp28sd</item>
+      <item>vrcp28ss</item>
+      <item>vrcpps</item>
+      <item>vrcpss</item>
+      <item>vreducepd</item>
+      <item>vreduceps</item>
+      <item>vreducesd</item>
+      <item>vreducess</item>
+      <item>vrndscalepd</item>
+      <item>vrndscaleps</item>
+      <item>vrndscalesd</item>
+      <item>vrndscaless</item>
+      <item>vroundpd</item>
+      <item>vroundps</item>
+      <item>vroundsd</item>
+      <item>vroundss</item>
+      <item>vrsqrt14pd</item>
+      <item>vrsqrt14ps</item>
+      <item>vrsqrt14sd</item>
+      <item>vrsqrt14ss</item>
+      <item>vrsqrt28pd</item>
+      <item>vrsqrt28ps</item>
+      <item>vrsqrt28sd</item>
+      <item>vrsqrt28ss</item>
+      <item>vrsqrtps</item>
+      <item>vrsqrtss</item>
+      <item>vscalefpd</item>
+      <item>vscalefps</item>
+      <item>vscalefsd</item>
+      <item>vscalefss</item>
+      <item>vscatterdpd</item>
+      <item>vscatterdps</item>
+      <item>vscatterpf0dpd</item>
+      <item>vscatterpf0dps</item>
+      <item>vscatterpf0qpd</item>
+      <item>vscatterpf0qps</item>
+      <item>vscatterpf1dpd</item>
+      <item>vscatterpf1dps</item>
+      <item>vscatterpf1qpd</item>
+      <item>vscatterpf1qps</item>
+      <item>vscatterqpd</item>
+      <item>vscatterqps</item>
+      <item>vshuff32x4</item>
+      <item>vshuff64x2</item>
+      <item>vshufi32x4</item>
+      <item>vshufi64x2</item>
+      <item>vshufpd</item>
+      <item>vshufps</item>
       <item>vsqrtpd</item>
+      <item>vsqrtps</item>
       <item>vsqrtsd</item>
       <item>vsqrtss</item>
+      <item>vstmxcsr</item>
+      <item>vsubpd</item>
       <item>vsubps</item>
       <item>vsubsd</item>
+      <item>vsubss</item>
+      <item>vtestpd</item>
+      <item>vtestps</item>
+      <item>vucomisd</item>
+      <item>vucomiss</item>
+      <item>vunpckhpd</item>
+      <item>vunpckhps</item>
+      <item>vunpcklpd</item>
+      <item>vunpcklps</item>
       <item>vxorpd</item>
       <item>vxorps</item>
+      <item>vzeroall</item>
       <item>vzeroupper</item>
-      <item>wait</item>
       <item>wbinvd</item>
+      <item>wrfsbase</item>
+      <item>wrgsbase</item>
       <item>wrmsr</item>
+      <item>wrpkru</item>
       <item>wrshr</item>
+      <item>xabort</item>
       <item>xadd</item>
+      <item>xbegin</item>
       <item>xbts</item>
       <item>xchg</item>
+      <item>xcryptcbc</item>
+      <item>xcryptcfb</item>
+      <item>xcryptctr</item>
+      <item>xcryptecb</item>
+      <item>xcryptofb</item>
+      <item>xend</item>
       <item>xgetbv</item>
       <item>xlat</item>
       <item>xlatb</item>
       <item>xor</item>
       <item>xorpd</item>
       <item>xorps</item>
+      <item>xrstor</item>
+      <item>xrstor64</item>
+      <item>xrstors</item>
+      <item>xrstors64</item>
+      <item>xsave</item>
+      <item>xsave64</item>
+      <item>xsavec</item>
+      <item>xsavec64</item>
+      <item>xsaveopt</item>
+      <item>xsaveopt64</item>
+      <item>xsaves</item>
+      <item>xsaves64</item>
+      <item>xsetbv</item>
+      <item>xsha1</item>
+      <item>xsha256</item>
+      <item>xstore</item>
+      <item>xtest</item>
     </list>
     <list name="Data">
       <!-- repeat some data declaration -->
