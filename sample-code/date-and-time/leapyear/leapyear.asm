@@ -5,18 +5,6 @@
 ;
 ; Description:  reads a year from the commandline and determine if a year is a leapyear or not. The result is printed to STDOUT.
 ;
-; The algorithm for leapyear
-; 
-; if the last two bits of a year are zero then 
-; IF (year mod 4) = 0
-;   leap = true
-; FI
-; IF (year mod 100) = 0
-;   leap = false
-;   IF (year mod 400) = 0
-;     leap = true
-;   FI
-; FI
 
 bits 64
 
