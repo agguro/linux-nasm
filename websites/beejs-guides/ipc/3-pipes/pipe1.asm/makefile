@@ -1,8 +1,8 @@
 .PHONY: all
-.PHONY: debug
 .PHONY: clean
+.PHONY: debug
 
-NAME=sigfpe
+NAME=pipe1
 AS=nasm
 LD=ld
 
@@ -10,8 +10,7 @@ O           = .o
 ASM         = .asm
 INC         = .inc
 LST         = .lst
-
-ASFLAGS     = "-felf64"
+ASFLAGS     = -felf64
 LDFLAGS     = -s -melf_x86_64
 
 OBJS = $(NAME)$(O)
@@ -21,7 +20,6 @@ $(NAME): $(OBJS)
 
 $(NAME)$(O): $(NAME)$(ASM)
 	$(AS) $(ASFLAGS) $(NAME)$(ASM) -l $(NAME)$(LST) -o $(NAME)$(O)
-
 all:
 	touch $(NAME)$(ASM)
 	$(MAKE) $(NAME)
