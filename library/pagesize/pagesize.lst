@@ -1,0 +1,66 @@
+     1                                  ; Name:         pagesize.asm
+     2                                  ;
+     3                                  ; Build:        nasm "-felf64" pagesize.asm -l pagesize.lst -o pagesize.o 
+     4                                  ;
+     5                                  ; Description:  Get the pagesize programmatically of a platform
+     6                                  ;
+     7                                  ; Source:       https://stackoverflow.com/questions/3351940/detecting-the-memory-page-size/3351960#3351960
+     8                                  
+     9                                  bits 64
+    10                                  
+    11                                  [list -]
+    15                                  
+    16                                  global pagesize
+    17                                      
+    18                                  section .text
+    19                                  
+    20                                  pagesize:
+    21 00000000 4157                        push        r15                         ;save help registers
+    22 00000002 4156                        push        r14
+    23 00000004 4152                        push        r10
+    24 00000006 4151                        push        r9
+    25 00000008 4150                        push        r8
+    26 0000000A 52                          push        rdx
+    27 0000000B 56                          push        rsi
+    28 0000000C 57                          push        rdi   
+    29                                      
+    30 0000000D 4D31F6                      xor         r14,r14
+    31 00000010 49FFC6                      inc         r14
+    32 00000013 4D89F7                      mov         r15,r14
+    33                                  .repeat:    
+    34 00000016 49D1E7                      shl         r15,1                                                   
+    35 00000019 4D31C94983C8FF41BA-         syscall     mmap,0,r15,PROT_NONE,MAP_ANONYMOUS | MAP_PRIVATE,-1,0
+    35 00000022 220000004831D24C89-
+    35 0000002B FE4831FFB809000000-
+    35 00000034 0F05               
+    36 00000036 4821C0                      and         rax,rax
+    37 00000039 783C                        js          .failed
+    38 0000003B 4889C2                      mov         rdx,rax
+    39 0000003E 4989C7                      mov         r15,rax
+    40 00000041 4D01F7                      add         r15,r14
+    41 00000044 4C89F64C89FFB80B00-         syscall     munmap,r15,r14
+    41 0000004D 00000F05           
+    42 00000051 4989C0                      mov         r8,rax                      ;save error code
+    43 00000054 4D89F7                      mov         r15,r14
+    44 00000057 49D1E7                      shl         r15,1
+    45 0000005A 4C89FE4889D7B80B00-         syscall     munmap,rdx,r15
+    45 00000063 00000F05           
+    46 00000067 4C89F0                      mov         rax,r14
+    47 0000006A 4D21C0                      and         r8,r8                       ;if r8==0 then we have our pagesize
+    48 0000006D 740F                        jz          .exit
+    49 0000006F F8                          clc                                     ;clear carry bit
+    50 00000070 49D1D6                      rcl         r14,1                       ;we do a rotate instead of a shift
+    51 00000073 7202                        jc          .failed                     ;to avoid an endless loop
+    52 00000075 EB9F                        jmp         .repeat                     ;still not there
+    53                                  .failed:
+    54 00000077 48C7C0FFFFFFFF              mov         rax,-1
+    55                                  .exit:
+    56 0000007E 5F                          pop         rdi                         ;restore used registers
+    57 0000007F 5E                          pop         rsi
+    58 00000080 5A                          pop         rdx
+    59 00000081 4158                        pop         r8
+    60 00000083 4159                        pop         r9
+    61 00000085 415A                        pop         r10
+    62 00000087 415E                        pop         r14
+    63 00000089 415F                        pop         r15
+    64 0000008B C3                          ret
