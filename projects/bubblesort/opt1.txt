@@ -1,0 +1,29 @@
+Bubblesort Algorithm - Agguro 2012
+Optimization step: n-th pass finds the n-th largest elements
+The UNSORTED array:
+-------------------
+ 9223372036854775807
+   15421441199845202
+                  75
+                  15
+                   0
+                -854
+               -7854
+           -48545825
+-9223372036854775808
+
+The SORTED array:
+-----------------
+-9223372036854775808
+           -48545825
+               -7854
+                -854
+                   0
+                  15
+                  75
+   15421441199845202
+ 8030874076713219394
+
+Number of iterations:                   45
+Number of swaps     :                   37
+

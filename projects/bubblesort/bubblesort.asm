@@ -104,6 +104,8 @@ _start:
     %include "optimizingstep1.asm"
 %elif OPTIMIZE_STEP == 2
     %include "optimizingstep2.asm"
+%elif OPTIMZE STEP == 0
+    %include "optimizingstep0.asm"
 %elif
     %warning "no OPTIMIZE_STEP defined, defaulting to 0"
     %include "optimizingstep0.asm"
