@@ -2,7 +2,7 @@
 .PHONY: debug
 .PHONY: clean
 
-NAME=facrec
+NAME=MT19937-32
 AS=nasm
 LD=ld
 
@@ -21,7 +21,6 @@ $(NAME): $(OBJS)
 
 $(NAME)$(O): $(NAME)$(ASM)
 	$(AS) $(ASFLAGS) $(NAME)$(ASM) -l $(NAME)$(LST) -o $(NAME)$(O)
-
 all:
 	touch $(NAME)$(ASM)
 	$(MAKE) $(NAME)
