@@ -3,7 +3,7 @@
 ; Build       : nasm "-felf64" charcase.asm -l charcase.lst -o charcase.o                                                                                                                                                         
 ;               ld -s -melf_x86_64 -o charcase charcase.o 
 ;
-; Description : convert a asciiz string pointed to by RDI, to uppercase
+; Description : convert a asciiz string pointed to by RDI, to uppercase/lowercase
 
 bits 64
 align 16
