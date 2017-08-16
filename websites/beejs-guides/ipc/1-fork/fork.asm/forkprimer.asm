@@ -12,7 +12,6 @@
 ; Source      : Beejs guide to IPC - http://beej.us/guide/bgipc/output/html/multipage/fork.html
 ;
 ; August 24, 2014 : assembler 64 bits version
-; January 4, 2017 : discovered a bug, return codes are passed in rdi, not rdx
 
 bits 64
 align 16
