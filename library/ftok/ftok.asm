@@ -9,7 +9,7 @@
 ;
 ; source: http://beej.us/guide/bgipc/output/html/multipage/mq.html
 
-global  ftok        ; make the function accessible for other programs
+global  ftok
 
 [list -]
     %include "sys/stat.inc"
@@ -31,6 +31,11 @@ ftok:
      ; the ftok function is defined in c/c++ as follows:
      ; key = ((st.st_ino & 0xffff) | ((st.st_dev & 0xff) << 16) | ((proj_id & 0xff) << 24));
 
+     ; save used registers
+     push      rbx
+     push      rdi
+     push      rsi
+     push      r8
      ; save the project id in R8 (will remain after syscalls)
      mov       r8, rsi
      ; open the file
@@ -49,6 +54,11 @@ ftok:
      and       r8, 0xFF                             ; R8 = proj_id
      shl       r8, 24
      or        rax, r8
-     ; rax now contains a key which uniquely identifies the file.
 .done:     
+     ; rax now contains a key which uniquely identifies the file.
+     ; restore used registers
+     pop      r8
+     pop      rsi
+     pop      rdi
+     pop      rbx  
      ret
