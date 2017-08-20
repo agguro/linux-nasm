@@ -1,16 +1,16 @@
 ; Name        : imagemenu;asm
 ;
 ; Build       : nasm -felf64 -o imagemenu.o -l imagemenu.lst imagemenu.asm
-;               ld -s -m elf_x86_64 imagemenu.o -o imagemenu -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 -lgtk-3 -lgobject-2.0  -lglib-2.0 -lgdk_pixbuf-2.0 -lgdk-3 -lpango-1.0 -latk-1.0 -lgio-2.0
-;               -lpangoft2-1.0  -lpangocairo-1.0 -lcairo -lfreetype -lfontconfig  -lgmodule-2.0 -lgthread-2.0 -lrt
+;               ld -s -m elf_x86_64 imagemenu.o -o imagemenu -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2
+;               -lgtk-3 -lgobject-2.0  -lglib-2.0 -lgdk_pixbuf-2.0 -lgdk-3
 ; 
 ; Description : a menu with an image, accelerator and mnemonics example
 ;
-; Remark:
-; Note that you might have Gnome configured not to show menu images.
-; To turn the menu images on, we launch the gconf-editor and go to /desktop/gnome/interface/menus_have_icons and check the option.
+; Remark      : Note that you might have Gnome configured not to show menu images.
+;               To turn the menu images on, we launch the gconf-editor and go to
+;               /desktop/gnome/interface/menus_have_icons and check the option.
 ;
-; C - source : http://zetcode.com/tutorials/gtktutorial/menusandtoolbars/
+; C - source : http://zetcode.com/gui/gtk2/menusandtoolbars/
 
 bits 64
 
@@ -59,18 +59,18 @@ bits 64
 [list +]
 
 section .bss
-    window:          resq    1   ; pointer to the GtkWidget, in this case the window
-    pixbuffer:       resq    1       ; pointer to pixel buffer for icon
-    error:           resq    1
-    box:             resq    1
-    menubar:         resq    1
-    filemenu:        resq    1
-    file:            resq    1
-    new:             resq    1
-    open:            resq    1
-    sep:             resq    1
-    quit:            resq    1
-    accel_group:     resq    1
+    window:      resq    1   ; pointer to the GtkWidget, in this case the window
+    pixbuffer:   resq    1   ; pointer to pixel buffer for icon
+    error:       resq    1
+    box:         resq    1
+    menubar:     resq    1
+    filemenu:    resq    1
+    file:        resq    1
+    new:         resq    1
+    open:        resq    1
+    sep:         resq    1
+    quit:        resq    1
+    accel_group: resq    1
     
 section .data
     mainwindow:
@@ -101,9 +101,9 @@ _start:
     
     mov     rdi,GTK_WINDOW_TOPLEVEL
     call    gtk_window_new
-    mov     QWORD[window], rax
+    mov     qword[window], rax
 
-    mov     rdi, QWORD[window]
+    mov     rdi, qword[window]
     mov     rsi, GTK_WIN_POS_CENTER
     call    gtk_window_set_position
 
@@ -113,7 +113,7 @@ _start:
     call    gtk_window_set_default_size
 
     ; gtk_window_set_title
-    mov     rdi, QWORD[window]
+    mov     rdi, qword[window]
     mov     rsi, mainwindow.title
     call    gtk_window_set_title
 
@@ -215,7 +215,7 @@ _start:
     xor     rcx, rcx                ; pointer to the data to pass
     mov     rdx, Quit               ; pointer to the handler
     mov     rsi, signal.destroy     ; pointer to the signal
-    mov     rdi, QWORD[window]      ; pointer to the widget instance
+    mov     rdi, qword[window]      ; pointer to the widget instance
     call    g_signal_connect_data   ; the value in RAX is the handler, but we don't store it now
 
     xor     r9d, r9d                ; combination of GConnectFlags 
@@ -223,11 +223,11 @@ _start:
     xor     rcx, rcx                ; pointer to the data to pass
     mov     rdx, Quit               ; pointer to the handler
     mov     rsi, signal.activate    ; pointer to the signal
-    mov     rdi, QWORD[quit]        ; pointer to the widget instance
+    mov     rdi, qword[quit]        ; pointer to the widget instance
     call    g_signal_connect_data   ; the value in RAX is the handler, but we don't store it now
     
     
-    mov     rdi, QWORD[window]
+    mov     rdi, qword[window]
     call    gtk_widget_show_all
 
     call    gtk_main
