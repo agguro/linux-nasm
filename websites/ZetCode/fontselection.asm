@@ -1,7 +1,7 @@
 ; Name        : fontselection.asm
 ;
 ; Build       : nasm -felf64 -o fontselection.o -l fontselection.lst fontselection.asm
-;               ld -s -m elf_x86_64 fontselection.o -o fontselection -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 -lgtk-3 -lgobject-2.0  -lglib-2.0 -lgdk_pixbuf-2.0 -lgdk-3 -lpango-1.0 -latk-1.0 -lgio-2.0 -lpangoft2-1.0  ;               -lpangocairo-1.0 -lcairo -lfreetype -lfontconfig  -lgmodule-2.0 -lgthread-2.0 -lrt
+;               ld -s -m elf_x86_64 fontselection.o -o fontselection -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 -lgtk-3 -lgobject-2.0  -lglib-2.0 -lgdk_pixbuf-2.0 -lgdk-3 -lpango-1.0
 ;
 ; Description : a font selection dialogbox
 ;
@@ -191,7 +191,7 @@ Exit:
     xor     rdi, rdi                ; we don't expect much errors now
     call    exit
 
-select_font:     
+select_font:
     ; RDI has GtkWidget *widget
     ; RSI has gpointer label
     ; create stackframe to prevent segmentation faults
@@ -213,12 +213,12 @@ select_font:
     call    gtk_dialog_run
     mov     qword[result], rax
     
-    cmp     rax, GTK_RESPONSE_OK
+    cmp     eax, GTK_RESPONSE_OK
     je      .setFont
-    cmp     rax, GTK_RESPONSE_APPLY
+    cmp     eax, GTK_RESPONSE_APPLY
     jne     .exit
 .setFont:
-    mov     rdi, qword[dialog]
+    mov     rdi, qword[dialog.handle]
     call    gtk_font_selection_dialog_get_font_name
     mov     qword[font.name], rax
     
@@ -226,7 +226,7 @@ select_font:
     call    pango_font_description_from_string
     mov     qword[font.description], rax
     
-    mov     rdi, r15
+    mov     rdi, qword[label.handle]
     mov     rsi, qword[font.description]
     call    gtk_widget_modify_font
     
