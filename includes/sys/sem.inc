@@ -19,47 +19,70 @@
 ; Data structure describing a set of semaphores.
 
 STRUC SEM_ID_STRUC
-     .sem_perm:           resq      1 ; operation permission struct, must be filled in as pointer to the structure by the calling program
-     .sem_otime:          resq      1 ; last semop() time
-     .__glibc_reserved1:  resq      1
-     .sem_ctime:          resq      1 ; last time changed by semctl()
-     .__glibc_reserved2:  resq      1 ;
-     .sem_nsems:          resq      1 ; number of semaphores in set
-     .__glibc_reserved3:  resq      1
-     .__glibc_reserved4:  resq      1
+     .sem_perm.__key:		    resq    1
+     .sem_perm.uid:		    resd    1
+     .sem_perm.gid:		    resd    1
+     .sem_perm.cuid:		    resd    1
+     .sem_perm.cgid:		    resd    1
+     .sem_perm.mode:		    resw    1
+     .sem_perm.__pad1:		    resw    1
+     .sem_perm.__seq:		    resw    1
+     .sem_perm.__pad2:		    resw    1
+     .sem_perm.__glibc_reserved1:   resq    1
+     .sem_perm.__glibc_reserved2:   resq    1
+     ; end of sem_perm IPC_PERM structure
+     .sem_otime:		    resq    1 ; last semop() time
+     .__glibc_reserved1:	    resq    1
+     .sem_ctime:		    resq    1 ; last time changed by semctl()
+     .__glibc_reserved2:	    resq    1 ;
+     .sem_nsems:		    resq    1 ; number of semaphores in set
+     .__glibc_reserved3:	    resq    1
+     .__glibc_reserved4:	    resq    1
 ENDSTRUC
 
      %macro SEM_ID 1
           %1: 
           ISTRUC SEM_ID_STRUC
-               at SEM_ID_STRUC.sem_perm,               dq 0           ; IPC_PERM_STRUC
-               at SEM_ID_STRUC.sem_otime,              dq 0
-               at SEM_ID_STRUC.__glibc_reserved1,      dq 0
-               at SEM_ID_STRUC.sem_ctime,              dq 0
-               at SEM_ID_STRUC.__glibc_reserved2,      dq 0
-               at SEM_ID_STRUC.sem_nsems,              dd 0
-               at SEM_ID_STRUC.__glibc_reserved3,      dq 0
-               at SEM_ID_STRUC.__glibc_reserved4,      dq 0
+               at SEM_ID_STRUC.sem_perm.__key,		    dq	0	
+	       at SEM_ID_STRUC.sem_perm.uid:		    dd  0
+	       at SEM_ID_STRUC.sem_perm.gid:		    dd	0
+	       at SEM_ID_STRUC.sem_perm.cuid:		    dd  0
+	       at SEM_ID_STRUC.sem_perm.cgid:		    dd  0
+	       at SEM_ID_STRUC.sem_perm.mode:		    dw  0
+	       at SEM_ID_STRUC.sem_perm.__pad1:		    dw  0
+	       at SEM_ID_STRUC.sem_perm.__seq:		    dw  0
+	       at SEM_ID_STRUC.sem_perm.__pad2:		    dw  0
+	       at SEM_ID_STRUC.sem_perm.__glibc_reserved1:  dq  0
+	       at SEM_ID_STRUC.sem_perm.__glibc_reserved2:  dq  0
+               at SEM_ID_STRUC.sem_otime,		    dq	0
+               at SEM_ID_STRUC.__glibc_reserved1,	    dq	0
+               at SEM_ID_STRUC.sem_ctime,		    dq	0
+               at SEM_ID_STRUC.__glibc_reserved2,	    dq	0
+               at SEM_ID_STRUC.sem_nsems,		    dd	0
+               at SEM_ID_STRUC.__glibc_reserved3,	    dq	0
+               at SEM_ID_STRUC.__glibc_reserved4,	    dq	0
           IEND  
 
           ; definition macro's for SEM_ID structure
-          ; !! warn: Leave commented lines commented, they are here to be complete. If in the future some of these fields will be used.
           
-          %define %1.perm                  %1+SEM_ID_STRUC.sem_perm
-          %define %1.perm.uid              %1+SEM_ID_STRUC.sem_perm+IPC_PERM_STRUC.uid
-          %define %1.perm.gid              %1+SEM_ID_STRUC.sem_perm+IPC_PERM_STRUC.gid
-          %define %1.perm.cuid             %1+SEM_ID_STRUC.sem_perm+IPC_PERM_STRUC.cuid
-          %define %1.perm.cgid             %1+SEM_ID_STRUC.sem_perm+IPC_PERM_STRUC.cgid
-          %define %1.perm.mode             %1+SEM_ID_STRUC.sem_perm+IPC_PERM_STRUC.mode
-          %define %1.perm.__seq            %1+SEM_ID_STRUC.sem_perm+IPC_PERM_STRUC.__seq
-
-          %define %1.sem_otime                    %1+SEM_ID_STRUC.sem_otime
-          ; %define %1.sem_id__glibc_reserved1    %1+SEM_ID_STRUC.sem_id__glibc_reserved1
-          %define %1.sem_ctime                    %1+SEM_ID_STRUC.sem_ctime
-          ; %define %1.sem_id__glibc_reserved2    %1+SEM_ID_STRUC.sem_id__glibc_reserved2
-          %define %1.sem_nsems                    %1+SEM_ID_STRUC.sem_nsems
-          ; %define %1.sem_id__glibc_reserved3    %1+SEM_ID_STRUC.sem_id__glibc_reserved3
-          ; %define %1.sem_id__glibc_reserved4    %1+SEM_ID_STRUC.sem_id__glibc_reserved4
+        %define %1.sem_perm.__key		%1+SEM_ID_STRUC.sem_perm.__key
+	%define %1.sem_perm.uid			%1+SEM_ID_STRUC.sem_perm.uid
+	%define %1.sem_perm.gid			%1+SEM_ID_STRUC.sem_perm.gid
+	%define %1.sem_perm.cuid		%1+SEM_ID_STRUC.sem_perm.cuid
+	%define %1.sem_perm.cgid		%1+SEM_ID_STRUC.sem_perm.cgid
+	%define %1.sem_perm.mode		%1+SEM_ID_STRUC.sem_perm.mode
+	%define %1.sem_perm.__pad1		%1+SEM_ID_STRUC.sem_perm.__pad1
+	%define %1.sem_perm.__seq		%1+SEM_ID_STRUC.sem_perm.__seq
+	%define %1.sem_perm.__pad2		%1+SEM_ID_STRUC.sem_perm.__pad2
+	%define %1.sem_perm.__glibc_reserved1	%1+SEM_ID_STRUC.sem_perm.__glibc_reserved1
+	%define %1.sem_perm.__glibc_reserved2   %1+SEM_ID_STRUC.sem_perm.__glibc_reserved2
+        %define %1.sem_otime                    %1+SEM_ID_STRUC.sem_otime
+        %define %1.sem_id__glibc_reserved1      %1+SEM_ID_STRUC.sem_id__glibc_reserved1
+        %define %1.sem_ctime                    %1+SEM_ID_STRUC.sem_ctime
+        %define %1.sem_id__glibc_reserved2      %1+SEM_ID_STRUC.sem_id__glibc_reserved2
+        %define %1.sem_nsems                    %1+SEM_ID_STRUC.sem_nsems
+        %define %1.sem_id__glibc_reserved3      %1+SEM_ID_STRUC.sem_id__glibc_reserved3
+        %define %1.sem_id__glibc_reserved4      %1+SEM_ID_STRUC.sem_id__glibc_reserved4
           
      %endmacro
 

@@ -18,32 +18,32 @@
 
      STRUC IPC_PERM_STRUC
           .__key:             resq      1    ; Key.
-          .uid:               resq      1    ; Owner's user ID.
-          .gid:               resq      1    ; Owner's group ID.
-          .cuid:              resq      1    ; Creator's user ID.
-          .cgid:              resq      1    ; Creator's group ID.
-          .mode:              resd      1    ; Read/write permission.
-          .__pad1:            resd      1
-          .__seq:             resd      1    ; Sequence number.
-          .__pad2:            resd      1
-          .__glibc_reserved1: resd      1
-          .__glibc_reserved2: resd      1
+          .uid:               resd      1    ; Owner's user ID.
+          .gid:               resd      1    ; Owner's group ID.
+          .cuid:              resd      1    ; Creator's user ID.
+          .cgid:              resd      1    ; Creator's group ID.
+          .mode:              resw      1    ; Read/write permission.
+          .__pad1:            resw      1
+          .__seq:             resw      1    ; Sequence number.
+          .__pad2:            resw      1
+          .__glibc_reserved1: resq      1
+          .__glibc_reserved2: resq      1
      ENDSTRUC
 
      %macro IPC_PERM 1
           %1: 
           ISTRUC IPC_PERM_STRUC
                at IPC_PERM_STRUC.__key,                dq 0
-               at IPC_PERM_STRUC.uid,                  dq 0
-               at IPC_PERM_STRUC.gid,                  dq 0
-               at IPC_PERM_STRUC.cuid,                 dq 0
-               at IPC_PERM_STRUC.cgid,                 dq 0
-               at IPC_PERM_STRUC.mode,                 dd 0
-               at IPC_PERM_STRUC._pad1,                dd 0
-               at IPC_PERM_STRUC.__seg,                dd 0
-               at IPC_PERM_STRUC._pad2,                dd 0
-               at IPC_PERM_STRUC.__glibc_reserved1,    dd 0
-               at IPC_PERM_STRUC.__glibc_reserved2,    dd 0
+               at IPC_PERM_STRUC.uid,                  dd 0
+               at IPC_PERM_STRUC.gid,                  dd 0
+               at IPC_PERM_STRUC.cuid,                 dd 0
+               at IPC_PERM_STRUC.cgid,                 dd 0
+               at IPC_PERM_STRUC.mode,                 dw 0
+               at IPC_PERM_STRUC._pad1,                dw 0
+               at IPC_PERM_STRUC.__seg,                dw 0
+               at IPC_PERM_STRUC._pad2,                dw 0
+               at IPC_PERM_STRUC.__glibc_reserved1,    dq 0
+               at IPC_PERM_STRUC.__glibc_reserved2,    dq 0
                
           IEND  
 
@@ -56,11 +56,11 @@
           %define %1.cuid               %1+IPC_PERM_STRUC.cuid
           %define %1.cgid               %1+IPC_PERM_STRUC.cgid
           %define %1.mode               %1+IPC_PERM_STRUC.mode
-          ; %define %1._pad1              %1+IPC_PERM_STRUC.__pad1
+          %define %1._pad1              %1+IPC_PERM_STRUC.__pad1
           %define %1._seg               %1+IPC_PERM_STRUC._seg
-          ; %define %1._pad2              %1+IPC_PERM_STRUC.__pad2
-          ; %define %1.__glibc_reserved1  %1+IPC_PERM_STRUC.__glibc_reserved1
-          ; %define %1.__glibc_reserved2  %1+IPC_PERM_STRUC.__glibc_reserved2
+          %define %1._pad2              %1+IPC_PERM_STRUC.__pad2
+          %define %1.__glibc_reserved1  %1+IPC_PERM_STRUC.__glibc_reserved1
+          %define %1.__glibc_reserved2  %1+IPC_PERM_STRUC.__glibc_reserved2
           
      %endmacro
 
