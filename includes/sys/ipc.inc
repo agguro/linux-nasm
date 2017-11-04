@@ -2,9 +2,9 @@
 %define _ASM_IPC_INC_    1
 
      ; Mode bits for `msgget', `semget', and `shmget'.
-     %define IPC_CREAT   01000     ; Create key if key does not exist.
-     %define IPC_EXCL    02000     ; Fail if key exists.
-     %define IPC_NOWAIT  04000     ; Return error on wait.
+     %define IPC_CREAT   0x200     ; Create key if key does not exist.
+     %define IPC_EXCL    0x400     ; Fail if key exists.
+     %define IPC_NOWAIT  0x1000    ; Return error on wait.
 
      ; Control commands for `msgctl', `semctl', and `shmctl'.
      %define IPC_RMID    0         ; Remove identifier.
