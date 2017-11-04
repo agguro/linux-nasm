@@ -24,7 +24,7 @@ section .data
           at MSG_BUF.mtext,   times BUFFER_LENGTH+1 db 0
      iend  
      
-     path_to_file:       db   "./kirk", 0
+     path_to_file:       db   "../demofile", 0
      proj_id:            db   "B"
      msqid:              dq   0
      key:                dq   0

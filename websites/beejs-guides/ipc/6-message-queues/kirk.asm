@@ -36,7 +36,7 @@ _start:
      js        .error_ftok                        ; we have an error
      mov       qword[key], rax                    ; save the key
      
-     syscall   msgget, rax, 0644 | IPC_CREAT
+     syscall   msgget, rax, 666o | IPC_CREAT
      and       rax, rax
      js        .error_msgget
      mov       qword[msqid], rax
