@@ -14,7 +14,9 @@ BITS 64
 
 section .data
 
-     message:   db "Hello world!",10
+     message:   ; if cgi is used uncomment next line
+              ; db "Content-type: text/html",10,10
+                db "Hello world!",10
      .length:	equ $-message
         
 section .text
