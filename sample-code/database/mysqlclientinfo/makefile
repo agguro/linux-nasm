@@ -12,8 +12,7 @@ INC         = .inc
 LST         = .lst
 
 OBJS        = $(NAME)$(O)
-LIBS        = -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 -lmysqlclient
-
+LIBS        = -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 libmysqlclient.so.20 -rpath .
 ASFLAGS     = "-felf64"
 LDFLAGS     = -s -melf_x86_64
 

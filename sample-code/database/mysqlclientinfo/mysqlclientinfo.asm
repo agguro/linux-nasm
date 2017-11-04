@@ -21,7 +21,9 @@ bits 64
 
 section .data
 
-    text:   db  "MySQL Client Version: %s", 10, 0
+    text:   ; if cgi is used uncomment next line
+            ; db "Content-type: text/html",10,10
+            db "MySQL Client Version: %s", 10, 0
       
 section .text
         global _start
