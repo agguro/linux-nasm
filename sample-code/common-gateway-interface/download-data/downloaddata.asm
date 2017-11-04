@@ -33,20 +33,8 @@ _start:
      ; This doesn't send the entire program, only the assembled code of the .text section.
 data:
 
-     mov       rax, SYS_WRITE
-     mov       rsi, httpheader
-     mov       rdx, httpheader.length
-     mov       rdi, STDOUT
-     syscall
-     
-     mov       rax, SYS_WRITE
-     mov       rsi, data
-     mov       rdx, data.length
-     mov       rdi, STDOUT
-     syscall
-     
-     xor       rdi, rdi
-     mov       rax, SYS_EXIT
-     syscall
+     syscall   write, stdout, httpheader, httpheader.length
+     syscall   write, stdout, data, data.length
+     syscall   exit, 0
      
 .length: equ $-data     

@@ -1,7 +1,7 @@
 ; Name:         quadraticequations.asm
 ; Build:        nasm -felf64 quadraticequations.asm -l quadraticequations.lst -o quadraticequations.o
 ;               ld -s -melf_x86_64 -o quadraticequations quadraticequations.o
-; Description:  Generates a quadratic equation from a given squareroot of D,x1 and x2.
+; Description:  Generates a quadratic equation from a given squareroot of D,x1 and x2, all integers.
 
 bits 64
 

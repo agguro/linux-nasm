@@ -159,12 +159,8 @@ _start:
      mov       rdx, bottom.length
      call      .write
 
-     mov       rdi, 0
-     mov       rax, SYS_EXIT
-     syscall
+     syscall   exit, 0
 
 .write:
-     mov       rdi, STDOUT
-     mov       rax, SYS_WRITE
-     syscall
+     syscall   write, stdout
      ret

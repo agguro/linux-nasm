@@ -97,37 +97,25 @@ _start:
 .endofparamstring:   
      ; RCX contains the content_length in hexadecimal
      ; reserve space on, the heap to store the parameters from STDIN
-     mov       QWORD[content], rcx
-     mov       rdi, 0
-     mov       rax, SYS_BRK
-     syscall
-     mov         QWORD[oldbrkaddr], rax  ; save the address to de-allocate memory
+     mov       qword[content], rcx
+     syscall   brk, 0
+     mov       qword[oldbrkaddr], rax  ; save the address to de-allocate memory
 
      ; reserve memory for the parameters
-     add       rax, QWORD[content]            ; add contentlength to the program break
-     mov       rdi, rax
-     mov       rax, SYS_BRK
-     syscall
+     add       rax, qword[content]            ; add contentlength to the program break
+     syscall   brk, rax
      cmp       rax, 0
      je        .exit                   ; if RAX = 0 then no memory is available, now we exit
 
      ; read the params in our created buffer
-     mov       rsi, QWORD[oldbrkaddr]
-     mov       rdx, QWORD[content]               ; length of the parameterstring
-     mov       rdi, STDIN
-     mov       rax, SYS_READ
-     syscall
+     syscall   read, stdin, qword[oldbrkaddr], qword[content]
 
      ; start the output of the data as a JSON object
-     mov       rdi, STDOUT
-     mov       rsi, top
-     mov       rdx, top.length
-     mov       rax, SYS_WRITE
-     syscall
+     syscall   write, stdout, top, top.length
 
      ; parse the data to a JSON object
      ; loop through the data until '='
-     mov         rsi, QWORD[oldbrkaddr]
+     mov         rsi, qword[oldbrkaddr]
      cld
 .repeat:    
      lodsb
@@ -144,47 +132,27 @@ _start:
 .printchar:    
      push      rsi                             ; rsi on stack    
      ; print the character
-     mov       BYTE[charbuffer], al
-     mov       rsi, charbuffer
-     mov       rdx, 1
-     mov       rdi, STDOUT
-     mov       rax, SYS_WRITE
-     syscall
+     mov       byte[charbuffer], al
+     syscall   write, stdout, charbuffer, 1
      pop       rsi
      jmp       .repeat
 .printmiddle:
      push      rsi
-     mov       rsi, middle
-     mov       rdx, middle.length
-     mov       rdi, STDOUT
-     mov       rax, SYS_WRITE
-     syscall
+     syscall   write, stdout, middle, middle.length
      pop       rsi
      jmp       .repeat
 .printseparator:
      push      rsi
-     mov       rsi, separator
-     mov       rdx, separator.length
-     mov       rdi, STDOUT
-     mov       rax, SYS_WRITE
-     syscall
+     syscall   write, stdout, separator, separator.length
      pop       rsi
      jmp       .repeat
 .endloop:       
-     mov       rdi, STDOUT
-     mov       rsi, bottom
-     mov       rdx, bottom.length
-     mov       rax, SYS_WRITE
-     syscall
+     syscall   write, stdout, bottom, bottom.length
 
      ; release the reserved memory
      ; free the allocated memory
-     mov       rdi, QWORD[oldbrkaddr]
-     mov       rax, SYS_BRK
-     syscall
+     syscall   brk, qword[oldbrkaddr]
 
      ; and exit the program
 .exit:
-     xor       rdi, rdi
-     mov       rax, SYS_EXIT
-     syscall    
+     syscall   exit, 0

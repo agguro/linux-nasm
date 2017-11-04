@@ -32,27 +32,22 @@ _start:
      mov     rsi, httpheader
      mov     rdx, httpheader.length
      call    write                
-     xor     rdi, rdi                        ; rdi = 0
-     mov     rax, SYS_BRK                    ; get start of heap
-     syscall
+     syscall brk, 0
      and     rax, rax                        ; if rax < 0 then no memory available
      js      error                           ; no more memory available
-     mov     QWORD[heapstart], rax           ; save the current memory break
+     mov     qword[heapstart], rax           ; save the current memory break
      
      ; reserve memory with chunks of 16 bytes, until the current working directory fits in the
      ; created buffer or until there is no more memory available (should not may occur)
 repeat: 
      mov     rdi, rax                        ; set in RDI
      add     rdi, 16                         ; add 16 bytes to the current memory break
-     mov     rax, SYS_BRK
-     syscall                                 ; try to allocate 16 bytes
+     syscall brk                             ; try to allocate 16 bytes
      cmp     rdi, rax                        ; RAX == new memory break?
      jne     error                           ; no more memory available to allocate
-     sub     rdi, QWORD[heapstart]           ; size = end in RDI - start in [heapstart]
+     sub     rdi, qword[heapstart]           ; size = end in RDI - start in [heapstart]
      mov     rsi, rdi                        ; size of allocated memory
-     mov     rdi, QWORD[heapstart]           ; start of allocated memory
-     mov     rax, SYS_GETCWD                 ; get the current working directory
-     syscall
+     syscall getcwd, qword[heapstart]
      and     rax, rax
      jns     printcwd                        ; if no sign then the cwd is succesfully read
      mov     rax, rdi                        ; buffer not large enough rax = [heapstart]
@@ -60,12 +55,10 @@ repeat:
      jmp     repeat                          ; retry allocating more memory
 printcwd:
      mov     rdx, rax                        ; save length
-     mov     rsi, QWORD[heapstart]           ; pointer to the zero terminated string
+     mov     rsi, qword[heapstart]           ; pointer to the zero terminated string
      call    write
      
-     mov     rdi, QWORD[heapstart]           ; release all allocated memory
-     mov     rax, SYS_BRK
-     syscall        
+     syscall brk, qword[heapstart]       
      jmp     exit                            ; and exit the program
 error:
      mov     rsi, errorNoMemory
@@ -78,14 +71,11 @@ error:
 exit:
      xor     rdi, rdi
      mov     rax, SYS_EXIT
-     syscall    
+     syscall exit, 0
 write:
-     mov     rdi, STDOUT
-     mov     rax, SYS_WRITE                  ; write to web client
-     syscall
+     syscall write, stdout
      ret
 .error:
-     mov     rdi, STDERR                     ; write error to Apache error.log file
-     mov     rax, SYS_WRITE
-     syscall
+     ; write error to Apache error.log file
+     syscall write, stderr
      ret

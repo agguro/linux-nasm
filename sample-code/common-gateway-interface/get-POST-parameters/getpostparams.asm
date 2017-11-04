@@ -69,11 +69,7 @@ section .text
 
 _start:
      ; write the first part of the webpage
-     mov         rsi, top
-     mov         rdx, top.length
-     mov         rdi, STDOUT
-     mov         rax, SYS_WRITE
-     syscall
+     syscall     write, stdout, top, top.length
      
      ; adjust the stack to point to the web servers variables
      pop         rax
@@ -108,75 +104,46 @@ _start:
      xor       rdx, rdx
      mov       rbx, 10
      imul      rcx, rbx
-     mov       BYTE[buffer], al
+     mov       byte[buffer], al
      and       al, 0x0F
      add       rcx, rax                ; previous digit x 10 + current digit
      
      push      rsi
-     mov       rsi, buffer
-     mov       rdx, buffer.length
-     mov       rdi, STDOUT
-     push	     rcx
-     mov       rax, SYS_WRITE
-     syscall
+     push      rcx
+     syscall   write, stdout, buffer, buffer.length
      pop       rcx
      pop       rsi
      
      jmp       .nextparamstringchar
 .endofparamstring:
 
-     mov		QWORD[contentlength], rcx
+     mov       qword[contentlength], rcx
 
      ; end the number of parameters in HTML
-
-     mov       rsi, nrparams
-     mov       rdx, nrparams.length
-     mov       rdi, STDOUT
-     mov       rax, SYS_WRITE
-     syscall
+     syscall   write, stdout, nrparams, nrparams.length
      
      ; RCX contains the content_length in hexadecimal
      ; reserve space on, the heap to store the parameters from STDIN
-
-     mov       rdi, 0
-     mov       rax, SYS_BRK
-     syscall
+     syscall   brk, 0
      
-     mov       QWORD[oldbrkaddr], rax  ; save the address to de-allocate memory
+     mov       qword[oldbrkaddr], rax  ; save the address to de-allocate memory
 
      ; reserve memory for the parameters
-     add       rax, QWORD[contentlength]
-     
-     mov       rdi, rax
-     mov       rax, SYS_BRK
-     syscall
+     add       rax, QWORD[contentlength]     
+     syscall   brk, rax
      
      and       rax, rax
      jz        .done                   ; if RAX = 0 then no memory is available, now we exit
 
      ; read the params in our created buffer                                
-     
-     mov       rsi, QWORD[oldbrkaddr]
-     mov       rdx, QWORD[contentlength]                ; length of the parameterstring
-     mov       rdi, STDIN
-     mov       rax, SYS_READ
-     syscall
+     syscall   read, stdin, qword[oldbrkaddr], qword[contentlength]
      
      ; print the entire parameterstring
      ; rsi and rdx already contains the string to print and the string length
-     mov       rdi, STDOUT
-     mov       rax, SYS_WRITE
-     syscall
-     
-     mov       rsi, table
-     mov       rdx, table.length
-     mov       rdi, STDOUT
-     mov       rax, SYS_WRITE
-     syscall
-     
-     nop
+     syscall   write, stdout
+     syscall   write, stdout, table, table.length
      ; parse the parameter string
-     mov       rsi, QWORD[oldbrkaddr]
+     mov       rsi, qword[oldbrkaddr]
 .nextbyte:
      xor       rax, rax
      lodsb                               ; read byte
@@ -188,7 +155,7 @@ _start:
      je        .newcolumn              ; if '=' -> next byte is parametervalue
      cmp       al, '&'
      je        .newrow                 ; if '&' -> next byte is parametername
-     mov       BYTE[buffer], al        ; otherwise print the byte
+     mov       byte[buffer], al        ; otherwise print the byte
 
      ; write the character in the buffer
      mov       rsi, buffer
@@ -208,26 +175,15 @@ _start:
      
      ; write to STDOUT
 .writechar:    
-     mov       rdi, STDOUT
-     mov       rax, SYS_WRITE
-     syscall
+     syscall   write, stdout
      pop       rsi
      jmp       .nextbyte
 
 .done:
      ; free the allocated memory
-     mov       rdi, QWORD[oldbrkaddr]
-     mov       rax, SYS_BRK
-     syscall
+     syscall   brk, qword[oldbrkaddr]
 
      ; we are at the end of our search, print the rest of the HTML form
+     syscall   write, stdout, bottom, bottom.length
      
-     mov       rsi, bottom
-     mov       rdx, bottom.length
-     mov       rdi, STDOUT
-     mov       rax, SYS_WRITE
-     syscall
-     
-     xor       rdi, rdi
-     mov       rax, SYS_EXIT
-     syscall
+     syscall   exit, 0

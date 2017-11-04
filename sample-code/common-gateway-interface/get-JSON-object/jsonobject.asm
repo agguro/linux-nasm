@@ -29,11 +29,5 @@ section .text
 _start:
  
      ; send the JSON object to the client
-     mov       rdi, STDOUT
-     mov       rsi, JsonObject
-     mov       rdx, JsonObject.length
-     mov       rax, SYS_WRITE
-     syscall
-     xor       rdi, rdi
-     mov       rax, SYS_EXIT
-     syscall
+     syscall   write,stdout,JsonObject,JsonObject.length
+     syscall   exit, 0

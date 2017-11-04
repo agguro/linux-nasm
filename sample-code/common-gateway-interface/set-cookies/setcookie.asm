@@ -8,7 +8,7 @@
 bits 64
 
 [list -]
-     %include "unistd.inc"
+    %include "unistd.inc"
 [list +]
 
 section .data
@@ -23,14 +23,9 @@ cookies:
 cookies.length: equ $-cookies
 
 section .text
-        global _start
+    global _start
+    
 _start:
 
-     mov        rdi, STDOUT
-     mov        rsi, cookies
-     mov        rdx, cookies.length
-     mov        rax, SYS_WRITE
-     syscall
-     xor        rdi, rdi
-     mov        rax, SYS_EXIT
-     syscall
+    syscall write, stdout,cookies,cookies.length
+    syscall exit, 0

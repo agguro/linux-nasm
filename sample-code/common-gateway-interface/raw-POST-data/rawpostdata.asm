@@ -53,7 +53,7 @@ hexbuffer:     db      ' '
 .length:       equ     $-hexbuffer
 
 break:         db      '<br />'
-.length:       equ  $-break
+.length:       equ     $-break
 
 sizelimited:   db      'Content-type: text/html', 0x0A, 0x0A
                db      'This file is to long, sorry'
@@ -117,44 +117,29 @@ endofdigits:
                                                   ; this could be put in a config file later
      jg        SizeLimited
      ; store the hexadecimal content size
-     mov       QWORD[contentsize], rcx 
+     mov       qword[contentsize], rcx 
 
 ; Reserve space in memory and read the posted content in memory on the heap
      ; reserve space on, the heap
-     mov       rdi, 0
-     mov       rax, SYS_BRK
-     syscall
-     mov       QWORD[oldbrkaddr], rax  ; save the address to de-allocate memory
+     syscall   brk, 0
+     mov       qword[oldbrkaddr], rax  ; save the address to de-allocate memory
      ; reserve memory for the posted content
-     add       rax, QWORD[contentsize]         ; add RCX bytes to the program break          
+     add       rax, qword[contentsize]         ; add RCX bytes to the program break          
      mov       rdi, rax
-     mov       rax, SYS_BRK
-     syscall
+     syscall   brk
      cmp       rax, rdi
      jne       Exit                   ; if RAX = 0 then no memory is available, we exit
      ; read the params in our created buffer                                
-     mov       rsi, QWORD[oldbrkaddr]
-     mov       rdx, QWORD[contentsize]         ; length of the parameterstring
-     mov       rdi, STDIN
-     mov       rax, SYS_READ
-     syscall
+     syscall   read, stdin, qword[oldbrkaddr], qword[contentsize]
      ; write the first part of the webform to STDOUT
-     mov       rsi, top
-     mov       rdx, top.length
-     mov       rdi, STDOUT
-     mov       rax, SYS_WRITE
-     syscall
+     syscall   write, stdout, top, top.length
           
      ; convert all bytes in the buffer to chars
      mov       r10, 0                          ; 0 = to char, 1 = to hex
      call      ConvertBuffer
      
      ; all bytes are processed to characters, close the div and open new one
-     mov       rsi, middle
-     mov       rdx, middle.length
-     mov       rdi, STDOUT
-     mov       rax, SYS_WRITE
-     syscall
+     syscall   write, stdout, middle, middle.length
      
      ;convert now convert all bytes to hexadecimal
      mov       r10, 1
@@ -168,26 +153,18 @@ endofdigits:
      syscall
      
      ; free the allocated memory
-     mov       rdi, QWORD[oldbrkaddr]
-     mov       rax, SYS_BRK
-     syscall
+     syscall   brk, qword[oldbrkaddr]
      jmp       Exit
     
 SizeLimited:
-     mov       rdi, STDOUT
-     mov       rsi, sizelimited
-     mov       rdx, sizelimited.length
-     mov       rax, SYS_WRITE
-     syscall
+     syscall   write, stdout, sizelimited, sizelimited.length
 
 Exit:    
-     xor       rdi, rdi
-     mov       rax, SYS_EXIT
-     syscall
+     syscall   exit, 0
      
 ConvertBuffer:
-     mov       rsi, QWORD[oldbrkaddr]
-     mov       rcx, QWORD[contentsize]
+     mov       rsi, qword[oldbrkaddr]
+     mov       rcx, qword[contentsize]
      xor       r8, r8                          ; chars in one line
 .repeat:    
      xor       rax, rax
@@ -218,18 +195,16 @@ ConvertBuffer:
      rol       ax, 8
      cmp       r10, 1
      je        .toHex
-     mov       WORD [charbuffer.value], ax
+     mov       word[charbuffer.value], ax
      mov       rsi, charbuffer
      mov       rdx, charbuffer.length
      jmp       .write
 .toHex:
-     mov       WORD [hexbuffer.value], ax
+     mov       word[hexbuffer.value], ax
      mov       rsi, hexbuffer
      mov       rdx, hexbuffer.length
 .write:
-     mov       rdi, STDOUT
-     mov       rax, SYS_WRITE
-     syscall
+     syscall   write, stdout
      pop       rsi
      pop       rcx
      cmp       r8, COLUMNS                      ; max chars in one line
@@ -238,11 +213,7 @@ ConvertBuffer:
      xor       r8, r8
      push      rsi
      push      rcx
-     mov       rsi, break
-     mov       rdx, break.length
-     mov       rdi, STDOUT
-     mov       rax, SYS_WRITE
-     syscall
+     syscall    write, stdout, break, break.length
      pop       rcx
      pop       rsi
 .continue:
