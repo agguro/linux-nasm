@@ -39,7 +39,7 @@ section .data
     .destroy:   db   "destroy",0
     icon:
     .pixbuffer: dq   0
-    .file:      db   "logo1.png",0                   ;must reside in the same directory
+    .file:      db   "logo.png",0                   ;must reside in the same directory
     .error:     dq   0
     error:
     .pixbuf:    db   "ERROR loading %s",10,0

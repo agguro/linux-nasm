@@ -29,8 +29,6 @@ bits 64
 [list +]
 
 section .data
-    logo:           incbin    "logo.png"
-        .size:      equ       $-logo    
     window:
         .handle:    dq  0
         .title:     db  "Tooltip",0
