@@ -1,12 +1,10 @@
 ;Name:          sockettest.asm
-;Build:
+;Build:         nasm "-felf64" sockettest.asm -l sockettest.lst -o sockettest.o
+;               ld -s -melf_x86_64 -o sockettest sockettest.o 
 ;Description:   This program is a test program to connect and
 ;               interact with several server examples.
 ;               (Like HTTP,FTP,... own build servers.)
 ;               It is hardcoded for localhost:4444.
-;               Ofcourse of little use it's my first program to experiment
-;               with sockets and always a good reference. I'm trying to improve
-;               the program for later use with epoll etc.
 
 bits 64
 [list -]
@@ -23,17 +21,17 @@ section .bss
 
 section .data
     
-    data:           db 'Hello internet',10
+    data:           db "Hello internet",10
     ;don't forget the trailing zero to indicate end of message
                     db  0
     .length:        equ $-data
-    socketerror:    db "socket error", 10
+    socketerror:    db  "socket error", 10
     .length:        equ $-socketerror
-    connecterror:   db "connection error", 10
+    connecterror:   db  "connection error", 10
     .length:        equ $-connecterror
-    connected:      db "Connected", 10
+    connected:      db  "Connected", 10
     .length:        equ $-connected
-    disconnected:   db "Connection closed", 10
+    disconnected:   db  "Connection closed", 10
     .length:        equ $-disconnected
     receiveerror:   db  "Receive error",10
     .length:        equ $-receiveerror
