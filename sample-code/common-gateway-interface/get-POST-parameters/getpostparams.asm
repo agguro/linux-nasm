@@ -1,5 +1,6 @@
 ; Name:         getpostparams
-; Build:        see makefile
+; Build:        nasm -felf64 -Fdwarf -g -l postrequest.lst postrequest.asm -o postrequest.o
+;               ld -g -melf_x86_64 postrequest.o -o postrequest
 ; Description:  Get the post parameters.
 ; Use:          This program allow us to see the posted parameters from almost any website.
 ; Disadvantage: Posted files contents can corrupt the output on the webbrowser, a work around wil
