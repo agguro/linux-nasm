@@ -4,7 +4,6 @@
 
 NAME=leapyear
 AS=nasm
-LD=ld
 
 O           = .o
 ASM         = .asm
@@ -24,6 +23,5 @@ all:
 debug:
 	touch $(NAME)$(ASM)
 	$(MAKE) $(NAME) ASFLAGS="-felf64 -Fstabs -g"
-	valgrind --tool=callgrind --dump-instr=yes --collect-jumps=yes ./$(NAME)
 clean:
 	@rm -f *.out.* $(NAME)$(LST) $(NAME)$(O)

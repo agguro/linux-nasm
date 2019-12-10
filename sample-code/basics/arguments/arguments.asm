@@ -1,8 +1,6 @@
-; Name:         arguments
-;
+; Name:         arguments.asm
 ; Build:        nasm  -felf64 arguments.asm -l arguments.lst -o arguments.o
 ;               ld -s -melf_x86_64 -o arguments arguments.o 
-;
 ; Description:  Read the number of arguments and if any write it to the STDOUT device.
 ;
 ; Remark:
