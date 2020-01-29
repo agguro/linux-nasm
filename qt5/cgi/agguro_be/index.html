@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html data-bgs="nightRider" class="session_login" data-platform="linux">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+     <noscript>
+     <style>
+     html[data-bgs="gainsboro"] { background-color: #d6d6d6; } html[data-bgs="nightRider"] { background-color: #1a1c20; } html[data-bgs="nightRider"] div[data-noscript] { color: #979ba080; } html[data-slider-fixed='1'] { margin-right: 0 !important; } body > div[data-noscript] ~ * { display: none !important; } div[data-noscript] { visibility: hidden; animation: 2s noscript-fadein; animation-delay: 1s; text-align: center; animation-fill-mode: forwards; } @keyframes noscript-fadein { 0% { opacity: 0; } 100% { visibility: visible; opacity: 1; } } </style> <div data-noscript> <div class="fa fa-3x fa-exclamation-triangle margined-top-20 text-danger"></div> <h2>JavaScript is disabled</h2> <p>Please enable javascript and refresh the page</p> </div> </noscript>
+    <meta charset="utf-8">
+     <link data-link-ref="" rel="apple-touch-icon" sizes="180x180" href="https://agguro.be/images/favicons/webmin/apple-touch-icon.png">
+     <link data-link-ref="" rel="icon" type="image/png" sizes="32x32" href="https://agguro.be/images/favicons/webmin/favicon-32x32.png">
+     <link data-link-ref="" rel="icon" type="image/png" sizes="192x192" href="https://agguro.be/images/favicons/webmin/android-chrome-192x192.png">
+     <link data-link-ref="" rel="icon" type="image/png" sizes="16x16" href="https://agguro.be/images/favicons/webmin/favicon-16x16.png">
+     <link data-link-ref="" crossorigin="use-credentials" rel="manifest" href="https://agguro.be/images/favicons/webmin/manifest.json">
+     <link data-link-ref="" rel="mask-icon" href="https://agguro.be/images/favicons/webmin/safari-pinned-tab.svg" color="#5d4636">
+     <meta name="msapplication-TileColor" content="#5d4636">
+     <meta data-link-ref="" name="msapplication-TileImage" content="/images/favicons/webmin/mstile-144x144.png">
+     <meta name="theme-color" content="#5d4636">
+    <title>Login to Webmin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="Login%20to%20Webmin_files/bundle.css" rel="stylesheet">
+    <script>document.addEventListener("DOMContentLoaded", function(event) {var a=document.querySelectorAll('input[type="password"]');i=0;
+    for(length=a.length;i<length;i++){var b=document.createElement("span"),d=30<a[i].offsetHeight?1:0;b.classList.add("input_warning_caps");b.setAttribute("title","Caps Lock");d&&b.classList.add("large");a[i].classList.add("use_input_warning_caps");a[i].parentNode.insertBefore(b,a[i].nextSibling);a[i].addEventListener("blur",function(){this.nextSibling.classList.remove("visible")});a[i].addEventListener("keydown",function(c){"function"===typeof c.getModifierState&&((state=20===c.keyCode?!c.getModifierState("CapsLock"):
+    c.getModifierState("CapsLock"))?this.nextSibling.classList.add("visible"):this.nextSibling.classList.remove("visible"))})};});function spinner() {var x = document.querySelector('.fa-sign-in:not(.invisible)'),s = '<span class="cspinner_container"><span class="cspinner"><span class="cspinner-icon white small"></span></span></span>';if(x){x.classList.add("invisible"); x.insertAdjacentHTML('afterend', s);x.parentNode.classList.add("disabled");x.parentNode.disabled=true}}setTimeout(function(){if(navigator&&navigator.oscpu){var t=navigator.oscpu,i=document.querySelector("html"),e="data-platform";t.indexOf("Linux")>-1?i.setAttribute(e,"linux"):t.indexOf("Windows")>-1&&i.setAttribute(e,"windows")}});</script> <link href="Login%20to%20Webmin_files/nightrider.css" rel="stylesheet" data-palette="">
+     <link href="Login%20to%20Webmin_files/fonts-roboto.css" rel="stylesheet">
+</head>
+<body class="session_login">
+    <div class="container session_login" data-dcontainer="1">
+
+    <form method="post" target="_top" action="/session_login.cgi" class="form-signin session_login clearfix" role="form" onsubmit="spinner()">
+    <i class="wbm-webmin"></i><h2 class="form-signin-heading">
+	 <span>Webmin</span></h2>
+    <p class="form-signin-paragraph">You must enter a username and password to login to the server on<strong> agguro.be</strong></p>
+    <div class="input-group form-group">
+    <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
+    <input type="text" class="form-control session_login" name="user" autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="Username" autofocus="">
+    </div>
+    <div class="input-group form-group">
+    <span class="input-group-addon"><i class="fa fa-fw fa-lock"></i></span>
+    <input type="password" class="form-control session_login use_input_warning_caps" name="pass" autocomplete="off" autocorrect="off" placeholder="Password"><span class="input_warning_caps large" title="Caps Lock"></span>
+    </div>
+    <div class="input-group form-group">
+		<span class="awcheckbox awobject"><input class="iawobject" name="save" value="1" id="save" type="checkbox"> <label class="lawobject" for="save">Remember me</label></span>
+	     </div>
+    <div class="form-group form-signin-group"><button class="btn btn-primary" type="submit"><i class="fa fa-sign-in"></i>&nbsp;&nbsp;Sign in</button>
+    </div></form>
+    </div>
+</body>
+</html>
