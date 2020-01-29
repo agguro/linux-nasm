@@ -20,11 +20,11 @@ $(NAME)$(O): $(NAME)$(ASM)
 	nasm $(ASFLAGS) $(NAME)$(ASM) -o $(NAME)$(O)
 
 release:
-	touch $(NAME)
+	make clean
 	make $(NAME)
 
 debug:
-	touch $(NAME)
+	make clean
 	make $(NAME) ASFLAGS="-felf64 -Fdwarf -g -l $(NAME)$(LST)" LDFLAGS="-g -melf_x86_64"
 
 clean:

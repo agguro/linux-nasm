@@ -1,5 +1,5 @@
-%ifndef _SECTION_DATA_INC_
-%define _SECTION_DATA_INC_
+%ifndef _SECTION_RODATA_INC_
+%define _SECTION_RODATA_INC_
 
     section .rodata
     top:
@@ -39,4 +39,4 @@
 	db '<br />'
 	htmlbr.length: equ $-htmlbr
 
-%endif ; _SECTION_DATA_INC_
+%endif ; _SECTION_RODATA_INC_

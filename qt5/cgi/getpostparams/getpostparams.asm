@@ -10,8 +10,6 @@
 bits 64
 
 %include "getpostparams.inc"
-%include "section_bss.inc"
-%include "section_rodata.inc"
 
 section .text
 
