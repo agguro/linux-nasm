@@ -1,13 +1,13 @@
-     1                                  ;name: agguro_be.asm
+     1                                  ;name: webvars.asm
      2                                  ;
      3                                  ;description:
      4                                  ;
      5                                  
      6                                  bits 64
      7                                  
-     8                                  %include "index.inc"
-     1                              <1> %ifndef _AGGURO_BE_INC_
-     2                              <1> %define _AGGURO_BE_INC_
+     8                                  %include "webvars.inc"
+     1                              <1> %ifndef _WEBVARS_INC_
+     2                              <1> %define _WEBVARS_INC_
      3                              <1> 
      4                              <1> %include "unistd.inc"
      1                              <2> %ifndef _ASM_UNISTD_INC_
@@ -787,39 +787,20 @@
     19                              <2>      %define TRUE    1
     20                              <2>      %define FALSE   0
     21                              <2> %endif
-     5                              <1> %include "section_bss.inc"
-     1                              <2> %ifndef _SECTION_BSS_INC_
-     2                              <2> %define _SECTION_BSS_INC_
-     3                              <2> 
-     4                              <2> %endif ; _SECTION_BSS_INC_
-     6                              <1> %include "section_rodata.inc"
-     1                              <2> %ifndef _SECTION_RODATA_INC_
-     2                              <2> %define _SECTION_RODATA_INC_
-     3                              <2> 
-     4                              <2> section .rodata
-     5 00000000 436F6E74656E742D74- <2> page:	db 'Content-type: text/html', 0x0A, 0x0A
-     5 00000009 7970653A2074657874- <2>
-     5 00000012 2F68746D6C0A0A      <2>
-     6 00000019 <incbin>            <2>     incbin "index.html"
-     7                              <2> .end:	equ $-page
-     8                              <2> 
-     9                              <2> %endif ; _SECTION_RODATA_INC_
-     7                              <1> %include "section_data.inc"
-     1                              <2> %ifndef _SECTION_DATA_INC_
-     2                              <2> %define _SECTION_DATA_INC_
-     3                              <2> 
-     4                              <2> %endif ; _SECTION_DATA_INC_
-     8                              <1> 
-     9                              <1> %endif
-     9                                  section .text
-    10                                  
-    11                                  global _start
-    12                                  
-    13                                  _start:
-    14                                  
-    15 00000000 BAEC14000048BE-             syscall write, stdout, page, page.end
-    15 00000007 [0000000000000000]-
-    15 0000000F BF01000000B8010000-
-    15 00000018 000F05             
-    16 0000001B 4831FFB83C0000000F-         syscall exit,0
-    16 00000024 05                 
+     5                              <1> 
+     6                              <1> 
+     7                              <1> %endif
+     9                                  
+    10                                  global _start
+    11                                  
+    12                                  section .bss
+    13                                  
+    14                                  section .data
+    15                                  
+    16                                  section .text
+    17                                  
+    18                                  _start:
+    19                                  
+    20                                  
+    21 00000000 4831FFB83C0000000F-         syscall exit,0
+    21 00000009 05                 

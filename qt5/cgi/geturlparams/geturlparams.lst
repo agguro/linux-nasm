@@ -1,0 +1,218 @@
+     1                                  ; Name:        geturlparams
+     2                                  ; Build:       see makefile
+     3                                  ; Description: Get the URL parameters and displays them in a HTML table.
+     4                                  ; Remark:      For those who like to observe the network traffic, you can use:
+     5                                  ;              sudo tcpdump -i lo -s0 -w capture.pcap to capture network traffic to a file
+     6                                  ;              which you can open with wireshark.
+     7                                  ; To test this application on the commandline you can export the QUERY_STRING with his value.
+     8                                  ; example in a terminal : export QUERY_STRING='=fname=firstname&lname=lastname&age=99'
+     9                                  
+    10                                  bits 64
+    11                                  
+    12                                  [list -]
+    15                                  
+    16                                  
+    17                                  section .data
+    18                                  
+    19 00000000 436F6E74656E742D74-     top: db 'Content-type: text/html', 0x0A, 0x0A
+    19 00000009 7970653A2074657874-
+    19 00000012 2F68746D6C0A0A     
+    20 00000019 3C21444F4354595045-          db '<!DOCTYPE html><html><head><title>CGI : Get URL parameters</title></head>'
+    20 00000022 2068746D6C3E3C6874-
+    20 0000002B 6D6C3E3C686561643E-
+    20 00000034 3C7469746C653E4347-
+    20 0000003D 49203A204765742055-
+    20 00000046 524C20706172616D65-
+    20 0000004F 746572733C2F746974-
+    20 00000058 6C653E3C2F68656164-
+    20 00000061 3E                 
+    21 00000062 3C626F64793E3C7072-          db '<body><pre><h1>Get URL parameters</h1>'
+    21 0000006B 653E3C68313E476574-
+    21 00000074 2055524C2070617261-
+    21 0000007D 6D65746572733C2F68-
+    21 00000086 313E               
+    22                                  top.length: equ $-top
+    23                                  
+    24                                  tabletop:     
+    25 00000088 3C7461626C6520616C-          db '<table align="left" width="25',0x25,'" border="0" cellpadding="0" cellspacing="0" class="params">'
+    25 00000091 69676E3D226C656674-
+    25 0000009A 222077696474683D22-
+    25 000000A3 3235252220626F7264-
+    25 000000AC 65723D223022206365-
+    25 000000B5 6C6C70616464696E67-
+    25 000000BE 3D2230222063656C6C-
+    25 000000C7 73706163696E673D22-
+    25 000000D0 302220636C6173733D-
+    25 000000D9 22706172616D73223E 
+    26 000000E2 3C74723E3C74643E3C-          db '<tr><td><b><u>name</u></b></td><td><b><u>value</u></b></td></tr><tr><td class="name">'
+    26 000000EB 623E3C753E6E616D65-
+    26 000000F4 3C2F753E3C2F623E3C-
+    26 000000FD 2F74643E3C74643E3C-
+    26 00000106 623E3C753E76616C75-
+    26 0000010F 653C2F753E3C2F623E-
+    26 00000118 3C2F74643E3C2F7472-
+    26 00000121 3E3C74723E3C746420-
+    26 0000012A 636C6173733D226E61-
+    26 00000133 6D65223E           
+    27                                  tabletop.length: equ $-tabletop
+    28                                  
+    29                                  newcolumn:
+    30 00000137 3C2F74643E3C746420-          db '</td><td class="value">'
+    30 00000140 636C6173733D227661-
+    30 00000149 6C7565223E         
+    31                                  newcolumn.length: equ $-newcolumn
+    32                                  
+    33                                  middle:    
+    34 0000014E 3C2F74643E3C2F7472-          db '</td></tr><tr><td class="name">'
+    34 00000157 3E3C74723E3C746420-
+    34 00000160 636C6173733D226E61-
+    34 00000169 6D65223E           
+    35                                  middle.length: equ $-middle
+    36                                  
+    37                                  noparameters:
+    38 0000016D 3C623E6E6F2075726C-          db '<b>no url parameters</b>'
+    38 00000176 20706172616D657465-
+    38 0000017F 72733C2F623E       
+    39                                  noparameters.length: equ $-noparameters
+    40                                  
+    41                                  tablebottom:
+    42 00000185 3C2F74643E3C2F7472-          db '</td></tr></table>'
+    42 0000018E 3E3C2F7461626C653E 
+    43                                  tablebottom.length: equ $-tablebottom
+    44                                  
+    45                                  bottom:     
+    46 00000197 3C2F7072653E3C2F62-          db '</pre></body></html>'
+    46 000001A0 6F64793E3C2F68746D-
+    46 000001A9 6C3E               
+    47                                  bottom.length: equ $-bottom
+    48                                  
+    49                                  htmlbr:
+    50 000001AB 3C6272202F3E                 db '<br />'
+    51                                  htmlbr.length: equ $-htmlbr    
+    52                                  
+    53                                  buffer:
+    54 000001B1 00                           db 0
+    55                                  buffer.length: equ $-buffer
+    56                                  
+    57                                  requiredVar:
+    58 000001B2 51554552595F535452-          db 'QUERY_STRING'
+    58 000001BB 494E47             
+    59                                  requiredVar.length: equ $-requiredVar
+    60                                  
+    61                                  section .text
+    62                                       global _start
+    63                                          
+    64                                  _start:
+    65                                       ; write the first part of the webpage
+    66 00000000 48BE-                        mov       rsi, top
+    66 00000002 [0000000000000000] 
+    67 0000000A BA88000000                   mov       rdx, top.length
+    68 0000000F E8F5000000                   call      .write
+    69                                       
+    70                                       ; adjust the stack to point to the web servers variables
+    71 00000014 58                           pop       rax
+    72 00000015 58                           pop       rax
+    73 00000016 58                           pop       rax
+    74 00000017 FC                           cld
+    75                                       ; let's loop through the webserver variables
+    76                                  .getvariable:
+    77 00000018 5E                           pop       rsi
+    78 00000019 4809F6                       or        rsi, rsi                            ; done yet?
+    79 0000001C 0F84C9000000                 je        .done    
+    80                                       ; RSI contains a pointer to a variable string
+    81                                       ; look for the required variable name amongst them
+    82 00000022 B90C000000                   mov       rcx, requiredVar.length
+    83 00000027 48BF-                        mov       rdi, requiredVar
+    83 00000029 [B201000000000000] 
+    84 00000031 F3A6                         rep       cmpsb                               ; compare RCX bytes
+    85 00000033 75E3                         jne       .getvariable                        ; no match get the next variable, if any
+    86                                       ; we found the variable   
+    87                                       ; determine the length of the parameterstring,
+    88                                       ; RSI points to the '=' character, therefore we adjust the counter RCX at the end
+    89 00000035 4831C9                       xor       rcx, rcx
+    90 00000038 4889F3                       mov       rbx, rsi
+    91                                  .nextparamstringchar:    
+    92 0000003B AC                           lodsb
+    93 0000003C 3C00                         cmp       al, 0
+    94 0000003E 7405                         je        .endofparamstring
+    95 00000040 48FFC1                       inc       rcx
+    96 00000043 EBF6                         jmp       .nextparamstringchar
+    97                                  .endofparamstring:
+    98                                       ; we reached the end of the parameterstring, restore RSI. if length = 0 then there aren't
+    99                                       ; parameters and we show that instead of the parameters.
+   100 00000045 48FFC9                       dec       rcx                                 ; length = RCX - 1 for '='
+   101 00000048 4883F900                     cmp       rcx, 0
+   102 0000004C 0F8485000000                 je        .noparameters        
+   103 00000052 51                           push      rcx
+   104 00000053 53                           push      rbx
+   105                                       ; print top of table
+   106                                       
+   107 00000054 48BE-                        mov       rsi, tabletop
+   107 00000056 [8800000000000000] 
+   108 0000005E BAAF000000                   mov       rdx, tabletop.length
+   109 00000063 E8A1000000                   call      .write
+   110                                       
+   111 00000068 5B                           pop       rbx
+   112 00000069 59                           pop       rcx
+   113                                       ; parse the parameterstring
+   114 0000006A 4889DE                       mov       rsi, rbx                            ; RSI points to the first '='
+   115 0000006D 48FFC6                       inc       rsi
+   116                                  .getparamchar:    
+   117 00000070 4831C0                       xor       rax, rax
+   118 00000073 AC                           lodsb                                       ; read byte
+   119 00000074 3C00                         cmp       al, 0                               ; if zero then string end
+   120 00000076 7449                         je        .tablebottom
+   121 00000078 56                           push      rsi                                 ; save rsi (1)
+   122 00000079 3C3D                         cmp       al, '='                             ; start with value
+   123 0000007B 741C                         je        .newcolumn
+   124 0000007D 3C26                         cmp       al, '&'                             ; new parameter
+   125 0000007F 7429                         je        .newrow      
+   126 00000081 880425[B1010000]             mov       BYTE[buffer], al
+   127                                       
+   128 00000088 48BE-                        mov       rsi, buffer
+   128 0000008A [B101000000000000] 
+   129 00000092 BA01000000                   mov       rdx, buffer.length
+   130 00000097 EB20                         jmp       .getnextparam
+   131                                       
+   132                                  .newcolumn:
+   133 00000099 48BE-                        mov       rsi, newcolumn
+   133 0000009B [3701000000000000] 
+   134 000000A3 BA17000000                   mov       rdx, newcolumn.length
+   135 000000A8 EB0F                         jmp       .getnextparam
+   136                                          
+   137                                  .newrow:
+   138 000000AA 48BE-                        mov       rsi, middle
+   138 000000AC [4E01000000000000] 
+   139 000000B4 BA1F000000                   mov       rdx, middle.length
+   140                                          
+   141                                  .getnextparam:        
+   142 000000B9 E84B000000                   call      .write
+   143 000000BE 5E                           pop       rsi                                     ; restore rsi (1)
+   144 000000BF EBAF                         jmp       .getparamchar
+   145                                          
+   146                                  .tablebottom:       
+   147 000000C1 48BE-                        mov       rsi, tablebottom
+   147 000000C3 [8501000000000000] 
+   148 000000CB BA12000000                   mov       rdx, tablebottom.length
+   149 000000D0 E834000000                   call      .write
+   150 000000D5 EB14                         jmp       .done   
+   151                                  .noparameters:
+   152 000000D7 48BE-                        mov       rsi, noparameters
+   152 000000D9 [6D01000000000000] 
+   153 000000E1 BA18000000                   mov       rdx, noparameters.length
+   154 000000E6 E81E000000                   call      .write
+   155                                  .done:    
+   156                                       ; we are at the end of our search, print the rest of the HTML form
+   157                                       ; write the second part of the webpage
+   158 000000EB 48BE-                        mov       rsi, bottom
+   158 000000ED [9701000000000000] 
+   159 000000F5 BA14000000                   mov       rdx, bottom.length
+   160 000000FA E80A000000                   call      .write
+   161                                  
+   162 000000FF 4831FFB83C0000000F-          syscall   exit, 0
+   162 00000108 05                 
+   163                                  
+   164                                  .write:
+   165 00000109 BF01000000B8010000-          syscall   write, stdout
+   165 00000112 000F05             
+   166 00000115 C3                           ret

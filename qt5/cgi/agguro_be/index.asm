@@ -14,3 +14,4 @@ _start:
 
     syscall write, stdout, page, page.end
     syscall exit,0
+    
