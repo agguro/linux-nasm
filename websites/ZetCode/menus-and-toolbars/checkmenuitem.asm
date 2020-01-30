@@ -1,8 +1,7 @@
 ; Name        : checkmenuitem.asm
 ;
 ; Build       : nasm -felf64 -o checkmenuitem.o -l checkmenuitem.lst checkmenuitem.asm
-;               ld -s -m elf_x86_64 checkmenuitem.o -o checkmenuitem -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2
-;               -lgtk-3 -lgobject-2.0  -lglib-2.0 -lgdk-3
+;               ld -s -m elf_x86_64 checkmenuitem.o -o checkmenuitem -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 -lgtk-3 -lgobject-2.0  -lglib-2.0 -lgdk-3
 ;
 ; Description : Gtk widgets examples
 ;

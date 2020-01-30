@@ -1,8 +1,7 @@
 ; Name        : tooltip.asm
 ;
 ; Build       : nasm -felf64 -o tooltip.o -l tooltip.lst tooltip.asm
-;               ld -s -m elf_x86_64 tooltip.o -o tooltip -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2
-;               -lgtk-3 -lgobject-2.0  -lglib-2.0 -lgdk_pixbuf-2.0 -lgdk-3
+;               ld -s -m elf_x86_64 tooltip.o -o tooltip -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 -lgtk-3 -lgobject-2.0  -lglib-2.0 -lgdk_pixbuf-2.0 -lgdk-3
 ;
 ; Description : tooltip demo
 ;
