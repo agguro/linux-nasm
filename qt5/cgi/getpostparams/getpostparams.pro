@@ -11,6 +11,7 @@ OTHER_FILES += Makefile
 DISTFILES += \
 	getpostparams.html \
 	header.txt \
+	postbackpage.html \
 	startpage.html
 
 

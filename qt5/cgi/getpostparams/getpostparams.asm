@@ -1,4 +1,4 @@
-; Name:		 getpostparams
+; Name:		getpostparams
 ; Build:        nasm -felf64 -Fdwarf -g -l postrequest.lst postrequest.asm -o postrequest.o
 ;               ld -g -melf_x86_64 postrequest.o -o postrequest
 ; Description:  Get the post parameters.
@@ -21,15 +21,19 @@ section .text
 	global _start
 
 _start:
-	call		initialise
-	mov		rdi,rax
-	call		isPostBack
-	and		rax,rax
-	jnz		.isPostBack
-	syscall	write,stdout,startpage,startpage.length
+        call	initialise                      ;must be called first
+        mov	rdi,rax
+        call	isPostBack
+        and	rax,rax
+        jnz	.isPostBack
+        syscall writev,stdout,start_queue,2
 	syscall	exit, 0
 	
-.isPostBack:
+.isPostBack:        
+        syscall writev,stdout,postback_queue,2
+        syscall exit, 0
+
+
 	; write the first part of the webpage
 	syscall     write, stdout, top, top.length
 	; adjust the stack to point to the web servers variables

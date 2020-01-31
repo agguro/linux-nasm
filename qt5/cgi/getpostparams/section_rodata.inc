@@ -2,28 +2,41 @@
 %define _SECTION_RODATA_INC_
 
 section .rodata
-	method_post:	db	"REQUEST_METHOD=POST"
-	.length:		equ	$-method_post
-	method_get:	db	"REQUEST_METHOD=GET"
-	.length:		equ	$-method_get
-	
-	
-	content_length:	db	'CONTENT_LENGTH'
-	.length:			equ	$-content_length
-	
-	header:
-		INCBIN	"header.txt"
-		db	0x0A,0x0A
-	.length:	equ	$-header
-	
+    method_post:	db	"REQUEST_METHOD=POST"
+    .length:		equ	$-method_post
+    method_get:	db	"REQUEST_METHOD=GET"
+    .length:		equ	$-method_get
+
+    content_length:	db	'CONTENT_LENGTH'
+    .length:			equ	$-content_length
+
+    start_queue:
+        dq  header
+        dq  header.length
+        dq  startpage
+        dq  startpage.length
+
+    postback_queue:
+        dq  header
+        dq  header.length
+        dq  postbackpage
+        dq  postbackpage.length
+
+
+    header:
+        INCBIN	"header.txt"
+        db	0x0A,0x0A
+    .length:	equ	$-header
+
     startpage:
-		INCBIN	"startpage.html"
+        INCBIN	"startpage.html"
 	.length:	equ	$-startpage
 	
-	postbackpage:
-		INCBIN	"postbackpage.html"
+    postbackpage:
+        INCBIN	"postbackpage.html"
 	.length:	equ	$-postbackpage
-	
+
+
     top:
 	db 'Content-type: text/html', 0x0A, 0x0A
 	db '<!DOCTYPE html>'
