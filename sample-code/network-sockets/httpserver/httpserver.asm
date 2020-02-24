@@ -56,10 +56,16 @@ section .data
         db '<!DOCTYPE html><html>'
         db '<head><title>demo webserver</title></head>'
         db '<body><h1>Demo webserver</h1>'
-        db '<form method="post" action="http://localhost:4444/?t=1">'
+        db '<form method="post" action="'
+        db 'http://localhost:4444/'						;this can be replaced by the referer string from the http header
+        ;someone can call this server with localhost:4444, the ip adres:4444 or the domainname
+        db '">'
         db '<input type="text" name="inputfield" value="type something" />'
         db '<button type="submit" name="submit" value="name">Send data</button>'
         db '</form></body></html>'
+        ;we don't really need a trailing zero, but I use this example to test the sockettest
+        ;example
+        db 0
     reply.length:   equ $-reply
     socketerror:    db  "socketerror", 10
     .length:        equ $-socketerror
