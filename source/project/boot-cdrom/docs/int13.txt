@@ -1,0 +1,167 @@
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;; Get Status (Bootable CD-ROM)
+    ;;
+    ;; Call with: AX = 4B01H
+    ;; DL = Drive number
+    ;; DS:SI = Empty specification packet (needs to be 13h in size)
+    ;;
+    ;; Return: If Function Successful,
+    ;; Carry Flag = Clear
+    ;;
+    ;; If Function Unsuccessful,
+    ;; Carry Flag = Set
+    ;; AX = Status code
+    ;;
+    ;; DS:SI = Specification packet filled
+    ;;       Offset Size Description
+    ;;       00h    db   size of packet in bytes (13h)
+    ;;       01h    db   boot media type
+    ;;                   Bit(s) Description
+    ;;                   3-0    media type.
+    ;;                   0000   no emulation.
+    ;;                   0001   1.2M diskette.
+    ;;                   0010   1.44M diskette.
+    ;;                   0011   2.88M diskette.
+    ;;                   0100   hard disk
+    ;;                   Other reserved
+    ;;                   5-4    reserved (0)
+    ;;                   6      image contains ATAPI driver
+    ;;                   7      image contains SCSI driver(s)
+    ;;       02h    db   drive number
+    ;;                   00h floppy image
+    ;;                   80h bootable hard disk
+    ;;                   81h-FFh nonbootable or no emulation drive
+    ;;       03h    db   CD-ROM controller number
+    ;;       04h    dd   Logical Block Address (LBA) of disk image to emulate
+    ;;       08h    dw   device specification (same as boot media type plus)
+    ;;                   (IDE) bit 0: Drive is slave instead of master
+    ;;                   (SCSI)  bits 7-0: LUN and PUN
+    ;;                   bits 15-8: Bus number
+    ;;       0Ah    dw   segment of 3K buffer for caching CD-ROM reads
+    ;;       0Ch    dw   load segment for initial boot image (if 0000h, load at segment 07C0h; only valid for INT 13h/AH=4Ch)
+    ;;       0Eh    dw   number of 512-byte virtual sectors to load (only valid for INT 13h/AH=4Ch)
+    ;;       10h    db   low byte of cylinder count (for INT 13/AH=08h)
+    ;;       11h    db   sector count, high bits of cylinder count (for INT 13h/AH=08h)
+    ;;       12h    db   head count (for INT 13h/AH=08h)
+    ;;
+    ;; Comments:
+    ;;
+    ;; The Function is used to get the status of the CD/DVD/BD. This function is called
+    ;; first for "no emulation" booting of optical media. If the Function is successful,
+    ;; the carry flag is clear, else carry flag is set and AX register returns status
+    ;; code.
+    ;;
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;; Check INT 13h Extensions Present
+    ;;
+    ;; Call with: AH = 41H
+    ;; DL = Drive number (80h - FFh; but we're interested in CDs for this exercise)
+    ;; BX = 55AAh (Signature?)
+    ;;
+    ;; Return: If Function Successful,
+    ;; Carry Flag = Clear
+    ;; BX = AA55h if installed
+    ;; AH = major version of extensions
+    ;;    01h = 1.x
+    ;;    20h = 2.0 / EDD-1.0
+    ;;    21h = 2.1 / EDD-1.1
+    ;;    30h = EDD-3.0
+    ;; AL = internal use
+    ;; CX = API subset support bitmap
+    ;;      1 - Device Access using packet structure (INT 13h AH=42h-44h,47h,48h)
+    ;;      2 - Drive Locking and Ejecting (INT 13h AH=45h,46h,48h,49h,INT 15h AH=52h)
+    ;;      4 - Enhanced Disk Drive Support (INT 13h AH=48h,AH=4Eh)
+    ;; DH = extension version (v2.0+ ??? -- not present in 1.x)
+    ;;
+    ;; If Function Unsuccessful,
+    ;; Carry Flag = Set
+    ;; AH = 01h (invalid function)
+    ;;
+    ;; Comments:
+    ;;
+    ;; The Function is used to see if INT 13h extensions are present (not really
+    ;; needed if you can do the previous function, right?)
+    ;;
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;; Extended Read Function
+    ;;
+    ;; Call with AH=42h
+    ;; DL = drive number
+    ;; DS:SI = Disk Address Packet (DAP)
+    ;;       Offset Size Description
+    ;;       00h    db   Size of packet (10h or 18h; we're using 10h here, see below)
+    ;;       01h    db   Reserved (0)
+    ;;       02h    dw   Number of sectors to read (max 007Fh for Phoenix EDD)
+    ;;       04h    dd   Initial segment:offset where to load the read in sector(S)
+    ;;       08h    dq   starting absolute sector number (for non-LBA devices, compute as (Cylinder*NumHeads + SelectedHead) * SectorPerTrack + SelectedSector - 1
+    ;;       10h    dq   (EDD-3.0, optional) 64-bit flat address of transfer buffer; used if dd at 04h is FFFFh:FFFFh
+    ;;
+    ;; Return: If Function Successful,
+    ;; Carry Flag = Clear
+    ;; AH = 00h
+    ;;
+    ;; If Function Unsuccessful,
+    ;; Carry Flag = Set
+    ;; AH = Error code
+    ;;
+    ;; Error code:
+    ;;   00h    successful completion
+    ;;   01h    invalid function in AH or invalid parameter
+    ;;   02h    address mark not found
+    ;;   03h    disk write-protected
+    ;;   04h    sector not found/read error
+    ;;   05h    reset failed (hard disk)
+    ;;   05h    data did not verify correctly (TI Professional PC)
+    ;;   06h    disk changed (floppy)
+    ;;   07h    drive parameter activity failed (hard disk)
+    ;;   08h    DMA overrun
+    ;;   09h    data boundary error (attempted DMA across 64K boundary or >80h sectors)
+    ;;   0Ah    bad sector detected (hard disk)
+    ;;   0Bh    bad track detected (hard disk)
+    ;;   0Ch    unsupported track or invalid media
+    ;;   0Dh    invalid number of sectors on format (PS/2 hard disk)
+    ;;   0Eh    control data address mark detected (hard disk)
+    ;;   0Fh    DMA arbitration level out of range (hard disk)
+    ;;   10h    uncorrectable CRC or ECC error on read
+    ;;   11h    data ECC corrected (hard disk)
+    ;;   20h    controller failure
+    ;;   31h    no media in drive (IBM/MS INT 13 extensions)
+    ;;   32h    incorrect drive type stored in CMOS (Compaq)
+    ;;   40h    seek failed
+    ;;   80h    timeout (not ready)
+    ;;   AAh    drive not ready (hard disk)
+    ;;   B0h    volume not locked in drive (INT 13 extensions)
+    ;;   B1h    volume locked in drive (INT 13 extensions)
+    ;;   B2h    volume not removable (INT 13 extensions)
+    ;;   B3h    volume in use (INT 13 extensions)
+    ;;   B4h    lock count exceeded (INT 13 extensions)
+    ;;   B5h    valid eject request failed (INT 13 extensions)
+    ;;   B6h    volume present but read protected (INT 13 extensions)
+    ;;   BBh    undefined error (hard disk)
+    ;;   CCh    write fault (hard disk)
+    ;;   E0h    status register error (hard disk)
+    ;;   FFh    sense operation failed (hard disk)
+    ;;
+    ;; Initial DAP:
+    ;;
+    ;;   db 10h       - Initial Volume Descriptor, which has the important data we need
+    ;;                  to get to the root directory where our OS is stored.
+    ;;   db  0        - Unused, should be zero
+    ;;   dw  1        - Number of sectors to read (initial one should be one for Volume Descriptor)
+    ;;   dd 0202:0000 - Initial segment:offset where to load the read in sector(S)
+    ;;   dq 16        - Starting sector to read in, then we need to get to the root directory
+    ;;
+    ;; Comments:
+    ;;
+    ;; This functions is called three times: Initially to get the Initial
+    ;; Volume Descriptor so we can find the root directory; then it gets used
+    ;; again to read in the root directory, so we can scan for SmiddyOS; finally
+    ;; once we recognize SmiddyOS we load it and jump to it, if all goes as it
+    ;; should "on a good day" as expected.
+    ;;
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+

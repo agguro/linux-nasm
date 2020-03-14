@@ -1,0 +1,186 @@
+     1                                  ;name: OOP.asm
+     2                                  ;
+     3                                  ;description:
+     4                                  ;   test program for classes experiment Nasm
+     5                                  
+     6                                  %macro method 1-2
+     7                                      %if %0 > 1
+     8                                        mov rdi,%2
+     9                                      %endif
+    10                                      %1
+    11                                  %endmacro
+    12                                  
+    13                                  bits 64
+    14                                  [list -]
+    17                                  global _start
+    18                                  
+    19                                  section .bss
+    20                                  section .rodata
+    21 00000000 76616C756520636861-         msga:   db "value changed",10
+    21 00000009 6E6765640A         
+    22                                      .len:   equ $-msga
+    23 0000000E 76616C756520636861-         msgb:   db "value changed again",10
+    23 00000017 6E6765642061676169-
+    23 00000020 6E0A               
+    24                                      .len:   equ $-msgb
+    25                                  
+    26                                  section .data
+    27                                      CBYTE a,10,value_changed
+    27                              <1> 
+    27                              <1> 
+    27                              <1>  %ifndef CBYTEMACROS
+    27                              <1>  %define CBYTEMACROS
+    27                              <1>  %macro CBYTESET 1
+    27                              <1>  mov rax, %1+CBYTE_STRUC.Set
+    27                              <1>  call QWORD [rax]
+    27                              <1>  %endmacro
+    27                              <1> 
+    27                              <1>  %macro CBYTEGET 1
+    27                              <1>  mov rax, %1+CBYTE_STRUC.Get
+    27                              <1>  call QWORD [rax]
+    27                              <1>  %endmacro
+    27                              <1> 
+    27                              <1>  %macro CBYTEONCHANGED 1
+    27                              <1>  mov rax, %1+CBYTE_STRUC.OnChanged
+    27                              <1>  mov [rax], rdi
+    27                              <1>  %endmacro
+    27                              <1>  %endif
+    27                              <1> 
+    27                              <1> 
+    27                              <1>  %define %1.Set CBYTESET %1
+    27                              <1>  %define %1.Get CBYTEGET %1
+    27                              <1>  %define %1.SetOnChanged CBYTEONCHANGED %1
+    27                              <1> 
+    27                              <1>  [section .data]
+    27                              <1>  %1: ISTRUC CBYTE_STRUC
+    27                              <1>  %if %0 > 1
+    27 00000000 0A                  <1>  at CBYTE_STRUC.value, db %2
+    27                              <1>  %else
+    27                              <1>  at CBYTE_STRUC.value, db 0
+    27                              <1>  %endif
+    27 00000001 [0F00000000000000]  <1>  at CBYTE_STRUC.Set, dq CBYTESet
+    27 00000009 [0000000000000000]  <1>  at CBYTE_STRUC.Get, dq CBYTEGet
+    27                              <1>  %if %0 > 2
+    27 00000011 [BC00000000000000]  <1>  at CBYTE_STRUC.OnChanged, dq %3
+    27                              <1>  %else
+    27                              <1>  at CBYTE_STRUC.OnChanged, dq 0
+    27                              <1>  %endif
+    27                              <1>  IEND
+    28                                      CBYTE b
+    28                              <1> 
+    28                              <1> 
+    28                              <1>  %ifndef CBYTEMACROS
+    28                              <1>  %define CBYTEMACROS
+    28                              <1>  %macro CBYTESET 1
+    28                              <1>  mov rax, %1+CBYTE_STRUC.Set
+    28                              <1>  call QWORD [rax]
+    28                              <1>  %endmacro
+    28                              <1> 
+    28                              <1>  %macro CBYTEGET 1
+    28                              <1>  mov rax, %1+CBYTE_STRUC.Get
+    28                              <1>  call QWORD [rax]
+    28                              <1>  %endmacro
+    28                              <1> 
+    28                              <1>  %macro CBYTEONCHANGED 1
+    28                              <1>  mov rax, %1+CBYTE_STRUC.OnChanged
+    28                              <1>  mov [rax], rdi
+    28                              <1>  %endmacro
+    28                              <1>  %endif
+    28                              <1> 
+    28                              <1> 
+    28                              <1>  %define %1.Set CBYTESET %1
+    28                              <1>  %define %1.Get CBYTEGET %1
+    28                              <1>  %define %1.SetOnChanged CBYTEONCHANGED %1
+    28                              <1> 
+    28                              <1>  [section .data]
+    28                              <1>  %1: ISTRUC CBYTE_STRUC
+    28                              <1>  %if %0 > 1
+    28                              <1>  at CBYTE_STRUC.value, db %2
+    28                              <1>  %else
+    28 00000019 00                  <1>  at CBYTE_STRUC.value, db 0
+    28                              <1>  %endif
+    28 0000001A [0F00000000000000]  <1>  at CBYTE_STRUC.Set, dq CBYTESet
+    28 00000022 [0000000000000000]  <1>  at CBYTE_STRUC.Get, dq CBYTEGet
+    28                              <1>  %if %0 > 2
+    28                              <1>  at CBYTE_STRUC.OnChanged, dq %3
+    28                              <1>  %else
+    28 0000002A 0000000000000000    <1>  at CBYTE_STRUC.OnChanged, dq 0
+    28                              <1>  %endif
+    28                              <1>  IEND
+    29                                  
+    30                                  section .text
+    31                                  
+    32                                  _start:
+    33                                      method b.Set,15
+    33                              <1>  %if %0 > 1
+    33 00000041 BF0F000000          <1>  mov rdi,%2
+    33                              <1>  %endif
+    33                              <1>  %1
+    33 00000046 48B8-               <2>  mov rax, %1+CBYTE_STRUC.Set
+    33 00000048 [1A00000000000000]  <2>
+    33 00000050 FF10                <2>  call QWORD [rax]
+    34                                      method b.Get
+    34                              <1>  %if %0 > 1
+    34                              <1>  mov rdi,%2
+    34                              <1>  %endif
+    34                              <1>  %1
+    34 00000052 48B8-               <2>  mov rax, %1+CBYTE_STRUC.Get
+    34 00000054 [2200000000000000]  <2>
+    34 0000005C FF10                <2>  call QWORD [rax]
+    35 0000005E 4889C7                      mov rdi,rax
+    36                                      method a.Set
+    36                              <1>  %if %0 > 1
+    36                              <1>  mov rdi,%2
+    36                              <1>  %endif
+    36                              <1>  %1
+    36 00000061 48B8-               <2>  mov rax, %1+CBYTE_STRUC.Set
+    36 00000063 [0100000000000000]  <2>
+    36 0000006B FF10                <2>  call QWORD [rax]
+    37                                      method a.Set,1
+    37                              <1>  %if %0 > 1
+    37 0000006D BF01000000          <1>  mov rdi,%2
+    37                              <1>  %endif
+    37                              <1>  %1
+    37 00000072 48B8-               <2>  mov rax, %1+CBYTE_STRUC.Set
+    37 00000074 [0100000000000000]  <2>
+    37 0000007C FF10                <2>  call QWORD [rax]
+    38                                      method a.SetOnChanged,value_changed_again
+    38                              <1>  %if %0 > 1
+    38 0000007E 48BF-               <1>  mov rdi,%2
+    38 00000080 [D800000000000000]  <1>
+    38                              <1>  %endif
+    38                              <1>  %1
+    38 00000088 48B8-               <2>  mov rax, %1+CBYTE_STRUC.OnChanged
+    38 0000008A [1100000000000000]  <2>
+    38 00000092 488938              <2>  mov [rax], rdi
+    39                                      method a.Set,15
+    39                              <1>  %if %0 > 1
+    39 00000095 BF0F000000          <1>  mov rdi,%2
+    39                              <1>  %endif
+    39                              <1>  %1
+    39 0000009A 48B8-               <2>  mov rax, %1+CBYTE_STRUC.Set
+    39 0000009C [0100000000000000]  <2>
+    39 000000A4 FF10                <2>  call QWORD [rax]
+    40                                      method a.Get
+    40                              <1>  %if %0 > 1
+    40                              <1>  mov rdi,%2
+    40                              <1>  %endif
+    40                              <1>  %1
+    40 000000A6 48B8-               <2>  mov rax, %1+CBYTE_STRUC.Get
+    40 000000A8 [0900000000000000]  <2>
+    40 000000B0 FF10                <2>  call QWORD [rax]
+    41 000000B2 4831FFB83C0000000F-         syscall exit,0
+    41 000000BB 05                 
+    42                                  
+    43                                  value_changed:
+    44 000000BC BA0E00000048BE-             syscall write,stdout,msga,msga.len
+    44 000000C3 [0000000000000000]-
+    44 000000CB BF01000000B8010000-
+    44 000000D4 000F05             
+    45 000000D7 C3                          ret
+    46                                  value_changed_again:
+    47 000000D8 BA1400000048BE-             syscall write,stdout,msgb,msgb.len
+    47 000000DF [0E00000000000000]-
+    47 000000E7 BF01000000B8010000-
+    47 000000F0 000F05             
+    48 000000F3 C3                          ret

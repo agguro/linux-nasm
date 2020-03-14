@@ -1,0 +1,592 @@
+<html><head><title>NASM-X Manual</title></head>
+<body><h1 align=center>NASM-X</h1>
+
+<p align=center>
+<a href="nasmxa.html">Next Chapter</a> |
+<a href="nasmx1.html">Previous Chapter</a> |
+<a href="nasmx0.html">Contents</a> |
+<a href="nasmxi.html">Index</a>
+
+<h2><a name="chapter-2">Chapter 2: The NASM-X Language</a></h2>
+
+<h3><a name="section-2.1">2.1: BREAK</a></h3>
+<h4>Description</h4>
+&nbsp&nbsp&nbsp&nbsp This macro causes program execution within a looping construct to terminate.
+<h4>Syntax</h4>
+&nbsp&nbsp&nbsp&nbsp BREAK<br>
+<h4>Examples</h4>
+<a href="nasmxe.html#section-E.4">Section E.4</a><br>
+<br>
+<h4>See also:</h4>
+<a href="nasmx2.html#section-2.3">Section 2.3: DO</a><br>
+<a href="nasmx2.html#section-2.11">Section 2.11: IF</a><br>
+<a href="nasmx2.html#section-2.29">Section 2.29: REPEAT</a><br>
+<a href="nasmx2.html#section-2.32">Section 2.32: WHILE</a><br>
+<br><br>
+
+
+<h3><a name="section-2.2">2.2: CONTINUE</a></h3>
+<h4>Description</h4>
+&nbsp&nbsp&nbsp&nbsp This macro causes program execution within a looping construct to jump back to the start of the inner-most loop that it is currently contained in.
+<h4>Syntax</h4>
+&nbsp&nbsp&nbsp&nbsp CONTINUE<br>
+<h4>Examples</h4>
+<a href="nasmxe.html#section-E.3">Section E.3</a><br>
+<br>
+<h4>See also:</h4>
+<a href="nasmx2.html#section-2.3">Section 2.3: DO</a><br>
+<a href="nasmx2.html#section-2.32">Section 2.32: WHILE</a><br>
+<br><br>
+
+
+<h3><a name="section-2.3">2.3: DO</a></h3>
+<h4>Description</h4>
+&nbsp&nbsp&nbsp&nbsp This macro creates a procedure specific label to implement a looping block.
+<h4>Syntax</h4>
+&nbsp&nbsp&nbsp&nbsp DO<br>
+<h4>Examples</h4>
+<a href="nasmxe.html#section-E.3">Section E.3</a><br>
+<br>
+<h4>See also:</h4>
+<a href="nasmx2.html#section-2.1">Section 2.1: BREAK</a><br>
+<a href="nasmx2.html#section-2.32">Section 2.32: WHILE</a><br>
+<br><br>
+
+
+<h3><a name="section-2.4">2.4: ELSE</a></h3>
+<h4>Description</h4>
+&nbsp&nbsp&nbsp&nbsp This macro causes program execution to branch to this block of code if the condition of the prior IF statement is false.
+<h4>Syntax</h4>
+&nbsp&nbsp&nbsp&nbsp ELSE<br>
+<h4>Examples</h4>
+<a href="nasmxe.html#section-E.3">Section E.3</a><br>
+<br>
+<h4>See also:</h4>
+<a href="nasmx2.html#section-2.7">Section 2.7 : ENDIF</a><br>
+<a href="nasmx2.html#section-2.11">Section 2.11 : IF</a><br>
+<br><br>
+
+
+<h3><a name="section-2.5">2.5: ELSIF</a></h3>
+<h4>Description</h4>
+&nbsp&nbsp&nbsp&nbsp This macro causes program execution to branch to this block of code if the condition of the prior IF statement is false.
+<h4>Syntax</h4>
+&nbsp&nbsp&nbsp&nbsp ELSIF reg,cc,val<br>
+&nbsp&nbsp&nbsp&nbsp <br>
+&nbsp&nbsp&nbsp&nbsp where:<br>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp reg is the register used for comparison<br>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp cc is the condition to check<br>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp val is the value to compare the register against<br>
+<h4>Examples</h4>
+<a href="nasmxe.html#section-E.3">Section E.3</a><br>
+<br>
+<h4>See also:</h4>
+<a href="nasmx2.html#section-2.7">Section 2.7 : ENDIF</a><br>
+<a href="nasmx2.html#section-2.11">Section 2.11 : IF</a><br>
+<br><br>
+
+
+<h3><a name="section-2.6">2.6: ENTRY</a></h3>
+<h4>Description</h4>
+&nbsp&nbsp&nbsp&nbsp Specifying the program entry point.
+<h4>Syntax</h4>
+&nbsp&nbsp&nbsp&nbsp ENTRY proc_name
+<h4>Examples</h4>
+<a href="nasmxe.html#section-E.1">Section E.1</a><br>
+<a href="nasmxe.html#section-E.2">Section E.2</a><br>
+<br>
+<h4>See also:</h4>
+<a href="nasmx2.html#section-2.13">Section 2.13: INVOKE</a><br>
+<a href="nasmx2.html#section-2.27">Section 2.27: PROC</a><br>
+<br><br>
+
+
+<h3><a name="section-2.7">2.7: ENDIF</a></h3>
+<h4>Description</h4>
+&nbsp&nbsp&nbsp&nbsp Terminates an IF block.
+<h4>Syntax</h4>
+&nbsp&nbsp&nbsp&nbsp ENDIF
+<h4>Examples</h4>
+<a href="nasmxe.html#section-E.1">Section E.1</a><br>
+<a href="nasmxe.html#section-E.2">Section E.2</a><br>
+<br>
+<h4>See also:</h4>
+<a href="nasmx2.html#section-2.4">Section 2.4: ELSE</a><br>
+<a href="nasmx2.html#section-2.11">Section 2.11: IF</a><br>
+<br><br>
+
+
+<h3><a name="section-2.8">2.8: ENDPROC</a></h3>
+<h4>Description</h4>
+&nbsp&nbsp&nbsp&nbsp Terminates a PROC block.
+<h4>Syntax</h4>
+&nbsp&nbsp&nbsp&nbsp ENDPROC
+<h4>Examples</h4>
+<a href="nasmxe.html#section-E.1">Section E.1</a><br>
+<a href="nasmxe.html#section-E.2">Section E.2</a><br>
+<br>
+<h4>See also:</h4>
+<a href="nasmx2.html#section-2.27">Section 2.27: PROC</a><br>
+<br><br>
+
+
+<h3><a name="section-2.9">2.9: ENDLOCALS</a></h3>
+<h4>Description</h4>
+&nbsp&nbsp&nbsp&nbsp Terminates a LOCALS block.
+<h4>Syntax</h4>
+&nbsp&nbsp&nbsp&nbsp ENDLOCALS
+<h4>Examples</h4>
+<a href="nasmxe.html#section-E.1">Section E.1</a><br>
+<a href="nasmxe.html#section-E.2">Section E.2</a><br>
+<br>
+<h4>See also:</h4>
+<a href="nasmx2.html#section-2.15">Section 2.15: LOCALS</a><br>
+<br><br>
+
+
+<h3><a name="section-2.10">2.10: ENDWHILE</a></h3>
+<h4>Description</h4>
+&nbsp&nbsp&nbsp&nbsp Terminates a WHILE block.
+<h4>Syntax</h4>
+&nbsp&nbsp&nbsp&nbsp ENDWHILE
+<h4>Examples</h4>
+<a href="nasmxe.html#section-E.1">Section E.1</a><br>
+<a href="nasmxe.html#section-E.2">Section E.2</a><br>
+<br>
+<h4>See also:</h4>
+<a href="nasmx2.html#section-2.32">Section 2.32: WHILE</a><br>
+<br><br>
+
+
+<h3><a name="section-2.11">2.11: IF</a></h3>
+<h4>Description</h4>
+&nbsp&nbsp&nbsp&nbsp This macro causes conditional branching of the program execution.
+<h4>Syntax</h4>
+&nbsp&nbsp&nbsp&nbsp IF reg,cc,val<br>
+&nbsp&nbsp&nbsp&nbsp <br>
+&nbsp&nbsp&nbsp&nbsp where:<br>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp reg is the register used for comparison<br>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp cc is the condition to check<br>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp val is the value to compare the register against<br>
+<h4>Example</h4>
+<a href="nasmxe.html#section-E.2">Section E.2</a><br><br>
+<h4>See also:</h4>
+<a href="nasmx2.html#section-2.4">Section 2.4: ELSE</a><br>
+<a href="nasmx2.html#section-2.5">Section 2.5: ELSIF</a><br>
+<a href="nasmx2.html#section-2.7">Section 2.7: ENDIF</a><br>
+<br><br>
+
+
+<h3><a name="section-2.12">2.12: IMPORT: Importing Symbols from Other Modules</a></h3>
+<h4>Description</h4>
+&nbsp&nbsp&nbsp&nbsp This macro causes the external procedure name provided to be made available to your program to call.
+<h4>Syntax</h4>
+&nbsp&nbsp&nbsp&nbsp IMPORT [callconv,] proc_name [,param[,param,...]]<br>
+&nbsp&nbsp&nbsp&nbsp <br>
+&nbsp&nbsp&nbsp&nbsp where:<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp callconv is the calling convention used if not the default.<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp supported conventions: CDECL, FASTCALL, NAKED, PASCAL, STDCALL<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp proc_name is the name of the procedure to import.<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp param is the type and parameter name(s) of the procedure.<br>
+<h4>Example</h4>
+<a href="nasmxe.html#section-E.1">Section E.1</a><br>
+<h4>See also:</h4>
+<a href="nasmx2.html#section-2.6">Section 2.6: ENTRY</a><br>
+<a href="nasmx2.html#section-2.13">Section 2.13: INVOKE</a><br>
+<a href="nasmx2.html#section-2.27">Section 2.27: PROC</a><br>
+<br><br>
+
+
+<h3><a name="section-2.13">2.13: INVOKE</a></h3>
+<h4>Description</h4>
+&nbsp&nbsp&nbsp&nbsp This macro causes procedure name to be called.
+<h4>Syntax</h4>
+&nbsp&nbsp&nbsp&nbsp INVOKE [callconv,] proc_name [,param[,param,...]]<br>
+&nbsp&nbsp&nbsp&nbsp<br>
+&nbsp&nbsp&nbsp&nbsp where:<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp callconv is the calling convention used if not the default.<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp supported conventions: CDECL, FASTCALL, NAKED, PASCAL, STDCALL<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp proc_name is the name of the procedure to call.<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp param is the parameter type and value of the called procedure.<br>
+<h4>Notes</h4>
+Fox Windows x64 programming:<br>
+INVOKE will not normally spill register arguments to the stack prior to the call.  If this behavior is desired due
+to calling a non-conformant function then you may use <code><nobr>NASMX_PRAGMA INVOKE_FASTCALL_STACK_PRELOAD, ENABLE</nobr></code>
+prior to INVOKE to enable this behavior and then disable the pragma after INVOKE.<br>
+<br>
+<h4>Example</h4>
+<a href="nasmxe.html#section-E.1">Section E.1</a><br>
+<h4>See also:</h4>
+<a href="nasmx2.html#section-2.6">Section 2.6: ENTRY</a><br>
+<a href="nasmx2.html#section-2.12">Section 2.12: IMPORT</a><br>
+<a href="nasmx2.html#section-2.21">2.21: NASMX_PRAGMA</a>
+<a href="nasmx2.html#section-2.27">Section 2.27: PROC</a><br>
+<br><br>
+
+
+<h3><a name="section-2.14">2.14: LOCAL</a></h3>
+<h4>Description</h4>
+&nbsp&nbsp&nbsp&nbsp This macro creates variable space for the procedure on the stack.
+<h4>Syntax</h4>
+&nbsp&nbsp&nbsp&nbsp LOCAL varname, type, qty<br>
+&nbsp&nbsp&nbsp&nbsp <br>
+&nbsp&nbsp&nbsp&nbsp where:<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp varname is the name of the local variable.<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp type is the type of the local variable being created.<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp qty is the number of types needed ( default: 1 ).
+<h4>Example</h4>
+<a href="nasmxe.html#section-E.5">Section E.5</a><br>
+<h4>See also:</h4>
+<a href="nasmx2.html#section-2.9">Section 2.9: ENDLOCALS</a><br>
+<a href="nasmx2.html#section-2.15">Section 2.15: LOCALS</a><br>
+<a href="nasmx2.html#section-2.27">Section 2.27: PROC</a><br>
+<br><br>
+
+
+<h3><a name="section-2.15">2.15: LOCALS</a></h3>
+<h4>Description</h4>
+&nbsp&nbsp&nbsp&nbsp This macro marks the beginning of procedure local variables.  It must be the next immediate macro after PROC.
+<h4>Syntax</h4>
+&nbsp&nbsp&nbsp&nbsp LOCALS [NONE]<br>
+&nbsp&nbsp&nbsp&nbsp <br>
+&nbsp&nbsp&nbsp&nbsp where:<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp NONE is an optional value indicating the procedure does not use local stack variables.<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp Note that the macro ENDLOCALS is not required when LOCALS NONE is specified.
+<h4>Example</h4>
+<a href="nasmxe.html#section-E.1">Section E.1</a><br>
+<h4>See also:</h4>
+<a href="nasmx2.html#section-2.9">Section 2.9: ENDLOCALS</a><br>
+<a href="nasmx2.html#section-2.14">Section 2.14: LOCAL</a><br>
+<a href="nasmx2.html#section-2.27">Section 2.27: PROC</a><br>
+<br><br>
+
+
+<h3><a name="section-2.16">2.16: NASMX_AT: Structure instance assignment</a></h3>
+<h4>Description</h4>
+&nbsp&nbsp&nbsp&nbsp This macro allocates structure member space.
+<h4>Syntax</h4>
+&nbsp&nbsp&nbsp&nbsp NASMX_AT name, value<br>
+&nbsp&nbsp&nbsp&nbsp <br>
+&nbsp&nbsp&nbsp&nbsp where:<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp name provides the name of the structure member offset.<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp value specifies the data value to be initially assigned.<br>
+<h4>Example</h4>
+<a href="nasmxe.html#section-E.5">Section E.5</a><br>
+<h4>See also:</h4>
+<a href="nasmx2.html#section-2.19">Section 2.19: NASMX_IENDSTRUC</a><br>
+<a href="nasmx2.html#section-2.20">Section 2.20: NASMX_ISTRUC</a><br>
+<br><br>
+
+
+<h3><a name="section-2.17">2.17: NASMX_ENDSTRUC: Ending a structure definition</a></h3>
+<h4>Description</h4>
+&nbsp&nbsp&nbsp&nbsp This macro is used to indicate that the structure currently being defined is now completed.
+<h4>Syntax</h4>
+&nbsp&nbsp&nbsp&nbsp NASMX_ENDSTRUC<br>
+<h4>Example</h4>
+<a href="nasmxe.html#section-E.5">Section E.5</a><br>
+<h4>See also:</h4>
+<a href="nasmx2.html#section-2.22">Section 2.22: NASMX_RESERVE</a><br>
+<a href="nasmx2.html#section-2.23">Section 2.23: NASMX_STRUC</a><br>
+<br><br>
+
+
+<h3><a name="section-2.18">2.18: NASMX_ENDUNION: Ending a union definition</a></h3>
+<h4>Description</h4>
+&nbsp&nbsp&nbsp&nbsp This macro is used to indicate that the union currently being defined is now completed.
+<h4>Syntax</h4>
+&nbsp&nbsp&nbsp&nbsp NASMX_ENDUNION<br>
+<h4>Example</h4>
+<a href="nasmxe.html#section-E.5">Section E.5</a><br>
+<h4>See also:</h4>
+<a href="nasmx2.html#section-2.22">Section 2.22: NASMX_RESERVE</a><br>
+<a href="nasmx2.html#section-2.26">Section 2.26: NASMX_UNION</a><br>
+<br><br>
+
+
+<h3><a name="section-2.19">2.19: NASMX_IENDSTRUC: Ending a structure instance</a></h3>
+<h4>Description</h4>
+&nbsp&nbsp&nbsp&nbsp This macro is used to indicate that the structure currently being allocated is now completed.
+<h4>Syntax</h4>
+&nbsp&nbsp&nbsp&nbsp NASMX_IENDSTRUC<br>
+<h4>Example</h4>
+<a href="nasmxe.html#section-E.5">Section E.5</a><br>
+<h4>See also:</h4>
+<a href="nasmx2.html#section-2.16">Section 2.16: NASMX_AT</a><br>
+<a href="nasmx2.html#section-2.20">Section 2.20: NASMX_ISTRUC</a><br>
+<br><br>
+
+
+<h3><a name="section-2.20">2.20: NASMX_ISTRUC: Beginning a structure instance</a></h3>
+<h4>Description</h4>
+&nbsp&nbsp&nbsp&nbsp This macro is used to create a structure instance.
+<h4>Syntax</h4>
+&nbsp&nbsp&nbsp&nbsp NASMX_ISTRUC name, type<br>
+&nbsp&nbsp&nbsp&nbsp <br>
+&nbsp&nbsp&nbsp&nbsp where:<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp name is the name of this structure instance.<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp type is the name of the predefined structure type.<br>
+
+<h4>Example</h4>
+<a href="nasmxe.html#section-E.5">Section E.5</a><br>
+<h4>See also:</h4>
+<a href="nasmx2.html#section-2.16">Section 2.16: NASMX_AT</a><br>
+<a href="nasmx2.html#section-2.19">Section 2.19: NASMX_IENDSTRUC</a><br>
+<br><br>
+
+<h3><a name="section-2.21">2.21: NASMX_PRAGMA: Defining pragmas</a></h3>
+<h4>Description</h4>
+&nbsp&nbsp&nbsp&nbsp This macro allows the developer to specify certain options that affect how NASMX generates code.
+<h4>Syntax</h4>
+&nbsp&nbsp&nbsp&nbsp NASMX_PRAGMA directive,option [,options]<br>
+&nbsp&nbsp&nbsp&nbsp <br>
+&nbsp&nbsp&nbsp&nbsp where:<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp <code><nobr>directive</nobr></code> provides instruction to NASMX<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp <code><nobr>options</nobr></code> are optional values specified for the directive.<br>
+&nbsp&nbsp&nbsp&nbsp directives:<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp <code><nobr>CALLSTACK, size</nobr></code>  ; Win64 minimum callstack size is 32<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp <code><nobr>PACK, PUSH, align_val</nobr></code>  ; default is natural structure member alignment<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp <code><nobr>PACK, POP</nobr></code><br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp <code><nobr>PROC_FASTCALL_STACK_PRELOAD, [ ENABLE | DISABLE ]</nobr></code> ; default is enable<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp <code><nobr>INVOKE_FASTCALL_STACK_PRELOAD, [ ENABLE | DISABLE ]</nobr></code> ; default is disable<br>
+<br>
+Note: The pragma INVOKE_FASTCALL_STACK_PRELOAD is applicable only for Windows 64-bit.<br>
+<h4>Example</h4>
+<p>Please see demos
+<h4>See also:</h4>
+<a href="nasmx2.html#section-2.15">Section 2.15: LOCALS</a><br>
+<a href="nasmx2.html#section-2.27">Section 2.27: PROC</a><br>
+<br><br>
+
+
+<h3><a name="section-2.22">2.22: NASMX_RESERVE: Defining structure/union members</a></h3>
+<h4>Description</h4>
+&nbsp&nbsp&nbsp&nbspThis macro allows the developer to specify the structure member variable names and types.
+<h4>Syntax</h4>
+&nbsp&nbsp&nbsp&nbsp NASMX_RESERVE name, type, qty<br>
+&nbsp&nbsp&nbsp&nbsp <br>
+&nbsp&nbsp&nbsp&nbsp where:<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp name provides the name of the structure member.<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp type specifies the data type of the member.<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp qty specifies how many types to reserve ( Default: 1 ).<br>
+<h4>Example</h4>
+<a href="nasmxe.html#section-E.1">Section E.5</a><br>
+<h4>See also:</h4>
+<a href="nasmx2.html#section-2.23">Section 2.23: NASMX_STRUC</a><br>
+<a href="nasmx2.html#section-2.26">Section 2.26: NASMX_UNION</a><br>
+<br><br>
+
+
+<h3><a name="section-2.23">2.23: NASMX_STRUC: Defining Structures</a></h3>
+<h4>Description</h4>
+&nbsp&nbsp&nbsp&nbspThis macro allows the developer to begin structure definition and provide a name.
+<h4>Syntax</h4>
+&nbsp&nbsp&nbsp&nbsp NASMX_STRUC name<br>
+&nbsp&nbsp&nbsp&nbsp <br>
+&nbsp&nbsp&nbsp&nbsp where:<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp name provides the name of the structure.<br>
+<h4>Example</h4>
+<a href="nasmxe.html#section-E.1">Section E.5</a><br>
+<h4>See also:</h4>
+<a href="nasmx2.html#section-2.22">Section 2.22: NASMX_RESERVE</a><br>
+<a href="nasmx2.html#section-2.17">Section 2.17: NASMX_ENDSTRUC</a><br>
+<br><br>
+
+
+<h3><a name="section-2.24">2.24: NASMX_TCHAR: Character portability</a></h3>
+<h4>Description</h4>
+&nbsp&nbsp&nbsp&nbspThis macro is used to indicate that the character type for the defined label will change based on the UNICODE define.
+<h4>Syntax</h4>
+&nbsp&nbsp&nbsp&nbsp NASMX_TCHAR<br>
+<h4>Example</h4>
+<a href="nasmxe.html#section-E.1">Section E.1</a><br>
+<h4>See also:</h4>
+<a href="nasmx2.html#section-2.25">Section 2.15: NASMX_TEXT</a><br>
+<br><br>
+
+
+<h3><a name="section-2.25">2.25: NASMX_TEXT: Character portability</a></h3>
+<h4>Description</h4>
+&nbsp&nbsp&nbsp&nbspThis macro is used to indicate that the character type for the defined label will change based on the UNICODE define.
+<h4>Syntax</h4>
+&nbsp&nbsp&nbsp&nbsp NASMX_TEXT<br>
+<h4>Example</h4>
+<a href="nasmxe.html#section-E.1">Section E.1</a><br>
+<h4>See also:</h4>
+<a href="nasmx2.html#section-2.24">Section 2.24: NASMX_TCHAR</a><br>
+<br><br>
+
+
+<h3><a name="section-2.26">2.26: NASMX_UNION: Defining a union</a></h3>
+<h4>Description</h4>
+&nbsp&nbsp&nbsp&nbspThis macro allows the developer to begin a union definition and provide a name.
+<h4>Syntax</h4>
+&nbsp&nbsp&nbsp&nbsp NASMX_UNION name<br>
+&nbsp&nbsp&nbsp&nbsp <br>
+&nbsp&nbsp&nbsp&nbsp where:<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp name provides the name of the union.<br>
+<h4>Example</h4>
+<a href="nasmxe.html#section-E.1">Section E.5</a><br>
+<h4>See also:</h4>
+<a href="nasmx2.html#section-2.22">Section 2.22: NASMX_RESERVE</a><br>
+<a href="nasmx2.html#section-2.18">Section 2.18: NASMX_ENDUNION</a><br>
+<br><br>
+
+
+<h3><a name="section-2.27">2.27: PROC</a></h3>
+<h4>Description</h4>
+&nbsp&nbsp&nbsp&nbsp This macro causes the named procedure to be defined.
+<h4>Syntax</h4>
+&nbsp&nbsp&nbsp&nbsp PROC [callconv,] proc_name [,param[,param,...]]<br>
+&nbsp&nbsp&nbsp&nbsp <br>
+&nbsp&nbsp&nbsp&nbsp where:<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp callconv is the calling convention used if not the default.<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp supported conventions: CDECL, FASTCALL, NAKED, PASCAL, STDCALL<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp proc_name is the name of the procedure.<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp param is the type and parameter name(s) of the procedure.<br>
+<br>
+<h4>Notes</h4>
+The stack frame is automatically created whenever you have defined either procedure parameters or local stack variables.
+Arguments are always located on the stack above the return address for both 32-bit and 64-bit.
+The 32-bit register EBP ( RBP in 64-bit ) is used as the frame pointer.  Procedures that define parameter arguments will have the parameter
+names equated to offsets from the frame.  Use the macro <code><nobr>argv()</nobr></code> to access the procedure arguments.<br>
+<br>
+For the 64-bit fastcall calling convention:<br>
+By default, during the procedure prologue, NASM-X will automatically save the registers used for
+the procedure parameters you define to the stack.  To prevent NASM-X from saving register parameters to the stack you can place a
+<code><nobr>NASMX_PRAGMA PROC_FASTCALL_STACK_PRELOAD, DISABLE</nobr></code> at the beginning of your source file after including nasmx.inc<br>
+You may enable or disable stack pre-loading at any time by using multiple NASMX_PRAGMA directives in your source file.<br>
+<br>
+For Linux 64-bit mode:<br>
+NASM-X will create a register argument spill area below the return address in a manner similar to local variables.
+Automatic register argument saving is enabled or disabled as indicated previously.  The macro <code><nobr>argv()</nobr></code> will
+correctly provide the parameter offsets in this area.<br>
+<br>
+Finally, if your procedure does not require automatic register saves or you will not access the register spill area then you may simply
+define a PROC without parameters.  Doing so may eliminate the need to use register EBP/RBP to create the stack frame depending on whether
+local variable stack space is required or not thus freeing up that register for use.  The exceptions are 1.) the program main entry point which,
+if defined, must establish the initial frame; and 2.) procedures that expect floating point arguments must be prototyped in order for INVOKE to
+assign the appropriate floating point registers.
+<br>
+<h4>Known Issues</h4>
+<ul>
+<li>There is currently no support for passing parameter values larger than 64-bits.</li>
+<li>For Linux 64-bit mode NASM-X currently does not support defining a PROC with more parameters than the maximum registers defined for the x64 fastcall calling convention.
+The INVOKE macro, however, fully supports the calling convention.</li>
+</ul>
+<h4>Example</h4>
+<a href="nasmxe.html#section-E.3">Section E.3</a><br>
+<h4>See also:</h4>
+&nbsp&nbsp&nbsp&nbsp <a href="nasmx2.html#section-2.6">Section 2.6: ENTRY</a><br>
+&nbsp&nbsp&nbsp&nbsp <a href="nasmx2.html#section-2.12">Section 2.12: IMPORT</a><br>
+&nbsp&nbsp&nbsp&nbsp <a href="nasmx2.html#section-2.21">2.21: NASMX_PRAGMA</a><br>
+&nbsp&nbsp&nbsp&nbsp <a href="nasmx2.html#section-2.28">Section 2.28: PROTO</a><br>
+<br><br>
+
+
+<h3><a name="section-2.28">2.28: PROTO: Exporting Symbols to Other Modules</a></h3>
+&nbsp&nbsp&nbsp&nbspThis macro generates a global procedure name that can be imported by additional source modules.
+<h4>Syntax</h4>
+&nbsp&nbsp&nbsp&nbsp PROTO [callconv,] proc_name [,param[,param,...]]<br>
+&nbsp&nbsp&nbsp&nbsp <br>
+&nbsp&nbsp&nbsp&nbsp where:<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp callconv is the calling convention used if not the default.<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp supported conventions: CDECL, FASTCALL, NAKED, PASCAL, STDCALL<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp proc_name is the name of the procedure.<br>
+&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp param is the type and parameter name(s) of the procedure.<br>
+<h4>See also:</h4>
+&nbsp&nbsp&nbsp&nbsp <a href="nasmx2.html#section-2.6">Section 2.6: ENTRY</a><br>
+&nbsp&nbsp&nbsp&nbsp <a href="nasmx2.html#section-2.12">Section 2.12: IMPORT</a><br>
+&nbsp&nbsp&nbsp&nbsp <a href="nasmx2.html#section-2.27">Section 2.27: PROC</a><br>
+<br><br>
+
+
+<h3><a name="section-2.29">2.29: REPEAT: starting a loop</a></h3>
+<h4>Description</h4>
+&nbsp&nbsp&nbsp&nbsp This macro creates a procedure specific label to implement a looping block.
+<h4>Syntax</h4>
+&nbsp&nbsp&nbsp&nbsp REPEAT<br>
+<h4>Examples</h4>
+<a href="nasmxe.html#section-E.3">Section E.3</a><br>
+<h4>See also:</h4>
+<a href="nasmx2.html#section-2.1">Section 2.1: BREAK</a><br>
+<a href="nasmx2.html#section-2.31">Section 2.31: UNTIL</a><br>
+<br><br>
+
+
+<h3><a name="section-2.30">2.30: RETURN: returning from a procedure</a></h3>
+<h4>Description</h4>
+&nbsp&nbsp&nbsp&nbsp This macro causes a jump to the procedure epilogue.
+<h4>Syntax</h4>
+&nbsp&nbsp&nbsp&nbsp RETURN [ val ]<br>
+&nbsp&nbsp&nbsp&nbsp <br>
+&nbsp&nbsp&nbsp&nbsp where val is the optional procedure return value<br>
+<h4>Examples</h4>
+See demos/win32/demo2 for example usage.<br>
+<h4>Notes</h4>
+At the end of your procedure you may simply <code><nobr>mov eax, val</nobr></code> as the last statement to be executed in order to optimize out the jump to the procedure epilogue.
+<h4>See also:</h4>
+<a href="nasmx2.html#section-2.8">Section 2.8: ENDPROC</a><br>
+<a href="nasmx2.html#section-2.27">Section 2.27: PROC</a><br>
+<br><br>
+
+<h3><a name="section-2.31">2.31: UNTIL: loop condition</a></h3>
+<h4>Description</h4>
+&nbsp&nbsp&nbsp&nbsp Specifying a REPEAT block terminating condition.
+<h4>Syntax</h4>
+&nbsp&nbsp&nbsp&nbsp UNTIL reg,cc,val<br>
+&nbsp&nbsp&nbsp&nbsp <br>
+&nbsp&nbsp&nbsp&nbsp where:<br>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp reg is the register used for comparison<br>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp cc is the condition to check<br>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp val is the value to compare the register against<br>
+
+<h4>Examples</h4>
+<a href="nasmxe.html#section-E.1">Section E.1</a><br>
+<a href="nasmxe.html#section-E.2">Section E.2</a><br>
+<br>
+<h4>See also:</h4>
+<a href="nasmx2.html#section-2.1">Section 2.1: BREAK</a><br>
+<a href="nasmx2.html#section-2.29">Section 2.29: REPEAT</a><br>
+<br><br>
+
+<h3><a name="section-2.32">2.32: USES: Saving registers to the stack</a></h3>
+<h4>Description</h4>
+&nbsp&nbsp&nbsp&nbsp This macro enables the developer to specific registers that must be saved during the procedure prologue.  Saved registers are restored automatically by NASMX during ENDPROC.<br>
+&nbsp&nbsp&nbsp&nbsp This macro, if used, must appear immediately following a PROC statement and immediate before the LOCALS statement<br>
+<h4>Syntax</h4>
+&nbsp&nbsp&nbsp&nbsp USES reg [,reg [,reg...]]<br>
+<h4>Examples</h4>
+<a href="nasmxe.html#section-E.3">Section E.3</a><br>
+<h4>See also:</h4>
+<a href="nasmx2.html#section-2.8">Section 2.8: ENDPROC</a><br>
+<a href="nasmx2.html#section-2.27">Section 2.27: PROC</a><br>
+<br><br>
+
+
+<h3><a name="section-2.33">2.33: WHILE: looping</a></h3>
+<h4>Description</h4>
+&nbsp&nbsp&nbsp&nbsp This macro creates a procedure specific label to implement a looping block.
+<h4>Syntax</h4>
+&nbsp&nbsp&nbsp&nbsp WHILE reg,cc,val<br>
+&nbsp&nbsp&nbsp&nbsp <br>
+&nbsp&nbsp&nbsp&nbsp where:<br>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp reg is the register used for comparison<br>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp cc is the condition to check<br>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp val is the value to compare the register against<br>
+
+<h4>Examples</h4>
+<a href="nasmxe.html#section-E.3">Section E.3</a><br>
+<h4>See also:</h4>
+<a href="nasmx2.html#section-2.1">Section 2.1: BREAK</a><br>
+<a href="nasmx2.html#section-2.3">Section 2.3: DO</a><br>
+<a href="nasmx2.html#section-2.10">Section 2.10: ENDWHILE</a><br>
+<br><br>
+
+
+<p align=center>
+<a href="nasmxa.html">Next Chapter</a> |
+<a href="nasmx1.html">Previous Chapter</a> |
+<a href="nasmx0.html">Contents</a> |
+<a href="nasmxi.html">Index</a>
+</body></html>
