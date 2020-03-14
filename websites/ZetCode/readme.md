@@ -1,1 +1,0 @@
-to do: update this part with the new examples from Zetcode.
