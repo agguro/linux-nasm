@@ -1,0 +1,34 @@
+     1                                  ; Name:         hello.asm
+     2                                  ;
+     3                                  ; Build:        nasm "-felf64" hello.asm -o hello.o -l hello.lst
+     4                                  ;               nasm "-felf64" libhello.asm -l libhello.lst -o libhello.o
+     5                                  ;               ar rcs libhello.a libhello.o
+     6                                  ;               ld -s -melf_x86_64 -o hello hello.o libhello.a
+     7                                  ;
+     8                                  ; Description:  Shows the hello world program with the use of a static library
+     9                                  ;               The purpose of a static library is to collect commonly used procedures
+    10                                  ;               and store them in one archive file so we can use the archive file to
+    11                                  ;               link other programs who use the same procedures. An archive file is not
+    12                                  ;               a shared libary, each program assembled and linked with an archive file
+    13                                  ;               will have the procedures in their listing.
+    14                                  
+    15                                  bits 64
+    16                                  
+    17                                  ; define the archive functions
+    18                                  [list -]
+    21                                          
+    22                                  section .data
+    23 00000000 48656C6C6F20776F72-         message: db  "Hello world!", 10
+    23 00000009 6C64210A           
+    24                                      .length: equ $-message
+    25                                  
+    26                                  section .text
+    27                                      global _start
+    28                                      
+    29                                  _start:
+    30 00000000 48BE-                       mov     rsi, message
+    30 00000002 [0000000000000000] 
+    31 0000000A BA0D000000                  mov     rdx, message.length
+    32 0000000F E8(00000000)                call    WriteString
+    33 00000014 4831FF                      xor     rdi, rdi
+    34 00000017 E8(00000000)                call    Exit

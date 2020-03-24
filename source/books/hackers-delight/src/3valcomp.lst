@@ -1,0 +1,83 @@
+     1                                  ;name: 3valcomp.asm
+     2                                  ;description:  Threevalued compare function
+     3                                  ;
+     4                                  ; case rdi < rsi result is rax=-1 (two's complement)
+     5                                  ;      rdi = rsi result is rax= 0
+     6                                  ;      rdi > rsi result is rax= 1
+     7                                  ;
+     8                                  ;source: Hacker's Delight 
+     9                                  
+    10                                  [list -]
+    13                                   
+    14                                  bits 64
+    15                                   
+    16                                  section .bss
+    17 00000000 <res 00000001>                buffer: resb 1
+    18                                   
+    19                                  section .data
+    20                                   
+    21                                  section .text
+    22                                        global _start
+    23                                   
+    24                                  _start:
+    25                                   
+    26 00000000 B8DF070000                    mov       rax, 2015
+    27 00000005 BB04040000                    mov       rbx, 1028
+    28 0000000A E835000000                    call      printBinary                     ; print RAX
+    29 0000000F 4893                          xchg      rax, rbx
+    30 00000011 E82E000000                    call      printBinary                     ; print RBX
+    31 00000016 4893                          xchg      rax, rbx
+    32                                        call      ThreeValuedCompare
+    32          ******************       error: symbol `ThreeValuedCompare' undefined
+    33 00000018 E827000000                    call      printBinary
+    34                                   
+    35 0000001D 4831FF                        xor       rdi, rdi
+    36                                        mov       rax, SYS_EXIT
+    36          ******************       error: symbol `SYS_EXIT' undefined
+    37 00000020 0F05                          syscall
+    38                                   
+    39                                  threeValuedCompare:
+    40                                  ;compare rdi against rsi return result in rax
+    41                                  ;rax = 0 when rdi = rsi
+    42                                  ;rax = -1 when rdi < rsi
+    43                                  ;rax = 1 when rdi > rsi
+    44                                  
+    45 00000022 4829D8                        sub       rax, rbx
+    46                                        ; from here the sign function
+    47 00000025 4889C3                        mov       rbx, rax
+    48 00000028 48C1E83F                      shr       rax, 63
+    49 0000002C 48F7D8                        neg       rax
+    50 0000002F 48F7DB                        neg       rbx
+    51 00000032 48C1EB3F                      shr       rbx, 63
+    52 00000036 4809D8                        or        rax, rbx
+    53 00000039 C3                            ret
+    54                                   
+    55                                  printBinary:
+    56 0000003A 50                            push      rax
+    57 0000003B B940000000                    mov       rcx, 64                 ; 64 bits to display
+    58 00000040 F8                            clc                               ; clear carry flag
+    59                                  .repeat:
+    60 00000041 48D1D0                        rcl       rax, 1                  ; start with leftmost bit
+    61 00000044 801425[00000000]30            adc       BYTE[buffer],0x30       ; make it ASCII
+    62 0000004C 51                            push      rcx
+    63 0000004D 50                            push      rax
+    64 0000004E E81D000000                    call      printBuffer
+    65 00000053 58                            pop       rax
+    66 00000054 59                            pop       rcx
+    67 00000055 E2EA                          loop      .repeat
+    68 00000057 C60425[00000000]0A            mov       BYTE[buffer],0x0A
+    69 0000005F E80C000000                    call      printBuffer
+    70 00000064 58                            pop       rax
+    71 00000065 C3                            ret
+    72                                   
+    73                                  printBuffer:
+    74                                        mov       rax, SYS_WRITE
+    74          ******************       error: symbol `SYS_WRITE' undefined
+    75                                        mov       rdi, STDOUT
+    75          ******************       error: symbol `STDOUT' undefined
+    76 00000066 48BE-                         mov       rsi, buffer
+    76 00000068 [0000000000000000] 
+    77 00000070 BA01000000                    mov       rdx, 1
+    78 00000075 0F05                          syscall
+    79 00000077 802425[00000000]00            and       BYTE[buffer],0          ; clear buffer
+    80 0000007F C3                            ret

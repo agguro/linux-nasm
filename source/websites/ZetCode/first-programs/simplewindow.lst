@@ -1,0 +1,82 @@
+     1                                  ; Name        : simplewindow.asm
+     2                                  ;
+     3                                  ; Build       : nasm -felf64 -o simplewindow.o -l simplewindow.lst simplewindow.asm
+     4                                  ;               ld -s -m elf_x86_64 simplewindow.o -o simplewindow -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 -lgtk-3 -lgobject-2.0  -lglib-2.0 -lgdk_pixbuf-2.0 -lgdk-3
+     5                                  ;
+     6                                  ; Description : a simple window with the basic functionalities and a title
+     7                                  ;
+     8                                  ; C - source  : http://zetcode.com/gui/gtk2/firstprograms/
+     9                                  
+    10                                  bits 64
+    11                                  
+    12                                  [list -]
+    26                                  
+    27                                  section .data
+    28                                      window:
+    29 00000000 0000000000000000            .handle:      dq    0
+    30 00000008 412073696D706C6520-         .title:       db    "A simple window",0
+    30 00000011 77696E646F7700     
+    31                                      signal:
+    32 00000018 64657374726F7900            .destroy:     db    "destroy",0
+    33                                      
+    34                                  section .text
+    35                                  global _start
+    36                                  
+    37                                  _start:
+    38                                      ;init gtk
+    39                                      ;in this example I get the pointers to argc and argv also.
+    40                                      ;in case you should use commandline arguments refer to:
+    41                                      ;https://developer.gnome.org/gtk3/stable/gtk3-General.html#gtk-init_with_args
+    42                                      ;the stack however when you watch this program in a debugger is at entry:
+    43                                      ;rsp        argc
+    44                                      ;rsp+8      name of program(simplewindow in this case)
+    45                                      ;rsp+16     argv1
+    46                                      ;rsp+24     argv2
+    47                                      ;....
+    48                                      ;rsp+8*n    0000000000000000
+    49                                      ;rsp+8*n+8  envp1
+    50                                      ;....       envp2
+    51                                      ;....
+    52                                      ;rsp+...    0000000000000000
+    53                                      ;so instead of calling gtk_init_with_args, we can easely(?) parse the arguments from commandline
+    54                                      ;ourself AFTER calling gtk_init with rdi and rsi = 0.  In this example I pass *argc and ***argv
+    55                                      ;to gtk_init. (only in this example)
+    56                                      ;*argc has to be 32 bits long otherwise we will receive a segmentation fault.
+    57 00000000 4889E7                      mov     rdi,rsp                 
+    58 00000003 4889FE                      mov     rsi,rdi
+    59 00000006 4883C704                    add     rdi,4                       ;*argc is 32 bits long
+    60 0000000A 4883C608                    add     rsi,8                       ;***argv is 64 bits long
+    61 0000000E E8(00000000)                call    gtk_init
+    62                                      ;when rax returns 0 then gtk_init fails and we should terminate the program.
+    63                                      ;if run from commandline you can write a message on screen to eventually
+    64                                      ;use a textbased version of this program...
+    65 00000013 4821C0                      and     rax,rax
+    66 00000016 7460                        jz      .exit
+    67                                      ;create a new window
+    68 00000018 BF00000000                  mov     rdi,GTK_WINDOW_TOPLEVEL
+    69 0000001D E8(00000000)                call    gtk_window_new
+    70 00000022 48890425[00000000]          mov     qword[window.handle],rax
+    71                                      ;set the title
+    72 0000002A 4889C7                      mov     rdi,rax
+    73 0000002D 48BE-                       mov     rsi,window.title
+    73 0000002F [0800000000000000] 
+    74 00000037 E8(00000000)                call    gtk_window_set_title
+    75                                      ;conect the destroy signal to gtk_main_quit event handler
+    76 0000003C 4531C9                      xor     r9d,r9d                    ; combination of GConnectFlags 
+    77 0000003F 4531C0                      xor     r8d,r8d                    ; a GClosureNotify for data
+    78 00000042 4831C9                      xor     rcx,rcx                    ; pointer to the data to pass
+    79 00000045 48BA-                       mov     rdx,gtk_main_quit          ; pointer to the handler
+    79 00000047 [0000000000000000] 
+    80 0000004F 48BE-                       mov     rsi,signal.destroy         ; pointer to the signal
+    80 00000051 [1800000000000000] 
+    81 00000059 488B3C25[00000000]          mov     rdi,qword[window.handle]   ; pointer to the widget instance
+    82 00000061 E8(00000000)                call    g_signal_connect_data
+    83                                      ;show the window
+    84 00000066 488B3C25[00000000]          mov     rdi,qword[window.handle]
+    85 0000006E E8(00000000)                call    gtk_widget_show
+    86                                      ;go into applications main loop
+    87 00000073 E8(00000000)                call    gtk_main
+    88                                  .exit:    
+    89                                      ;exit program
+    90 00000078 4831FF                      xor     rdi,rdi
+    91 0000007B E8(00000000)                call    exit

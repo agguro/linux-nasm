@@ -1,0 +1,135 @@
+     1                                  ;Name:          sockettest.asm
+     2                                  ;Build:         nasm "-felf64" sockettest.asm -l sockettest.lst -o sockettest.o
+     3                                  ;               ld -s -melf_x86_64 -o sockettest sockettest.o 
+     4                                  ;Description:   This program is a test program to connect and
+     5                                  ;               interact with several server examples.
+     6                                  ;               (Like HTTP,FTP,... own build servers.)
+     7                                  ;               It is hardcoded for localhost:4444.
+     8                                  
+     9                                  bits 64
+    10                                  [list -]
+    14                                  
+    15                                  section .bss
+    16                                   
+    17 00000000 <res 00000008>              sockfd:     resq 1
+    18 00000008 <res 00000008>              sock_addr:  resq 1
+    19 00000010 <res 00000001>              buffer:     resb 1              ;one byte buffer because we get the bytes one at the time
+    20                                      .length:    equ  $-buffer
+    21                                  
+    22                                  section .data
+    23                                      
+    24 00000000 48656C6C6F20696E74-         data:           db "Hello internet",10
+    24 00000009 65726E65740A       
+    25                                      ;don't forget the trailing zero to indicate end of message
+    26 0000000F 00                                          db  0
+    27                                      .length:        equ $-data
+    28 00000010 736F636B6574206572-         socketerror:    db  "socket error", 10
+    28 00000019 726F720A           
+    29                                      .length:        equ $-socketerror
+    30 0000001D 636F6E6E656374696F-         connecterror:   db  "connection error", 10
+    30 00000026 6E206572726F720A   
+    31                                      .length:        equ $-connecterror
+    32 0000002E 436F6E6E6563746564-         connected:      db  "Connected", 10
+    32 00000037 0A                 
+    33                                      .length:        equ $-connected
+    34 00000038 436F6E6E656374696F-         disconnected:   db  "Connection closed", 10
+    34 00000041 6E20636C6F7365640A 
+    35                                      .length:        equ $-disconnected
+    36 0000004A 526563656976652065-         receiveerror:   db  "Receive error",10
+    36 00000053 72726F720A         
+    37                                      .length:        equ $-receiveerror
+    38                                  
+    39 00000058 115C                        port:           db 17,92            ; port 4444 (256 * 17 + 92)
+    40                                  
+    41                                  section .text
+    42                                      global _start
+    43                                  _start:
+    44                                   
+    45                                  ;create a socket
+    46 00000000 4831D2BE01000000BF-         syscall socket,PF_INET,SOCK_STREAM,IPPROTO_IP
+    46 00000009 02000000B829000000-
+    46 00000012 0F05               
+    47 00000014 4821C0                      and     rax,rax
+    48 00000017 7927                        jns     .connect
+    49 00000019 BA0D00000048BE-             syscall write,stderr,socketerror,socketerror.length
+    49 00000020 [1000000000000000]-
+    49 00000028 BF02000000B8010000-
+    49 00000031 000F05             
+    50 00000034 BF01000000B83C0000-         syscall exit,1
+    50 0000003D 000F05             
+    51                                  .connect:    
+    52 00000040 48890425[00000000]          mov     qword[sockfd],rax           ;save socket descriptor
+    53                                  ;fill in sock_addr structure on stack
+    54                                  ;todo: get host or IP and port from commandline
+    55 00000048 4D31C0                      xor     r8,r8                       ;clear the value of r8
+    56 0000004B 41B87F000001                mov     r8,0x0100007F;              ;100007F (IP address : 127.0.0.1)
+    57 00000051 4150                        push    r8                          ;push r8 to the stack
+    58 00000053 66FF3425[58000000]          push    word [port]                 ;(Port = 4444) don't use PUSH WORD 4444 (endianess!)
+    59 0000005B 666A02                      push    word AF_INET                ;push protocol argument to the stack
+    60 0000005E 48892425[08000000]          mov     qword [sock_addr],rsp       ;Save the sock_addr_in
+    61                                  ;connect to the remote host
+    62                                  ;socket_addr structure is 16 bytes long
+    63 00000066 BA10000000488B3425-         syscall connect,qword[sockfd],qword[sock_addr],16
+    63 0000006F [08000000]488B3C25-
+    63 00000077 [00000000]B82A0000-
+    63 0000007F 000F05             
+    64 00000082 4821C0                      and     rax,rax
+    65 00000085 7927                        jns     .connected
+    66 00000087 BA0D00000048BE-             syscall write,stderr,socketerror,socketerror.length
+    66 0000008E [1000000000000000]-
+    66 00000096 BF02000000B8010000-
+    66 0000009F 000F05             
+    67 000000A2 BF01000000B83C0000-         syscall exit,1
+    67 000000AB 000F05             
+    68                                  .connected:
+    69 000000AE BA0A00000048BE-             syscall write,stdout,connected,connected.length
+    69 000000B5 [2E00000000000000]-
+    69 000000BD BF01000000B8010000-
+    69 000000C6 000F05             
+    70                                  ;send data to the server
+    71 000000C9 4D31C94D31C04D31D2-         syscall sendto,qword[sockfd],data,data.length,0,0,0
+    71 000000D2 BA1000000048BE-    
+    71 000000D9 [0000000000000000]-
+    71 000000E1 488B3C25[00000000]-
+    71 000000E9 B82C0000000F05     
+    72                                  ;receive data from the server, one byte at the time
+    73                                  .receive:
+    74 000000F0 4D31C94D31C04D31D2-         syscall recvfrom,qword[sockfd],buffer,1,0,0,0
+    74 000000F9 BA0100000048BE-    
+    74 00000100 [1000000000000000]-
+    74 00000108 488B3C25[00000000]-
+    74 00000110 B82D0000000F05     
+    75 00000117 4821C0                      and     rax, rax
+    76 0000011A 7936                        jns     .checkdata
+    77 0000011C BA0E00000048BE-             syscall write,stderr,receiveerror,receiveerror.length
+    77 00000123 [4A00000000000000]-
+    77 0000012B BF02000000B8010000-
+    77 00000134 000F05             
+    78                                      ;close the connection
+    79 00000137 488B3C25[00000000]-         syscall close,qword[sockfd]
+    79 0000013F B8030000000F05     
+    80 00000146 BF01000000B83C0000-         syscall exit,1
+    80 0000014F 000F05             
+    81                                  .checkdata:    
+    82                                  ;check byte in buffer
+    83                                  ;if 0x00 then stop receiving
+    84 00000152 803C25[10000000]00          cmp     byte[buffer],0
+    85 0000015A 741B                        je      .endreceive
+    86                                  ;else we print the byte out
+    87 0000015C 48BE-                       syscall write,stdout,buffer,rdx
+    87 0000015E [1000000000000000]-
+    87 00000166 BF01000000B8010000-
+    87 0000016F 000F05             
+    88                                  ;go to receive next byte    
+    89 00000172 E979FFFFFF                  jmp     .receive
+    90                                  .endreceive:        
+    91 00000177 488B3C25[00000000]-         syscall close,qword[sockfd]       
+    91 0000017F B8030000000F05     
+    92                                  ; disconnected message
+    93 00000186 BA1200000048BE-             syscall write,stdout,disconnected,disconnected.length    
+    93 0000018D [3800000000000000]-
+    93 00000195 BF01000000B8010000-
+    93 0000019E 000F05             
+    94                                  ; exit program        
+    95 000001A1 4831FFB83C0000000F-         syscall exit,0
+    95 000001AA 05                 

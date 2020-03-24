@@ -1,0 +1,1 @@
+collection of source used as object files suitable for static and / or dynamic libraries
