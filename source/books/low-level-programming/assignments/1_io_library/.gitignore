@@ -1,7 +1,0 @@
-teacher/*.asm
-teacher/*.o
-teacher/parse_*
-teacher/print_*
-teacher/read_*
-teacher/string_*
-
