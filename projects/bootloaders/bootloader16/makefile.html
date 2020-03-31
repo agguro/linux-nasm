@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="Generator" content="Kate, the KDE Advanced Text Editor" />
+<title>makefile</title>
+</head>
+<!-- Highlighting: "Makefile" -->
+<body>
+<pre style='color:#1f1c1b;background-color:#ffffff;'>
+<span style='color:#898887;'># Use of makefile</span>
+<span style='color:#898887;'># make :	build bootloader64 and bootloader16.lst</span>
+<span style='color:#898887;'>#		for a quick view you can use</span>
+<span style='color:#898887;'>#		qemu-system-x86_64 -hda bootloader64 -k nl-be -vga std (you can use cirrus instead of std too)</span>
+<span style='color:#898887;'>#		as mentioned on the developers website.</span>
+<span style='color:#898887;'># make clean	: is called with make run to be sure to delete the floppy and iso image otherwise make results in an error</span>
+<span style='color:#898887;'># make again	: to rebuild the program, even if the source isn't changed, can be run after makefile modifications</span>
+<span style='color:#898887;'># make dump	: to create a hexdump of the different builded files</span>
+<span style='color:#898887;'># make images	: build the images</span>
+<span style='color:#898887;'># make run	: (re-)build all files except dumps and simulate with qemu-x86_64 the iso image</span>
+<span style='color:#898887;'># make tar	: make a tar.gz file</span>
+<span style='color:#898887;'># make all	: make programs and images</span>
+
+<b><span style='color:#006e28;'>.PHONY</span></b> <b><span style='color:#006e28;'>:</span></b><span style='color:#0057ae;'> clean</span>
+<b><span style='color:#006e28;'>.PHONY</span></b> <b><span style='color:#006e28;'>:</span></b><span style='color:#0057ae;'> again</span>
+<b><span style='color:#006e28;'>.PHONY</span></b> <b><span style='color:#006e28;'>:</span></b><span style='color:#0057ae;'> dump</span>
+<b><span style='color:#006e28;'>.PHONY</span></b> <b><span style='color:#006e28;'>:</span></b><span style='color:#0057ae;'> run</span>
+<b><span style='color:#006e28;'>.PHONY</span></b> <b><span style='color:#006e28;'>:</span></b><span style='color:#0057ae;'> images</span>
+<b><span style='color:#006e28;'>.PHONY</span></b> <b><span style='color:#006e28;'>:</span></b><span style='color:#0057ae;'> tar</span>
+<b><span style='color:#006e28;'>.PHONY</span></b> <b><span style='color:#006e28;'>:</span></b><span style='color:#0057ae;'> all</span>
+
+<span style='color:#0057ae;'>NAME</span><span style='color:#924c9d;'>=</span><span style='color:#bf0303;'>bootloader16</span>
+<span style='color:#0057ae;'>TARGET</span><span style='color:#924c9d;'>=</span><span style='color:#bf0303;'>bin</span>
+<span style='color:#0057ae;'>AS</span><span style='color:#924c9d;'>=</span><span style='color:#bf0303;'>nasm</span>
+<span style='color:#0057ae;'>LD</span><span style='color:#924c9d;'>=</span><span style='color:#bf0303;'>ld</span>
+
+<span style='color:#0057ae;'>O           </span><span style='color:#924c9d;'>=</span><span style='color:#bf0303;'> .o</span>
+<span style='color:#0057ae;'>ASM         </span><span style='color:#924c9d;'>=</span><span style='color:#bf0303;'> .asm</span>
+<span style='color:#0057ae;'>INC         </span><span style='color:#924c9d;'>=</span><span style='color:#bf0303;'> .inc</span>
+<span style='color:#0057ae;'>LST         </span><span style='color:#924c9d;'>=</span><span style='color:#bf0303;'> .lst</span>
+<span style='color:#0057ae;'>DUMP        </span><span style='color:#924c9d;'>=</span><span style='color:#bf0303;'> .dump</span>
+
+<span style='color:#0057ae;'>OBJS </span><span style='color:#924c9d;'>=</span><span style='color:#bf0303;'> </span><span style='color:#924c9d;'>$(</span><span style='color:#0057ae;'>NAME</span><span style='color:#924c9d;'>)$(</span><span style='color:#0057ae;'>O</span><span style='color:#924c9d;'>)</span>
+<span style='color:#b08000;'>$(NAME).o :</span><span style='color:#0057ae;'> </span><span style='color:#924c9d;'>$(</span><span style='color:#0057ae;'>NAME</span><span style='color:#924c9d;'>)</span><span style='color:#0057ae;'>.asm</span>
+	<span style='color:#924c9d;'>$(</span><span style='color:#0057ae;'>AS</span><span style='color:#924c9d;'>)</span> -f <span style='color:#924c9d;'>$(</span><span style='color:#0057ae;'>TARGET</span><span style='color:#924c9d;'>)</span> -o <span style='color:#924c9d;'>$(</span><span style='color:#0057ae;'>NAME</span><span style='color:#924c9d;'>)</span>.<span style='color:#924c9d;'>$(</span><span style='color:#0057ae;'>TARGET</span><span style='color:#924c9d;'>)</span> <span style='color:#924c9d;'>$(</span><span style='color:#0057ae;'>NAME</span><span style='color:#924c9d;'>)$(</span><span style='color:#0057ae;'>ASM</span><span style='color:#924c9d;'>)</span> -l <span style='color:#924c9d;'>$(</span><span style='color:#0057ae;'>NAME</span><span style='color:#924c9d;'>)$(</span><span style='color:#0057ae;'>LST</span><span style='color:#924c9d;'>)</span>
+	nasm -fbin kernel.asm -o kernel.bin
+
+<span style='color:#b08000;'>clean:</span>
+	<span style='color:#924c9d;'>@</span><span style='color:#644a9b;'>rm -rf *</span><span style='color:#924c9d;'>$(</span><span style='color:#0057ae;'>O</span><span style='color:#924c9d;'>)</span><span style='color:#644a9b;'> *~ *</span><span style='color:#924c9d;'>$(</span><span style='color:#0057ae;'>LST</span><span style='color:#924c9d;'>)</span><span style='color:#644a9b;'> *</span><span style='color:#924c9d;'>$(</span><span style='color:#0057ae;'>DUMP</span><span style='color:#924c9d;'>)</span><span style='color:#644a9b;'> </span><span style='color:#924c9d;'>$(</span><span style='color:#0057ae;'>NAME</span><span style='color:#924c9d;'>)</span>
+	<span style='color:#924c9d;'>@</span><span style='color:#644a9b;'>rm -rf floppy/</span>
+	<span style='color:#924c9d;'>@</span><span style='color:#644a9b;'>rm -rf iso/</span>
+	<span style='color:#924c9d;'>@</span><span style='color:#644a9b;'>rm -rf dumps/</span>
+	<span style='color:#924c9d;'>@</span><span style='color:#644a9b;'>rm -rf tmp-loop/</span>
+	<span style='color:#924c9d;'>@</span><span style='color:#644a9b;'>rm -rf *</span><span style='color:#924c9d;'>$(</span><span style='color:#0057ae;'>TARGET</span><span style='color:#924c9d;'>)</span>
+
+<span style='color:#b08000;'>again:</span>
+	touch <span style='color:#924c9d;'>$(</span><span style='color:#0057ae;'>NAME</span><span style='color:#924c9d;'>)$(</span><span style='color:#0057ae;'>ASM</span><span style='color:#924c9d;'>)</span>
+	make
+	
+<span style='color:#b08000;'>dump:</span>
+	<span style='color:#924c9d;'>@</span><span style='color:#644a9b;'>rm -rf dumps/</span>
+	mkdir dumps
+	make again
+	hexdump -C <span style='color:#924c9d;'>$(</span><span style='color:#0057ae;'>NAME</span><span style='color:#924c9d;'>)</span>.<span style='color:#924c9d;'>$(</span><span style='color:#0057ae;'>TARGET</span><span style='color:#924c9d;'>)</span> &gt; dumps/<span style='color:#924c9d;'>$(</span><span style='color:#0057ae;'>NAME</span><span style='color:#924c9d;'>)$(</span><span style='color:#0057ae;'>DUMP</span><span style='color:#924c9d;'>)</span>
+	hexdump -C floppy/<span style='color:#924c9d;'>$(</span><span style='color:#0057ae;'>NAME</span><span style='color:#924c9d;'>)</span>.flp &gt; dumps/<span style='color:#924c9d;'>$(</span><span style='color:#0057ae;'>NAME</span><span style='color:#924c9d;'>)</span>.flp<span style='color:#924c9d;'>$(</span><span style='color:#0057ae;'>DUMP</span><span style='color:#924c9d;'>)</span>
+	hexdump -C iso/<span style='color:#924c9d;'>$(</span><span style='color:#0057ae;'>NAME</span><span style='color:#924c9d;'>)</span>.iso &gt; dumps/<span style='color:#924c9d;'>$(</span><span style='color:#0057ae;'>NAME</span><span style='color:#924c9d;'>)</span>.iso<span style='color:#924c9d;'>$(</span><span style='color:#0057ae;'>DUMP</span><span style='color:#924c9d;'>)</span>
+
+<span style='color:#b08000;'>images:</span>
+	make again
+	rm -rf floppy/
+	rm -rf iso/
+	rm -rf tmp-loop/
+	mkdir floppy
+	mkdir iso
+	mkdosfs -C floppy/<span style='color:#924c9d;'>$(</span><span style='color:#0057ae;'>NAME</span><span style='color:#924c9d;'>)</span>.flp 1440
+	dd status=noxfer conv=notrunc count=1 if=<span style='color:#924c9d;'>$(</span><span style='color:#0057ae;'>NAME</span><span style='color:#924c9d;'>)</span>.<span style='color:#924c9d;'>$(</span><span style='color:#0057ae;'>TARGET</span><span style='color:#924c9d;'>)</span> of=floppy/<span style='color:#924c9d;'>$(</span><span style='color:#0057ae;'>NAME</span><span style='color:#924c9d;'>)</span>.flp
+	mkdir tmp-loop
+	sudo mount -o loop -t vfat floppy/bootloader16.flp tmp-loop
+	sudo cp kernel.bin tmp-loop/
+	sleep 0.2
+	sudo umount tmp-loop
+	rm -rf tmp-loop/
+	mkisofs -quiet -V <span style='color:#bf0303;'>'AGGURO'</span> -input-charset iso8859-1 -o iso/<span style='color:#924c9d;'>$(</span><span style='color:#0057ae;'>NAME</span><span style='color:#924c9d;'>)</span>.iso -b <span style='color:#924c9d;'>$(</span><span style='color:#0057ae;'>NAME</span><span style='color:#924c9d;'>)</span>.flp floppy/
+	
+<span style='color:#b08000;'>run:</span>
+	make images
+	qemu-system-i386 -cdrom iso/<span style='color:#924c9d;'>$(</span><span style='color:#0057ae;'>NAME</span><span style='color:#924c9d;'>)</span>.iso -k nl-be -vga std
+	
+<span style='color:#b08000;'>tar:</span>
+	make clean
+	tar czf ../<span style='color:#924c9d;'>$(</span><span style='color:#0057ae;'>NAME</span><span style='color:#924c9d;'>)</span>.tar.gz ../<span style='color:#924c9d;'>$(</span><span style='color:#0057ae;'>NAME</span><span style='color:#924c9d;'>)</span>/
+	
+<span style='color:#b08000;'>all:</span>
+	make again
+	make images
+	make dump</pre>
+</body>
+</html>

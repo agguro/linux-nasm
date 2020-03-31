@@ -1,0 +1,297 @@
+     1                                  ;Name:          httpserver.asm
+     2                                  ;Build:         nasm "-felf64" httpserver.asm -l httpserver.lst -o httpserver.o
+     3                                  ;               ld -s -melf_x86_64 -o httpserver httpserver.o
+     4                                  ;Description:   A very very basic httpserver demonstration.
+     5                                  ;               For this I got my inspiration from the 32 bit application httpd from
+     6                                  ;               asmutils-0.18. (http://asm.sourceforge.net/asmutils.html)
+     7                                  ;
+     8                                  ;Updates:       4/11/2014 : bug in creating the socket,  mov rdi, PF_INET and mov rsi
+     9                                  ;                           ,SOCK_STREAM
+    10                                  ;                           added %define for constants AF_INET, SOCK_STREAM, PF_INET,
+    11                                  ;                           IPPROTO_IP,INADDR_ANY
+    12                                  ;Todos:         - configuration file
+    13                                  ;               - execute binary files (cgi-bin)
+    14                                  ;               - environment variables
+    15                                  ;               - special tag support php-, aspx-like but for Nasm
+    16                                  ;License:       https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
+    17                                  ;               A copy of this license is included in the file license.txt
+    18                                  ;Use:           Start program from a terminal and open browser. go to localhost:4444
+    19                                  ;               while keeping the terminal open. Send some data and watch http header
+    20                                  ;               in terminal.
+    21                                  ;               To terminate this program either use kill [pid] or ctrl-C.
+    22                                   
+    23                                  bits 64
+    24                                  [list -]
+    29                                  
+    30                                  section .bss
+    31 00000000 <res 00000008>              sockfd:             resq 1
+    32 00000008 <res 00000008>              sock_addr:          resq 1
+    33                                   
+    34                                  section .data
+    35                                      ; message to keep user confortable that the server is actually running
+    36 00000000 736572766572206973-         server_listening:   db "server is listening"
+    36 00000009 206C697374656E696E-
+    36 00000012 67                 
+    37                                      .length:            equ $-server_listening
+    38 00000013 0A                          lf:                 db 10
+    39 00000014 7374617274696E672E-         trying:             db  "starting..."
+    39 0000001D 2E2E               
+    40                                      trying.length:      equ $-trying 
+    41                                      ; the buffer to read the client request.
+    42 0000001F 00<rept>                    buffer:  times 1024 db 0
+    43                                      .length: equ $-buffer
+    44                                      reply:               
+    45 0000041F 485454502F312E3120-             db 'HTTP/1.1 200 OK',10
+    45 00000428 323030204F4B0A     
+    46                                          ;change 'demo web server' to your own name
+    47 0000042F 5365727665723A2064-             db 'Server: demo web server',10
+    47 00000438 656D6F207765622073-
+    47 00000441 65727665720A       
+    48                                          ;cookies
+    49 00000447 5365742D436F6F6B69-             db 'Set-Cookie:UserID=XYZ', 10
+    49 00000450 653A5573657249443D-
+    49 00000459 58595A0A           
+    50 0000045D 5365742D436F6F6B69-             db 'Set-Cookie:Password=XYZ123', 10
+    50 00000466 653A50617373776F72-
+    50 0000046F 643D58595A3132330A 
+    51 00000478 5365742D436F6F6B69-             db 'Set-Cookie:Domain=www.agguro.be', 10
+    51 00000481 653A446F6D61696E3D-
+    51 0000048A 7777772E6167677572-
+    51 00000493 6F2E62650A         
+    52 00000498 5365742D436F6F6B69-             db 'Set-Cookie:Path=/', 10
+    52 000004A1 653A506174683D2F0A 
+    53                                          ;the length of the webpage, this should be calculated programatically
+    54 000004AA 436F6E74656E742D6C-             db 'Content-length: 296',10
+    54 000004B3 656E6774683A203239-
+    54 000004BC 360A               
+    55 000004BE 436F6E74656E742D54-             db 'Content-Type: text/html',10,10            ; the content type
+    55 000004C7 7970653A2074657874-
+    55 000004D0 2F68746D6C0A0A     
+    56 000004D7 3C21444F4354595045-             db '<!DOCTYPE html><html>'
+    56 000004E0 2068746D6C3E3C6874-
+    56 000004E9 6D6C3E             
+    57 000004EC 3C686561643E3C7469-             db '<head><title>demo webserver</title></head>'
+    57 000004F5 746C653E64656D6F20-
+    57 000004FE 776562736572766572-
+    57 00000507 3C2F7469746C653E3C-
+    57 00000510 2F686561643E       
+    58 00000516 3C626F64793E3C6831-             db '<body><h1>Demo webserver</h1>'
+    58 0000051F 3E44656D6F20776562-
+    58 00000528 7365727665723C2F68-
+    58 00000531 313E               
+    59 00000533 3C666F726D206D6574-             db '<form method="post" action="http://localhost:4444/?t=1">'
+    59 0000053C 686F643D22706F7374-
+    59 00000545 2220616374696F6E3D-
+    59 0000054E 22687474703A2F2F6C-
+    59 00000557 6F63616C686F73743A-
+    59 00000560 343434342F3F743D31-
+    59 00000569 223E               
+    60 0000056B 3C696E707574207479-             db '<input type="text" name="inputfield" value="type something" />'
+    60 00000574 70653D227465787422-
+    60 0000057D 206E616D653D22696E-
+    60 00000586 7075746669656C6422-
+    60 0000058F 2076616C75653D2274-
+    60 00000598 79706520736F6D6574-
+    60 000005A1 68696E6722202F3E   
+    61 000005A9 3C627574746F6E2074-             db '<button type="submit" name="submit" value="name">Send data</button>'
+    61 000005B2 7970653D227375626D-
+    61 000005BB 697422206E616D653D-
+    61 000005C4 227375626D69742220-
+    61 000005CD 76616C75653D226E61-
+    61 000005D6 6D65223E53656E6420-
+    61 000005DF 646174613C2F627574-
+    61 000005E8 746F6E3E           
+    62 000005EC 3C2F666F726D3E3C2F-             db '</form></body></html>',0
+    62 000005F5 626F64793E3C2F6874-
+    62 000005FE 6D6C3E00           
+    63                                      reply.length:   equ $-reply
+    64 00000602 736F636B6574657272-         socketerror:    db  "socketerror", 10
+    64 0000060B 6F720A             
+    65                                      .length:        equ $-socketerror
+    66 0000060E 6C697374656E657272-         listenerror:    db  "listenerror", 10
+    66 00000617 6F720A             
+    67                                      .length:        equ $-listenerror
+    68 0000061A 115C                        port:           db  17,92           ; port 4444 (256 * 17 + 92)
+    69                                      version:
+    70 0000061C 64656D6F2068747470-             db  "demo httpserver v0.1 (by Agguro)",10
+    70 00000625 736572766572207630-
+    70 0000062E 2E3120286279204167-
+    70 00000637 6775726F290A       
+    71 0000063D 696E73706972656420-             db  "inspired by asmutils(c) (see:http://asm.sourceforge.net/asmutils.html)",10
+    71 00000646 62792061736D757469-
+    71 0000064F 6C7328632920287365-
+    71 00000658 653A687474703A2F2F-
+    71 00000661 61736D2E736F757263-
+    71 0000066A 65666F7267652E6E65-
+    71 00000673 742F61736D7574696C-
+    71 0000067C 732E68746D6C290A   
+    72 00000684 6C6963656E73653A20-             db  "license: GNU General Public License, version 2",10
+    72 0000068D 474E552047656E6572-
+    72 00000696 616C205075626C6963-
+    72 0000069F 204C6963656E73652C-
+    72 000006A8 2076657273696F6E20-
+    72 000006B1 320A               
+    73 000006B3 2868747470733A2F2F-             db  "(https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html)",10
+    73 000006BC 7777772E676E752E6F-
+    73 000006C5 72672F6C6963656E73-
+    73 000006CE 65732F6F6C642D6C69-
+    73 000006D7 63656E7365732F6770-
+    73 000006E0 6C2D322E302D737461-
+    73 000006E9 6E64616C6F6E652E68-
+    73 000006F2 746D6C290A         
+    74                                      .length:        equ $-version
+    75                                      
+    76                                  section .text
+    77                                      global _start
+    78                                   
+    79                                  _start:
+    80 00000000 58                          pop     rax                         ;get argc
+    81 00000001 5E                          pop     rsi                         ;ptr to name of program
+    82 00000002 5E                          pop     rsi                         ;ptr to argv
+    83 00000003 56                          push    rsi                         ;restore stack
+    84 00000004 56                          push    rsi
+    85 00000005 50                          push    rax
+    86 00000006 4883F802                    cmp     rax,2                       ;cmdline arguments supplied?
+    87 0000000A 7C40                        jl      .start
+    88 0000000C 488B06                      mov     rax,qword[rsi]
+    89 0000000F 48BA2D76657273696F-         mov     rdx,"-version"
+    89 00000018 6E                 
+    90 00000019 4831C2                      xor     rdx,rax
+    91 0000001C 7409                        jz      .showversion
+    92 0000001E 66BA2D76                    mov     dx,"-v"
+    93 00000022 6631C2                      xor     dx,ax
+    94 00000025 7525                        jnz     .start
+    95                                  .showversion:
+    96 00000027 BADB00000048BE-             syscall write,stdout,version,version.length
+    96 0000002E [1C06000000000000]-
+    96 00000036 BF01000000B8010000-
+    96 0000003F 000F05             
+    97 00000042 4831FFB83C0000000F-         syscall exit,0
+    97 0000004B 05                 
+    98                                  .start:    
+    99 0000004C 50                          push    rax                         ;restore stack
+   100                                      ;create a socket
+   101 0000004D 4831D2BE01000000BF-         syscall socket,PF_INET,SOCK_STREAM,IPPROTO_IP
+   101 00000056 02000000B829000000-
+   101 0000005F 0F05               
+   102 00000061 4883F800                    cmp     rax, 0
+   103 00000065 0F8499010000                jz      .socketerror
+   104 0000006B 48890425[00000000]          mov     qword[sockfd], rax
+   105                                      ;fill in sock_addr structure on stack
+   106 00000073 4D31C0                      xor     r8,r8                       ;INADDR_ANY = 0
+   107                                      ;if we only want to connect locally uncomment next line
+   108                                      ;mov     r8,0x100007F
+   109 00000076 4150                        push    r8                          ;push r8 to the stack
+   110 00000078 66FF3425[1A060000]          push    word [port]                 ;port number
+   111 00000080 666A02                      push    word AF_INET                ;protocol argument
+   112 00000083 48892425[08000000]          mov     qword[sock_addr],rsp        ;Save the sock_addr_in
+   113                                  ;bind the socket to the address, keep trying until we succeed.
+   114                                  ;if the address is still in use, bind will fail, we can avoid this with the 
+   115                                  ;setsockopt syscall, but we use INADDR_ANY so anyone can
+   116                                  ;bind to the server's socket.
+   117                                  ;information: http://hea-www.harvard.edu/~fine/Tech/addrinuse.html
+   118                                  ;Instead I keep trying until the server allows us to bind again, 
+   119                                  ;in the meanwhile we wait ....
+   120 0000008B BA0B00000048BE-             syscall write,stdout,trying,trying.length
+   120 00000092 [1400000000000000]-
+   120 0000009A BF01000000B8010000-
+   120 000000A3 000F05             
+   121                                  .tryagain: 
+   122 000000A6 BA10000000488B3425-         syscall bind,qword[sockfd],qword[sock_addr],16
+   122 000000AF [08000000]488B3C25-
+   122 000000B7 [00000000]B8310000-
+   122 000000BF 000F05             
+   123 000000C2 4821C0                      and     rax, rax
+   124 000000C5 75DF                        jnz     .tryagain
+   125                                  .bindsucces:
+   126                                      ; first end the previous line with LF
+   127 000000C7 BA0100000048BE-             syscall write,stdout,lf,1
+   127 000000CE [1300000000000000]-
+   127 000000D6 BF01000000B8010000-
+   127 000000DF 000F05             
+   128 000000E2 4831F6488B3C25-             syscall listen,qword[sockfd],0
+   128 000000E9 [00000000]B8320000-
+   128 000000F1 000F05             
+   129 000000F4 4821C0                      and     rax,rax
+   130 000000F7 0F85F6000000                jnz     .listenerror
+   131                                      ; inform user that the server is listening
+   132 000000FD 48BE-                       mov     rsi,server_listening
+   132 000000FF [0000000000000000] 
+   133 00000107 BA13000000                  mov     rdx,server_listening.length
+   134 0000010C BF01000000                  mov     rdi,STDOUT
+   135 00000111 B801000000                  mov     rax,SYS_WRITE
+   136 00000116 0F05                        syscall
+   137                                  .acceptloop:
+   138 00000118 4831D24831F6488B3C-         syscall accept,qword[sockfd],0,0
+   138 00000121 25[00000000]B82B00-
+   138 00000129 00000F05           
+   139 0000012D 4885C0                      test     rax,rax
+   140 00000130 78E6                        js      .acceptloop
+   141 00000132 4989C4                      mov     r12,rax                    ;use the accept socket from here
+   142                                      ;two waits to prevent zombie processes
+   143 00000135 4D31D2BA0100000048-         syscall wait4,-1,0,WNOHANG,0
+   143 0000013E 31F64883CFFFB83D00-
+   143 00000147 00000F05           
+   144 0000014B 4D31D2BA0100000048-         syscall wait4,-1,0,WNOHANG,0
+   144 00000154 31F64883CFFFB83D00-
+   144 0000015D 00000F05           
+   145                                  
+   146                                      ;we have accepted a connection, let a child do the work while the parent
+   147                                      ;wait to accept other connections.
+   148 00000161 B8390000000F05              syscall fork
+   149 00000168 4821C0                      and     rax, rax
+   150 0000016B 740C                        jz      .serveclient                ;child continues here
+   151                                      ;parent closes the connection
+   152 0000016D 4C89E7B8030000000F-         syscall close,r12
+   152 00000176 05                 
+   153 00000177 EB9F                        jmp     .acceptloop                 ;and go back to accept new incoming connections
+   154                                   
+   155                                  .serveclient:
+   156                                      ;the client has send a request, we read this and put it in a buffer
+   157 00000179 BA0004000048BE-             syscall read,r12,buffer,buffer.length
+   157 00000180 [1F00000000000000]-
+   157 00000188 4C89E7B8000000000F-
+   157 00000191 05                 
+   158                                      ;write received request to the terminal (later this can be a log file)
+   159                                      ;the actual read bytes are stored in rax
+   160 00000192 4889C248BE-                 syscall write,stdout,buffer,rax
+   160 00000197 [1F00000000000000]-
+   160 0000019F BF01000000B8010000-
+   160 000001A8 000F05             
+   161                                      ;additional end of line
+   162 000001AB BA0100000048BE-             syscall write,stdout,lf,1
+   162 000001B2 [1300000000000000]-
+   162 000001BA BF01000000B8010000-
+   162 000001C3 000F05             
+   163                                       
+   164                                      ;here we parse the request from client that's put in STDIN
+   165                                      ;now we just reply with the so called "reply"
+   166                                      ;decision making stuff comes here, exp: CGI scripts, request for additional pages etc...
+   167                                      ;see the original source.
+   168                                  
+   169                                      ; send the reply to the client
+   170 000001C6 BAE301000048BE-             syscall write,r12,reply,reply.length
+   170 000001CD [1F04000000000000]-
+   170 000001D5 4C89E7B8010000000F-
+   170 000001DE 05                 
+   171 000001DF 4C89E7B8030000000F-         syscall close,r12
+   171 000001E8 05                 
+   172                                      ;we are done, exit child process
+   173 000001E9 4831FFB83C0000000F-         syscall exit,0
+   173 000001F2 05                 
+   174                                  ; the errors
+   175                                  .listenerror:
+   176 000001F3 48BE-                       mov     rsi,listenerror
+   176 000001F5 [0E06000000000000] 
+   177 000001FD BA0C000000                  mov     rdx,listenerror.length
+   178 00000202 EB0F                        jmp     .print
+   179                                  .socketerror:
+   180 00000204 48BE-                       mov     rsi,socketerror
+   180 00000206 [0206000000000000] 
+   181 0000020E BA0C000000                  mov     rdx,socketerror.length
+   182                                  .print:
+   183 00000213 BF01000000B8010000-         syscall write,stdout
+   183 0000021C 000F05             
+   184                                  .exit:
+   185 0000021F 4831FFB83C0000000F-         syscall exit,0
+   185 00000228 05                 
