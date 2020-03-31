@@ -1,0 +1,35 @@
+     1                                  ; Name:		isLeapYear.asm
+     2                                  ; Build	:	nasm -felf64 isLeapYear.asm -o isLeapYear.o 
+     3                                  ; in	:	rdi holds the year in hexadecimal format.
+     4                                  ;           this routine assumes rdi a positive and a legal year.
+     5                                  ; out	:	rax = 0, no leap, rax = 1 leap
+     6                                  
+     7                                  global isLeapYear
+     8                                  
+     9                                  section .text
+    10                                  
+    11                                  isLeapYear:
+    12 00000000 53                      	push	rbx			; save used registers
+    13 00000001 51                      	push	rcx
+    14 00000002 52                      	push	rdx
+    15 00000003 4889F8                  	mov		rax,rdi
+    16 00000006 4831C9                  	xor		rcx,rcx		; assume not leap, rcx = 0
+    17 00000009 48A903000000            	test	rax,3		; last two bits 0?
+    18 0000000F 751E                    	jnz		.@1			; if not year is not disible by 4 -> no leapyear
+    19 00000011 48FFC1                  	inc		rcx			; assume year is a leapyear, rcx = 1
+    20 00000014 4831D2                  	xor		rdx,rdx		; prepare rdx for division
+    21 00000017 BB64000000              	mov		rbx,100		; year / 100
+    22 0000001C 48F7F3                  	div		rbx
+    23 0000001F 4821D2                  	and		rdx,rdx		; remainder = 0?
+    24 00000022 750B                    	jnz		.@1			; no, no leapyear
+    25                                  	; multiples of 100 aren't leap years except if last two bits
+    26                                  	; are zero 0 (divisible by 4) then also divisible by 400
+    27 00000024 48A903000000            	test	rax,3		
+    28 0000002A 7403                    	jz		.@1			; yes, leap year
+    29 0000002C 48FFC9                  	dec		rcx			; no, not leap year, rcx = 0
+    30                                  .@1:
+    31 0000002F 4889C8                  	mov		rax,rcx		; mov result in RAX
+    32 00000032 5A                      	pop		rdx
+    33 00000033 59                      	pop		rcx
+    34 00000034 5B                      	pop		rbx
+    35 00000035 C3                      	ret
