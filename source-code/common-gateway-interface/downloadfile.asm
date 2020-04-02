@@ -4,14 +4,6 @@
 ;               ld -s -melf_x86_64 -o downloadfile downloadfile.o
 ;
 ;Description:   cgi program to download a file (logo.png in this example).
-;
-;Remark:        Check if apache module cgi and fastcgi is enabled. On my test system
-;               this program gives initially a connection reset error.  This is because
-;               cgi, fastcgi or cgid wasn't enabled.
-;               Apparently mod-cgi is not enough to serve this program.
-;               sudo apt-get install libapache2-mod-fastcgi
-;               sudo a2enmod fastcgi
-;               sudo service apache2 restart
 
 [list -]
     %include "unistd.inc"
@@ -19,30 +11,29 @@
 [list +]
 
 bits 64
+     
+section .rodata
 
-section .bss
-      
-section .data
-
-    httpheader:     db  'Content-type: application/octet-stream', 10
-                    db  'Content-Disposition: attachment; filename="logo.png"', 10, 10
+    httpheader:     db  'Content-type: application/octet-stream',10
+                    db  'Content-Disposition: attachment; filename="logo.png"',10,10
     .length:        equ $-httpheader
-    response:       db  'Content-type: text/html', 10, 10
-                    db  '<span>the file was not found</span>', 10
+    response:       db  'Content-type: text/html',10,10
+                    db  '<span>the file was not found</span>',10
     .length:        equ $-response
-    filename:       db  'downloads/logo.png',0    ; put it wherever you want, just keep track of the right location in your path
-    errorfile:      db  '[downloadfile] $[CGIROOT]/downloads/logo.png not found error', 10
+    filename:       db  'logo.png',0    ; put it wherever you want, just keep track of the right location in your path
+    errorfile:      db  '[downloadfile] $[CGIROOT]/logo.png not found error',10
     .length:        equ $-errorfile
-    errorNoMemory:  db  '[downloadfile error] out of memory error', 10     ; this message will be written to the Apache error log
+    errorNoMemory:  db  '[downloadfile error] out of memory error',10     ; this message will be written to the Apache error log
     .length:        equ $-errorNoMemory
     
-    STAT stat      ;STAT structure instance for FSTAT
+section .data
+    
+    STAT stat      ;STAT structure instance for FSTAT syscall
        
 section .text
-    global _start
-     
-_start:
-     
+
+global _start  
+_start:    
     ; open the file and get filedescriptor
     syscall open,filename,O_RDONLY
     and     rax,rax
@@ -73,7 +64,6 @@ _start:
 .exit:
     ; exit the program
     syscall exit,0
-
 .errormemory:
     mov     rsi,errorNoMemory
     mov     rdx,errorNoMemory.length

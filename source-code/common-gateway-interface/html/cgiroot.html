@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="https://www.agguro.be/js/jquery.js"></script>
+<script src="/jquery/jquery.js"></script>
 <script>
 $(document).ready(function(){
   $("button").click(function(){
-    $.get("https://www.agguro.be/cgi-bin/cgiroot",function(data){
+    $.get("/bin/cgiroot",function(data){
       $('#dir').html(data)
     });
   });

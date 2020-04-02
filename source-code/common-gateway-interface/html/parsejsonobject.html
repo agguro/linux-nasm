@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>get JSON object</title>
-        <script type="text/javascript" src="https://www.agguro.be/js/jquery.js"></script>
+        <script type="text/javascript" src="jquery/jquery.js"></script>
         <script type="text/javascript">
         $(document).ready(function(){
             $(".button").click(function(){
@@ -15,7 +15,7 @@
                   age = $("#inputage").val();
                   var posting = $.post(
                                 // you need to replace localhost with the server where the application is running on
-                                "https://www.agguro.be/cgi-bin/parsejsonobject",
+                                "/bin/parsejsonobject",
                                 {
                                   "name" : name,
                                   "age" : age
