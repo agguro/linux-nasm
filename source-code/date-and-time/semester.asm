@@ -1,9 +1,8 @@
-; Name:     semester.asm
+;name: semester.asm
 ;
-; Build:    nasm "-felf64" semester.asm -l semester.lst -o semester.o
+;build: nasm -felf64 semester.asm -o semester.o
 ;
-; Description:
-; calculating in which semester a month is.
+;description: calculating in which semester a month is.
 ;
 ; month         nr  binary in AL  AL <- AL + 1  AL <- AL >> 3
 ; ----------   ---  ------------  ------------  -------------
@@ -20,21 +19,17 @@
 ; november     11     00001011      00001100       00000001  
 ; december     12     00001100      00001101       00000001  
 ;
-; incrementing the value in AL by one and erasing all bits in AH gives us the binary value of the semester of that month.
-; 
-; Usage:
-; This is a demonstration only. 
-; Also it's an alternative to get the remainder of the division of 4 bits numbers by 6.
+; incrementing the value in al gives us the value of the semester of that month.
 
 bits 64
                
 section .text
-        global Semester
 
-Semester:
-; calculates the semester number of a month in AL
- 
-      inc       al              ; s = month + 1
-      shr       al, 3           ; s = s div 8
-      inc       al              ; s = s + 1
-      ret                       ; return semester in AL
+global semester
+; calculates the semester number of a month in rdi
+semester:
+    mov     rax,rdi
+    inc     al              ;s = month + 1
+    shr     al,3            ;s = s div 8
+    inc     al              ;s = s + 1
+    ret                     ;return semester in rax

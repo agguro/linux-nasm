@@ -1,11 +1,10 @@
-; Name:     trimester.asm
+;name: quadrimester.asm
 ;
-; Build:    nasm "-felf64" trimester.asm -l trimester.lst -o trimester.o
+;build: nasm -felf64 quadrimester.asm -o quadrimester.o
 ;
-; Description:
-; calculating in which trimester a month is.
+;description: calculating in which quadrimester a month is.
 ;
-; month         nr  binary in AL  AL <- AL - 1  AL <- AL >> 2
+; month         nr  binary in al  al <- al - 1  al <- al >> 2
 ; ----------   ---  ------------  ------------  -------------
 ; january       1     00000001      00000000       00000000  
 ; february      2     00000010      00000001       00000000  
@@ -20,21 +19,17 @@
 ; november     11     00001011      00001010       00000010  
 ; december     12     00001100      00001011       00000010  
 ;
-; incrementing the value in AL by one and erasing all bits in AH gives us the binary value of the semester of that month.
-; 
-; Usage:
-; This is a demonstration only. 
-; Also it's an alternative to get the remainder of the division of 4 bits numbers by 4.
+; incrementing the value in al by one and erasing all bits in ah gives the value of the semester of that month.
 
 bits 64
                 
 section .text
-        global Trimester
 
-Trimester:
-; calculates the trimester number of a month in AL
- 
-      dec       al              ; t = month - 1
-      shr       al, 2           ; t = t idiv 4
-      inc       al              ; t = t + 1
-      ret                       ; return trimester in AL
+global quadrimester
+quadrimester:
+; calculates the quadrimester number of a month in rdi
+    mov     rax,rdi
+    dec     al              ;q = month - 1
+    shr     al,2            ;q = q idiv 4
+    inc     al              ;q = q + 1
+    ret                     ;return quadrimester in al
