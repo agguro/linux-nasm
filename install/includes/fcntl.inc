@@ -68,13 +68,17 @@
 %define LOCK_WRITE		128			; which allows concurrent write operations
 %define LOCK_RW         192         ; which allows concurrent read & write ops
 
+; allow sealing
+%define MFD_ALLOW_SEALING 2
 ;/*
 ; * Types of seals
 ; */
-%define F_SEAL_SEAL	0x0001			; prevent further seals from being set
-%define F_SEAL_SHRINK	0x0002		; prevent file from shrinking
-%define F_SEAL_GROW	0x0004			; prevent file from growing
-%define F_SEAL_WRITE	0x0008		; prevent writes
+%define F_SEAL_SEAL	         1		; prevent further seals from being set
+%define F_SEAL_SHRINK        2		; prevent file from shrinking
+%define F_SEAL_GROW	         4		; prevent file from growing
+%define F_SEAL_WRITE	     8		; prevent writes
+%define F_SEAL_FUTURE_WRITE	16		; prevent future writes
+
 ;/* (1U << 31) is reserved for signed error codes */
 
 ;/*
