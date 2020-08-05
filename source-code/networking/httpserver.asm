@@ -1,83 +1,88 @@
-;Name:          httpserver.asm
-;Build:         nasm "-felf64" httpserver.asm -l httpserver.lst -o httpserver.o
-;               ld -s -melf_x86_64 -o httpserver httpserver.o
-;Description:   A very very basic httpserver demonstration.
-;               For this I got my inspiration from the 32 bit application httpd from
-;               asmutils-0.18. (http://asm.sourceforge.net/asmutils.html)
+;name: httpserver.asm
 ;
-;Updates:       4/11/2014 : bug in creating the socket,  mov rdi, PF_INET and mov rsi
-;                           ,SOCK_STREAM
-;                           added %define for constants AF_INET, SOCK_STREAM, PF_INET,
-;                           IPPROTO_IP,INADDR_ANY
-;Todos:         - configuration file
-;               - execute binary files (cgi-bin)
-;               - environment variables
-;               - special tag support php-, aspx-like but for Nasm
-;License:       https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
-;               A copy of this license is included in the file license.txt
-;Use:           Start program from a terminal and open browser. go to localhost:4444
+;build: nasm -felf64 httpserver.asm -o httpserver.o
+;       ld -s -melf_x86_64 -o httpserver httpserver.o
+;
+;description: A very very basic httpserver demonstration.
+;             For this I got my inspiration from the 32 bit application httpd from
+;             asmutils-0.18. (http://asm.sourceforge.net/asmutils.html)
+;
+;updates: 4/11/2014 : bug in creating the socket,
+;                     mov rdi, PF_INET
+;                     mov rsi, SOCK_STREAM
+;                     added %define for constants AF_INET, SOCK_STREAM, PF_INET, IPPROTO_IP,INADDR_ANY
+;
+;todos: - configuration file
+;       - execute binary files (cgi-bin)
+;       - environment variables
+;
+;use:           Start program from a terminal and open browser. go to localhost:4444
 ;               while keeping the terminal open. Send some data and watch http header
 ;               in terminal.
 ;               To terminate this program either use kill [pid] or ctrl-C.
- 
+; notes about google chrome : if the content-length isn't correct it hangs
+;                             use firefox (matters less) to see the real content-length
+
 bits 64
 [list -]
-      %include "unistd.inc"
-      %include "sys/wait.inc"
-      %include "sys/socket.inc"
+	%include "unistd.inc"
+	%include "sys/wait.inc"
+	%include "sys/socket.inc"
+	%include "errors.inc"
 [list +]
 
 section .bss
-    sockfd:             resq 1
-    sock_addr:          resq 1
+	sockfd:             resq 1
+	sock_addr:          resq 1
  
 section .data
     ; message to keep user confortable that the server is actually running
-    server_listening:   db "server is listening"
-    .length:            equ $-server_listening
-    lf:                 db 10
-    trying:             db  "starting..."
-    trying.length:      equ $-trying 
+    server_listening:	db "server is listening",10
+    .length:			equ $-server_listening
+    lf:				db 10
+    trying:			db  "starting..."
+    .length:			equ $-trying 
+    dot:				db  "."
     ; the buffer to read the client request.
-    buffer:  times 1024 db 0
-    .length: equ $-buffer
-    reply:               
-        db 'HTTP/1.1 200 OK',10
-        ;change 'demo web server' to your own name
-        db 'Server: demo web server',10
-        ;cookies
-        db 'Set-Cookie:UserID=XYZ', 10
-        db 'Set-Cookie:Password=XYZ123', 10
-        db 'Set-Cookie:Domain=www.agguro.be', 10
-        db 'Set-Cookie:Path=/', 10
-        ;the length of the webpage, this should be calculated programatically
-        db 'Content-length: 296',10
-        db 'Content-Type: text/html',10,10            ; the content type
-        db '<!DOCTYPE html><html>'
-        db '<head><title>demo webserver</title></head>'
-        db '<body><h1>Demo webserver</h1>'
-        db '<form method="post" action="'
-        db 'http://localhost:4444/'						;this can be replaced by the referer string from the http header
-        ;someone can call this server with localhost:4444, the ip adres:4444 or the domainname
-        db '">'
-        db '<input type="text" name="inputfield" value="type something" />'
-        db '<button type="submit" name="submit" value="name">Send data</button>'
-        db '</form></body></html>'
-        ;we don't really need a trailing zero, but I use this example to test the sockettest
-        ;example
-        db 0
-    reply.length:   equ $-reply
-    socketerror:    db  "socketerror", 10
-    .length:        equ $-socketerror
-    listenerror:    db  "listenerror", 10
-    .length:        equ $-listenerror
-    port:           db  17,92           ; port 4444 (256 * 17 + 92)
-    version:
-        db  "demo httpserver v0.1 (by Agguro)",10
-        db  "inspired by asmutils(c) (see:http://asm.sourceforge.net/asmutils.html)",10
-        db  "license: GNU General Public License, version 2",10
-        db  "(https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html)",10
-    .length:        equ $-version
+    buffer:			times 1024 db 0
+    .length:			equ $-buffer
+    reply:			db 'HTTP/1.1 200 OK',10
+					;change 'demo web server' to your own name
+					db 'Server: demo web server',10
+					;the length of the content to send,
+					;this should be calculated programatically
+					db 'Content-length: 295',10
+					db 'Content-Type: text/html',10
+					;cookies
+					db 'Set-Cookie:UserID=XYZ',10
+					db 'Set-Cookie:Password=XYZ123',10
+					db 'Set-Cookie:Domain=www.agguro.be',10
+					db 'Set-Cookie:Path=/',10
+					db 10                                           ;extra line !!
+					;start of content
+					db '<!DOCTYPE html><html><head><title>demo w'
+					db 'ebserver</title></head><body><h1>Demo we'
+					db 'bserver</h1><form method="post" action="'
+					db 'http://localhost:4444/"><input type="tex'
+					db 't" name="inputfield" value="type somethi'
+					db 'ng" /><button type= "submit" name="submi'
+					db 't" value="name">Send data</button></form'
+					db '></body></html>'
+					;end of content
+					db 0                                            ;for later use with strlen
+    reply.length:		equ $-reply
+    socketerror:		db  "socketerror", 10
+    .length:			equ $-socketerror
+    listenerror:		db  "listenerror", 10
+    .length:			equ $-listenerror
+    binderror:			db  "binderror", 10
+    .length:			equ $-binderror
+    port:				db  17,92           ; port 4444 (256 * 17 + 92)
+    version:			db  "demo httpserver v0.1 (by Agguro)",10
+					db  "inspir(at)ed by asmutils(c) (see:http://asm.sourceforge.net/asmutils.html)",10
+					db  "license: GNU General Public License, version 2",10
+					db  "(https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html)",10
+    .length:			equ $-version
     
 section .text
     global _start
@@ -105,13 +110,13 @@ _start:
     push    rax                         ;restore stack
     ;create a socket
     syscall socket,PF_INET,SOCK_STREAM,IPPROTO_IP
-    cmp     rax, 0
+    cmp     rax,0
     jz      .socketerror
     mov     qword[sockfd], rax
     ;fill in sock_addr structure on stack
     xor     r8,r8                       ;INADDR_ANY = 0
     ;if we only want to connect locally uncomment next line
-    ;mov     r8,0x100007F
+    mov     r8,0x100007F
     push    r8                          ;push r8 to the stack
     push    word [port]                 ;port number
     push    word AF_INET                ;protocol argument
@@ -126,8 +131,15 @@ _start:
     syscall write,stdout,trying,trying.length
 .tryagain: 
     syscall bind,qword[sockfd],qword[sock_addr],16
-    and     rax, rax
-    jnz     .tryagain
+    and     rax,rax
+    js      .checkerror
+    jmp     .bindsucces
+.checkerror:
+    cmp     rax,EADDRINUSE
+    jne     .binderror
+    ;if the socket is still in use the terminal is flooded with dots, a timer can resolve this
+    syscall write,stdout,dot,1
+    jmp     .tryagain
 .bindsucces:
     ; first end the previous line with LF
     syscall write,stdout,lf,1
@@ -178,6 +190,10 @@ _start:
     ;we are done, exit child process
     syscall exit,0
 ; the errors
+.binderror:
+    mov     rsi,binderror
+    mov     rdx,binderror.length
+    jmp     .print
 .listenerror:
     mov     rsi,listenerror
     mov     rdx,listenerror.length
