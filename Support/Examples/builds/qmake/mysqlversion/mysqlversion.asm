@@ -26,14 +26,14 @@ section .rodata
 section .text
 
 main:
-	push	rbp
-	mov		rbp,rsp
-	call	mysql_get_client_info
-	mov		rsi, rax	; pointer to version info in rsi
-	mov		rdi, text	; pointer to text in rdi
-	xor		rax, rax	; no integers to print
-	call	printf
-	xor     rax,rax		;return error code 0
-    mov     rsp,rbp
-    pop     rbp
-	ret					;exit is handled by compiler
+    push	rbp
+    mov		rbp,rsp
+    call	mysql_get_client_info
+    mov		rsi, rax	; pointer to version info in rsi
+    mov		rdi, text	; pointer to text in rdi
+    xor		rax, rax	; no integers to print
+    call	printf
+    xor		rax,rax		;return error code 0
+    mov		rsp,rbp
+    pop		rbp
+    ret				;exit is handled by compiler
