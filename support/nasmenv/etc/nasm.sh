@@ -1,1 +1,0 @@
-export NASMENV=-I/Nasm/includes/
