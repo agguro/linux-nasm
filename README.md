@@ -27,7 +27,7 @@ Building linux assembly programs several ways
 	A collection of all examples from my website linuxnasm.be
 
 
-All this is assembled with NASM version 2.14.02 and linked with GNU ld (GNU Binutils for Ubuntu) 2.34
+All this is assembled with NASM version 2.15.05 and linked with GNU ld (GNU Binutils for Ubuntu) 2.34
 The NASMENV has to be set.  
 In the support files this is done with a script file nasm.sh in /etc/profile.d but root permissions can be required.
 The NASMENV can also be set on user based in the home folder.(sudo nano ~/.bashrc)
