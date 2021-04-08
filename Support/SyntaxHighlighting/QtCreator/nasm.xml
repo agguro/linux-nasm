@@ -1,50 +1,126 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE language SYSTEM "language.dtd"
-[
-    <!ENTITY float1 "0x[0-9a-f_]*+(?:(?:\.[0-9a-f_]*+)?p[-+]?[0-9_]++|\.[0-9a-f_]*+)">
-    <!ENTITY float2 "0++p([0-9][0-9_]*+)?">
-    <!ENTITY float3 "[0-9][0-9_]*+(?:\.(?!nolist)[0-9_]*+(?:e[-+]?[0-9_]*+)?|(?=p))">
-    <!ENTITY float "&float1;|&float2;|&float3;">
-
-    <!ENTITY prefixed16 "0[hx][0-9a-f_]++">
-    <!ENTITY prefixed8 "0[oq][0-7_]++">
-    <!ENTITY prefixed2 "0b[01_]++\b|0y[01_]++">
-    <!ENTITY prefixed10 "0d[0-9_]++\b|0t[0-9_]++">
-    <!ENTITY prefixedBaseN "&prefixed16;|&prefixed8;|&prefixed2;|&prefixed10;">
-
-    <!ENTITY hex_cont "[0-9a-f_]*+(?=[hx])">
-    <!ENTITY oct_hex_cont "[0-7_]*+(?:&hex_cont;|(?=[oqhx]))">
-    <!ENTITY hex "[0-9]&hex_cont;">
-    <!ENTITY oct_hex "[0-7]&oct_hex_cont;">
-    <!ENTITY bin_oct_hex "[01][01_]*+(?:&oct_hex_cont;|(?=[byoqhx]))">
-    <!ENTITY baseN "&bin_oct_hex;|&oct_hex;|&hex;">
-
-    <!ENTITY number "[0-9][0-9_]*+(to[0-9]+|(?=[dt]))?">
-]>
+<!DOCTYPE language SYSTEM "language.dtd">
 <!--
   NASM Intel x86 assembly syntax
 
   Created: Nicola Gigante <nicola.gigante@gmail.com>
     Changes: Bogdan Drozdowski (bogdandr@op.pl)
-  Version: 1.3
-             Lyle Putnam (lcputnam@gmail.com)
-  Version: 1.4
+    Changes: Matthew Woehlke (mw_triad@users.sourceforge.net)
+  Version: 29
 
-Changes from 1.0:
-  15/01/2006: version 1.1
+  Changes from 1.0:
+
+  WITH A BIG "THANK YOU!" TO NICOLA FOR THE GREAT NASM SYNTAX FILE!
+
+  2006-01-15: version 1.1
     Added the rol instruction (bytewise rotate left) to the keywords list.
-  17/01/2006: version 1.2
+
+  2006-01-17: version 1.2
     Remade the list of instructions directly from the nasm documentation.
-  22/04/2006: version 1.3 from Bogdan Drozdowski (bogdandr@op.pl):
+
+  2006-04-22: version 1.3 - Bogdan Drozdowski (bogdandr@op.pl)
     Removed duplicates form the instruction list and made it alphabetical.
     Added new instructions (some SSE* and 64-bit, NASM may not know all of them).
     Corrections in register list and a few new ones (not 64-bit).
     Changed regexes for hex, octal and bin numbers. Now words like
       "change" and "blah" will NOT have the "ch" and "ah" coloured.
-  24/07/2011: Version 1.4 from Lyle Putnam (lcputnam@gmail.com):
-    The above change to fix the regex for hex numbers was incorrect on Kate
-    3.6.2. Fixed.
 
+  2006-04-25: version 1.31 - Bogdan Drozdowski (bogdandr@op.pl)
+    Added rep* instructions.
+
+  2006-04-29: version 1.32 - Bogdan Drozdowski (bogdandr@op.pl)
+    Fixed regexes, because KWrite wasn't able to match properly.
+    Added ".nasm" to the extension list, for convenience.
+
+  2006-05-07: version 1.33 - Bogdan Drozdowski (bogdandr@op.pl)
+    More regex changes. Not everything working as planned, but should be much beter now.
+    Added ".ninc" (NASM include file) to the extension list.
+    Switched changelog dates to international ISO format YYYY-MM-DD.
+
+  2006-05-20: version 1.34 - Bogdan Drozdowski (bogdandr@op.pl)
+    Hex and octal regexes finally should be working as planned. Had to split
+      them up.
+    Removed RegExpr with CMOV, FCMOV, SET etc., because it made Kate highlight
+      e.g. the "je" in "jeans"
+
+  2006-07-30: version 1.35 - Bogdan Drozdowski (bogdandr@op.pl)
+    Added the 'Outscoped' region, beginning with '%if 0' (like a multi-line comment)
+
+  2006-08-04: version 1.36 - Bogdan Drozdowski (bogdandr@op.pl)
+    Added the '##Alerts' rules to all comments. Now words like: TODO, FIXME and
+      NOTE will be highlighted.
+    Hex and octal regexes extended to include numbers like ":4096h"
+
+  2006-12-20: version 1.40 - Matthew Woehlke (mw_triad@users.sourceforge.net)
+    Undo some 'corrections' in register list (ip/eip/rip *is* a register!).
+    Add 64-bit registers (for double-duty with gdb disassembly).
+    Alphabetize "better" (so that running the list through 'sort' is a no-op).
+    Revert changes to Base-N numbers and use '\b' instead (the result is cleaner
+      and possibly both faster and more accurate as well).
+
+  2007-08-18: version 1.41 - Bogdan Drozdowski (bogdandr@op.pl)
+    Add 'tword' operand size override prefix.
+
+  2008-11-09: version 1.42 - Bogdan Drozdowski (bogdandr@op.pl)
+    Another fix for hex regular expressions. Fixed preprocessor directive
+    being incorrectly detected in the middle of a line, after other characters.
+    Updated instruction list from nasm-2.05.01.
+
+  2009-07-05: version 1.43 - Bogdan Drozdowski (bogdandr@op.pl)
+    Updated instruction list from nasm-2.06.
+
+  2009-08-24: version 1.44 - Bogdan Drozdowski (bogdandr@op.pl)
+    Added some missing mnemonics, removed unnecessary ones.
+
+  2010-04-18: version 1.45 - Bogdan Drozdowski (bogdandr@op.pl)
+    Updated instruction list from nasm-2.08.01.
+
+  2010-09-09: version 1.46 - Bogdan Drozdowski (bogdandr@op.pl)
+    Updated instruction list from nasm-2.09.01.
+
+  2012-01-08: version 1.47 - Bogdan Drozdowski (bogdandr@op.pl)
+    Updated instruction list from nasm-2.09.10.
+
+  2012-03-17: version 1.48 - Bogdan Drozdowski (bogdandr@op.pl)
+    Updated instruction list from nasm-2.10.
+
+  2012-07-21: version 1.49 - Bogdan Drozdowski (bogdandr@op.pl)
+    Updated instruction list from nasm-2.10.02.
+
+  2012-09-16: version 1.50 - Bogdan Drozdowski (bogdandr@op.pl)
+    Updated instruction list from nasm-2.10.05.
+
+  2013-09-15: version 1.51 - Bogdan Drozdowski (bogdandr@op.pl)
+    Updated instruction list from nasm-2.10.09.
+
+  2014-01-11: version 1.52 - Bogdan Drozdowski (bogdandr@op.pl)
+    Updated instruction list from nasm-2.11.
+
+  2014-03-01: version 1.53 - Bogdan Drozdowski (bogdandr@op.pl)
+    Updated instruction list from nasm-2.11.02.
+
+  2014-04-05: version 1.54 - Bogdan Drozdowski (bogdandr@op.pl)
+    Restored the REP* instructions/prefixes that got lost on the way.
+
+  2014-11-15: version 1.55 - Bogdan Drozdowski (bogdandr@op.pl)
+    Updated instruction list from nasm-2.11.06.
+
+  2016-03-22: version 1.56 - Bogdan Drozdowski (bogdandr@op.pl)
+    Updated instruction list from nasm-2.12.01.
+
+  2017-05-06: version 1.57 - Bogdan Drozdowski (bogdandr@op.pl)
+    Updated instruction list from nasm-2.13.01.
+
+  2018-11-12: version 1.58 - Bogdan Drozdowski (bogdandr@op.pl)
+    Updated instruction list from nasm-2.14.
+
+  2018-11-25: version 29 - Bogdan Drozdowski (bogdandr@op.pl)
+    Updated the version number for the new Kate in KDE5. No other changes.
+
+  2020-07-18: version 29.1 - Aguas Guerreiro Roberto (aggurobe@gmail.com)
+    Add some, what I believe, otherwise needed by me, missing directives and opcodes.
+    *.inc extension added to the language:extension tag.
+    
   GNU GENERAL PUBLIC LICENCE
 
 This program, including associated files, is free software.  You may
@@ -61,7 +137,9 @@ You should have received a copy of the GNU General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 -->
-<language name="Intel x86 (NASM)" section="Assembler" version="8" kateversion="5.62" extensions="*.asm" mimetype="" author="Nicola Gigante (nicola.gigante@gmail.com)" license="GPLv2+">
+
+<language name="Intel x86 (NASM)" section="Assembler" version="29.1" kateversion="2.3"
+        extensions="*.asm;*.nasm;*.ninc;*.inc" mimetype="text/x-asm" author="Nicola Gigante (nicola.gigante@gmail.com)" license="GPL">
   <highlighting>
     <list name="registers">
       <!-- General purpose registers -->
@@ -97,47 +175,13 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>edi</item>
       <item>di</item>
       <item>dil</item>
-
       <item>rip</item>
       <item>eip</item>
       <item>ip</item>
-
       <item>rsp</item>
       <item>esp</item>
       <item>sp</item>
       <item>spl</item>
-      <item>r8</item>
-      <item>r8d</item>
-      <item>r8w</item>
-      <item>r8b</item>
-      <item>r9</item>
-      <item>r9d</item>
-      <item>r9w</item>
-      <item>r9b</item>
-      <item>r10</item>
-      <item>r10d</item>
-      <item>r10w</item>
-      <item>r10b</item>
-      <item>r11</item>
-      <item>r11d</item>
-      <item>r11w</item>
-      <item>r11b</item>
-      <item>r12</item>
-      <item>r12d</item>
-      <item>r12w</item>
-      <item>r12b</item>
-      <item>r13</item>
-      <item>r13d</item>
-      <item>r13w</item>
-      <item>r13b</item>
-      <item>r14</item>
-      <item>r14d</item>
-      <item>r14w</item>
-      <item>r14b</item>
-      <item>r15</item>
-      <item>r15d</item>
-      <item>r15w</item>
-      <item>r15b</item>
       <!-- Segmentation registers -->
       <item>cs</item>
       <item>ds</item>
@@ -147,19 +191,48 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>ss</item>
       <!-- Control registers -->
       <item>cr0</item>
-      <!--<item>cr1</item>-->
+      <item>cr1</item>
       <item>cr2</item>
       <item>cr3</item>
       <item>cr4</item>
+      <item>cr5</item>
+      <item>cr6</item>
+      <item>cr7</item>
+      <item>cr8</item>
+      <item>cr9</item>
+      <item>cr10</item>
+      <item>cr11</item>
+      <item>cr12</item>
+      <item>cr13</item>
+      <item>cr14</item>
+      <item>cr15</item>
       <!-- Debug registers -->
       <item>dr0</item>
       <item>dr1</item>
       <item>dr2</item>
       <item>dr3</item>
+      <item>dr4</item>
+      <item>dr5</item>
       <item>dr6</item>
       <item>dr7</item>
+      <item>dr8</item>
+      <item>dr9</item>
+      <item>dr10</item>
+      <item>dr11</item>
+      <item>dr12</item>
+      <item>dr13</item>
+      <item>dr14</item>
+      <item>dr15</item>
       <!-- x87 FPU Registers -->
       <item>st</item>
+      <item>st0</item>
+      <item>st1</item>
+      <item>st2</item>
+      <item>st3</item>
+      <item>st4</item>
+      <item>st5</item>
+      <item>st6</item>
+      <item>st7</item>		
       <!-- MMX registers -->
       <item>mm0</item>
       <item>mm1</item>
@@ -202,6 +275,53 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>xmm29</item>
       <item>xmm30</item>
       <item>xmm31</item>
+      <!-- AMD64/EM64T registers -->
+      <item>r8</item>
+      <item>r8b</item>
+      <item>r8w</item>
+      <item>r8d</item>
+      <item>r9</item>
+      <item>r9b</item>
+      <item>r9w</item>
+      <item>r9d</item>
+      <item>r10</item>
+      <item>r10b</item>
+      <item>r10w</item>
+      <item>r10d</item>
+      <item>r11</item>
+      <item>r11b</item>
+      <item>r11w</item>
+      <item>r11d</item>
+      <item>r12</item>
+      <item>r12b</item>
+      <item>r12w</item>
+      <item>r12d</item>
+      <item>r13</item>
+      <item>r13b</item>
+      <item>r13w</item>
+      <item>r13d</item>
+      <item>r14</item>
+      <item>r14b</item>
+      <item>r14w</item>
+      <item>r14d</item>
+      <item>r15</item>
+      <item>r15b</item>
+      <item>r15w</item>
+      <item>r15d</item>
+      <!-- BND registers -->
+      <item>bnd0</item>
+      <item>bnd1</item>
+      <item>bnd2</item>
+      <item>bnd3</item>
+      <!-- opmask registers -->
+      <item>k0</item>
+      <item>k1</item>
+      <item>k2</item>
+      <item>k3</item>
+      <item>k4</item>
+      <item>k5</item>
+      <item>k6</item>
+      <item>k7</item>
       <!-- YMM registers -->
       <item>ymm0</item>
       <item>ymm1</item>
@@ -269,7 +389,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>zmm30</item>
       <item>zmm31</item>
     </list>
-
     <list name="instructions">
       <item>aaa</item>
       <item>aad</item>
@@ -331,6 +450,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>btr</item>
       <item>bts</item>
       <item>bzhi</item>
+      <item>call</item>
       <item>cbw</item>
       <item>cdq</item>
       <item>cdqe</item>
@@ -342,7 +462,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>clflushopt</item>
       <item>clgi</item>
       <item>cli</item>
-      <item>clrssbsy</item>
       <item>clts</item>
       <item>clwb</item>
       <item>clzero</item>
@@ -408,6 +527,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>cmpordss</item>
       <item>cmppd</item>
       <item>cmpps</item>
+      <item>cmps</item>
       <item>cmpsb</item>
       <item>cmpsd</item>
       <item>cmpsq</item>
@@ -467,11 +587,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>encls</item>
       <item>enclu</item>
       <item>enclv</item>
-      <item>endbr32</item>
-      <item>endbr64</item>
-      <item>enqcmd</item>
-      <item>enqcmds</item>
       <item>enter</item>
+      <item>equ</item>
       <item>extractps</item>
       <item>extrq</item>
       <item>f2xm1</item>
@@ -541,6 +658,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>fnstcw</item>
       <item>fnstenv</item>
       <item>fnstsw</item>
+      <item>fnwait</item>
       <item>fpatan</item>
       <item>fprem</item>
       <item>fprem1</item>
@@ -657,8 +775,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>imul</item>
       <item>in</item>
       <item>inc</item>
-      <item>incsspd</item>
-      <item>incsspq</item>
+      <item>incbin</item>
+      <item>ins</item>
       <item>insb</item>
       <item>insd</item>
       <item>insertps</item>
@@ -676,66 +794,93 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>invlpga</item>
       <item>invpcid</item>
       <item>invvpid</item>
-      <item>kadd</item>
+      <item>iret</item>
+      <item>iretd</item>
+      <item>iretq</item>
+      <item>iretw</item>
+      <item>ja</item>
+      <item>jae</item>
+      <item>jb</item>
+      <item>jbe</item>
+      <item>jc</item>
+      <item>jcc</item>
+      <item>jcxz</item>
+      <item>je</item>
+      <item>jecxz</item>
+      <item>jg</item>
+      <item>jge</item>
+      <item>jl</item>
+      <item>jle</item>
+      <item>jmp</item>
+      <item>jmpe</item>
+      <item>jna</item>
+      <item>jnae</item>
+      <item>jnb</item>
+      <item>jnbe</item>
+      <item>jnc</item>
+      <item>jne</item>
+      <item>jng</item>
+      <item>jnge</item>
+      <item>jnl</item>
+      <item>jnle</item>
+      <item>jno</item>
+      <item>jnp</item>
+      <item>jns</item>
+      <item>jnz</item>
+      <item>jo</item>
+      <item>jp</item>
+      <item>jpe</item>
+      <item>jpo</item>
+      <item>jrcxz</item>
+      <item>js</item>
+      <item>jz</item>
       <item>kaddb</item>
       <item>kaddd</item>
       <item>kaddq</item>
       <item>kaddw</item>
-      <item>kand</item>
       <item>kandb</item>
       <item>kandd</item>
-      <item>kandn</item>
       <item>kandnb</item>
       <item>kandnd</item>
       <item>kandnq</item>
       <item>kandnw</item>
       <item>kandq</item>
       <item>kandw</item>
-      <item>kmov</item>
       <item>kmovb</item>
       <item>kmovd</item>
       <item>kmovq</item>
       <item>kmovw</item>
-      <item>knot</item>
       <item>knotb</item>
       <item>knotd</item>
       <item>knotq</item>
       <item>knotw</item>
-      <item>kor</item>
       <item>korb</item>
       <item>kord</item>
       <item>korq</item>
-      <item>kortest</item>
       <item>kortestb</item>
       <item>kortestd</item>
       <item>kortestq</item>
       <item>kortestw</item>
       <item>korw</item>
-      <item>kshiftl</item>
       <item>kshiftlb</item>
       <item>kshiftld</item>
       <item>kshiftlq</item>
       <item>kshiftlw</item>
-      <item>kshiftr</item>
       <item>kshiftrb</item>
       <item>kshiftrd</item>
       <item>kshiftrq</item>
       <item>kshiftrw</item>
-      <item>ktest</item>
       <item>ktestb</item>
       <item>ktestd</item>
       <item>ktestq</item>
       <item>ktestw</item>
-      <item>kunpck</item>
       <item>kunpckbw</item>
       <item>kunpckdq</item>
       <item>kunpckwd</item>
-      <item>kxnor</item>
       <item>kxnorb</item>
       <item>kxnord</item>
       <item>kxnorq</item>
       <item>kxnorw</item>
-      <item>kxor</item>
       <item>kxorb</item>
       <item>kxord</item>
       <item>kxorq</item>
@@ -745,7 +890,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>lddqu</item>
       <item>ldmxcsr</item>
       <item>lds</item>
-      <item>ldtilecfg</item>
       <item>lea</item>
       <item>leave</item>
       <item>les</item>
@@ -759,6 +903,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>lmsw</item>
       <item>loadall</item>
       <item>loadall286</item>
+      <item>lock</item>
+      <item>lods</item>
       <item>lodsb</item>
       <item>lodsd</item>
       <item>lodsq</item>
@@ -817,6 +963,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>movntss</item>
       <item>movq</item>
       <item>movq2dq</item>
+      <item>movs</item>
       <item>movsb</item>
       <item>movsd</item>
       <item>movshdup</item>
@@ -845,6 +992,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>orpd</item>
       <item>orps</item>
       <item>out</item>
+      <item>outs</item>
       <item>outsb</item>
       <item>outsd</item>
       <item>outsw</item>
@@ -966,6 +1114,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>pmuldq</item>
       <item>pmulhriw</item>
       <item>pmulhrsw</item>
+      <item>pmulhrw</item>
       <item>pmulhrwa</item>
       <item>pmulhrwc</item>
       <item>pmulhuw</item>
@@ -1056,10 +1205,25 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>rdrand</item>
       <item>rdseed</item>
       <item>rdshr</item>
-      <item>rdsspd</item>
-      <item>rdsspq</item>
       <item>rdtsc</item>
       <item>rdtscp</item>
+      <item>rep</item>
+      <item>repe</item>
+      <item>repne</item>
+      <item>repnz</item>
+      <item>repz</item>
+      <item>ret</item>
+      <item>retd</item>
+      <item>retf</item>
+      <item>retfd</item>
+      <item>retfq</item>
+      <item>retfw</item>
+      <item>retn</item>
+      <item>retnd</item>
+      <item>retnq</item>
+      <item>retnw</item>
+      <item>retq</item>
+      <item>retw</item>
       <item>rol</item>
       <item>ror</item>
       <item>rorx</item>
@@ -1072,22 +1236,21 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>rsm</item>
       <item>rsqrtps</item>
       <item>rsqrtss</item>
-      <item>rstorssp</item>
       <item>rsts</item>
       <item>sahf</item>
       <item>sal</item>
       <item>salc</item>
       <item>sar</item>
       <item>sarx</item>
-      <item>saveprevssp</item>
       <item>sbb</item>
+      <item>scas</item>
       <item>scasb</item>
       <item>scasd</item>
       <item>scasq</item>
       <item>scasw</item>
-      <item>serialize</item>
       <item>seta</item>
       <item>setae</item>
+      <item>setalc</item>
       <item>setb</item>
       <item>setbe</item>
       <item>setc</item>
@@ -1115,7 +1278,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>setpe</item>
       <item>setpo</item>
       <item>sets</item>
-      <item>setssbsy</item>
       <item>setz</item>
       <item>sfence</item>
       <item>sgdt</item>
@@ -1131,7 +1293,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>shlx</item>
       <item>shr</item>
       <item>shrd</item>
-      <item>shrx</item>
+      <item>shlx</item>
       <item>shufpd</item>
       <item>shufps</item>
       <item>sidt</item>
@@ -1152,12 +1314,12 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>stgi</item>
       <item>sti</item>
       <item>stmxcsr</item>
+      <item>stos</item>
       <item>stosb</item>
       <item>stosd</item>
       <item>stosq</item>
       <item>stosw</item>
       <item>str</item>
-      <item>sttilecfg</item>
       <item>sub</item>
       <item>subpd</item>
       <item>subps</item>
@@ -1172,17 +1334,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>sysexit</item>
       <item>sysret</item>
       <item>t1mskc</item>
-      <item>tdpbf16ps</item>
-      <item>tdpbssd</item>
-      <item>tdpbsud</item>
-      <item>tdpbusd</item>
-      <item>tdpbuud</item>
       <item>test</item>
-      <item>tileloadd</item>
-      <item>tileloaddt1</item>
-      <item>tilerelease</item>
-      <item>tilestored</item>
-      <item>tilezero</item>
       <item>tpause</item>
       <item>tzcnt</item>
       <item>tzmsk</item>
@@ -1230,6 +1382,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>vblendps</item>
       <item>vblendvpd</item>
       <item>vblendvps</item>
+      <item>vbroadcastb</item>
+      <item>vbroadcastd</item>	
       <item>vbroadcastf128</item>
       <item>vbroadcastf32x2</item>
       <item>vbroadcastf32x4</item>
@@ -1242,16 +1396,13 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>vbroadcasti32x8</item>
       <item>vbroadcasti64x2</item>
       <item>vbroadcasti64x4</item>
+      <item>vbroadcastq</item>
       <item>vbroadcastsd</item>
       <item>vbroadcastss</item>
       <item>vcmpeqpd</item>
       <item>vcmpeqps</item>
       <item>vcmpeqsd</item>
       <item>vcmpeqss</item>
-      <item>vcmpeq_oqpd</item>
-      <item>vcmpeq_oqps</item>
-      <item>vcmpeq_oqsd</item>
-      <item>vcmpeq_oqss</item>
       <item>vcmpeq_ospd</item>
       <item>vcmpeq_osps</item>
       <item>vcmpeq_ossd</item>
@@ -1438,7 +1589,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>vcompressps</item>
       <item>vcvtdq2pd</item>
       <item>vcvtdq2ps</item>
-      <item>vcvtne2ps2bf16</item>
       <item>vcvtpd2dq</item>
       <item>vcvtpd2ps</item>
       <item>vcvtpd2qq</item>
@@ -1484,7 +1634,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>vdivps</item>
       <item>vdivsd</item>
       <item>vdivss</item>
-      <item>vdpbf16ps</item>
       <item>vdppd</item>
       <item>vdpps</item>
       <item>verr</item>
@@ -1764,7 +1913,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>vmxon</item>
       <item>vorpd</item>
       <item>vorps</item>
-      <item>vp2intersectd</item>
       <item>vpabsb</item>
       <item>vpabsd</item>
       <item>vpabsq</item>
@@ -1814,79 +1962,15 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>vpcmpeqb</item>
       <item>vpcmpeqd</item>
       <item>vpcmpeqq</item>
-      <item>vpcmpequb</item>
-      <item>vpcmpequd</item>
-      <item>vpcmpequq</item>
-      <item>vpcmpequw</item>
       <item>vpcmpeqw</item>
       <item>vpcmpestri</item>
       <item>vpcmpestrm</item>
-      <item>vpcmpgeb</item>
-      <item>vpcmpged</item>
-      <item>vpcmpgeq</item>
-      <item>vpcmpgeub</item>
-      <item>vpcmpgeud</item>
-      <item>vpcmpgeuq</item>
-      <item>vpcmpgeuw</item>
-      <item>vpcmpgew</item>
       <item>vpcmpgtb</item>
       <item>vpcmpgtd</item>
       <item>vpcmpgtq</item>
-      <item>vpcmpgtub</item>
-      <item>vpcmpgtud</item>
-      <item>vpcmpgtuq</item>
-      <item>vpcmpgtuw</item>
       <item>vpcmpgtw</item>
       <item>vpcmpistri</item>
       <item>vpcmpistrm</item>
-      <item>vpcmpleb</item>
-      <item>vpcmpled</item>
-      <item>vpcmpleq</item>
-      <item>vpcmpleub</item>
-      <item>vpcmpleud</item>
-      <item>vpcmpleuq</item>
-      <item>vpcmpleuw</item>
-      <item>vpcmplew</item>
-      <item>vpcmpltb</item>
-      <item>vpcmpltd</item>
-      <item>vpcmpltq</item>
-      <item>vpcmpltub</item>
-      <item>vpcmpltud</item>
-      <item>vpcmpltuq</item>
-      <item>vpcmpltuw</item>
-      <item>vpcmpltw</item>
-      <item>vpcmpneqb</item>
-      <item>vpcmpneqd</item>
-      <item>vpcmpneqq</item>
-      <item>vpcmpnequb</item>
-      <item>vpcmpnequd</item>
-      <item>vpcmpnequq</item>
-      <item>vpcmpnequw</item>
-      <item>vpcmpneqw</item>
-      <item>vpcmpngtb</item>
-      <item>vpcmpngtd</item>
-      <item>vpcmpngtq</item>
-      <item>vpcmpngtub</item>
-      <item>vpcmpngtud</item>
-      <item>vpcmpngtuq</item>
-      <item>vpcmpngtuw</item>
-      <item>vpcmpngtw</item>
-      <item>vpcmpnleb</item>
-      <item>vpcmpnled</item>
-      <item>vpcmpnleq</item>
-      <item>vpcmpnleub</item>
-      <item>vpcmpnleud</item>
-      <item>vpcmpnleuq</item>
-      <item>vpcmpnleuw</item>
-      <item>vpcmpnlew</item>
-      <item>vpcmpnltb</item>
-      <item>vpcmpnltd</item>
-      <item>vpcmpnltq</item>
-      <item>vpcmpnltub</item>
-      <item>vpcmpnltud</item>
-      <item>vpcmpnltuq</item>
-      <item>vpcmpnltuw</item>
-      <item>vpcmpnltw</item>
       <item>vpcmpq</item>
       <item>vpcmpub</item>
       <item>vpcmpud</item>
@@ -2244,10 +2328,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>wrmsr</item>
       <item>wrpkru</item>
       <item>wrshr</item>
-      <item>wrssd</item>
-      <item>wrssq</item>
-      <item>wrussd</item>
-      <item>wrussq</item>
       <item>xabort</item>
       <item>xadd</item>
       <item>xbegin</item>
@@ -2265,7 +2345,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>xor</item>
       <item>xorpd</item>
       <item>xorps</item>
-      <item>xresldtrk</item>
       <item>xrstor</item>
       <item>xrstor64</item>
       <item>xrstors</item>
@@ -2282,142 +2361,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>xsha1</item>
       <item>xsha256</item>
       <item>xstore</item>
-      <item>xsusldtrk</item>
       <item>xtest</item>
     </list>
-
-    <list name="branch instructions">
-      <item>call</item>
-      <item>iret</item>
-      <item>iretd</item>
-      <item>iretq</item>
-      <item>iretw</item>
-      <item>ja</item>
-      <item>jae</item>
-      <item>jb</item>
-      <item>jbe</item>
-      <item>jc</item>
-      <item>jcxz</item>
-      <item>je</item>
-      <item>jecxz</item>
-      <item>jg</item>
-      <item>jge</item>
-      <item>jl</item>
-      <item>jle</item>
-      <item>jmp</item>
-      <item>jmpe</item>
-      <item>jna</item>
-      <item>jnae</item>
-      <item>jnb</item>
-      <item>jnbe</item>
-      <item>jnc</item>
-      <item>jne</item>
-      <item>jng</item>
-      <item>jnge</item>
-      <item>jnl</item>
-      <item>jnle</item>
-      <item>jno</item>
-      <item>jnp</item>
-      <item>jns</item>
-      <item>jnz</item>
-      <item>jo</item>
-      <item>jp</item>
-      <item>jpe</item>
-      <item>jpo</item>
-      <item>jrcxz</item>
-      <item>js</item>
-      <item>jz</item>
-      <item>ret</item>
-      <item>retd</item>
-      <item>retf</item>
-      <item>retfd</item>
-      <item>retfq</item>
-      <item>retfw</item>
-      <item>retn</item>
-      <item>retnd</item>
-      <item>retnq</item>
-      <item>retnw</item>
-      <item>retq</item>
-      <item>retw</item>
-    </list>
-
-    <list name="macros">
-      <item>arg</item>
-      <item>assign</item>
-      <item>clear</item>
-      <item>defalias</item>
-      <item>define</item>
-      <item>defstr</item>
-      <item>deftok</item>
-      <item>depend</item>
-      <item>elif</item>
-      <item>elifctx</item>
-      <item>elifdef</item>
-      <item>elifempty</item>
-      <item>elifenv</item>
-      <item>elifidn</item>
-      <item>elifidni</item>
-      <item>elifn</item>
-      <item>elifnctx</item>
-      <item>elifndef</item>
-      <item>elifnempty</item>
-      <item>elifnenv</item>
-      <item>elifnidn</item>
-      <item>elifnidni</item>
-      <item>elifntoken</item>
-      <item>eliftoken</item>
-      <item>else</item>
-      <item>exitrep</item>
-      <item>endif</item>
-      <item>endmacro</item>
-      <item>endrep</item>
-      <item>error</item>
-      <item>fatal</item>
-      <item>idefine</item>
-      <item>if</item>
-      <item>ifctx</item>
-      <item>ifdef</item>
-      <item>ifempty</item>
-      <item>ifid</item>
-      <item>ifidn</item>
-      <item>ifidni</item>
-      <item>ifmacro</item>
-      <item>ifn</item>
-      <item>ifnctx</item>
-      <item>ifndef</item>
-      <item>ifnempty</item>
-      <item>ifnenv</item>
-      <item>ifnidn</item>
-      <item>ifnidni</item>
-      <item>ifnmacro</item>
-      <item>ifntoken</item>
-      <item>ifnum</item>
-      <item>ifstr</item>
-      <item>iftoken</item>
-      <item>imacro</item>
-      <item>include</item>
-      <item>line</item>
-      <item>local</item>
-      <item>macro</item>
-      <item>pathsearch</item>
-      <item>pop</item>
-      <item>pragma</item>
-      <item>push</item>
-      <item>rep</item>
-      <item>repl</item>
-      <item>rotate</item>
-      <item>stacksize</item>
-      <item>strcat</item>
-      <item>strlen</item>
-      <item>substr</item>
-      <item>undef</item>
-      <item>unmacro</item>
-      <item>use</item>
-      <item>warning</item>
-      <item>xdefine</item>
-    </list>
-
     <list name="Data">
+      <item>abs</item>
       <!-- repeat some data declaration -->
       <item>times</item>
       <!-- constants -->
@@ -2428,69 +2375,61 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>dd</item>
       <item>dq</item>
       <item>dt</item>
-      <item>do</item>
-      <item>dy</item>
-      <item>dz</item>
       <!-- Uninitialized data -->
       <item>resb</item>
       <item>resw</item>
       <item>resd</item>
       <item>resq</item>
       <item>rest</item>
-      <item>reso</item>
-      <item>resy</item>
-      <item>resz</item>
       <!-- binary file include -->
       <item>incbin</item>
       <!-- operand size -->
       <item>byte</item>
       <item>word</item>
       <item>dword</item>
+      <item>oword</item>
       <item>qword</item>
       <item>tword</item>
-      <item>oword</item>
       <item>yword</item>
       <item>zword</item>
       <item>short</item>
       <item>ptr</item>
-    </list>
-
-    <list name="NASM Keywords">
-      <!-- prefix -->
-      <item>abs</item>
-      <item>a32</item>
-      <item>as</item>
-      <item>bnd</item>
-      <item>cs</item>
-      <item>lock</item>
-      <item>nobnd</item>
+      <item>far</item>
+      <item>long</item>
+      <item>near</item>
       <item>rel</item>
-      <item>rep</item>
-      <item>repe</item>
-      <item>repne</item>
-      <item>repnz</item>
-      <item>repz</item>
-      <item>xacquire</item>
-      <item>xrelease</item>
-
+      <item>to</item>
+    </list>
+    <list name="NASM Keywords">
       <!-- NASM directives -->
+      <item>__sect__</item>
       <item>absolute</item>
+      <item>asp</item>
       <item>bits</item>
+      <item>bnd</item>
       <item>common</item>
       <item>default</item>
-      <item>cpu</item>
+      <item>export</item>
       <item>extern</item>
       <item>global</item>
+      <item>import</item>
+      <item>nobnd</item>
+      <item>nosplit</item>
       <item>org</item>
+      <item>osabi</item>
+      <item>osp</item>
+      <item>safeseh</item>
+      <item>sectalign</item>
       <item>section</item>
       <item>seg</item>
       <item>segment</item>
-      <item>static</item>
+      <item>split</item>
       <item>strict</item>
       <item>use16</item>
       <item>use32</item>
       <item>wrt</item>
-
+      <item>xacquire</item>
+      <item>xrelease</item>
       <!-- NASM standard macros -->
       <item>struc</item>
       <item>endstruc</item>
@@ -2500,252 +2439,107 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>align</item>
       <item>alignb</item>
 
-      <item>__?BITS?__</item>
-      <item>__?SECT?__</item>
-      <item>__?NASM_MAJOR?__</item>
-      <item>__?NASM_MINOR?__</item>
-      <item>__?NASM_SUBMINOR?__</item>
-      <item>__?NASM_PATCHLEVEL?__</item>
-      <item>__?NASM_SNAPSHOT?__</item>
-      <item>__?NASM_VERSION_ID?__</item>
-      <item>__?NASM_VER?__</item>
-      <item>__?FILE?__</item>
-      <item>__?LINE?__</item>
-      <item>__?OUTPUT_FORMAT?__</item>
-      <item>__?DEBUG_FORMAT?__</item>
-      <item>__?DATE?__</item>
-      <item>__?TIME?__</item>
-      <item>__?DATE_NUM?__</item>
-      <item>__?TIME_NUM?__</item>
-      <item>__?UTC_DATE?__</item>
-      <item>__?UTC_TIME?__</item>
-      <item>__?UTC_DATE_NUM?__</item>
-      <item>__?UTC_TIME_NUM?__</item>
-      <item>__?POSIX_TIME?__</item>
-      <item>__?PASS?__</item>
-      <item>__?USE_ALTREG?__</item>
-      <item>__?ALIGNMODE?__</item>
+      <!-- NASM-specific instruction prefixes -->
+      <item>a16</item>
+      <item>a32</item>
+      <item>a64</item>
+      <item>o16</item>
+      <item>o32</item>
+      <item>o64</item>
 
-      <item>__?utf16?__</item>
-      <item>__?utf16le?__</item>
-      <item>__?utf16be?__</item>
-      <item>__?utf32?__</item>
-      <item>__?utf32le?__</item>
-      <item>__?utf32be?__</item>
-      <item>__?float8?__</item>
-      <item>__?float16?__</item>
-      <item>__?bfloat16?__</item>
-      <item>__?float32?__</item>
-      <item>__?float64?__</item>
-      <item>__?float80m?__</item>
-      <item>__?float80e?__</item>
-      <item>__?float128l?__</item>
-      <item>__?float128h?__</item>
-      <item>__?Infinity?__</item>
-      <item>__?QNaN?__</item>
-      <item>__?NaN?__</item>
-      <item>__?SNaN?__</item>
-      <item>__?FLOAT_DAZ?__</item>
-      <item>__?FLOAT_ROUND?__</item>
-      <item>__?FLOAT?__</item>
-      <item>__?FLOAT?__</item>
+      <!-- *VEX instruction prefixes and decorators -->
+      <item>evex</item>
+      <item>vex2</item>
+      <item>vex3</item>
+      <item>{z}</item>
+      <item>1to8</item>
+      <item>1to16</item>
+      <item>rn-sae</item>
+      <item>rd-sae</item>
+      <item>ru-sae</item>
+      <item>rz-sae</item>
+      <item>sae</item>
+
+      <!-- floating-point-related macros -->
+      <item>__infinity__</item>
+      <item>__nan__</item>
+      <item>__qnan__</item>
+      <item>__snan__</item>
+      <item>__float8__</item>
+      <item>__float16__</item>
+      <item>__float32__</item>
+      <item>__float64__</item>
+      <item>__float80m__</item>
+      <item>__float80e__</item>
+      <item>__float128l__</item>
+      <item>__float128h__</item>
+
+      <!-- string-related macros -->
+      <item>__utf16__</item>
+      <item>__utf16le__</item>
+      <item>__utf16be__</item>
+      <item>__utf32__</item>
+      <item>__utf32le__</item>
+      <item>__utf32be__</item>
+
+      <!-- function-related macros -->
+      <item>__ilog2e__</item>
+      <item>__ilog2w__</item>
+      <item>__ilog2f__</item>
+      <item>__ilog2c__</item>
+
+      <!-- predefined macros -->
+      <item>__BITS__</item>
+      <item>__NASM_MAJOR__</item>
+      <item>__NASM_MINOR__</item>
+      <item>__NASM_SUBMINOR__</item>
+      <item>___NASM_PATCHLEVEL__</item>
+      <item>__NASM_VERSION_ID__</item>
+      <item>__NASM_VER__</item>
+      <item>__FILE__</item>
+      <item>__LINE__</item>
+      <item>__SECT__</item>
+      <item>__OUTPUT_FORMAT__</item>
     </list>
-
-    <list name="special symbols">
-      <item>got</item>
-      <item>gotoff</item>
-      <item>gotpc</item>
-      <item>gotpcrel</item>
-      <item>gottpoff</item>
-      <item>imagebase</item>
-      <item>plt</item>
-      <item>start</item>
-      <item>sym</item>
-      <item>tlsie</item>
-      <item>tlvp</item>
-    </list>
-
     <contexts>
-      <context name="Normal" attribute="Normal Text" lineEndContext="#stay" fallthroughContext="Instruction">
-        <DetectSpaces attribute="Normal Text"/>
-        <RegExpr attribute="Label" context="Instruction" String="(?:(?:\.|@@|&#37;&#37;)(?:\.@)?)?[A-Za-z_][A-Za-z0-9_.]*+:" firstNonSpace="1"/>
-      </context>
-
-      <context name="Instruction" attribute="Normal Text" lineEndContext="#pop">
-        <DetectSpaces attribute="Normal Text"/>
-        <IncludeRules context="IncInstruction"/>
-      </context>
-
-      <context name="IncInstruction" attribute="Normal Text" lineEndContext="#pop">
-        <DetectChar attribute="Preprocessor" context="#pop!Preprocessor" char="%" firstNonSpace="1"/>
-        <DetectChar attribute="Comment" context="#pop!Comment" char=";"/>
-        <keyword attribute="Data" context="#pop!Operand" String="Data"/>
-        <keyword attribute="Instructions" context="#pop!Operand" String="instructions"/>
-        <keyword attribute="Branch Instructions" context="#pop!Operand" String="branch instructions"/>
-        <keyword attribute="NASM Keywords" context="#pop!Operand" String="NASM Keywords"/>
-        <DetectIdentifier attribute="Unknown Instructions" context="UnknownInstruction"/>
-        <LineContinue attribute="Symbol" context="#pop!Operand"/>
-      </context>
-      <context name="UnknownInstruction" attribute="Unknown Instructions" lineEndContext="#pop#pop" fallthroughContext="#pop#pop!Operand">
-        <DetectChar attribute="Symbol" context="#stay" char="."/>
-        <Int attribute="Unknown Instructions" context="#stay"/>
-        <DetectIdentifier attribute="Unknown Instructions" context="#stay"/>
-      </context>
-
-      <context name="Operand" attribute="Normal Text" lineEndContext="#pop">
-        <DetectSpaces attribute="Normal Text"/>
-        <Detect2Chars attribute="Label" context="LabelIdent" char="%" char1="%"/>
-        <Detect2Chars attribute="Label" context="LabelIdent" char="@" char1="@"/>
-        <AnyChar attribute="Symbol" context="#stay" String=",-+/*%~^=!(){}[]:|&amp;?&lt;>"/>
-        <DetectChar attribute="Symbol" context="Dollar" char="$"/>
-        <DetectChar attribute="Symbol" context="SymbolOrLabel" char="." lookAhead="1"/>
-        <DetectChar attribute="String" context="SQString" char="'"/>
-        <DetectChar attribute="String" context="DQString" char="&quot;"/>
-        <DetectChar attribute="String" context="String" char="`"/>
-        <DetectChar attribute="Comment" context="#pop!Comment" char=";"/>
-        <AnyChar attribute="Number" context="Number" String="0123456789" lookAhead="1"/>
+      <context name="Normal" attribute="Normal Text" lineEndContext="#stay">
+        <RegExpr context="Outscoped" String="^\s*%if\s+0\s*($|;.*)" beginRegion="Outscoped" firstNonSpace="true" insensitive="TRUE"/>
         <keyword attribute="Registers" context="#stay" String="registers"/>
         <keyword attribute="Data" context="#stay" String="Data"/>
+        <keyword attribute="Instructions" context="#stay" String="instructions"/>
         <keyword attribute="NASM Keywords" context="#stay" String="NASM Keywords"/>
-        <DetectIdentifier attribute="Normal Text" context="Ident"/>
-        <LineContinue attribute="Symbol"/>
-      </context>
-
-      <context name="LabelIdent" attribute="Label" lineEndContext="#pop" fallthroughContext="#pop">
-        <DetectIdentifier attribute="Label" context="#stay"/>
-        <DetectChar attribute="Symbol" context="#stay" char="."/>
-        <Int attribute="Label" context="#stay"/>
-      </context>
-
-      <context name="Ident" attribute="Normal Text" lineEndContext="#pop" fallthroughContext="#pop">
-        <DetectChar attribute="Symbol" context="#stay" char="."/>
-        <AnyChar attribute="Normal Text" context="#stay" String="_$#@~?0123456789"/>
-        <DetectIdentifier attribute="Normal Text" context="#stay"/>
-      </context>
-
-      <context name="Dollar" attribute="Symbol" lineEndContext="#pop" fallthroughContext="#pop!Ident">
-        <Detect2Chars attribute="Symbol" context="#pop" char="$" char1="-"/>
-        <AnyChar attribute="Symbol" context="#pop!Ident" String="$+-"/>
-        <AnyChar attribute="BaseN" context="#pop!$Hex" String="0123456789"/>
-        <DetectIdentifier attribute="Normal Text" context="#pop!Ident"/>
-      </context>
-      <context name="$Hex" attribute="BaseN" lineEndContext="#pop" fallthroughContext="#pop">
-        <RegExpr attribute="BaseN" context="#pop!CheckNumberSuffix" String="[0-9a-fA-F_]*"/>
-      </context>
-
-      <context name="Number" attribute="Number" lineEndContext="#pop">
-        <RegExpr attribute="Float" context="#pop!FloatSuffix" insensitive="1" String="&float;"/>
-        <RegExpr attribute="Radix" context="#pop!PrefixedNumber" insensitive="1" String="&prefixedBaseN;" lookAhead="1" minimal="1"/>
-        <RegExpr attribute="BaseN" context="#pop!BaseSuffix" insensitive="1" String="&baseN;"/>
-        <RegExpr attribute="Number" context="#pop!NumberSuffix" insensitive="1" String="&number;"/>
-      </context>
-      <context name="FloatSuffix" attribute="Float" lineEndContext="#pop" fallthroughContext="#pop!CheckNumberSuffix">
-        <AnyChar attribute="Radix" context="#pop!CheckNumberSuffix" String="pP"/>
-      </context>
-      <context name="BaseSuffix" attribute="BaseN" lineEndContext="#pop" fallthroughContext="#pop!CheckNumberSuffix">
-        <AnyChar attribute="Radix" context="#pop!CheckNumberSuffix" String="byoqhxBYOQHX"/>
-      </context>
-      <context name="NumberSuffix" attribute="Number" lineEndContext="#pop" fallthroughContext="#pop!CheckNumberSuffix">
-        <AnyChar attribute="Radix" context="#pop!CheckNumberSuffix" String="dtDT"/>
-      </context>
-      <context name="PrefixedNumber" attribute="Radix" lineEndContext="#pop">
-        <Detect2Chars attribute="Radix" context="#pop!$Hex" char="0" char1="h"/>
-        <Detect2Chars attribute="Radix" context="#pop!$Hex" char="0" char1="x"/>
-        <Detect2Chars attribute="Radix" context="#pop!Octal" char="0" char1="q"/>
-        <Detect2Chars attribute="Radix" context="#pop!Octal" char="0" char1="o"/>
-        <Detect2Chars attribute="Radix" context="#pop!Binary" char="0" char1="b"/>
-        <Detect2Chars attribute="Radix" context="#pop!Binary" char="0" char1="y"/>
-        <Detect2Chars attribute="Radix" context="#pop!Decimal" char="0" char1="d"/>
-        <Detect2Chars attribute="Radix" context="#pop!Decimal" char="0" char1="t"/>
-        <Detect2Chars attribute="Radix" context="#pop!$Hex" char="0" char1="H"/>
-        <Detect2Chars attribute="Radix" context="#pop!$Hex" char="0" char1="X"/>
-        <Detect2Chars attribute="Radix" context="#pop!Octal" char="0" char1="Q"/>
-        <Detect2Chars attribute="Radix" context="#pop!Octal" char="0" char1="O"/>
-        <Detect2Chars attribute="Radix" context="#pop!Binary" char="0" char1="B"/>
-        <Detect2Chars attribute="Radix" context="#pop!Binary" char="0" char1="Y"/>
-        <Detect2Chars attribute="Radix" context="#pop!Decimal" char="0" char1="D"/>
-        <Detect2Chars attribute="Radix" context="#pop!Decimal" char="0" char1="T"/>
-      </context>
-      <context name="Octal" attribute="BaseN" lineEndContext="#pop">
-        <RegExpr attribute="BaseN" context="#pop!CheckNumberSuffix" insensitive="1" String="[0-7_]+"/>
-      </context>
-      <context name="Binary" attribute="BaseN" lineEndContext="#pop">
-        <RegExpr attribute="BaseN" context="#pop!CheckNumberSuffix" insensitive="1" String="[01_]+"/>
-      </context>
-      <context name="Decimal" attribute="Number" lineEndContext="#pop">
-        <RegExpr attribute="Number" context="#pop!CheckNumberSuffix" insensitive="1" String="[0-9_]+"/>
-      </context>
-      <context name="CheckNumberSuffix" attribute="Number" lineEndContext="#pop" fallthroughContext="#pop">
-        <DetectSpaces attribute="Normal Text" context="#pop"/>
-        <AnyChar attribute="Symbol" context="#pop" String=",-+/*%~^=!(){}[]:|&amp;?&lt;>"/>
-        <WordDetect attribute="NASM Keywords" context="#pop" String=".nolist"/>
-        <RegExpr attribute="Error" context="#pop" String="[\d\w]+"/>
-      </context>
-
-      <context name="SymbolOrLabel" attribute="Symbol" lineEndContext="#pop" fallthroughContext="#pop">
-        <RegExpr attribute="Label" context="#pop" String="\.(?:\.@)?[A-Za-z0-9_.]*+"/>
-        <Detect2Chars attribute="Symbol" context="#pop!SpecialSymbol" char="." char1="."/>
-        <DetectChar attribute="Symbol" context="#pop" char="."/>
-      </context>
-      <context name="SpecialSymbol" attribute="Symbol" lineEndContext="#pop" fallthroughContext="#pop">
-        <keyword attribute="Symbol" context="#pop" String="special symbols"/>
-        <DetectIdentifier attribute="Unknown Symbol" context="#pop"/>
-      </context>
-
-      <context name="Preprocessor" attribute="Preprocessor" lineEndContext="#pop" fallthroughContext="#pop">
-        <WordDetect attribute="Preprocessor" context="#pop!Macro" String="macro"/>
-        <WordDetect attribute="Preprocessor" context="#pop!Macro" String="imacro"/>
-        <keyword attribute="Preprocessor" context="#pop!Instruction" String="macros"/>
-        <Int attribute="Number" context="#pop"/>
-      </context>
-      <context name="Macro" attribute="Preprocessor" lineEndContext="#pop">
-        <DetectSpaces attribute="Normal Text"/>
-        <DetectChar attribute="Preprocessor" context="MacroPreprocessor" char="%" firstNonSpace="1"/>
-        <WordDetect attribute="NASM Keywords" context="#stay" String=".nolist"/>
-        <IncludeRules context="IncInstruction"/>
-      </context>
-      <context name="MacroPreprocessor" attribute="Preprocessor" lineEndContext="#pop" fallthroughContext="#pop!Preprocessor">
-        <WordDetect attribute="Preprocessor" context="#pop#pop" String="endmacro"/>
-        <Detect2Chars attribute="Preprocessor" context="#pop" char="?" char1="?"/>
-        <AnyChar attribute="Preprocessor" context="#pop" String="?,"/>
-        <Detect2Chars attribute="Preprocessor" context="#pop!MacroLabel" char="$" char1="$"/>
-        <AnyChar attribute="Preprocessor" context="#pop!MacroLabel" String="%$"/>
-        <AnyChar attribute="Preprocessor" context="#pop!MacroNumber" String="-+"/>
-        <DetectChar attribute="Preprocessor" context="#pop!MacroIdent" char="!"/>
-        <Int attribute="Preprocessor" context="#pop"/>
-      </context>
-      <context name="MacroNumber" attribute="Preprocessor" lineEndContext="#pop" fallthroughContext="#pop">
-        <Int attribute="Preprocessor" context="#pop"/>
-      </context>
-      <context name="MacroIdent" attribute="Preprocessor" lineEndContext="#pop" fallthroughContext="#pop">
-        <DetectIdentifier attribute="Normal Text" context="#pop"/>
-      </context>
-      <context name="MacroLabel" attribute="Preprocessor" lineEndContext="#pop" fallthroughContext="#pop">
-        <DetectIdentifier attribute="Label" context="#pop"/>
+        <DetectChar attribute="Comment" context="Comment" char=";"/>
+        <RegExpr attribute="Preprocessor" context="#stay" String="\%[1-9][0-9]*"/>
+        <RegExpr attribute="Preprocessor" context="#stay" String="^\s*\%.*"/>
+<!--         <DetectChar attribute="Preprocessor" context="Preprocessor" char="%"/> -->
+        <AnyChar attribute="String" context="String" String="&quot;'"/>
+        <RegExpr attribute="Label" context="#stay" String="[A-Za-z0-9_.$]+:" firstNonSpace="true"/>
+        <!-- The NASM's CPU directive -->
+        <RegExpr attribute="NASM Keywords" context="#stay" String="cpu (pentium|ppro|p2|p3|katmai|p4|willamette|prescott|ia64)*"/>
+        <!-- hexadecimal numbers -->
+        <RegExpr attribute="BaseN" context="#stay" insensitive="TRUE" String="\b[+-:]?((\$|0x)[a-f0-9]+|[0-9][a-f0-9]*h\b)"/>
+        <!-- octal and binary numbers -->
+        <RegExpr attribute="BaseN" context="#stay" insensitive="TRUE" String="\b[+-:]?([0-7]+(q|o)|[01]+b)\b"/>
+        <DetectChar attribute="Number" context="#stay" char="$"/>
+        <HlCOct attribute="BaseN" context="#stay"/>
+        <HlCHex attribute="BaseN" context="#stay"/>
+        <Float attribute="Float" context="#stay"/>
+        <Int attribute="Number" context="#stay"/>
+        <HlCChar attribute="Char" context="#stay"/>
       </context>
 
       <context name="Comment" attribute="Comment" lineEndContext="#pop">
-        <DetectSpaces attribute="Comment"/>
-        <IncludeRules context="##Comments"/>
-        <DetectIdentifier attribute="Comment"/>
+        <IncludeRules context="##Alerts"/>
       </context>
 
-      <context name="SQString" attribute="String" lineEndContext="#pop">
-        <LineContinue attribute="Symbol"/>
-        <DetectChar attribute="String" context="#pop" char="'"/>
+      <context attribute="Comment" lineEndContext="#stay" name="Outscoped">
+        <RegExpr attribute="Comment" context="#pop" String="^\s*%(endif|else)\s*($|;.*)" endRegion="Outscoped" firstNonSpace="true" insensitive="TRUE"/>
+        <IncludeRules context="##Alerts"/>
       </context>
-      <context name="DQString" attribute="String" lineEndContext="#pop">
-        <LineContinue attribute="Symbol"/>
-        <DetectChar attribute="String" context="#pop" char="&quot;"/>
-      </context>
+
+      <context name="Preprocessor" attribute="Preprocessor" lineEndContext="#pop"/>
       <context name="String" attribute="String" lineEndContext="#pop">
-        <LineContinue attribute="Symbol"/>
-        <DetectChar attribute="Symbol" context="Escape" char="\" lookAhead="1"/>
-        <DetectChar attribute="String" context="#pop" char="`"/>
-      </context>
-      <context name="Escape" attribute="Char" lineEndContext="#pop">
-        <RegExpr attribute="Char" context="#pop" String="\\(?:['&quot;`\\?abtnvfre]|[0-7]{3}|[xX][0-9a-fA-F]{2}|u[0-9a-fA-F]{4}|U[0-9a-fA-F]{8}|0)"/>
-        <RegExpr attribute="Bad Char" context="#pop" String="\\(?:[0-7]++|[xXuU][0-9a-fA-F]*|)"/>
+        <AnyChar attribute="String" context="#pop" String="&quot;'"/>
       </context>
     </contexts>
 
@@ -2753,8 +2547,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <itemData name="Normal Text" defStyleNum="dsNormal"/>
       <itemData name="Registers" defStyleNum="dsKeyword"/>
       <itemData name="Instructions" defStyleNum="dsKeyword"/>
-      <itemData name="Branch Instructions" defStyleNum="dsControlFlow"/>
-      <itemData name="Unknown Instructions" defStyleNum="dsNormal"/>
       <itemData name="NASM Keywords" defStyleNum="dsKeyword"/>
       <itemData name="Comment" defStyleNum="dsComment"/>
       <itemData name="Label" defStyleNum="dsFunction"/>
@@ -2762,21 +2554,17 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <itemData name="BaseN" defStyleNum="dsBaseN"/>
       <itemData name="Float" defStyleNum="dsFloat"/>
       <itemData name="Number" defStyleNum="dsDecVal"/>
-      <itemData name="Radix" defStyleNum="dsBaseN"/>
       <itemData name="Char" defStyleNum="dsChar"/>
       <itemData name="String" defStyleNum="dsString"/>
       <itemData name="Preprocessor" defStyleNum="dsOthers"/>
-      <itemData name="Symbol" defStyleNum="dsOperator"/>
-      <itemData name="Unknown Symbol" defStyleNum="dsError"/>
-      <itemData name="Bad Char" defStyleNum="dsError"/>
-      <itemData name="Error" defStyleNum="dsError"/>
     </itemDatas>
   </highlighting>
   <general>
-    <keywords casesensitive="0" weakDeliminator="?"/>
+    <keywords casesensitive="0"/>
     <comments>
-      <comment name="singleLine" start=";" position="afterwhitespace"/>
+      <comment name="singleLine" start=";"/>
     </comments>
   </general>
 </language>
+
 <!-- kate: space-indent on; indent-width 2; replace-tabs on; -->
