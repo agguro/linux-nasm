@@ -3,6 +3,6 @@ touch AUTHORS NEWS README ChangeLog
 aclocal
 automake --add-missing --foreign --copy
 autoconf
-./configure --prefix $PWD/../../../build/ipc
+./configure --bindir=$PWD/../build/ipc
 make
 make install

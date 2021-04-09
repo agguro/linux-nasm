@@ -1,1 +1,1 @@
-SUBDIRS = x11info/src
+SUBDIRS = x11info

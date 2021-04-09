@@ -1,3 +1,11 @@
+m4trace:/usr/share/aclocal/ax_prog_nasm.m4:54: -1- AC_DEFUN([AX_PROG_NASM], [
+AC_CHECK_PROGS(nasm,[nasm nasmw],no)
+if test "x$nasm" = "xno" ;
+then
+	ifelse($#,0,[AC_MSG_ERROR([NASM assembler not found])],
+        $1)
+fi
+])
 m4trace:/usr/share/aclocal-1.16/amversion.m4:14: -1- AC_DEFUN([AM_AUTOMAKE_VERSION], [am__api_version='1.16'
 dnl Some users find AM_AUTOMAKE_VERSION and mistake it for a way to
 dnl require some minimum version.  Point them to the right macro.
@@ -11,14 +19,6 @@ _AM_AUTOCONF_VERSION(m4_defn([AC_AUTOCONF_VERSION]))])
 m4trace:/usr/share/aclocal-1.16/auxdir.m4:47: -1- AC_DEFUN([AM_AUX_DIR_EXPAND], [AC_REQUIRE([AC_CONFIG_AUX_DIR_DEFAULT])dnl
 # Expand $ac_aux_dir to an absolute path.
 am_aux_dir=`cd "$ac_aux_dir" && pwd`
-])
-m4trace:/usr/share/aclocal-1.16/ax_prog_nasm.m4:54: -1- AC_DEFUN([AX_PROG_NASM], [
-AC_CHECK_PROGS(nasm,[nasm nasmw],no)
-if test "x$nasm" = "xno" ;
-then
-	ifelse($#,0,[AC_MSG_ERROR([NASM assembler not found])],
-        $1)
-fi
 ])
 m4trace:/usr/share/aclocal-1.16/cond.m4:12: -1- AC_DEFUN([AM_CONDITIONAL], [AC_PREREQ([2.52])dnl
  m4_if([$1], [TRUE],  [AC_FATAL([$0: invalid condition: $1])],

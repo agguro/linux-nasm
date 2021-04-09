@@ -2378,7 +2378,7 @@ END
 fi
 
 
-ac_config_files="$ac_config_files Makefile arguments/src/Makefile cpuid/src/Makefile cwd/src/Makefile dealcards/src/Makefile dirinfo/src/Makefile hello/src/Makefile inputdemo/src/Makefile keyfilter/src/Makefile palindrome/src/Makefile printenv/src/Makefile readfile/src/Makefile"
+ac_config_files="$ac_config_files Makefile arguments/Makefile cpuid/Makefile cwd/Makefile dealcards/Makefile dirinfo/Makefile hello/Makefile inputdemo/Makefile keyfilter/Makefile palindrome/Makefile printenv/Makefile readfile/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -3099,17 +3099,17 @@ for ac_config_target in $ac_config_targets
 do
   case $ac_config_target in
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
-    "arguments/src/Makefile") CONFIG_FILES="$CONFIG_FILES arguments/src/Makefile" ;;
-    "cpuid/src/Makefile") CONFIG_FILES="$CONFIG_FILES cpuid/src/Makefile" ;;
-    "cwd/src/Makefile") CONFIG_FILES="$CONFIG_FILES cwd/src/Makefile" ;;
-    "dealcards/src/Makefile") CONFIG_FILES="$CONFIG_FILES dealcards/src/Makefile" ;;
-    "dirinfo/src/Makefile") CONFIG_FILES="$CONFIG_FILES dirinfo/src/Makefile" ;;
-    "hello/src/Makefile") CONFIG_FILES="$CONFIG_FILES hello/src/Makefile" ;;
-    "inputdemo/src/Makefile") CONFIG_FILES="$CONFIG_FILES inputdemo/src/Makefile" ;;
-    "keyfilter/src/Makefile") CONFIG_FILES="$CONFIG_FILES keyfilter/src/Makefile" ;;
-    "palindrome/src/Makefile") CONFIG_FILES="$CONFIG_FILES palindrome/src/Makefile" ;;
-    "printenv/src/Makefile") CONFIG_FILES="$CONFIG_FILES printenv/src/Makefile" ;;
-    "readfile/src/Makefile") CONFIG_FILES="$CONFIG_FILES readfile/src/Makefile" ;;
+    "arguments/Makefile") CONFIG_FILES="$CONFIG_FILES arguments/Makefile" ;;
+    "cpuid/Makefile") CONFIG_FILES="$CONFIG_FILES cpuid/Makefile" ;;
+    "cwd/Makefile") CONFIG_FILES="$CONFIG_FILES cwd/Makefile" ;;
+    "dealcards/Makefile") CONFIG_FILES="$CONFIG_FILES dealcards/Makefile" ;;
+    "dirinfo/Makefile") CONFIG_FILES="$CONFIG_FILES dirinfo/Makefile" ;;
+    "hello/Makefile") CONFIG_FILES="$CONFIG_FILES hello/Makefile" ;;
+    "inputdemo/Makefile") CONFIG_FILES="$CONFIG_FILES inputdemo/Makefile" ;;
+    "keyfilter/Makefile") CONFIG_FILES="$CONFIG_FILES keyfilter/Makefile" ;;
+    "palindrome/Makefile") CONFIG_FILES="$CONFIG_FILES palindrome/Makefile" ;;
+    "printenv/Makefile") CONFIG_FILES="$CONFIG_FILES printenv/Makefile" ;;
+    "readfile/Makefile") CONFIG_FILES="$CONFIG_FILES readfile/Makefile" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac

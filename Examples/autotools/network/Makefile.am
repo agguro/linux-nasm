@@ -1,1 +1,1 @@
-SUBDIRS = sslsocket/src
+SUBDIRS = sslsocket

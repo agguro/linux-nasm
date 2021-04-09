@@ -1,11 +1,11 @@
-SUBDIRS = arguments/src \
-          cpuid/src \
-          cwd/src \
-          dealcards/src \
-          dirinfo/src \
-          hello/src \
-          inputdemo/src \
-          keyfilter/src \
-          palindrome/src \
-          printenv/src \
-          readfile/src
+SUBDIRS = arguments \
+          cpuid \
+          cwd \
+          dealcards \
+          dirinfo \
+          hello \
+          inputdemo \
+          keyfilter \
+          palindrome \
+          printenv \
+          readfile

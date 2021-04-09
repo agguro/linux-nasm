@@ -1,1 +1,1 @@
-SUBDIRS = notify/src
+SUBDIRS = notify

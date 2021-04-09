@@ -6,15 +6,15 @@ AX_PROG_NASM([nasm_avail="no"])
 AM_INIT_AUTOMAKE()
 
 AC_OUTPUT([Makefile \
-arguments/src/Makefile \
-cpuid/src/Makefile \
-cwd/src/Makefile \
-dealcards/src/Makefile \
-dirinfo/src/Makefile \
-hello/src/Makefile  \
-inputdemo/src/Makefile  \
-keyfilter/src/Makefile  \
-palindrome/src/Makefile  \
-printenv/src/Makefile  \
-readfile/src/Makefile 
+arguments/Makefile \
+cpuid/Makefile \
+cwd/Makefile \
+dealcards/Makefile \
+dirinfo/Makefile \
+hello/Makefile  \
+inputdemo/Makefile  \
+keyfilter/Makefile  \
+palindrome/Makefile  \
+printenv/Makefile  \
+readfile/Makefile 
 ])

@@ -3,6 +3,6 @@ touch AUTHORS NEWS README ChangeLog
 aclocal
 automake --add-missing --foreign --copy
 autoconf
-./configure --prefix $PWD/../../../build/network/
+./configure --bindir=$PWD/../build/network/
 make
 make install

@@ -6,5 +6,5 @@ AX_PROG_NASM([nasm_avail="no"])
 AM_INIT_AUTOMAKE()
 
 AC_OUTPUT([Makefile \
-notify/src/Makefile
+notify/Makefile
 ])
