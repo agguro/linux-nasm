@@ -11,7 +11,9 @@ Building linux assembly programs several ways
 ## added support files:
 	autotools ax_prog_nasm.m4 and ax_prog_nasm_opt.m4 for cmake (version 3.19.1)
 
-
+## include files converted from C header files
+	one warning is in place: Not all includes are tested and not all in one include file is tested.  Use at your own risk or if in doubt, use your include files.
+	I've tried my best but even until today I find errors (typos mostly)
 
 ## test files:
 	autotools
