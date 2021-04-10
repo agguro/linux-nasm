@@ -4,7 +4,7 @@ NASM=/usr/bin/nasm
 NASMOPTS=-felf64 -Fdwarf
 LDOPS=-melf_x86_64 -g
 DYN=--dynamic-linker /lib64/ld-linux-x86-64.so.2
-LIBS=`pkg-config --libs openssl`
+LIBS=-lssl -lcrypto
 
 .PHONY: all clean
 
