@@ -20,6 +20,7 @@
 ;               while keeping the terminal open. Send some data and watch http header
 ;               in terminal.
 ;               To terminate this program either use kill [pid] or ctrl-C.
+;
 ; notes about google chrome : if the content-length isn't correct it hangs
 ;                             use firefox (matters less) to see the real content-length
 
@@ -147,11 +148,7 @@ _start:
     and     rax,rax
     jnz     .listenerror
     ; inform user that the server is listening
-    mov     rsi,server_listening
-    mov     rdx,server_listening.length
-    mov     rdi,STDOUT
-    mov     rax,SYS_WRITE
-    syscall
+    syscall write,stdout,server_listening,server_listening.length
 .acceptloop:
     syscall accept,qword[sockfd],0,0
     test     rax,rax
