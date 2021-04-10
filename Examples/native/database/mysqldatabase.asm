@@ -1,7 +1,7 @@
 ;name: mysqldatabases.asm
 ;
 ;build: nasm -felf64 mysqldatabases.asm -o mysqldatabases.o 
-;       ld -melf_x86_64 -o mysqldatabases mysqldatabases.o -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 -lmysqlclient
+;       ld -melf_x86_64 -o mysqldatabases mysqldatabases.o --dynamic-linker /lib64/ld-linux-x86-64.so.2 -lmysqlclient
 ;
 ;description: example how to query a mysql server.
 ;
@@ -32,7 +32,7 @@ section .bss
 
 section .rodata:
 
-    host:       db  "agguro.net",0
+    host:       db  "localhost",0
     port:       dq  3306
     user:       dq  "test",0
     password:   dq  "test",0

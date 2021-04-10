@@ -1,48 +1,22 @@
 ;name: mysqluuid.asm
 ;
-;build: nasm -felf64 mysqluuid.asm -o mysqluuid.o 
-;       ld -melf_x86_64 -o mysqluuid mysqluuid.o --dynamic-linker /lib64/ld-linux-x86-64.so.2 -lmysqlclient
-;
 ;description: As an alternative for the uuid example, we can get a uuid from mysql server.
 ;             The benefit is that mysql keeps track of unique uuids but then you need to have access to one.
-;
-;to build: you need libmysqlclient libary. (sudo apt-get install libmysqlclient)
 
 bits 64
 
-[list -]
-    extern    mysql_close
-    extern    mysql_errno
-    extern    mysql_error
-    extern    mysql_fetch_row
-    extern    mysql_free_result
-    extern    mysql_init
-    extern    mysql_query
-    extern    mysql_real_connect
-    extern    mysql_server_end
-    extern    mysql_server_init
-    extern    mysql_use_result    
-    %include  "unistd.inc"
-[list +]
+%include "../../../qmake/database/mysqluuid/mysqluuid.inc"
+
+global main
 
 section .bss
-
+;uninitialized read-write data 
     conn:       resq  1
     result:     resq  1
     row:        resq  1
 
-section .rodata:
-
-    host:       db  "localhost",0
-    port:       dq  3306
-    user:       dq  "test",0
-    password:   dq  "test",0
-    database:   db  "test",0
-    socket:     dq  0
-    clientflag: dq  0
-
 section .data
-
+;initialized read-write data
     strserverinit:  db  "MySQL library could not be initialized",10
     .len:           equ $-strserverinit
     strobjinit:     db  "MySQL init object failed", 10
@@ -51,12 +25,24 @@ section .data
     .len:           equ $-strresult
     strfetchrow:    db  "MySQL fetch row error", 10
     .len:           equ $-strfetchrow
-    query:                      db  "select uuid()",0
-    
+    query:          db  "select uuid()",0
+
+section .rodata
+;read-only data
+    host:       db  "localhost",0
+    port:       dq  3306
+    user:       dq  "test",0
+    password:   dq  "test",0
+    database:   db  "test",0
+    socket:     dq  0
+    clientflag: dq  0
+
 section .text
 
-global _start
-_start:
+main:
+    push    rbp
+    mov     rbp,rsp
+
     ;connect to mysql server
     ;not an embedded MySQL so all arguments must be zero
     xor     rdi, rdi
@@ -70,34 +56,34 @@ _start:
     call    mysql_init
     and     rax, rax
     jz      errobjinit
-    ; no errors, connect and login 
-    mov     qword[conn], rax                 ; save *mysql
-    mov     rdi, rax                          ; value of mysql = pointer to mysql instance of connection
-    push    0                                 ; the value of clientflags or NULL if none
-    push    0                                 ; the value of socket or NULL if none
-    mov     r9d, dword[port]                 ; the value of the port to connect to               
-    mov     r8,database                            ; pointer to zero terminated database string
+    ; no errors, connect and login
+    mov     qword[conn], rax          ; save *mysql
+    mov     rdi, rax                  ; value of mysql = pointer to mysql instance of connection
+    push    0                         ; the value of clientflags or NULL if none
+    push    0                         ; the value of socket or NULL if none
+    mov     r9d, dword[port]          ; the value of the port to connect to
+    mov     r8,database               ; pointer to zero terminated database string
     mov     rcx, password             ; pointer to zero terminated password string
     mov     rdx, user                 ; pointer to zero terminated user string
     mov     rsi, host                 ; pointer to zero terminated host string
-    call    mysql_real_connect                ; connect
-    pop     rdx                               ; restore stackpointer
+    call    mysql_real_connect        ; connect
+    pop     rdx                       ; restore stackpointer
     pop     rdx
-    sub     rax, qword[conn]                 ; if conn == pointer to mysql instance then succes
-    and     rax, rax      
+    sub     rax, qword[conn]          ; if conn == pointer to mysql instance then succes
+    and     rax, rax
     jnz     errconnect
     ; We are connected, execute the query
 
-    mov     rsi, query                        ; pointer to zero terminated query string
-    mov     rdi, qword[conn]                 ; value of mysql = pointer to mysql instance of connection
-    call    mysql_query                       ; query the server
+    mov     rsi, query                ; pointer to zero terminated query string
+    mov     rdi, qword[conn]          ; value of mysql = pointer to mysql instance of connection
+    call    mysql_query               ; query the server
     ; check for errors
-    mov     rdi, qword[conn]                 ; check if an error occured
+    mov     rdi, qword[conn]          ; check if an error occured
     call    mysql_errno
     and     rax, rax
     jnz     errerror
     mov     rdi, qword[conn]
-    call    mysql_use_result                  ; we don't ask all the records at once (less client side memory)
+    call    mysql_use_result          ; we don't ask all the records at once (less client side memory)
     and     rax, rax
     jz      errresult
     ; get databases from resultset
@@ -110,10 +96,10 @@ nextrecord:
     ; we have to loop this procedure until the row == null
     ; after row == null received always check first for errors
     and     rax, rax
-    jz      norows                            ; any record left?
-    cmp     rax, 2000                         ; unknown error
+    jz      norows                    ; any record left?
+    cmp     rax, 2000                 ; unknown error
     je      errerror
-    cmp     rax, 2013                         ; connection lost
+    cmp     rax, 2013                 ; connection lost
     je      errerror
     mov     qword[row], rax
     ; print the record
@@ -124,10 +110,10 @@ nextrecord:
     add     rax, rsi
     inc     rdx
     mov     byte[rax], 0x0A
-    call    string2stdout   
+    call    string2stdout
     ;go for next record
     jmp     nextrecord
-norows:      
+norows:
     mov     rdi, qword[conn]
     call    mysql_errno
     and     rax, rax
@@ -138,10 +124,14 @@ norows:
 closeconnection:
     mov     rdi, qword[conn]
     call    mysql_close
-endserver:        
+endserver:
     call    mysql_server_end
 exit:
-    syscall exit, 0
+
+    xor     rax,rax             ;return error code
+    mov     rsp,rbp
+    pop     rbp
+    ret                         ;exit is handled by compiler
 
 errserverinit:
     mov     rsi, strserverinit
@@ -158,7 +148,7 @@ errconnect:
     jmp     errerror.@1
 errerror:
     push    closeconnection
-.@1:     
+.@1:
     mov     rdi, qword[conn]
     call    mysql_error
     mov     rsi, rax
@@ -179,19 +169,19 @@ errfetchrow:
     mov     rsi, strfetchrow
     mov     rdx, strfetchrow.len
     call    string2stderr
-    jmp     closeconnection   
+    jmp     closeconnection
 
 string2stderr:
     push    rcx
     push    r11
     mov     rdi, stderr
     jmp     _syscallwrite
-    
+
 string2stdout:
     push    rcx
     push    r11
     mov     rdi, stdout
-_syscallwrite:     
+_syscallwrite:
     syscall write, rdi, rsi, rdx
     pop     r11
     pop     rcx

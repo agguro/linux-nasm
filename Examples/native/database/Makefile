@@ -15,3 +15,6 @@ clean:
 	$(NASM) $(NASMOPTS) -o $@.o $<
 	$(LD) $(LDOPS) -o $@ $@.o $(LIBS)
 	rm -f $@.o
+
+strip: $(BIN)
+	strip -s $(BIN)
