@@ -1,4 +1,0 @@
-struct mystr {
-	uint16_t a;
-	uint64_t  b;
-};
