@@ -6,4 +6,4 @@
 #### sslsocket
  program to get the web contents of a https site
 
- libssl-dev libgcrypt20-dev are required for sslsocket example
+    libssl-dev libgcrypt20-dev are required for sslsocket example
