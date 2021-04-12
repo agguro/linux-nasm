@@ -12,4 +12,4 @@
  #### elf64header
  demo on how to writre really tiny programs from [muppetlabs](http://www.muppetlabs.com/~breadbox/software/tiny/teensy.html) and [markloiseau blog](http://blog.markloiseau.com/2012/05/tiny-64-bit-elf-executables/)
 
-to run the examples qemu is required.
+    [Qemu](https://www.qemu.org/) to run the examples
