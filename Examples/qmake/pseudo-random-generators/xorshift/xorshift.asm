@@ -5,7 +5,7 @@
 ;             http://en.wikipedia.org/wiki/Xorshift
 ;             at the end a list of generated numbers is shown
 ;
-;example output:
+;example:
 ;3,1,9,8,2,9,9,5,3,1,6,5,9,3,2,8,7,4,4,1,2,4,6,6,6,3,8,3,8,7,9,
 ;4,3,4,6,6,5,2,4,1,6,5,8,3,1,3,4,9,6,4,4,4,5,4,8,8,9,5,5,8,2,9,
 ;3,2,4,2,4,8,1,9,8,2,5,6,3,8,7,5,9,9,7,3,9,3,3,3,3,2,3,7,3,5,7,
@@ -27,19 +27,17 @@
 
 bits 64
 
-[list -]
-    %include "unistd.inc"
-[list +]
+%include "../../../qmake/pseudo-random-generators/xorshift/xorshift.inc"
 
-;255 is maximum number for this program
-%define MAXNUMBERS  255
-;linefeed
-%define LF          10
+global main
 
 section .bss
-    buffer:         resb 1
-    
+;uninitialized read-write data 
+    buffer: resb 1
+
 section .data
+;initialized read-write data
+
     random:         db  "0"
     .len:           equ $-random
     ; the array to store the frequency of each individual number
@@ -48,13 +46,17 @@ section .data
     .len:           equ $-tableline1
     tableline2:     db  "'s : "
     .len:           equ $-tableline2
-     
+
+section .rodata
+;read-only data
+
 section .text
 
-global _start       
-_start:
+main:
+    push    rbp
+    mov     rbp,rsp
     mov     rcx,MAXNUMBERS                  ;initialize outer-loop counter
-.repeat:      
+.repeat:
     push    rcx
     mov     rdi,random                      ;bufferaddress in RDI
     ;generate numbers in the interval [1,9]
@@ -73,7 +75,7 @@ _start:
     call    nibble2hexascii
     cld
     stosb
-    syscall write,stdout,random,random.len  
+    syscall write,stdout,random,random.len
     pop     rcx                             ;restore outer-loop counter
     dec     rcx
     and     rcx, rcx
@@ -92,7 +94,7 @@ _start:
     push    rsi
     mov     rsi,tableline1
     mov     rdx,tableline1.len
-    call    writeLine      
+    call    writeLine
     mov     rax,10
     sub     rax,rcx
     call    byte2decascii
@@ -108,9 +110,14 @@ _start:
     mov     al,LF
     call    writeChar
     loop    .nextLine
-    syscall exit,0
-    
+    xor     rax,rax             ;return error code
+    mov     rsp,rbp
+    pop     rbp
+    ret                         ;exit is handled by compiler
+
 generateRandom:
+    push    rbx
+    push    rdx
 ;in rax : lower boundary of interval
 ;   rdx : higher boundary of interval
     ;calculate interval len
@@ -134,11 +141,14 @@ generateRandom:
     pop     rax             ;restore lower boundary
     add     rdx,rax         ;add lower boundary to random number
     mov     rax,rdx         ;rax is number in interval [rax,rdx]
+    pop     rdx
+    pop     rbx
     ret
 
 ;XORSHIFT algorithm
 xorShift:
-    mov     rdx,rax        
+    push    rdx
+    mov     rdx,rax
     shl     rax,13
     xor     rax,rdx
     mov     rdx,rax
@@ -147,10 +157,12 @@ xorShift:
     mov     rdx,rax
     shl     rax,5
     xor     rax,rdx         ;rax random 64 bit value
+    pop     rdx
     ret
-    
+
 ;write a decimal in eax to STDOUT
 writeDecimal:
+    push    rax
     ror     eax,16
     and     al,al
     jz      gettenthts
@@ -163,8 +175,9 @@ gettenthts:
 getdigits:
     rol     eax,8
     call    writeChar
+    pop     rax
     ret
-    
+
 ;write a character in al to stdout
 writeChar:
     push    rdx
@@ -172,13 +185,15 @@ writeChar:
     mov     byte[buffer],al
     mov     rdx,1
     mov     rsi,buffer
-    jmp     writeLine.write
-    
+    call     writeLine
+    pop     rsi
+    pop     rdx
+    ret
+
 ;write a string pointed by rsi with len rdx to stdout
 writeLine:
     push    rdx
     push    rsi
-.write:
     push    rdi
     push    rcx
     push    rax
@@ -201,7 +216,7 @@ byte2decascii:
     xor     rcx,rcx
     xor     r8,r8
     mov     rbx,10
-.l1:      
+.l1:
     xor     rdx,rdx
     idiv    rbx
     or      dl,"0"
