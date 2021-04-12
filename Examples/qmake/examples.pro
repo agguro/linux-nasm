@@ -5,4 +5,5 @@ SUBDIRS += \
     basics \
     database \
     ipc \
-    network
+    network \
+    pseudo-random-generators
