@@ -13,12 +13,9 @@ section .bss
 
 section .data
 
+section .rodata
+
 section .text
 
-global main
-
-;this is a dummy procedure, replace by your own
-_proc main
-
-_endp main
+;TODO start code here
 

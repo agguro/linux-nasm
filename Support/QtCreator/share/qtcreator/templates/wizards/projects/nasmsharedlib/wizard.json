@@ -87,16 +87,6 @@
                     "openInEditor": true
                 },
 				{
-                    "source": "Makefile",
-                    "target": "Makefile",
-                    "openInEditor": false
-                },
-                {
-                    "source": "got.macros",
-                    "target": "got.macros",
-                    "openInEditor": false
-                },
-				{
                     "source": "../git.ignore",
                     "target": ".gitignore",
                     "condition": "%{JS: ! %{IsSubproject} && '%{VersionControl}' === 'G.Git'}"
