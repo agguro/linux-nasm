@@ -8,4 +8,4 @@ SUBDIRS += \
     ipc \
     network \
     pseudo-random-generators \
-    qtinternals
+    qt
