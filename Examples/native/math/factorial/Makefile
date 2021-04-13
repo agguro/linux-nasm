@@ -1,7 +1,6 @@
 .PHONY: all clean
 
-all: $(BIN)
-	$(MAKE) facrecursive
+all: facrecursive
 
 clean:
 	rm -rf facrecursive facrecursive.o
