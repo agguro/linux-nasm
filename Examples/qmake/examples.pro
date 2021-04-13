@@ -1,11 +1,12 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    X11 \
     avx \
     basics \
     database \
     ipc \
+    math \
     network \
     pseudo-random-generators \
-    qt
+    qt \
+    X11 \
