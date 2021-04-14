@@ -2,6 +2,6 @@
 %define _%{JS: Cpp.headerGuard('%{FileName}')}_INC_
 
 %include "unistd.inc"
-%include "got.macros"
+%include "sharedlib.inc"
 
 %endif

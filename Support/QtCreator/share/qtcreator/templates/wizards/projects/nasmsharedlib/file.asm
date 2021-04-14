@@ -1,9 +1,9 @@
 ;name: %{FileName}.asm
 ;
-;description: shared library %{FileName}.so
+;description: shared library lib%{FileName}.so
 ;
-;remark: use objdump -T %{FileName}.so | grep "DF" for exported functions
-;            objdump -T %{FileName}.so | grep "DO" for exported symbols
+;remark: use objdump -T lib%{FileName}.so | grep "DF" for exported functions
+;            objdump -T lib%{FileName}.so | grep "DO" for exported symbols
 
 bits 64
 
