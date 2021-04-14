@@ -1,4 +1,4 @@
-BIN=x11info
+BIN=x11info x11hello
 
 NASM=/usr/bin/nasm
 NASMOPTS=-felf64 -Fdwarf

@@ -1,6 +1,7 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
+    testlibs \
     dynamic \
-    static \
-    testlibs
+    static
+
