@@ -5,6 +5,7 @@ SUBDIRS += \
     basics \
     database \
     ipc \
+    libraries \
     math \
     network \
     pseudo-random-generators \
