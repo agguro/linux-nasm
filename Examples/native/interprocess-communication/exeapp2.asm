@@ -1,9 +1,9 @@
-;Name:        exeapp2.asm
+;name:        exeapp2.asm
 ;
-;Build:       nasm -felf64 exeapp2.asm -o exeapp2.o
+;build:       nasm -felf64 exeapp2.asm -o exeapp2.o
 ;             ld -melf_x86_64 -o exeapp2 exeapp2.o
 ;
-;Description: Demonstration on how to execute a program with commandline arguments
+;description: Demonstration on how to execute a program with commandline arguments
 ;             from within a program.
 ;             This example, as extension of exeapp2, shows how to pass arguments.
 ;             Assumed is the presence of the program arguments.

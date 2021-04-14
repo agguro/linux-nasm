@@ -1,9 +1,9 @@
-;Name:        extxterm.asm
+;name:        extxterm.asm
 ;
-;Build:       nasm -felf64 extxterm.asm -o extxterm.o
+;build:       nasm -felf64 extxterm.asm -o extxterm.o
 ;             ld -s -melf_x86_64 -o extxterm extxterm.o
 ;
-;Description: redirect stderr to a separate terminal, xterm in this example.
+;description: redirect stderr to a separate terminal, xterm in this example.
 
 
 bits 64

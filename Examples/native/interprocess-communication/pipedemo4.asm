@@ -1,17 +1,17 @@
-; Name          : pipedemo4.asm
+;name          : pipedemo4.asm
 ;
-; Build         : nasm -felf64 pipedemo4.asm z -o pipedemo4.o
-;                 ld -s -melf_x86_64 -o pipedemo4 pipedemo4.o
+;build         : nasm -felf64 pipedemo4.asm z -o pipedemo4.o
+;                ld -s -melf_x86_64 -o pipedemo4 pipedemo4.o
 ;
-; Description   : A demonstration on pipes based on an example from Beej's Guide to IPC
-;                 Here the program opens the write end of the pipe, writes data in it
-;                 and retrieve it through the read end of the pipe.  The buffer must be large
-;                 enough, a to small buffer leads to loss of data because not all data will be
-;                 read from the pipe.
+;description   : A demonstration on pipes based on an example from Beej's Guide to IPC
+;                Here the program opens the write end of the pipe, writes data in it
+;                and retrieve it through the read end of the pipe.  The buffer must be large
+;                enough, a to small buffer leads to loss of data because not all data will be
+;                read from the pipe.
 ;
-; Source        : Beejs guide to IPC - http://beej.us/guide/bgipc/output/html/multipage/pipes.html
+;source        : Beejs guide to IPC - http://beej.us/guide/bgipc/output/html/multipage/pipes.html
 ;
-; August 24, 2014 : assembler 64 bits version
+;August 24, 2014 : assembler 64 bits version
  
 bits 64
  

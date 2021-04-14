@@ -1,13 +1,13 @@
-;Name:        pipedemo2.asm
+;name:        pipedemo2.asm
 ;
-;Build:       nasm -felf64 pipedemo2.asm -l pipedemo2.lst -o pipedemo2.o
+;build:       nasm -felf64 pipedemo2.asm -l pipedemo2.lst -o pipedemo2.o
 ;             ld -s -melf_x86_64 -o pipedemo2 pipedemo2.o 
 ; 
-;Description: Same program as pipedemo1, but this time with Fork.
+;description: Same program as pipedemo1, but this time with Fork.
 ;             The child writes the messages to the pipe. The parent will read the messages
 ;             from the read-end of the pipe and displays them.
 ;
-;Source:      Internet
+;source:      Internet
 
 bits 64
 

@@ -1,9 +1,9 @@
-;Name:         forkdemo.asm
+;name:         forkdemo.asm
 ;
-;Build:        nasm "-felf64" forkdemo.asm -l forkdemo.lst -o forkdemo.o
+;build:        nasm "-felf64" forkdemo.asm -l forkdemo.lst -o forkdemo.o
 ;              ld -s -melf_x86_64 -o forkdemo forkdemo.o
 ;
-;Description:  This is my first attempt to play around with the fork syscall.
+;description:  This is my first attempt to play around with the fork syscall.
 ;              When the program starts the parent process executes, create a child process which
 ;              in turn fork a second child process.  Each process either parent, child1 and child2 acts like
 ;              a binary counter each with their own time interval and number of iterations.  Each process has
@@ -11,7 +11,7 @@
 ;              converted into decimal (speed it up) and an address in memory where the routine for each process
 ;              respectively starts.  All this together is put in a datastructure PROCESS_STRUC.
 ;
-;Remark:       This example was made on Ubuntu 14.  The escape codes works in my terminal. If you should encounter a bad
+;remark:       This example was made on Ubuntu 14.  The escape codes works in my terminal. If you should encounter a bad
 ;              layout on screen, try changing the escape codes.
 ;              see man 4 console_codes for the codes.
 

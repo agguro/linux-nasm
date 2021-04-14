@@ -1,9 +1,9 @@
-;Name:        exeapp3.asm
+;name:        exeapp3.asm
 ;
-;Build:       nasm -felf64 exeapp3.asm -o exeapp3.o
+;build:       nasm -felf64 exeapp3.asm -o exeapp3.o
 ;             ld -s -melf_x86_64 -o exeapp3 exeapp3.o
 ;
-;Description: Demonstration on how to execute a bash script from a program and the environment parameters.
+;description: Demonstration on how to execute a bash script from a program and the environment parameters.
 ;             be sure that the script is set executable with chmod +x
 ;             We set an environment parameter TESTVAR to a value and read it out with the script test.sh.
 ;             Running the script directly doesn't display the TESTVAR value. (unless someone has defined it already)

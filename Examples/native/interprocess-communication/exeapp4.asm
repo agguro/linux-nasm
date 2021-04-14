@@ -1,20 +1,20 @@
-;Name:        exeapp4.asm
+;name:        exeapp4.asm
 ;
-;Build:       nasm "-felf64" exeapp4.asm -l exeapp4.lst -o exeapp4.o
+;build:       nasm "-felf64" exeapp4.asm -l exeapp4.lst -o exeapp4.o
 ;             ld -s -melf_x86_64 -o exeapp4 exeapp4.o
 ;
-;Description: Demonstration on how to execute a program / shell script from within an assembler program.
+;description: Demonstration on how to execute a program / shell script from within an assembler program.
 ;             Let's make ourself an application that directly opens our favorite website with just a mouseclick in
 ;             our favorite webbrowser.
 ;             We need to define the DISPLAY parameter to tell the application to which display we need to write it.
 ;
-;More info:   http://geoffgarside.co.uk/2009/08/28/using-execve-for-the-first-time/
+;more info:   http://geoffgarside.co.uk/2009/08/28/using-execve-for-the-first-time/
 ;
-;Remarks:     Passing arguments more than the url via the arguments list doesn't have any effect, however when we add
+;remarks:     Passing arguments more than the url via the arguments list doesn't have any effect, however when we add
 ;             the options in the command string, we can run firefox in a new tab like I would.
 ;             Problem solved.
 ;
-;Todo:        - extend the program to check wether the user runs in a textbased or gui-based terminal and apply the right browser.
+;todo:        - extend the program to check wether the user runs in a textbased or gui-based terminal and apply the right browser.
 ;             - config file to read favorite browser.
 ;             - solving: "Permission denied.  dconf will not work properly." problem
 

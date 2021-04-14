@@ -1,13 +1,13 @@
-;Name:        pipedemo3.asm
+;name:        pipedemo3.asm
 ;
-;Build:       nasm -felf64 pipedemo3.asm -o pipedemo3.o
+;build:       nasm -felf64 pipedemo3.asm -o pipedemo3.o
 ;             ld -melf_x86_64 -o pipedemo3 pipedemo3.o
 ;
-;Description: In this example a parent process write into the pipe.  The child process then
+;description: In this example a parent process write into the pipe.  The child process then
 ;             displays the message, processed on screen from the pipe by CHARSTOREAD characters
 ;             at the time.  The message will be chopped and displayed.
 ;
-;Source:      Internet
+;source:      Internet
 ;             The original source displays also the number of chars read by the child
 ;             process at the time.  This is removed here.
 

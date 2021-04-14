@@ -1,14 +1,14 @@
-;Name:        pipedemo5.asm
+;name:        pipedemo5.asm
 ;
-;Build:       nasm -felf64 pipedemo5.asm -l pipedemo5.lst -o pipedemo5.o
+;build:       nasm -felf64 pipedemo5.asm -l pipedemo5.lst -o pipedemo5.o
 ;             ld -s -melf_x86_64 -o pipedemo5 pipedemo5.o
 ;
-;Description: A demonstration on pipes and fork based on an example from Beej's Guide to IPC
+;description: A demonstration on pipes and fork based on an example from Beej's Guide to IPC
 ;             This is the same example as pipedemo4.asm but with that difference that the
 ;             programs forks, the child process writes into the pipe and the parent process reads
 ;             from the pipe.
 ;
-;Source:      Beejs guide to IPC - http://beej.us/guide/bgipc/output/html/multipage/pipes.html
+;source:      Beejs guide to IPC - http://beej.us/guide/bgipc/output/html/multipage/pipes.html
 ;
 ;
 ;August 24, 2014: assembler 64 bits version

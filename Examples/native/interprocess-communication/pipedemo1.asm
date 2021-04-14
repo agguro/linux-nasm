@@ -1,18 +1,19 @@
-;Name:        pipedemo1.asm
+;name:        pipedemo1.asm
 ;
-;Build:       nasm -felf64 -o pipedemo1.o pipedemo1.asm
+;build:       nasm -felf64 -o pipedemo1.o pipedemo1.asm
 ;             ld -melf_x86_64 -o pipedemo1 pipedemo1.o
 ;
-;Description: The program creates a pipe, writes three message in it,
+;description: The program creates a pipe, writes three message in it,
 ;             read on the other end of the pipe and displayed on stdout.
 ;
-;Source       Internet
+;source       Internet
 
 bits 64
  
 [list -]
     %include "unistd.inc"
     %define MSGSIZE  8
+    %define EOL 10
 [list +]
 
 section .bss

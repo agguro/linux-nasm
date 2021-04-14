@@ -1,4 +1,4 @@
-BIN=fork1 sigint sigusr pipe1 pipe2 pipe3 speak tick lockdemo kirk spock semdemo semrm shmdemo mmapdemo echoc echos spair forkdemo exeapp1 exeapp2 exeapp3 exeapp4 sigfpe threads  pipedemo1 pipedemo2 pipedemo3 pipedemo4 pipedemo5 pipedemo6 extxterm
+BIN= exeapp1 exeapp2 exeapp3 exeapp4 extxterm forkdemo pipedemo1 pipedemo2 pipedemo3 pipedemo4 pipedemo5 pipedemo6 forkdemo sigfpe threads
 
 NASM=/usr/bin/nasm
 NASMOPTS=-felf64 -Fdwarf
