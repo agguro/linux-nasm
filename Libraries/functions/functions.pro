@@ -23,7 +23,10 @@ unix {
 !isEmpty(target.path): INSTALLS += target
 
 NASM_SOURCES += \
-    ftok.asm \
-    pagesize.asm \
-    leapyear.asm \
+../source/ftok.asm \
+../source/leapyear.asm \
+../source/pagesize.asm
+
+DISTFILES += \
+
 
