@@ -10,10 +10,8 @@ LST         = .lst
 ASFLAGS     = "-felf64"
 LDFLAGS     = -s -melf_x86_64
 LIST        =
-SHAREDLIBS  = ./shared-library/sharedlib.so.1
-STATICLIBS  = static-library/staticlib.a
-SHAREDLIBSDEV  = ./shared-library/sharedlib.so.1
-STATICLIBSDEV  = static-library/staticlib-dev.a
+SHAREDLIBS  = shared/libshared.so
+STATICLIBS  = static/libstatic.a
 
 OBJS = $(NAME)$(O)
 
@@ -28,7 +26,7 @@ all:
 	$(MAKE) release
 	
 debug:
-	$(MAKE) $(NAME) ASFLAGS="-felf64 -Fdwarf" LDFLAGS="-g -melf_x86_64" LIST="-l $(NAME)$(LST)" SHAREDLIBS=$(SHAREDLIBSDEV) STATICLIBS=$(STATICLIBSDEV)
+	$(MAKE) $(NAME) ASFLAGS="-felf64 -Fdwarf" LDFLAGS="-g -melf_x86_64" LIST="-l $(NAME)$(LST)"
 
 release:
 	$(MAKE) $(NAME) ASFLAGS="-felf64" LDFLAGS="-melf_x86_64"

@@ -1,14 +1,14 @@
 ;name: libexample.asm
 ;
-;description: test file for shared (libhello.so) and static (libhello.a) library
+;description: test file for shared (libshared.so) and static (libstatic.a) library
 ;
 ;build:
 ;   release:
 ;       nasm -felf64 libexample.asm  -o libexample.o
-;       ld ./shared-library/sharedlib.so.1 --dynamic-linker /lib64/ld-linux-x86-64.so.2 -melf_x86_64 -o libexample libexample.o static-library/staticlib.a -R .
+;       ld ./shared/libshared.so --dynamic-linker /lib64/ld-linux-x86-64.so.2 -melf_x86_64 -o libexample libexample.o static/libstatic.a -R .
 ;   debug:
 ;       nasm -felf64 -Fdwarf libexample.asm -l libexample.lst -o libexample.o
-;       ld ./shared-library/sharedlib.so.1 --dynamic-linker /lib64/ld-linux-x86-64.so.2 -g -melf_x86_64 -o libexample libexample.o static-library/staticlib-dev.a -R .
+;       ld ./shared/libshared.so --dynamic-linker /lib64/ld-linux-x86-64.so.2 -g -melf_x86_64 -o libexample libexample.o static/libstatic.a -R .
 
 bits 64
 
