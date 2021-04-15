@@ -1,11 +1,13 @@
 ;name: notify.asm
 ;
-;description:
+;description: This example comes from stackoverflow (https://stackoverflow.com/questions/20317417/nasm-notify-send/64191219#64191219).
+;             You must install libnotify-dev to have this one build.
+;             The program sends from a terminal a notification message to linux desktop (GUI) wich pops up at the upper right corner in my case.
 ;
 
 bits 64
 
-%include "../../../qmake/ipc/notify/notify.inc"
+%include "../notify/notify.inc"
 
 global main
 
