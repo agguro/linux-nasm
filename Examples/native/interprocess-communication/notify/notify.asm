@@ -1,9 +1,9 @@
-;Name:        notify.asm
+;name:        notify.asm
 ;
-;Build:       nasm -felf64 -Fdwarf -o notify.o notify.asm
+;build:       nasm -felf64 -Fdwarf -o notify.o notify.asm
 ;             ld -melf_x86_64 -g --dynamic-linker /lib64/ld-linux-x86-64.so.2 -o notify notify.o -lc -lnotify
 ;
-;Description: This example comes from stackoverflow (https://stackoverflow.com/questions/20317417/nasm-notify-send/64191219#64191219).  Because the original code couldn't be build with the use of gcc, it's slightly modified to build
+;description: This example comes from stackoverflow (https://stackoverflow.com/questions/20317417/nasm-notify-send/64191219#64191219).  Because the original code couldn't be build with the use of gcc, it's slightly modified to build
 ;             it the what  I call hardcore assemble and link.  You  must install libnotify-dev to have this one build.
 ;             The program sends from a terminal a notification message to linux desktop (GUI) wich pops up at the upper right corner in my case.
 
