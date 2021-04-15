@@ -42,8 +42,6 @@ section .rodata
 section .text
 
 main:
-    push    rbp
-    mov     rbp,rsp
 
     syscall fork
     and     rax,rax
@@ -62,8 +60,5 @@ main:
     jns     .exit
     syscall write,stderr,execveerror,execveerror.len
 .exit:
-
     xor     rax,rax             ;return error code
-    mov     rsp,rbp
-    pop     rbp
     ret                         ;exit is handled by compiler

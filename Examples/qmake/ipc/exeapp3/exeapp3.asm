@@ -40,12 +40,23 @@ section .rodata
 section .text
 
 main:
-    push    rbp
-    mov     rbp,rsp
 
-    ;TODO: put your code here...
-
+    syscall fork
+    and     rax,rax
+    jns     .continue
+    syscall write,stderr,forkerror,forkerror.len
+    jmp     .exit
+.continue:
+    jz      .runchild
+; wait for child to terminate
+    syscall wait4, 0, 0, 0, 0
+    jns     .exit
+    syscall write,stderr,wait4error,wait4error.len
+    jmp     .exit
+.runchild:
+    syscall execve,filename,argvPtr,envPtr
+    jns     .exit
+    syscall write,stderr,execveerror,execveerror.len
+.exit:
     xor     rax,rax             ;return error code
-    mov     rsp,rbp
-    pop     rbp
     ret                         ;exit is handled by compiler

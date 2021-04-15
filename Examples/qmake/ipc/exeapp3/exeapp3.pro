@@ -19,3 +19,12 @@ NASM_SOURCES += exeapp3.asm
 
 
 HEADERS += exeapp3.inc
+
+copydata.commands = $(COPY_FILE) $$PWD/test.sh $$OUT_PWD
+first.depends = $(first) copydata
+export(first.depends)
+export(copydata.commands)
+QMAKE_EXTRA_TARGETS += first copydata
+
+DISTFILES += \
+    test.sh
