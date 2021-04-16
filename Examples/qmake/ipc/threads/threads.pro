@@ -19,3 +19,5 @@ NASM_SOURCES += threads.asm
 
 
 HEADERS += threads.inc
+
+DISTFILES +=

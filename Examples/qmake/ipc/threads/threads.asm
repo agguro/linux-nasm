@@ -6,7 +6,7 @@
 ;             and new threads are spawned with the clone syscall.
 ;             Synchronization is achieved with the x86 `lock` instruction prefix.
 ;
-;source:       [Raw Linux Threads via System Calls](http://nullprogram.com/blog/2015/05/15/)
+;source:      [Raw Linux Threads via System Calls](http://nullprogram.com/blog/2015/05/15/)
 
 bits 64
 
@@ -20,9 +20,9 @@ section .bss
 section .data
 ;initialized read-write data
     count:  dq MAX_LINES
-    hello:  db `Hello from \e[93;1mmain!\e[0m\n\0`
-    hello1: db `Hello from \e[91;1mthread 1!!\e[0m\n\0`
-    hello2: db `Hello from \e[96;1mthread 2!!\e[0m\n\0`
+    hello:  db "Hello from main!",10,0
+    hello1: db "Hello from thread 1!!",10,0
+    hello2: db "Hello from thread 2!!",10,0
 
 section .rodata
 ;read-only data
@@ -58,13 +58,12 @@ threadfn2:
 ; -- may not return
 check_count:
     mov	    rax, -1
-    lock   xadd [count], rax
+    lock    xadd [count], rax
     jl	    .exit
     ret
 .exit:
-    ;syscall exit,0
-    xor     rax,rax                             ;exit program
-    ret
+    ;don't use 'ret', the program will behave strang!
+    syscall exit,0                     ;exit program
 
 puts:
     mov	    rsi, rdi
