@@ -20,7 +20,7 @@ bits 64
 
     %define THREAD_FLAGS    CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_PARENT|CLONE_THREAD|CLONE_IO
     %define STACK_SIZE      (4096 * 1024)
-    %define MAX_LINES       10000                  ;number of output lines before exiting
+    %define MAX_LINES       100000                  ;number of output lines before exiting
 [list +]
 
 section .bss
@@ -89,5 +89,8 @@ thread_create:
     ret
 
 stack_create:
+    xor     r8,r8
+    dec     r8
+    xor     r9,r9
     syscall mmap, 0, STACK_SIZE,PROT_WRITE | PROT_READ,MAP_ANONYMOUS | MAP_PRIVATE | MAP_GROWSDOWN
     ret
