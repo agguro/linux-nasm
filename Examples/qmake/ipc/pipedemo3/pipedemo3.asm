@@ -5,7 +5,7 @@
 
 bits 64
 
-%include "../../../qmake/ipc/pipedemo3/pipedemo3.inc"
+%include "../pipedemo3/pipedemo3.inc"
 
 global main
 
