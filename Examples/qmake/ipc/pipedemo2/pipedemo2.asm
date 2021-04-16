@@ -41,8 +41,10 @@ main:
     ; open pipe
     syscall pipe, p
     jns     fork
+    push    rax
     syscall write, stdout, pipeerror, pipeerror.length
-    jmp     exit
+    pop     rax                 ;return error
+    ret
 
 fork:
     ; fork the process
@@ -50,8 +52,10 @@ fork:
     and     rax, rax
     jz      parent
     jnz     child
+    push    rax
     syscall write, stdout, forkerror, forkerror.length
-    jmp     exit
+    pop     rax                 ;return error
+    ret
 
     ; write down pipe
 child:
