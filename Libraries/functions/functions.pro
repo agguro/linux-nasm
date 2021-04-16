@@ -23,10 +23,14 @@ unix {
 !isEmpty(target.path): INSTALLS += target
 
 NASM_SOURCES += \
-../source/ftok.asm \
-../source/leapyear.asm \
-../source/pagesize.asm
-
-DISTFILES += \
+../source/c/ftok.asm \
+../source/c/pagesize.asm \
+../source/datetime/leapyear.asm \
+../source/datetime/daysinmonth.asm \
+../source/datetime/quadrimester.asm \
+../source/datetime/semester.asm \
+../source/datetime/shiftedmonth.asm \
+../source/datetime/trimester.asm \
+../source/system/sleep.asm
 
 

@@ -5,7 +5,6 @@
 ;description: the function calculates if a year in rdi (hexadecimal) is leap or not.
 ;             rax returns 0 if not leap otherwise 1
 
-
 bits 64
 
 global leapyear
