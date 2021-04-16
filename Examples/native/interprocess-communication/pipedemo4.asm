@@ -24,7 +24,7 @@ bits 64
     
 section .bss
 
-    ; pdfs
+    ; pfds
     pfds:
     .read:      resd    1           ;read end
     .write:     resd    1           ;write end
