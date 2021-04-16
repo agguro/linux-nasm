@@ -10,7 +10,7 @@
 
 bits 64
 
-%include "../../../qmake/ipc/threads/threads.inc"
+%include "../threads/threads.inc"
 
 global main
 
@@ -30,7 +30,6 @@ section .rodata
 section .text
 
 main:
-    int 3
 ;spawn a few threads
     mov	    rdi, threadfn1
     call    thread_create
@@ -63,7 +62,9 @@ check_count:
     jl	    .exit
     ret
 .exit:
-    syscall exit, 0
+    syscall exit,0
+    xor     rax,rax                             ;exit program
+    ret
 
 puts:
     mov	    rsi, rdi
@@ -84,5 +85,12 @@ thread_create:
     ret
 
 stack_create:
-    syscall mmap, 0, STACK_SIZE,PROT_WRITE | PROT_READ,MAP_ANONYMOUS | MAP_PRIVATE | MAP_GROWSDOWN
+    ;!!! r8=-1 and r9=0 when building this example with qmake (c/c++ libs)
+    ;!!! otherwise the syscall mmap returns with an error (ENOMEM in my case)
+    ;In a 'normal' build (native with nasm and ld) unitializing  r8 and r9 doesn't
+    ;seem to give problems.  Must be the C-library
+    mov     r8,-1
+    mov     r9,0
+    syscall mmap, 0, STACK_SIZE, PROT_WRITE | PROT_READ, MAP_ANONYMOUS | MAP_PRIVATE | MAP_GROWSDOWN
+
     ret

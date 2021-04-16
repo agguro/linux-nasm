@@ -4,7 +4,7 @@ CONFIG -= app_bundle
 CONFIG -= qt
 QMAKE_LFLAGS_RELEASE += -s -no-pie
 QMAKE_LFLAGS_DEBUG += -no-pie
-CONFIG += c++11 console
+CONFIG -= c++11 console
 CONFIG -= app_bundle
 
 QMAKE_EXTRA_COMPILERS += nasm
