@@ -62,7 +62,7 @@ check_count:
     jl	    .exit
     ret
 .exit:
-    syscall exit,0
+    ;syscall exit,0
     xor     rax,rax                             ;exit program
     ret
 
