@@ -48,7 +48,6 @@ startpipe:
     ; write msg3 to the pipe
     mov     edi, dword[p.write]
     syscall write, rdi, msg3, MSGSIZE
-
     xor     r8, r8                           ; init loopcounter
 .repeat:
     ; read MSGSIZE bytes from the pipe into the buffer
