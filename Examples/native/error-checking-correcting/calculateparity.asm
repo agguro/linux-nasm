@@ -1,7 +1,7 @@
-;name: calculateparity.asm
+;name: calculateparitybit.asm
 ;
-;build: nasm -f elf64 -o calculateparity.o calculateparity.asm
-;       ld calculateparity.o -o calculateparity
+;build: nasm -f elf64 -o calculateparitybit.o calculateparitybit.asm
+;       ld calculateparitybit.o -o calculateparitybit
 ;
 ;description: calculate parity bit
 ;
@@ -31,7 +31,7 @@ section .text
 global _start
 _start:
  
-    mov     rax, 0x123456789ABCDEF  ;value we calculate parity from
+    mov     rax, 0x123456789ABCDEF  ;value we calculate parity of
     call    printBinary             ;print in binary on screen
     call    parity                  ;calculate parity bit (in RAX)
     push    rax                     ;save parity bit on stack

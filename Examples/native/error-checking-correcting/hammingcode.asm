@@ -13,9 +13,9 @@ bits 64
     %include "unistd.inc"
 [list +]
 
-;The programs fixed values,first 4 bits are ignored in the generation of the Hammingcode word
-;and the checkbits are cleared.  Also bit 7 isn't used in the Hammingcode word because we can
-;only have 3 checkbits for 4 bits data.
+;The program changes values,first 4 bits are ignored in the generation of the Hammingcode word
+;and the checkbits are cleared.  Bit 7 isn't used in the Hammingcode word because we can only
+;have 3 checkbits for 4 bits of data.
 ;The bit on position 7 is the paritybit for the entire Hammingcode.
 ;Hammingcode words count the bits from left to right and starting with 1.
 
