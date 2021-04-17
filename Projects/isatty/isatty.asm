@@ -10,7 +10,7 @@ bits 64
 global main
 
 section .bss
-;uninitialized read-write data 
+;uninitialized read-write data
 
 section .data
     TERMIOS	termios                         ;termios structure

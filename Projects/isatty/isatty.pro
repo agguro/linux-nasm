@@ -4,7 +4,7 @@ CONFIG -= app_bundle
 CONFIG -= qt
 QMAKE_LFLAGS_RELEASE += -s -no-pie
 QMAKE_LFLAGS_DEBUG += -no-pie
-CONFIG += c++11 console
+CONFIG -= c++11 console
 CONFIG -= app_bundle
 
 QMAKE_EXTRA_COMPILERS += nasm
@@ -15,8 +15,12 @@ nasm.commands = nasm $$NASMEXTRAFLAGS -o ${QMAKE_FILE_BASE}.o ${QMAKE_FILE_NAME}
 nasm.input = NASM_SOURCES
 OTHER_FILES += $$NASM_SOURCES
 
-NASM_SOURCES += isatty.asm
+NASM_SOURCES += isatty.asm \
 
 HEADERS += isatty.inc
 
 LIBS += -lgtk-3 -lgobject-2.0  -lglib-2.0 -lgdk_pixbuf-2.0 -lgdk-3
+
+# don't add these files to NASM_SOURCES
+# the files are included into isatty.asm
+DISTFILES +=
