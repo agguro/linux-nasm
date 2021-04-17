@@ -1,4 +1,4 @@
-BIN=checkparity calculateparity hammingcode
+BIN=checkparitybit calculateparity hammingcode
 
 NASM=/usr/bin/nasm
 NASMOPTS=-felf64 -Fdwarf
