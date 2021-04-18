@@ -1,7 +1,17 @@
 ;name: isatty.asm
 ;
-;description:
+;description: check in which user environment the application is started and depending
+;             if it is an X-server or terminal (or terminal session in X-server) shows
+;             a different interface.
+;             The reason is to 'serve' a different interface for GUI, terminal session on a desktop,
+;             or a 'real' terminal.  An extra option is to modify the layout in regards to which
+;             terminal session is started (TERM=linux, xterm-..., etc..)
 ;
+;advantage: one program, multiple user interfaces
+;
+;disadvantage: binary is large when only using it for one kind of environment.
+;
+;agguro (c), 17 april 2021
 
 bits 64
 
