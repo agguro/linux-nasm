@@ -1,6 +1,6 @@
 ;name: httpserver.asm
 ;
-;description:
+;description: a basic http server from asmutils
 ;
 
 bits 64
