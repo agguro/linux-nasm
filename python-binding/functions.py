@@ -1,7 +1,7 @@
 from ctypes import *
-so_file = "./libpyfunctions.so"
-functions = CDLL(so_file)
 
-print(functions.square(10))
-print(functions.square(8))
-print(functions.square(-8))
+so_file = "./libpyfunctions.so"
+nasmfunctions = CDLL(so_file)
+
+def square(a):
+    return nasmfunctions.square(a)
