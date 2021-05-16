@@ -11,7 +11,7 @@ bits 64
 [list -]
     %include "unistd.inc"
     %include "sys/stat.inc"
-    %include "errors.inc"
+    %include "asm-generic/errno.inc"
 [list +]
 
     %define SCRIPT      'tty > /tmp/xterm_fifo;trap \"\" INT QUIT TSTP;exec<&-;exec>&-;while :;do sleep 3600;done'
