@@ -1,0 +1,30 @@
+;
+; How to test:  in a terminal type export CONTENT_LENGTH=[value for content length]
+;               start the application
+;               once 'parameters stripped from HTTP header: <i><b>' is on screen you can type your
+;               parameter-value pairs like an url string and press enter.
+;               You should see those in the output.
+;               example: export CONTENT_LENGTH=14
+;               as input a=10&b=20&c=30.
+
+;Remark:        Check if apache module cgi and fastcgi is enabled. On my test system
+;               this program gives initially a connection reset error.  This is because
+;               cgi, fastcgi or cgid wasn't enabled.
+;               Apparently mod-cgi is not enough to serve this program.
+;               sudo apt-get install libapache2-mod-fastcgi
+;               sudo a2enmod fastcgi
+;               sudo service apache2 restart
+
+; To test this application on the commandline you can export the QUERY_STRING with his value.
+; example in a terminal : export QUERY_STRING='=fname=firstname&lname=lastname&age=99'
+
+; Remark:      For those who like to observe the network traffic, you can use:
+;              sudo tcpdump -i lo -s0 -w capture.pcap to capture the network traffic in a file
+;              which you can open with wireshark.
+
+; (It could be the binary of this program too.)
+; If you should see errors instead of a download window check if fastcgi is enabled on your apache server.
+; appearantle mod-cgi alone isn't enough to serve this program
+; sudo apt-get install libapache2-mod-fastcgi
+; sudo a2enmod fastcgi
+; sudo service apache2 restart
