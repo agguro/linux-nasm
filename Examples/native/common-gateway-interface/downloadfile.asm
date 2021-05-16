@@ -7,7 +7,7 @@
 
 [list -]
     %include "unistd.inc"
-    %include "fcntl.inc"
+    %include "sys/fcntl.inc"
 [list +]
 
 bits 64
