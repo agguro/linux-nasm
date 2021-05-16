@@ -1,5 +1,5 @@
-%ifndef __ASM_GENERIC_SOCKIOS_INC
-%define __ASM_GENERIC_SOCKIOS_INC       1
+%ifndef __ASM_GENERIC_SOCKIOS_INC_
+%define __ASM_GENERIC_SOCKIOS_INC_
 
 ; Socket-level I/O control calls.
      %define FIOSETOWN        0x8901
@@ -10,4 +10,4 @@
      %define SIOCGSTAMP       0x8906         ; Get stamp (timeval)
      %define SIOCGSTAMPNS     0x8907         ; Get stamp (timespec)
 
-%endif ; __ASM_GENERIC_SOCKIOS_INC
+%endif ; __ASM_GENERIC_SOCKIOS_INC_
