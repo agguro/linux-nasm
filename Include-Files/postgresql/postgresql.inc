@@ -1,5 +1,5 @@
-%ifndef _ASM_POSTGRESQL_INC
-%define _ASM_POSTGRESQL_INC   1
+%ifndef _ASM_POSTGRESQL_INC_
+%define _ASM_POSTGRESQL_INC_
  
     extern  appendBinaryPQExpBuffer
     extern  appendPQExpBuffer
@@ -160,12 +160,12 @@
     extern  printfPQExpBuffer
     extern  resetPQExpBuffer
     extern  termPQExpBuffer
- 
+
     %define PG_COPYRES_ATTRS                                0x01
     %define PG_COPYRES_TUPLES                               0x02    ; Implies PG_COPYRES_ATTRS
     %define PG_COPYRES_EVENTS                               0x04
     %define PG_COPYRES_NOTICEHOOKS                          0x08
- 
+
     ; ConnStatusType
     %define CONNECTION_OK                    0
     %define CONNECTION_BAD                   1
@@ -176,14 +176,14 @@
     %define CONNECTION_SETENV,               6   ; Negotiating environment.
     %define CONNECTION_SSL_STARTUP,          7   ; Negotiating SSL.
     %define CONNECTION_NEEDED                8   ; Internal state: connect() needed
- 
+
     ; PostgresPollingStatusType
     %define PGRES_POLLING_FAILED      0
     %define PGRES_POLLING_READING     1   ; These two indicate that one may
     %define PGRES_POLLING_WRITING     2   ; use select before polling again.
     %define PGRES_POLLING_OK          3
     %define PGRES_POLLING_ACTIVE      4   ; unused; keep for awhile for backwards compatibility
- 
+
     ; ExecStatusType
     %define PGRES_EMPTY_QUERY         0   ; empty query string was executed
     %define PGRES_COMMAND_OK          1   ; a query command that doesn't return anything was executed properly by the backend
@@ -194,23 +194,23 @@
     %define PGRES_NONFATAL_ERROR      6   ; notice or warning message
     %define PGRES_FATAL_ERROR         7   ; query failed
     %define PGRES_COPY_BOTH           8   ; Copy In/Out data transfer in progress
- 
+
     ; PGTransactionStatusType
     %define PQTRANS_IDLE              0   ; connection idle
     %define PQTRANS_ACTIVE            1   ; command in progress
     %define PQTRANS_INTRANS           2   ; idle, within transaction block
     %define PQTRANS_INERROR           3   ; idle, within failed transaction
     %define PQTRANS_UNKNOWN           4   ; cannot determine status
- 
+
     ; PGVerbosity
     %define PQERRORS_TERSE          0   ; single-line error messages
     %define PQERRORS_DEFAULT        1   ; recommended style
     %define PQERRORS_VERBOSE        2   ; all the facts, ma'am
- 
+
     ; PGPing
     %define PQPING_OK               0   ; server is accepting connections
     %define PQPING_REJECT           1   ; server is alive but rejecting connections
     %define PQPING_NO_RESPONSE      2   ; could not establish connection
     %define PQPING_NO_ATTEMPT       3   ; connection not attempted (bad params)
- 
-%endif
+
+%endif  ; _ASM_POSTGRESQL_INC_

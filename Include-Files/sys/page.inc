@@ -1,8 +1,7 @@
-; http://www.wow.com/wiki/Memory_page#Unix_and_POSIX-based_operating_systems
-%ifndef _ASM_PAGE_INC
-%define _ASM_PAGE_INC
+%ifndef _ASM_SYS_PAGE_INC_
+%define _ASM_SYS_PAGE_INC_
 
-    %define PAGE_SIZE   4096
-    %define PAGESIZE    4096
+    %define PAGE_SHIFT	12
+    %define PAGE_SIZE	(1 << PAGE_SHIFT)
 
-%endif
+%endif  ; _ASM_SYS_PAGE_INC_

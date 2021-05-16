@@ -1,5 +1,5 @@
-%ifndef __BITS_IN_INC
-%define __BITS_IN_INC
+%ifndef _ASM_BITS_IN_INC_
+%define _ASM_BITS_IN_INC_
 
 ; Options for use with `getsockopt' and `setsockopt' at the IP level.
 ; The first word in the comment at the right is the data type used;
@@ -147,4 +147,4 @@
 	%define		IPV6_IPSEC_POLICY		34
 	%define		IPV6_XFRM_POLICY		35
 
-%endif		; __BITS_IN_INC
+%endif		; _ASM_BITS_IN_INC_

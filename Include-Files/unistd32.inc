@@ -1,5 +1,5 @@
-%ifndef __NASM_SYSCALL32_INC__
-%define __NASM_SYSCALL32_INC__     1
+%ifndef _ASM_UNISTD32_INC_
+%define _ASM_UNISTD32_INC_
 
 ; ---------------------------------
 ; SysCall Macro
@@ -456,4 +456,4 @@
 %define SYS_membarrier 375
 %define SYS_mlock2 376
 
-%endif
+%endif  ; _ASM_UNISTD32_INC_
