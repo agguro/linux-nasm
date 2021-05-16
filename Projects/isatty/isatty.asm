@@ -1,78 +1,66 @@
 ;name: isatty.asm
 ;
-;description: check in which user environment the application is started and depending
-;             if it is an X-server or terminal (or terminal session in X-server) shows
-;             a different interface.
-;             The reason is to 'serve' a different interface for GUI, terminal session on a desktop,
-;             or a 'real' terminal.  An extra option is to modify the layout in regards to which
-;             terminal session is started (TERM=linux, xterm-..., etc..)
+;description: check if a user session is started in X-server, console on X-server or
+;             a "real" (what's real?) terminal.
 ;
-;advantage: one program, multiple user interfaces
-;
-;disadvantage: binary is large when only using it for one kind of environment.
+;build: nasm -felf64 -o isatty.o isatty.asm
+;       ld -o isatty -m elf_x86_64 -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 isatty.o `pkg-config --libs gtk+-3.0`
 ;
 ;agguro (c), 17 april 2021
 
 bits 64
 
-%include "../isatty/isatty.inc"
+[list -]
+    %include "unistd.inc"
+    %include "sys/termios.inc"
+    %define    GTK_WINDOW_TOPLEVEL   0
+    %define    GTK_WIN_POS_CENTER    1
+    %define    FALSE                 0
+    %define    TRUE                  1
+    extern     gtk_init
+    extern     gtk_main
+    extern     gtk_main_quit
+    extern     gtk_widget_show
+    extern     gtk_window_new
+    extern     gtk_window_set_title
+    extern     g_signal_connect_data
+    extern     exit
+[list +]
 
-global main
+global _start
 
 section .bss
 ;uninitialized read-write data
+    envplist:   resq    0
+    window:     resq    0
 
 section .data
     TERMIOS	termios                         ;termios structure
-    gtkwindow:  dq  0
-    gtkdialog:  dq  0
-    loader:     dq  0
-    pixbuffer:
-    .icon:      dq  0
-    .image:     dq  0
-    envplist:   dq  0
-
+    
 section .rodata
-    logo:       incbin "../isatty/logo.png"
-    .size:      equ $-logo
-    picture:    incbin "../isatty/picture.png"
-    .size:      equ $-picture
-    aboutdialog:
-    .title:     db  " TTY or not example", 0
-    .version:   db  "version 1.0", 0
-    .copyright: db  "(c) agguro - 2021", 0
-    .comments:  db  "This is an example on checking if an application is", 10
-                db  "started from a terminal or from a desktop.", 10
-                db  "This and more examples can be found at", 0
-    .website:   db  "https://www.linuxnasm.be", 0
-    .len:       equ $-aboutdialog
-
-    msgTerminal: db  "TTY or not example - version 1.0", 10
-                 db  "(c) agguro - 2021 (https://linuxnasm.be)", 10
-    .len:        equ $-msgTerminal
-    msgGUIterminal: db  "The application seems to be started from a terminal session on your desktop,", 10
-                    db  "instead you can start this program in a GUI or open a real terminal with CTRL-ALT-F1.", 10
-    .len:           equ $-msgGUIterminal
-    msgRealterminal: db "The commandline version of the application can, for example, start here.", 10, 10
-    .len:            equ $-msgRealterminal
+    szTitle:        db  "isatty from GUI",0
+    szDestroy:      db  "destroy",0
+    szXtermSess:    db  "isatty from a terminal session on X-server", 10
+    .len:           equ $-szXtermSess
+    szRealterm:     db  "isatty from a 'real' terminal", 10
+    .len:           equ $-szRealterm
 
 section .text
 
-main:
-    push    rbp
-    mov     rbp,rsp
+_start:
     ;get the enviroment parameterlist pointer
-    mov     rax,rsi                         ;location of address programname
-    mov     rdx,rdi                         ;arguments on commandline in rdx
-    shl     rdx,3                           ;multiply by 8
-    add     rax,rdx                         ;add to location of address programname
-    add     rax,8                           ;skip null pointer of argument list
+    mov     rax,rsp                         ;address of argc
+    mov     rdx,[rsp]                       ;argc
+    inc     rdx                             ;for programname
+    inc     rdx                             ;null pointer
+    shl     rdx,3                           ;argc*8,stackdisplacement for arguments and ending NULL pointer
+    add     rax,rdx                         ;envplist
     mov     qword [envplist],rax            ;save start of environment parameter list
     ;check if the application is ran from a terminal session
     syscall ioctl,stdin,TCGETS,termios
     ;if the result in rax is a negative value then we aren't running from a terminal
     test    rax,rax
-    js      .notfromterminal
+    js      .gui
     ;if rax returns zero the program is running from a terminal
     ;we have to figure out if the terminal is started from a desktop (GUI) or not
     ;this can be done by looking for the environment parameter TERM=linux.
@@ -95,106 +83,57 @@ main:
     mov     rcx,"linux"
     xor     rdx,rcx
     test    rdx,rdx
-    jz      .inarealterminal
+    jz      .realterminal
 .next:
     add     rax,8                           ;next environment parameter
     jmp     .repeat
 
 .endoflist:
     ;if we arrive here we are in a GUI terminal
-    syscall write,stdout,msgTerminal,msgTerminal.len
-    syscall write,stdout,msgGUIterminal,msgGUIterminal.len
+    syscall write,stdout,szXtermSess,szXtermSess.len
     jmp     .done
 
-.inarealterminal:
+.realterminal:
     ;if we are here we are in a real terminal, just to make the difference we show
     ;another message (but it can be the same or just the application that starts)
-    syscall write,stdout,msgTerminal,msgTerminal.len
-    syscall write,stdout,msgRealterminal,msgRealterminal.len
+    syscall write,stdout,szRealterm,szRealterm.len
 
 .done:
-    mov     rsp,rbp
-    pop     rbp
-    ret
+    ;that's it, end program
+    syscall exit,0
 
-.notfromterminal:
-    xor     rsi, rsi                        ;argv
-    xor     rdi, rdi                        ;argc
-    call    gtk_init                        ;initialize gtk
-    ; loading the the application icon in a buffer -> pixbuffer
-    call    gdk_pixbuf_loader_new
-    mov     qword [loader], rax             ;save pointer to loader
-    ;copy icon data into pixbuffer.icon
-    mov     rdi, qword [loader]
-    mov     rsi, logo
-    mov     edx, logo.size
-    xor     rcx, rcx
-    call    gdk_pixbuf_loader_write
-    ;load data from pixbuffer
-    mov     rdi, qword [loader]
-    call    gdk_pixbuf_loader_get_pixbuf
-    mov     qword [pixbuffer.icon], rax     ;save pointer to pixbuffer icon
-    ;create new window
+.gui:
+    xor     rdi,rdi                 
+    xor     rsi,rsi
+    call    gtk_init
+    ;if initialization doesn't succeed then the application
+    ;terminates.  If that is unwanted behaviour then we need
+    ;to use gtk_init_check instead.
+    ;https://developer.gnome.org/gtk2/stable/gtk2-General.html#gtk-init
+    ;create a new window
     mov     rdi,GTK_WINDOW_TOPLEVEL
     call    gtk_window_new
-    mov     qword [gtkwindow], rax      ;save handle to new window
-    ;create a new dialog box
-    call    gtk_about_dialog_new
-    mov     qword[gtkdialog], rax
-    ;show and run dialogbox
-    mov     rdi, qword [gtkwindow]
-    call    show_about
-    ;destroy gtk window and associated dialogs
-    mov     rdi, qword [gtkwindow]
-    call    gtk_widget_destroy
-.exit:
-    xor     rax,rax             ;return error code
-    mov     rsp,rbp
-    pop     rbp
-    ret                         ;exit is handled by compiler
-
-show_about:
-    ; RDI has GtkWidget *widget
-    ; RSI has gpointer data
-    ; create stackframe to prevent segmentation faults
-    push    rbp
-    mov     rbp, rsp
-    call    gdk_pixbuf_loader_new
-    mov     qword [loader], rax
-    mov     rdi, qword[loader]
-    mov     rsi, picture
-    mov     edx, picture.size
-    xor     rcx, rcx
-    call    gdk_pixbuf_loader_write
-    mov     rdi, qword[loader]
-    call    gdk_pixbuf_loader_get_pixbuf
-    mov     qword[pixbuffer.image], rax
-    mov     rdi, qword[gtkdialog]
-    mov     rsi, aboutdialog.title
-    call    gtk_about_dialog_set_program_name
-    mov     rdi, qword[gtkdialog]
-    mov     rsi, aboutdialog.version
-    call    gtk_about_dialog_set_version
-    mov     rdi, qword[gtkdialog]
-    mov     rsi, aboutdialog.copyright
-    call    gtk_about_dialog_set_copyright
-    mov     rdi, qword[gtkdialog]
-    mov     rsi, aboutdialog.comments
-    call    gtk_about_dialog_set_comments
-    mov     rdi, qword[gtkdialog]
-    mov     rsi, aboutdialog.website
-    call    gtk_about_dialog_set_website
-    mov     rdi, qword[gtkdialog]
-    mov     rsi, aboutdialog.website
-    call    gtk_about_dialog_set_website_label
-    mov     rdi, qword[gtkdialog]
-    mov     rsi, qword[pixbuffer.image]
-    call    gtk_about_dialog_set_logo
-    mov     rdi, qword[gtkdialog]
-    mov     rsi, qword[pixbuffer.icon]
-    call    gtk_window_set_icon
-    mov     rdi, qword[gtkdialog]
-    call    gtk_dialog_run
-    mov     rsp,rbp
-    pop     rbp
-    ret
+    mov     r15,rax                     ;save gtkwindow pointer
+    ;set the title
+    mov     rdi,rax
+    mov     rsi,szTitle
+    call    gtk_window_set_title
+    ;connect the destroy signal to gtk_main_quit event handler
+    xor     r9d,r9d                    ;combination of GConnectFlags 
+    xor     r8d,r8d                    ;a GClosureNotify for data
+    xor     rcx,rcx                    ;pointer to the data to pass
+    mov     rdx,gtk_main_quit          ;pointer to the handler
+    mov     rsi,szDestroy              ;pointer to the signal
+    mov     rdi,r15                    ;pointer to the widget instance
+    ;C programs uses g_signal_connect, this is not a library
+    ;function.
+    call    g_signal_connect_data
+    ;show the window
+    mov     rdi,r15
+    call    gtk_widget_show
+    ;go into applications main loop
+    call    gtk_main
+.exit:    
+    ;exit program
+    xor     rdi,rdi
+    call    exit
