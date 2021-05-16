@@ -48,14 +48,14 @@ main:
         mov     gs, ax
         
         ;Set up stack so that it starts below Main.
-        mov     sp, Main
+        mov     sp, main
 
         ;set direction flag (to increment memory addresses)
         cld
  
         ;Check whether we support Long Mode or not.
         call    CPUCheck
-        jc      Main.NoLongMode
+        jc      main.NoLongMode
  
         ;Point edi to a free space bracket.
         mov     edi, FREE_SPACE
@@ -198,7 +198,7 @@ LongMode:
         mov     rax, 0x1F211F641F6C1F72
         stosq
 
-        jmp     Main.Long                       ;You should replace this jump to wherever you want to jump to.
+        jmp     main.Long                       ;You should replace this jump to wherever you want to jump to.
     
 ;**********************************    
 
