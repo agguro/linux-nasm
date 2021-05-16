@@ -3,8 +3,7 @@ TARGETS=cgiroot cookies downloaddata downloadfile jsonobject parsejsonobject pos
 ASM=/usr/bin/nasm
 LD=/usr/bin/ld
 ASMOPTS=-felf64
-LDOPTS=-m elf_x86_64 -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2
-LIBS= `pkg-config --libs gtk+-3.0`
+LDOPTS=-m elf_x86_64
 
 .PHONY: all clean pristine
 
