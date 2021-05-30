@@ -1,11 +1,11 @@
-all : main.o addarrays.o
+addarrays : main.o addarrays.o
 	g++ -o addarrays main.o addarrays.o
 	strip -s addarrays
 
 debug: main.o addarrays.o
 	g++ -o addarrays main.o addarrays.o
 
-addarrays.o : asm/addarrays.asm
+addarrays.o : addarrays.asm
 	nasm -felf64 -g -Fdwarf -o addarrays.o addarrays.asm
 
 main.o: main.cpp	
