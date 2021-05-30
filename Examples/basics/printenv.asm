@@ -8,7 +8,9 @@
 
 bits 64
 
-%include "unistd.inc"
+[list -]
+    %include "unistd.inc"
+[list +]
 
 global _start
 

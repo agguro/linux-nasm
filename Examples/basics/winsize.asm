@@ -7,8 +7,10 @@
 
 bits 64
 
-%include "unistd.inc"
-%include "sys/termios.inc"
+[list -]
+    %include "unistd.inc"
+    %include "sys/termios.inc"
+[list +]
 
 global _start
 

@@ -1,10 +1,10 @@
 ;name: cwd.asm
 ;
-;build: nasm -felf64 cwd.asm -o cwd.o
-;       ld -s -melf_x86_64 -o cwd cwd.o
-;
 ;description: Linux alternative for pwd.
 ;             returns the current working directory.
+;
+;build: nasm -felf64 cwd.asm -o cwd.o
+;       ld -s -melf_x86_64 -o cwd cwd.o
 
 bits 64
 

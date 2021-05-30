@@ -1,20 +1,20 @@
 ;name: keyfilter.asm
 ;
 ;description: The program displays the ASCII code in hexadecimal of the pressed key.
+;             On terminals with escape key sequences binded to keys (like the cursor keys) the
+;             program exits after pressing those (since ESCAPE sequences starts with the ESC key)
 ;
+;source: FreeBSD Developers’ Handbook - 11.7 Writing UNIX® Filters 
 ;
 ;build: nasm -felf64 keyfilter.asm -o keyfilter.o
 ;       ld -melf_x86_64 keyfilter.o -o keyfilter
-;
-;remark: On terminals with escape key sequences binded to keys (like the cursor keys) the
-;        program exits after pressing those (since ESCAPE sequences starts with the ESC key)
-;
-;source: 11.7 Writing UNIX® Filters - FreeBSD Developers’ Handbook
 
 bits 64
 
-%include "unistd.inc"
-%include "sys/termios.inc"
+[list -]
+    %include "unistd.inc"
+    %include "sys/termios.inc"
+[list +]
 
 section .bss
 
@@ -28,7 +28,7 @@ section .rodata
                 db      "program with key code or CTRL-C without.", 10
                 db      "start typing >> "
     .length:    equ     $-intro      
-    EOL:
+    eol:
     .start:     db      "1B", 10      ;print the ASCII code for ESC to be complete
     .end:
 
@@ -76,8 +76,8 @@ toASCII:
     jmp     getKeyStroke
   
 Exit:
-    mov     rsi,EOL
-    mov     rdx,EOL.end-EOL.start
+    mov     rsi,eol
+    mov     rdx,eol.end-eol.start
     call    Write     
     call    termios_canonical_mode_on           ;switch canonical mode back on
     call    termios_echo_mode_on                ;restore echo

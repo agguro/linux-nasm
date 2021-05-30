@@ -1,20 +1,21 @@
 ;name: uuid.asm
 ;
 ;description: Generates a UUID
+;             Because UUID need to be unique (that's why U stands for) the user need to
+;             check each generated UUID against a table which contains already generated
+;             UUID's. This algorithm applied 10000 gives 51 same UUIDs, 100000 times
+;             gives 135 same UUIDs, 1000000 gives us 18884 same UUIDs. So check the presence
+;             of an already generated uuid. Another possibility is the use of mysql uuid
+;             but requires the installation of mysql server.
 ;
 ;build: nasm -felf64 uuid.asm -o uuid.o
 ;       ld -melf_x86_64 uuid.o -o uuid
-;
-;remark: Because UUID need to be unique (that's why U stands for) the user need to
-;        check each generated UUID against a table which contains already generated
-;        UUID's. This algorithm applied 10000 gives 51 same UUIDs, 100000 times
-;        gives 135 same UUIDs, 1000000 gives us 18884 same UUIDs. So check the presence
-;        of an already generated uuid. Another possibility is the use of mysql uuid
-;        but requires the installation of mysql server.
 
 bits 64
 
-%include "unistd.inc"
+[list -]
+    %include "unistd.inc"
+[list +]
 
 ;IOV structure definition
 struc IOV_STRUC

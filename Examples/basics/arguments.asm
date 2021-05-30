@@ -3,11 +3,13 @@
 ;description: Read the number of arguments and if any write it to stdout.
 ;
 ;build: nasm -felf64 arguments.asm -o arguments.o
-;   ld -melf_x86_64 arguments.o -o arguments  
+;       ld -melf_x86_64 arguments.o -o arguments  
 
 bits 64
 
+[list -]
     %include "unistd.inc"
+[list +]
 
 global _start
     crlf:      equ  10

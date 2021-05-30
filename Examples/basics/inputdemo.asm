@@ -1,11 +1,10 @@
 ;name: inputdemo.asm
 ;
 ;description: The program asks for some input and writes it to stdout.
+;             Thanks to GunnerInc (DreamInCode) for the routine to clear the buffer.
 ;
 ;build: nasm -felf64 -Fdwarf -g -l inputdemo.lst inputdemo.asm -o inputdemo.o
 ;       ld -g -melf_x86_64 inputdemo.o -o inputdemo 
-;
-;Thanks to GunnerInc (DreamInCode) for the routine to clear the buffer.
 
 bits 64
 
