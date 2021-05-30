@@ -4,7 +4,7 @@
 ;include files
     %include "unistd.inc"               ;syscalls
     %include "sys/stat.inc"             ;S_IRUSR, S_IWUSR
-    %include "sys/mman.inc"             ;O_RDWR, O_CREAT
+    %include "asm-generic/mman.inc"     ;O_RDWR, O_CREAT
 
 ;lib ssl and crypto functions
     extern  OPENSSL_init_ssl
@@ -22,7 +22,7 @@
 
 %define LF 0x0A
 %define CR 0x0D
-%define HOST "localhost:443"
+%define HOST "linuxnasm.be:443"
 %define EOL CR,LF
 
 %define MSG_CTX_NULL "The creation of a new SSL_CTX object failed."

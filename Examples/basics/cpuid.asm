@@ -1,9 +1,9 @@
-;name: cpuid.asm
-;
-;description: Checks if CPUID instruction is supported and if yes, shows also the Vendor ID
+;name: cpuid
 ;
 ;build: nasm -felf64 cpuid.asm -o cpuid.o
 ;       ld -s -melf_x86_64 -o cpuid cpuid.o 
+;
+;description:  Checks if CPUID instruction is supported and if yes, shows also the Vendor ID
 
 [list -]
     %include "unistd.inc"

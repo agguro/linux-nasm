@@ -5,6 +5,9 @@
 ;             http://en.wikipedia.org/wiki/Xorshift
 ;             at the end a list of generated numbers is shown
 ;
+;build: nasm -felf64 -Fdwarf -o xorshift.o xorshift.asm
+;       ld -melf_x86_64 -g -o xorshift xorshift.o
+;
 ;example output:
 ;3,1,9,8,2,9,9,5,3,1,6,5,9,3,2,8,7,4,4,1,2,4,6,6,6,3,8,3,8,7,9,
 ;4,3,4,6,6,5,2,4,1,6,5,8,3,1,3,4,9,6,4,4,4,5,4,8,8,9,5,5,8,2,9,

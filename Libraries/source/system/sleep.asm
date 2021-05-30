@@ -12,7 +12,7 @@ bits 64
 
 section .text
 
-global sleep   
+global sleep
 sleep:
     push    rbp
     mov     rbp,rsp
@@ -22,4 +22,3 @@ sleep:
     mov     rsp,rbp
     pop     rbp
     ret
-    

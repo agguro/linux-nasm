@@ -1,21 +1,19 @@
 ;name: readfile.asm
 ;
-;description: shows the contents of a file in plain text
-;
 ;build: nasm -felf64 readfile.asm -o readfile.o
 ;       ld -melf_x86_64 readfile.o -o readfile
+;
+;description: shows the contents of a file in plain text
 
 bits 64
 
-[list -]
-    %include "unistd.inc"
-    %include "sys/stat.inc"
-[list +]
+%include "unistd.inc"
+%include "sys/stat.inc"
 
 section .bss
 
     data:           resb    1
-    charBuffer:     resb    1
+    charBuffer:     resb    0
     
 section .data
 

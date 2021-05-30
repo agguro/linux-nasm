@@ -1,10 +1,11 @@
 ;name: dealcards.asm
 ;
-;description: Create a set of shuffled cards.
-;             This demo creates 20 sets of dealed cards
-;
 ;build: nasm -felf64 dealcards.asm -o dealcards.o
 ;       ld -s -melf_x86_64 -o dealcards dealcards.o 
+;
+;description: Create a set of shuffled cards.
+;             This demo creates 20 sets of dealed cards
+
 
 [list -]
     %include "unistd.inc"

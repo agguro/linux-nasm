@@ -18,8 +18,8 @@
 ; that december,january and july and august have 31 days. An xor with bit 3 however give the right value
 ; in bit 0 as indication that a month has one day less or more than it's predecesor.  Adding 28 gives us
 ; a cycle of 29-28-29-28-29-28-29-29-28-29-28-29.
-; 
-; month         nr     al     ah = al   ah >> 3   ah = ah xor al  ah = ah and 1   ah = ah or 00011100  days  
+;
+; month         nr     al     ah = al   ah >> 3   ah = ah xor al  ah = ah and 1   ah = ah or 00011100  days
 ; ----------   ---  --------  --------  --------  --------------  --------------  -------------------  ----
 ; january       1   00000001  00000001  00000000     00000001       00000001          00011101          29
 ; february      2   00000010  00000010  00000000     00000010       00000000          00011100          28
@@ -37,7 +37,7 @@
 ; The second phase eliminates the month february which doesn't need two additional days.  Doing so we got for each
 ; month its number of days in rax in return.
 ;
-; month         nr     al     al = al - 2   al or 0xF0     al - 1   al >> 3    value in ah   al and 2  ah = ah or al  days  
+; month         nr     al     al = al - 2   al or 0xF0     al - 1   al >> 3    value in ah   al and 2  ah = ah or al  days
 ; ----------   ---  --------  ------------  -----------   --------  ---------  -----------   --------  -------------  ----
 ; january       1   00000001    11111111     11111111     11111110  00011111     00011101    00000010    00011111      31
 ; february      2   00000010    00000000     11110000     11101111  00011101     00011100    00000000    00011100      28
@@ -74,7 +74,7 @@ daysinmonth:
     or      al,0xF0             ;erase lowest nibble
     dec     al                  ;decrement al
     shr     al,3                ;bit 4 of al in postion 0
-    and     al,2                ;elimante all bits except the one on position 1
+    and     al,2                ;eliminate all bits except the one on position 1
     or      ah,al               ;or this bit in number of days
     ;ah has now 28,30 or 31 for number of days
     shr     ax,8                ;shift result in al

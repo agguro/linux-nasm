@@ -1,6 +1,6 @@
 ;name: elf64header.asm
 ;
-;build: chmod -f elf64header && nasm -fbin -o elf64header elf64header.asm && chmod +x elf64header
+;build: nasm -fbin -o elf64header elf64header.asm && chmod +x elf64header
 ;
 ;description:  Small, self-contained 64-bit ELF executable for NASM
 ;
@@ -60,13 +60,13 @@ _start:
     inc     rax                     ;3 bytes
 syscll:    
     syscall                         ;2 bytes
-    dec     rdi                     ;3 bytes
-    add     al,0x3b                 ;2 bytes
+    xor     rdi,rdi                 ;3 bytes
+    mov     al,0x3c                 ;2 bytes
     jmp     syscll                  ;2 bytes
                                   ;----------
                                    ;30 bytes
 
-    message:    db  'Hello, world!',0x0A    ;message and newline
+    message:    db  'Hello, world!',0x0a    ;message and newline
     .len:       equ $-message               ;message length calculation
 
 ; File size calculation

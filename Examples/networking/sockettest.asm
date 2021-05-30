@@ -11,7 +11,7 @@
 bits 64
 [list -]
     %include "unistd.inc"
-    %include "sys/socket.inc"
+    %include "asm-generic/socket.inc"
     %include "sys/time.inc"
 [list +]
 

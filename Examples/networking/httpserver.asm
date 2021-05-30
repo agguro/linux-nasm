@@ -28,8 +28,8 @@ bits 64
 [list -]
 	%include "unistd.inc"
 	%include "sys/wait.inc"
-	%include "sys/socket.inc"
-	%include "errors.inc"
+	%include "asm-generic/socket.inc"
+	%include "asm-generic/errno.inc"
 [list +]
 
 section .bss

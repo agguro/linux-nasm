@@ -34,9 +34,9 @@ section .rodata:
 
     host:       db  "localhost",0
     port:       dq  3306
-    user:       dq  "test",0
-    password:   dq  "test",0
-    database:   db  "test",0
+    user:       dq  "agguro",0
+    password:   dq  "Es661026$",0
+    database:   db  "agguro",0
     socket:     dq  0
     clientflag: dq  0
 

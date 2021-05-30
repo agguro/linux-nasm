@@ -33,14 +33,14 @@ section .text
 global shiftedmonth
 
 shiftedmonth:
-    mov     rax, rdi
-    and     rax, 1111b              ;take only lower 4 bits in concern
-    dec     ax                      ;minus 3
+    mov     rax,rdi
+    and     rax,1111b              ;take only lower 4 bits in concern
+    dec     ax                     ;minus 3
     dec     ax
     dec     ax
-    and     ax, 1111010000001111b
+    and     ax,1111010000001111b
     not     ah
-    and     al, ah	
+    and     al,ah
     inc     al
-    and     ax, 1111b               ;only lower 4 bits are relevant for the result
+    and     ax,1111b               ;only lower 4 bits are relevant for the result
     ret

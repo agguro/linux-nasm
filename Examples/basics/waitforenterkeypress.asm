@@ -1,21 +1,19 @@
 ;name: waitforenterkeypress.asm
 ;
+;build: nasm -felf64 waitforenterkeypress.asm -o waitforenterkeypress.o
+;       ld -melf_x86_64 waitforenterkeypress.o -o waitforenterkeypress
+;
 ;description: Displays a message, in this case "press ENTER to exit..." and wait until the user hits
 ;             the return key. With a buffer, large enough and wich you erases entirely after hitting a key
 ;             or key sequence (like ALT-[somekey], the remains of a hotkey aren't displayed neither.
 ;             The program works on most keys however CTRL, SUPER or ALT doesn't give the desired effect.
 ;             For a solution on that we must use the scancode of a key.
 ;             A better message should be, press any key except CTRL, SUPER or ALT
-;
-;build: nasm -felf64 waitforenterkeypress.asm -o waitforenterkeypress.o
-;       ld -melf_x86_64 waitforenterkeypress.o -o waitforenterkeypress
 
 bits 64
 
-[list -]
-    %include "unistd.inc"
-    %include "sys/termios.inc"
-[list +]
+%include "unistd.inc"
+%include "sys/termios.inc"
 
 section .bss
 

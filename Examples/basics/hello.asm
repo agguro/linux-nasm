@@ -1,9 +1,9 @@
 ;name: hello.asm
 ;
-;description: writes 'Hello world!" to stdout
-;
 ;build: nasm -felf64 hello.asm -o hello.o
 ;       ld -melf_x86_64 -o hello hello.o
+;
+;description: writes 'Hello world!" to stdout
 
 [list -]
      %include "unistd.inc"

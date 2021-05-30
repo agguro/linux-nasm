@@ -1,12 +1,14 @@
 ;name: rotatebits.asm
 ;
 ;description: rotate the most significant bit in the least significant position 
-;             reference: number of leading zeros: Hacker's Delight
 ;
 ;build: nasm -felf64 rotatebits.asm -o rotatebits.o
 ;       ld -melf_x86_64 -o rotatebits rotatebits.o 
+;
+;reference: number of leading zeros: Hacker's Delight
 
 bits 64
+align 16
 
 [list -]
      %include "unistd.inc"

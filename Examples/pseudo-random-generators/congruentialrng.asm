@@ -1,11 +1,11 @@
 ;name: congruentialrng.asm
 ;
-;build: nasm -felf64 congruentialrng.asm -o congruentialrng.o
-;       ld -melf_x86_64 -o congruentialrng congruentialrng.o 
-;
 ;description: Create pseudo random number x in an interval [a,b] using the 
 ;             congruential pseudo random generator from George Marsaglia.
 ;             http://school.anhb.uwa.edu.au/personalpages/kwessen/shared/Marsaglia03.html
+;
+;build: nasm -felf64 congruentialrng.asm -o congruentialrng.o
+;       ld -melf_x86_64 -o congruentialrng congruentialrng.o
 
 bits 64
 
@@ -20,7 +20,7 @@ bits 64
 
 section .bss
     buffer:         resb 1
-    
+
 section .data
     random:         db       "0"
     .len:           equ      $-random
@@ -31,16 +31,16 @@ section .data
     tableline2:     db       "'s : "
     .len:           equ      $-tableline2
     seed:           dq       0                       ;the seed
-      
+
 section .text
 
-global _start        
+global _start
 _start:
 
     mov     rcx,MAXNUMBERS                 ;initialize outer-loop counter
     call    initRandomGenerator
-    
-nextRandom:      
+
+nextRandom:
     push    rcx
     mov     rdi,random                     ;bufferaddress in RDI
 repeat:
@@ -60,7 +60,7 @@ repeat:
     call    nibble2hexascii
     cld
     stosb
-    syscall write,stdout,random,random.len     
+    syscall write,stdout,random,random.len
     pop     rcx                            ;restore outer-loop counter
     dec     rcx
     and     rcx,rcx
@@ -79,7 +79,7 @@ nextLine:
     push    rsi
     mov     rsi,tableline1
     mov     rdx,tableline1.len
-    call    writeLine      
+    call    writeLine
     mov     rax,10
     sub     rax,rcx
     call    byte2decascii
@@ -103,7 +103,7 @@ initRandomGenerator:
     or      rax,rdx
     mov     qword[seed],rax
     ret
-    
+
 generateRandom:
 ; in RAX :: lower boundary of interval
 ;    RDX :: higher boundary of interval
@@ -137,8 +137,8 @@ congruentialrng:
     mov     qword[seed],rax                ;and also new seed
     pop     rdx
     pop     rbx
-    ret      
-    
+    ret
+
     ; write a decimal in EAX to STDOUT
 writeDecimal:
     ror     eax,16
@@ -161,7 +161,7 @@ writeChar:
     mov     byte[buffer],al
     mov     rdx,1
     mov     rsi,buffer
-    jmp     _write    
+    jmp     _write
     ; write a string pointed by RSI with len RDX to STDOUT
 writeLine:
     push    rdx
@@ -189,7 +189,7 @@ byte2decascii:
     xor     rcx,rcx
     xor     r8,r8
     mov     rbx,10
-.repeat:      
+.repeat:
     xor     rdx,rdx
     idiv    rbx
     or      dl,"0"

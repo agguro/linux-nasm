@@ -1,4 +1,4 @@
-addarrays : main.o addarrays.o
+all : main.o addarrays.o
 	g++ -o addarrays main.o addarrays.o
 	strip -s addarrays
 

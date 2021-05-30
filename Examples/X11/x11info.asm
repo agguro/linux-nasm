@@ -17,27 +17,25 @@ bits 64
     extern XOpenDisplay
     extern XDisplayName
     extern XCloseDisplay
-; external functions from stdio library   
+; external functions from stdio library
     extern printf
     extern exit
     extern puts
 
-section .bss
-    display_name:  resq     1
-    screen:        resd     1
-    depth:         resd     1
-    connection:    resd     1
-    width:         resd     1
-    height:        resd     1
+section .data
 
-section .rodata
-
-    string1:  db "The display is %s",10, 0
-    string2:  db "Width : %d",10, 0
-    string6:  db "Height : %d", 10, 0
-    string3:  db "Connection number is %d", 10, 0
-    string4:  db "You live in prehistoric times",10, 0
-    string5:  db "You have got a coloured monitor with depth of %d",10, 0
+    display_name: dq     0
+    screen:       dd     0
+    depth:        dd     0
+    connection:   dd     0
+    width:        dd     0
+    height:       dd     0
+    string1:      db "The display is %s",10, 0
+    string2:      db "Width : %d",10, 0
+    string6:      db "Height : %d", 10, 0
+    string3:      db "Connection number is %d", 10, 0
+    string4:      db "You live in prehistoric times",10, 0
+    string5:      db "You have got a coloured monitor with depth of %d",10, 0
 
 section .text
 

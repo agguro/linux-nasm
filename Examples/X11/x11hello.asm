@@ -10,16 +10,16 @@ struc XDISPLAY
     .unknown1:              resq    1   ;  0 XExtData* hook for extension to hang data
     .private1:              resq    1   ;  8 struct _XPrivate*
     .fd:                    resd    1   ; 10 int Network socket
-    .private2:              resd    1   ; 14 int                                      
+    .private2:              resd    1   ; 14 int
     .proto_major_version:   resd    1   ; 18 int - major version of server's X protocol
     .proto_minor_version:   resd    1   ; 1C int - minor version of servers X protocol
     .vendor:                resq    1   ; 20 char* - vendor of the server hardware
-    .private3:              resq    1   ; 28 XID 
+    .private3:              resq    1   ; 28 XID
     .private4:              resq    1   ; 30 XID
     .private5:              resq    1   ; 38 XID
-    .private6:              resd    1   ; 40 int                                           
+    .private6:              resd    1   ; 40 int
     .resource_alloc:        resq    1   ; 44 XID - allocator function struct _XDisplay*
-    .byte_order:            resd    1   ; 4C int - screen byte order, LSBFirst, MSBFirst   
+    .byte_order:            resd    1   ; 4C int - screen byte order, LSBFirst, MSBFirst 
     .bitmap_unit:           resd    1   ; 50 int - padding and data requirements
     .bitmap_pad:            resd    1   ; 54 int - padding requirements on bitmaps
     .bitmap_bit_order:      resd    1   ; 58 int - LeastSignificant or MostSignificant
@@ -47,9 +47,9 @@ struc XDISPLAY
     .private16:             resq    1   ; E8
     .min_keycode:           resd    1   ; F0 minimum defined keycode
     .max_keycode:           resd    1   ; F4 maximum defined keycode
-    .private17:             resq    1   ; F8 XPointer 
-    .private18:             resq    1   ; 100 XPointer 
-    .private19:             resd    1   ; 108 int 
+    .private17:             resq    1   ; F8 XPointer
+    .private18:             resq    1   ; 100 XPointer
+    .private19:             resd    1   ; 108 int
     .xdefaults:             resq    1   ; 10C char* - contents of defaults from server
     ;there is more to this structure, but it is private to Xlib
 endstruc
@@ -68,7 +68,7 @@ struc SCREEN
     .root_visual:       resq    1   ;Visual* - root visual
     .default_gc:        resq    1   ;GC - GC for the root root visual
     .cmap:              resq    1   ;Colormap - default color map
-    .white_pixel:       resq    1   ;unsigned long - White pixel values 
+    .white_pixel:       resq    1   ;unsigned long - White pixel values
     .black_pixel:       resq    1   ;unsigned long - Black pixel values
     .max_maps:          resd    1   ;int - max color maps
     .min_maps:          resd    1   ;int - min color maps
@@ -79,7 +79,7 @@ endstruc
 
 %include "unistd.inc"
 
-extern XOpenDisplay                                                                                                                                                           
+extern XOpenDisplay
 extern XCreateSimpleWindow
 extern XSelectInput
 extern XMapWindow

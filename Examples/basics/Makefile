@@ -3,17 +3,15 @@ BIN=arguments cpuid cwd dealcards dirinfo hello inputdemo keyfilter palindrome p
 NASM=/usr/bin/nasm
 NASMOPTS=-felf64 -Fdwarf
 LDOPS=-melf_x86_64 -g
-OBJ = o
-LST = lst
 
 .PHONY: all clean
 
 all: $(BIN)
 
 clean:
-	rm -rf $(BIN) *.$(OBJ) *.$(LST)
+	rm -rf $(BIN)
 
 %: %.asm
-	$(NASM) $(NASMOPTS) -o $@.$(OBJ) -l $@.$(LST) $<
-	$(LD) $(LDOPS) -o $@ $@.$(OBJ)
-	
+	$(NASM) $(NASMOPTS) -o $@.o $<
+	$(LD) $(LDOPS) -o $@ $@.o
+	rm -f $@.o

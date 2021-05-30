@@ -1,8 +1,5 @@
 ;name: MT19937-32.asm
 ;
-;build: nasm -felf64 MT19937-32.asm -o MT19937-32.o
-;       ld -melf_x86_64 -o MT19937-32 MT19937-32.o
-;
 ;description: Mersenne twister algorithm to generate 32 bits unsigned integers.
 ;
 ;source: http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/emt.html
@@ -10,6 +7,9 @@
 ;
 ;remarks: The routine GenerateNumbers can be called ,the Initialize subroutine does this
 ;         before returning to the caller,in case the user forgets it.
+;
+;build: nasm -felf64 MT19937-32.asm -o MT19937-32.o
+;       ld -melf_x86_64 -o MT19937-32 MT19937-32.o
 
 bits 64
 
@@ -53,7 +53,7 @@ section .bss
     BUFFER MT,"DWORD",624
     BUFFER decimalbuffer,"BYTE",20
     BUFFER testdata,"DWORD",NUMBER
-  
+
 section .rodata
 
     STRING sTitle,{"Implementation of the 32 bits Mersenne Twister.",10,"by Agguro - 2013",10}
@@ -63,16 +63,16 @@ section .rodata
     STRING sPeriod,"."
     STRING sSec,"s"
     STRING sExecTime,"Execution time to generate and store 1000000 integers: "
-  
+
 section .data
 
     ;time structures to calculate (more or less) the time needed to generate the list of pseudorandom numbers
     TIMESPEC   starttime
     TIMESPEC   endtime
-      
+ 
 section .text
 
-global _start       
+global _start
 _start:
     mov       rsi,sTitle
     mov       rdx,sTitle.len
@@ -94,7 +94,7 @@ _start:
     stosd
     loop      .next
     ;get endtime
-    call      GetTime     
+    call      GetTime
     mov       qword[endtime.tv_sec],rdx
     mov       qword[endtime.tv_nsec],rax
     ;send all integers to STDOUT
@@ -117,7 +117,7 @@ _start:
     mov       rsi,sSpace                    ;write space to align
     call      WriteChar
     loop      .space
-.noalignment:      
+.noalignment:
     pop       rdx                           ;restore pointer to integer and length
     pop       rsi
     pop       rcx                           ;restore loopcounter
@@ -131,9 +131,9 @@ _start:
     jne       .sameline                     ;stay on same line
     mov       rsi,sEOL                      ;go to next line
     jmp       .printchar
-.sameline:      
+.sameline:
     mov       rsi,sSeparator
-.printchar:      
+.printchar:
     call      WriteChar
     pop       rsi
     loop      .nextNumber                   ;repeat for all numbers
@@ -150,7 +150,7 @@ _start:
     cmp       rax,0
     jge       .calculate
     neg       rax
-    sub       qword[endtime.tv_sec],1       ;1 second less     
+    sub       qword[endtime.tv_sec],1       ;1 second less
 .calculate:
     push      rax                           ;store nanosec difference on stack
     mov       rax,qword[endtime.tv_sec]
@@ -166,17 +166,17 @@ _start:
     je        .noleadingzero
     mov       rcx,9
     sub       rcx,rdx
-.leadingzero:      
+.leadingzero:
     dec       rsi
     inc       rdx
     mov       byte[rsi],"0"
     loop      .leadingzero
 .noleadingzero:
-    call      Write     
+    call      Write
     mov       rsi,sSec
     mov       rdx,1
     call      Write
-.done:      
+.done:
     mov       rsi,sEOL
     mov       rdx,1
     call      Write
@@ -224,20 +224,20 @@ Initialize:
     cmp     rdi,0
     jne     .start
     call    GenerateSeed                    ;seed in RAX
-    .start:  
+    .start:
     mov     rdi,MT                          ;store pointer to MT in RDI
     mov     ecx,1                           ;start with MT[1],RCX is i
     stosd                                   ;save seed in MT[0]
     mov     rsi,rdi                         ;RDI points to MT[i]
     sub     rsi,4                           ;RSI points to MT[i-1]
-    .nexti:    
+    .nexti:
     push    rax                             ;MT[i-1] on stack
     ;** right shift by 30 bits(MT[i-1])
-    shr     eax,30                     
+    shr     eax,30
     mov     ebx,eax
     pop     rax                             ;get M[i-1] back
     ;**  MT[i-1] xor (right shift by 30 bits(MT[i-1])
-    xor     eax,ebx                    
+    xor     eax,ebx
     mov     ebx,0x6c078965                  ;1812433253
     xor     rdx,rdx                         ;prepare multiplication
     ;**  1812433253 * (MT[i-1] xor (right shift by 30 bits(MT[i-1]))
@@ -267,7 +267,7 @@ GenerateNumbers:
     push    rbx
     push    rcx
     push    rdx
-    push    rsi   
+    push    rsi
     xor     rcx,rcx
   .repeat:
     mov     rsi,MT
@@ -295,7 +295,7 @@ GenerateNumbers:
     shr     eax,1                           ;y SHR 1
     push    rax                             ;y SHR 1 on stack
     mov     eax,ecx                         ;i
-    mov     ebx,397                   
+    mov     ebx,397
     add     eax,ebx                         ;i+397
     mov     ebx,624
     xor     rdx,rdx
@@ -316,7 +316,7 @@ GenerateNumbers:
     xor     eax,2567483615                  ;MT[i] xor 2567483615
     and     eax,0x7FFFFFFF                  ;remove highest 33 bits
     mov     DWORD[rsi+rbx],eax
-  .done:    
+  .done:
     inc     rcx
     cmp     ecx,624
     jne     .repeat
@@ -335,7 +335,7 @@ ExtractNumber:
     push    rbx
     push    rcx
     push    rdx
-    push    rsi 
+    push    rsi
     xor     rax,rax
     mov     ax,word[index]
     push    rax                             ;index on stack
@@ -363,11 +363,11 @@ ExtractNumber:
     ;** y := y xor (left shift by 7 bits(y) and (2636928640))
     shl     edx,7
     and     edx,2636928640
-    xor     eax,edx                        
+    xor     eax,edx
     mov     edx,eax
     ;** y := y xor (left shift by 15 bits(y) and (4022730752))
     shl     edx,15
-    and     edx,4022730752                     
+    and     edx,4022730752
     xor     eax,edx
     mov     edx,eax
     shr     edx,18
@@ -422,7 +422,7 @@ ConvertToDecimal:
     add     rdi,19                          ;point to end of buffer
     mov     rbx,10                          ;base 10
     std
-.repeat:    
+.repeat:
     xor     rdx,rdx
     idiv    rbx                             ;RAX = quotient,RDX = remainder
     xchg    rax,rdx                         ;change quotient and remainder

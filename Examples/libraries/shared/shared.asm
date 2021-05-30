@@ -78,7 +78,8 @@ section .data
     ;don't forget the eol (ascii 10) at the end to flush to stdout or you see nothing on screen.
     versionstring1: db  "sharedlib version 1.0.0.0 by agguro residing in .data section of program",10,0
     .len:           equ $-versionstring1
-    
+    major_version:  dq  glib_major_version wrt ..sym
+ 
 section .rodata
 
     ;local data
@@ -89,7 +90,6 @@ section .rodata
     versionstring2: db  "sharedlib version 1.0.0.0 by agguro residing in .rodata section of library",10,0
     .len:           equ $-versionstring2
     shortversion:   dq  1
-    major_version:  dq  glib_major_version wrt ..sym
 
 section .text
 _start:
