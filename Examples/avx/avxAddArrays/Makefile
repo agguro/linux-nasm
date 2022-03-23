@@ -1,9 +1,9 @@
 all : main.o addarrays.o
-	g++ -o addarrays main.o addarrays.o
+	g++ -no-pie -o addarrays main.o addarrays.o
 	strip -s addarrays
 
 debug: main.o addarrays.o
-	g++ -o addarrays main.o addarrays.o
+	g++ -no-pie -o addarrays main.o addarrays.o
 
 addarrays.o : addarrays.asm
 	nasm -felf64 -g -Fdwarf -o addarrays.o addarrays.asm
