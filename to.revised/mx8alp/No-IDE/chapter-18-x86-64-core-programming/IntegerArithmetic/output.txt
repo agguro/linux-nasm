@@ -1,0 +1,14 @@
+
+Results for IntegerAdd
+a: 100 b: 200 c: -300
+d: 400 e: -500 f: 600
+sum: 500
+
+Results for IntegerMul
+a: 2 b: -3 c: 8 d: 4
+a: 3 b: -7 c: -5 d: 10
+result: -201600
+
+Results for IntegerDiv
+a:   102 b:   7 quo: 14 rem: 4
+c:   61 d:   9 quo: 6 rem: 7

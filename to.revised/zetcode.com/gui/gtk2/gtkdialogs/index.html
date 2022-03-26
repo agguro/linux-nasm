@@ -1,0 +1,730 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+<title>GTK+ dialogs</title>
+<link rel="stylesheet" href="/cfg/style.css" type="text/css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="GUI, dialogs, GTK+ library, C">
+<meta name="description" content="In this part of the GTK+ tutorial, we create dialogs.
+We work with message dialogs, GtkAboutDialog, GtkFontSelectionDialog, and GtkFontSelectionDialog.">
+<meta name="author" content="Jan Bodnar">
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-5536206-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+<header>
+
+<div>
+<a href="/" title="Home">ZetCode</a>
+</div>
+
+<nav>
+    <a title="All tutorials" href="/all/">All</a>
+    <a title="Spring Boot tutorials" href="/all/#springboot">Spring Boot</a>
+    <a title="Python tutorials" href="/all/#python">Python</a>
+    <a title="C# tutorials" href="/all/#csharp">C#</a>
+    <a title="Java tutorials" href="/all/#java">Java</a>
+    <a title="JavaScript tutorials" href="/all/#js">JavaScript</a>
+    <a title="Subscribe to ZetCode news" href="http://zetcode.us13.list-manage.com/subscribe?u=9def9ccd4c70dbbaf691f90fc&id=6556210f80">Subscribe</a>
+</nav>
+
+</header>
+
+<div class="container">
+
+<div class="ltow">
+    
+<div id="ebooks">
+
+<h2 class="blu">Ebooks</h2>
+
+<ul>
+<li><a href="/ebooks/advancedpyqt5/">PyQt5 ebook</a></li>
+<li><a href="/ebooks/tkinter/">Tkinter ebook</a></li>
+<li><a href="/ebooks/sqlitepython/">SQLite Python</a></li>
+<li><a href="/ebooks/advancedwxpython/">wxPython ebook</a></li>
+<li><a href="/ebooks/windowsapi/">Windows API ebook</a></li>
+<li><a href="/ebooks/advancedjavaswing/">Java Swing ebook</a></li>
+<li><a href="/ebooks/javagames/">Java games ebook</a></li>
+<li><a href="/ebooks/mysqljava/">MySQL Java ebook</a></li>
+</ul>
+
+</div>
+
+</div>
+
+
+<div class="content">
+
+
+<nav>
+<a href="..">Contents</a>
+<a href="../gtkevents/">Previous</a>
+<a href="../gtkwidgets/">Next</a>
+</nav>
+
+
+<h1>GTK+ dialogs</h1>
+
+<p class="last_mod">
+last modified July 16, 2020 
+</p>
+
+<p>
+In this part of the GTK+ programming tutorial, we work with dialogs. 
+</p>
+
+<div class="ad-top square-fix-ad">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- square-fixed-2020 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:300px;height:250px"
+     data-ad-client="ca-pub-9706709751191532"
+     data-ad-slot="6775384732"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+<p>
+Dialog windows or dialogs are an indispensable part of most modern GUI applications. 
+A dialog is defined as a conversation between two or more persons. In a computer 
+application a dialog is a window which is used to "talk" to the application. 
+A dialog is used to input data, modify data, change the application settings etc. 
+</p>
+
+
+<h2>Message dialogs</h2>
+
+<p>
+Message dialogs are convenient dialogs that provide messages to the user of the 
+application. The message consists of textual and image data. 
+</p>
+
+<div class="codehead">messagedialogs.c</div>
+<pre class="code">
+#include &lt;gtk/gtk.h&gt;
+
+void show_info(GtkWidget *widget, gpointer window) {
+    
+  GtkWidget *dialog;
+  dialog = gtk_message_dialog_new(GTK_WINDOW(window),
+            GTK_DIALOG_DESTROY_WITH_PARENT,
+            GTK_MESSAGE_INFO,
+            GTK_BUTTONS_OK,
+            "Download Completed");
+  gtk_window_set_title(GTK_WINDOW(dialog), "Information");
+  gtk_dialog_run(GTK_DIALOG(dialog));
+  gtk_widget_destroy(dialog);
+}
+
+void show_error(GtkWidget *widget, gpointer window) {
+    
+  GtkWidget *dialog;
+  dialog = gtk_message_dialog_new(GTK_WINDOW(window),
+            GTK_DIALOG_DESTROY_WITH_PARENT,
+            GTK_MESSAGE_ERROR,
+            GTK_BUTTONS_OK,
+            "Error loading file");
+  gtk_window_set_title(GTK_WINDOW(dialog), "Error");
+  gtk_dialog_run(GTK_DIALOG(dialog));
+  gtk_widget_destroy(dialog);
+}
+
+void show_question(GtkWidget *widget, gpointer window) {
+    
+  GtkWidget *dialog;
+  dialog = gtk_message_dialog_new(GTK_WINDOW(window),
+            GTK_DIALOG_DESTROY_WITH_PARENT,
+            GTK_MESSAGE_QUESTION,
+            GTK_BUTTONS_YES_NO,
+            "Are you sure to quit?");
+  gtk_window_set_title(GTK_WINDOW(dialog), "Question");
+  gtk_dialog_run(GTK_DIALOG(dialog));
+  gtk_widget_destroy(dialog);
+}
+
+void show_warning(GtkWidget *widget, gpointer window) {
+    
+  GtkWidget *dialog;
+  dialog = gtk_message_dialog_new(GTK_WINDOW(window),
+            GTK_DIALOG_DESTROY_WITH_PARENT,
+            GTK_MESSAGE_WARNING,
+            GTK_BUTTONS_OK,
+            "Unallowed operation");
+  gtk_window_set_title(GTK_WINDOW(dialog), "Warning");
+  gtk_dialog_run(GTK_DIALOG(dialog));
+  gtk_widget_destroy(dialog);
+}
+
+int main(int argc, char *argv[]) {
+
+  GtkWidget *window;
+  GtkWidget *table;
+
+  GtkWidget *info;
+  GtkWidget *warn;
+  GtkWidget *que;
+  GtkWidget *err;
+
+  gtk_init(&amp;argc, &amp;argv);
+
+  window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
+  gtk_window_set_default_size(GTK_WINDOW(window), 220, 150);
+  gtk_window_set_title(GTK_WINDOW(window), "Message dialogs");
+
+  table = gtk_table_new(2, 2, TRUE);
+  gtk_table_set_row_spacings(GTK_TABLE(table), 2);
+  gtk_table_set_col_spacings(GTK_TABLE(table), 2);
+
+  info = gtk_button_new_with_label("Info");
+  warn = gtk_button_new_with_label("Warning");
+  que = gtk_button_new_with_label("Question");
+  err = gtk_button_new_with_label("Error");
+
+  gtk_table_attach(GTK_TABLE(table), info, 0, 1, 0, 1, 
+      GTK_FILL, GTK_FILL, 3, 3);
+  gtk_table_attach(GTK_TABLE(table), warn, 1, 2, 0, 1, 
+      GTK_FILL, GTK_FILL, 3, 3);
+  gtk_table_attach(GTK_TABLE(table), que, 0, 1, 1, 2, 
+      GTK_FILL, GTK_FILL, 3, 3);
+  gtk_table_attach(GTK_TABLE(table), err, 1, 2, 1, 2, 
+      GTK_FILL, GTK_FILL, 3, 3);
+  
+  gtk_container_add(GTK_CONTAINER(window), table);
+  gtk_container_set_border_width(GTK_CONTAINER(window), 15);
+
+  g_signal_connect(G_OBJECT(info), "clicked", 
+        G_CALLBACK(show_info), (gpointer) window); 
+
+  g_signal_connect(G_OBJECT(warn), "clicked", 
+        G_CALLBACK(show_warning), (gpointer) window); 
+
+  g_signal_connect(G_OBJECT(que), "clicked", 
+        G_CALLBACK(show_question), (gpointer) window); 
+
+  g_signal_connect(G_OBJECT(err), "clicked", 
+        G_CALLBACK(show_error), (gpointer) window); 
+
+  g_signal_connect(G_OBJECT(window), "destroy",
+        G_CALLBACK(gtk_main_quit), G_OBJECT(window));
+
+  gtk_widget_show_all(window);
+
+  gtk_main();
+
+  return 0;
+}
+</pre>
+
+<p>
+In our example, we show four kinds of message dialogs: Information, Warning, 
+Question, and Error message dialogs.
+</p>
+
+<pre class="explanation">
+void show_question(GtkWidget *widget, gpointer window) {
+    
+  GtkWidget *dialog;
+  dialog = gtk_message_dialog_new(GTK_WINDOW(window),
+            GTK_DIALOG_DESTROY_WITH_PARENT,
+            GTK_MESSAGE_QUESTION,
+            GTK_BUTTONS_YES_NO,
+            "Are you sure to quit?");
+  gtk_window_set_title(GTK_WINDOW(dialog), "Question");
+  gtk_dialog_run(GTK_DIALOG(dialog));
+  gtk_widget_destroy(dialog);
+}
+</pre>
+
+<p>
+In the <code>show_question()</code> function, we pop up the message dialog. The message 
+dialog is created using the <code>gtk_message_dialog_new()</code> call. 
+The parameters of the function specify what kind of message dialog we create. 
+The <code>GTK_MESSAGE_QUESTION</code> constant creates a question type dialog.
+The <code>GTK_BUTTONS_YES_NO</code> constant will add Yes and No buttons in the 
+dialog. The last parameter is the text that we display in the dialog.
+The <code>gtk_dialog_run()</code> function shows the dialog and blocks the 
+main loop until the dialog responds or is destroyed.
+The dialog must be destroyed with the <code>gtk_widget_destroy()</code> function.
+</p>
+
+<figure>
+<img src="/img/gui/cgtk/information.png" alt="Information message dialog">
+<img src="/img/gui/cgtk/warning.png" alt="Warning message dialog">
+<img src="/img/gui/cgtk/question.png" alt="Question message dialog">
+<img src="/img/gui/cgtk/error.png" alt="Error message dialog">
+<figcaption>Figure: Message dialogs</figcaption>
+</figure>
+
+
+<h2>GtkAboutDialog</h2>
+
+<p>
+<code>GtkAboutDialog</code> is a dialog whose purpose is to display information 
+about the application. It can display the logo, the name of the application, the version, 
+the copyright, the website, and the licence information. It is also possible to give credits 
+to the authors, documenters, translators, and artists.
+</p>
+
+<div class="codehead">aboutdialog.c</div>
+<pre class="code">
+#include &lt;gtk/gtk.h&gt;
+
+void show_about(GtkWidget *widget, gpointer data) {
+
+  GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file("battery.png", NULL);
+
+  GtkWidget *dialog = gtk_about_dialog_new();
+  gtk_about_dialog_set_name(GTK_ABOUT_DIALOG(dialog), "Battery");
+  gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(dialog), "0.9"); 
+  gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(dialog),"(c) Jan Bodnar");
+  gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG(dialog), 
+     "Battery is a simple tool for battery checking.");
+  gtk_about_dialog_set_website(GTK_ABOUT_DIALOG(dialog), 
+     "http://www.batteryhq.net");
+  gtk_about_dialog_set_logo(GTK_ABOUT_DIALOG(dialog), pixbuf);
+  g_object_unref(pixbuf), pixbuf = NULL;
+  gtk_dialog_run(GTK_DIALOG (dialog));
+  gtk_widget_destroy(dialog);
+}
+
+int main(int argc, char *argv[]) {
+    
+  GtkWidget *window;
+  GtkWidget *about;
+  GdkPixbuf *battery;
+
+  gtk_init(&amp;argc, &amp;argv);
+
+  window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
+  gtk_window_set_default_size(GTK_WINDOW(window), 220, 150);
+  gtk_window_set_title(GTK_WINDOW(window), "Battery");
+
+  gtk_container_set_border_width(GTK_CONTAINER(window), 15);
+  gtk_widget_add_events(window, GDK_BUTTON_PRESS_MASK);
+
+  g_signal_connect(G_OBJECT(window), "button-press-event", 
+        G_CALLBACK(show_about), (gpointer) window); 
+
+  g_signal_connect(G_OBJECT(window), "destroy",
+        G_CALLBACK(gtk_main_quit), G_OBJECT(window));
+
+  gtk_widget_show_all(window);
+
+  gtk_main();
+
+  return 0;
+}
+</pre>
+
+<p>
+The code example uses a <code>GtkAboutDialog</code> with some of its 
+features. A click on the client area of the window pops up the dialog.
+</p>
+
+<pre class="explanation">
+GtkWidget *dialog = gtk_about_dialog_new();
+</pre>
+
+<p>
+The <code>GtkAboutDialog</code> is created with the <code>gtk_about_dialog_new()</code>
+function.
+</p>
+
+<pre class="explanation">
+gtk_about_dialog_set_name(GTK_ABOUT_DIALOG(dialog), "Battery");
+gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(dialog), "0.9"); 
+gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(dialog), 
+    "(c) Jan Bodnar");
+</pre>
+
+<p>
+These function calls set the name, the version, and the copyright
+of the application.
+</p>
+
+<pre class="explanation">
+gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG(dialog), 
+    "Battery is a simple tool for battery checking.");
+gtk_about_dialog_set_website(GTK_ABOUT_DIALOG(dialog), 
+    "http://www.batteryhq.net");
+</pre>
+
+<p>
+These lines set descriptive comments and the website 
+of the application.
+</p>
+
+<pre class="explanation">
+GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file("battery.png", NULL);
+...
+gtk_about_dialog_set_logo(GTK_ABOUT_DIALOG(dialog), pixbuf);
+g_object_unref(pixbuf), pixbuf = NULL;
+</pre>
+
+<p>
+This code creates a logo of the application. 
+</p>
+
+<figure>
+<img src="/img/gui/cgtk/battery.png" alt="GtkAboutDialog">
+<figcaption>Figure: GtkAboutDialog</figcaption>
+</figure>
+
+<div class="ad-mid square-fix-ad">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- square-fixed-2020 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:300px;height:250px"
+     data-ad-client="ca-pub-9706709751191532"
+     data-ad-slot="6775384732"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+
+<h2>GtkFontSelectionDialog</h2>
+
+<p>
+<code>GtkFontSelectionDialog</code> is a dialog for selecting fonts. 
+It is typically used in applications that do some text editing or formatting. 
+</p>
+
+<div class="codehead">fontdialog.c</div>
+<pre class="code">
+#include &lt;gtk/gtk.h&gt;
+
+void select_font(GtkWidget *widget, gpointer label) {
+    
+  GtkResponseType result;
+
+  GtkWidget *dialog = gtk_font_selection_dialog_new("Select Font");
+
+  result = gtk_dialog_run(GTK_DIALOG(dialog));
+
+  if (result == GTK_RESPONSE_OK || result == GTK_RESPONSE_APPLY) {
+
+     PangoFontDescription *font_desc;
+     gchar *fontname = gtk_font_selection_dialog_get_font_name(
+                            GTK_FONT_SELECTION_DIALOG(dialog));
+
+     font_desc = pango_font_description_from_string(fontname);
+
+     gtk_widget_modify_font(GTK_WIDGET(label), font_desc);
+
+     g_free(fontname);
+   }
+
+  gtk_widget_destroy(dialog);
+}
+
+int main(int argc, char *argv[]) {
+    
+  GtkWidget *window;
+  GtkWidget *label;
+  GtkWidget *vbox;
+
+  GtkWidget *toolbar;
+  GtkToolItem *font;
+
+  gtk_init(&amp;argc, &amp;argv);
+
+  window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
+  gtk_window_set_default_size(GTK_WINDOW(window), 280, 200);
+  gtk_window_set_title(GTK_WINDOW(window), "Font Selection Dialog");
+
+  vbox = gtk_vbox_new(FALSE, 0);
+  gtk_container_add(GTK_CONTAINER(window), vbox);
+
+  toolbar = gtk_toolbar_new();
+  gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
+
+  gtk_container_set_border_width(GTK_CONTAINER(toolbar), 2);
+
+  font = gtk_tool_button_new_from_stock(GTK_STOCK_SELECT_FONT);
+  gtk_toolbar_insert(GTK_TOOLBAR(toolbar), font, -1);
+
+  gtk_box_pack_start(GTK_BOX(vbox), toolbar, FALSE, FALSE, 5);
+
+  label = gtk_label_new("ZetCode");
+  gtk_label_set_justify(GTK_LABEL(label), GTK_JUSTIFY_CENTER);
+  gtk_box_pack_start(GTK_BOX(vbox), label, TRUE, FALSE, 5);
+
+  g_signal_connect(G_OBJECT(font), "clicked", 
+        G_CALLBACK(select_font), label);
+
+  g_signal_connect(G_OBJECT(window), "destroy",
+        G_CALLBACK(gtk_main_quit), NULL);
+
+  gtk_widget_show_all(window);
+
+  gtk_main();
+
+  return 0;
+}
+</pre>
+
+<p>
+In the code example, we put a simple label into the center of the window. 
+We show a font selecting dialog by clicking on the toolbar button.
+</p>
+
+<pre class="explanation">
+GtkWidget *dialog = gtk_font_selection_dialog_new("Select Font");
+result = gtk_dialog_run(GTK_DIALOG(dialog));
+</pre>
+
+<p>
+We create the <code>GtkFontSelectionDialog</code> with the <code>gtk_font_selection_dialog_new()</code>
+function and run it with the <code>gtk_dialog_run()</code> function.
+</p>
+
+<pre class="explanation">
+if (result == GTK_RESPONSE_OK || result == GTK_RESPONSE_APPLY) {
+
+    PangoFontDescription *font_desc;
+    gchar *fontname = gtk_font_selection_dialog_get_font_name(
+                        GTK_FONT_SELECTION_DIALOG(dialog));
+
+    font_desc = pango_font_description_from_string(fontname);
+
+    gtk_widget_modify_font(GTK_WIDGET(label), font_desc);
+
+    g_free(fontname);
+}
+</pre>
+
+<p>
+If the user clicks on the OK or Apply button, we proceed. We get the 
+selected font name using the <code>gtk_font_selection_dialog_get_font_name()</code>
+function. Then we change the label's font to the selected font name.
+</p>
+
+<figure>
+<img src="/img/gui/cgtk/fontselectiondialog.png" alt="GtkFontSelectionDialog">
+<figcaption>Figure: GtkFontSelectionDialog </figcaption>
+</figure>
+
+
+<h2>GtkColorSelectionDialog</h2>
+
+<p>
+<code>GtkColorSelectionDialog</code> is a dialog for selecting a colour. 
+</p>
+
+<div class="codehead">colordialog.c</div>
+<pre class="code">
+#include &lt;gtk/gtk.h&gt;
+
+void select_font(GtkWidget *widget, gpointer label) {
+
+  GtkResponseType result;
+  GtkColorSelection *colorsel;
+
+  GtkWidget *dialog = gtk_color_selection_dialog_new("Font Color");
+
+  result = gtk_dialog_run(GTK_DIALOG(dialog));
+
+  if (result == GTK_RESPONSE_OK) {
+
+    GdkColor color;
+
+    colorsel = GTK_COLOR_SELECTION(
+                   GTK_COLOR_SELECTION_DIALOG(dialog)->colorsel);
+    gtk_color_selection_get_current_color(colorsel,
+                                &amp;color);
+
+    gtk_widget_modify_fg(GTK_WIDGET(label),
+                             GTK_STATE_NORMAL,
+                             &amp;color);
+  } 
+
+  gtk_widget_destroy(dialog);
+}
+
+int main(int argc, char *argv[]) {
+
+  GtkWidget *window;
+  GtkWidget *widget;
+  GtkWidget *label;
+  GtkWidget *vbox;
+
+  GtkWidget *toolbar;
+  GtkToolItem *font;
+
+  gtk_init(&amp;argc, &amp;argv);
+
+  window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
+  gtk_window_set_default_size(GTK_WINDOW(window), 280, 200);
+  gtk_window_set_title(GTK_WINDOW(window), "Color Selection Dialog");
+
+  vbox = gtk_vbox_new(FALSE, 0);
+  gtk_container_add(GTK_CONTAINER(window), vbox);
+
+  toolbar = gtk_toolbar_new();
+  gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
+
+  gtk_container_set_border_width(GTK_CONTAINER(toolbar), 2);
+
+  font = gtk_tool_button_new_from_stock(GTK_STOCK_SELECT_COLOR);
+  gtk_toolbar_insert(GTK_TOOLBAR(toolbar), font, -1);
+
+  gtk_box_pack_start(GTK_BOX(vbox), toolbar, FALSE, FALSE, 5);
+
+  label = gtk_label_new("ZetCode");
+  gtk_label_set_justify(GTK_LABEL(label), GTK_JUSTIFY_CENTER);
+  gtk_box_pack_start(GTK_BOX(vbox), label, TRUE, FALSE, 5);
+
+  g_signal_connect(G_OBJECT(font), "clicked", 
+        G_CALLBACK(select_font), label);
+
+  g_signal_connect(G_OBJECT(window), "destroy",
+        G_CALLBACK(gtk_main_quit), NULL);
+
+  gtk_widget_show_all(window);
+
+  gtk_main();
+
+  return 0;
+}
+</pre>
+
+<p>
+The example is very similar to the previous one. This time we 
+change the colour of the label. 
+</p>
+
+<pre class="explanation">
+GtkWidget *dialog = gtk_color_selection_dialog_new("Font Color");
+result = gtk_dialog_run(GTK_DIALOG(dialog));
+</pre>
+
+<p>
+We create and show the <code>GtkColorSelectionDialog</code>.
+</p>
+
+<pre class="explanation">
+if (result == GTK_RESPONSE_OK) {
+
+  GdkColor color;
+
+  colorsel = GTK_COLOR_SELECTION(
+                 GTK_COLOR_SELECTION_DIALOG(dialog)->colorsel);
+  gtk_color_selection_get_current_color(colorsel,
+                 &amp;color);
+
+  gtk_widget_modify_fg(GTK_WIDGET(label),
+                 GTK_STATE_NORMAL,
+                 &amp;color);
+} 
+</pre>
+
+<p>
+If we press the OK button, we get the colour and modify the label's colour. 
+The colour value is returned with the <code>gtk_color_selection_get_current_color()</code>
+function.
+</p>
+
+<figure>
+<img src="/img/gui/cgtk/colorselectiondialog.png" alt="GtkColorSelectionDialog">
+<figcaption>Figure: GtkColorSelectionDialog </figcaption>
+</figure>
+
+<p>
+This chapter was about dialogs in GTK+.
+</p>
+
+
+<div class="ad-bot square-fix-ad">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- square-fixed-2020 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:300px;height:250px"
+     data-ad-client="ca-pub-9706709751191532"
+     data-ad-slot="6775384732"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+<nav>
+<a href="..">Contents</a> 
+<a href="../gtkevents/">Previous</a>
+<a href="../gtkwidgets/">Next</a>
+</nav>
+
+
+
+</div> <!-- content -->
+
+<div class="rtow">
+
+<div class="vert-ad">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- vertical-2020 -->
+<ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-9706709751191532"
+        data-ad-slot="5880603481"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+<script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+<div class="square-fix-ad ad-rtow">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- square-fixed-2020 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:300px;height:250px"
+     data-ad-client="ca-pub-9706709751191532"
+     data-ad-slot="6775384732"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+</div> <!-- rtow -->
+
+</div> <!-- container -->
+
+<footer>
+
+<nav>
+<a title="Home page" href="/">Home</a> 
+<a title="Follow on Facebook" href="https://www.facebook.com/zetcode7/">Facebook</a>
+<a title="Follow on Twitter" href="https://twitter.com/janbodnar">Twitter</a>
+<a title="Visit Github" href="https://github.com/janbodnar">Github</a>
+<a title="Subscribe to ZetCode news" href="http://zetcode.us13.list-manage.com/subscribe?u=9def9ccd4c70dbbaf691f90fc&id=6556210f80">Subscribe</a>
+<a title="Privacy policy" href="/privacy">Privacy</a> 
+</nav>
+
+<div>
+<span>&copy; 2007 - 2021 Jan Bodnar</span>
+<span>admin(at)zetcode.com</span>
+</div>
+
+</footer>
+
+</body>
+</html>

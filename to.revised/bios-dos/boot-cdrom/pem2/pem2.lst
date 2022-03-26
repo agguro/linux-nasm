@@ -1,0 +1,30 @@
+     1                                  org 0
+     2                                  BITS 16
+     3                                  
+     4 00000000 EB20                         jmp       start
+     5 00000002 50454D32206C6F6164-     pemloading:  db   'PEM2 loading, please wait....', 10, 13, 0
+     6 0000000B 696E672C20706C6561-
+     7 00000014 736520776169742E2E-
+     8 0000001D 2E2E0A0D00         
+     9                                  start:
+    10                                  
+    11 00000022 BE[0200]                     mov       si, pemloading
+    12                                       ; test if stack behaves
+    13 00000025 56                           push      si
+    14 00000026 31F6                         xor       si, si
+    15 00000028 5E                           pop       si
+    16 00000029 E80100                       call      Print
+    17 0000002C CB                           retf
+    18                                  
+    19                                  Print:
+    20 0000002D 60                           pusha
+    21 0000002E B40E                         mov       ah, 0Eh              ; int 10h teletype function
+    22                                  .repeat:
+    23 00000030 AC                           lodsb                    ; Get char from string
+    24 00000031 3C00                         cmp       al, 0
+    25 00000033 7404                         je        .done          ; If char is zero, end of string
+    26 00000035 CD10                         int       10h            ; Otherwise, print it
+    27 00000037 EBF7                         jmp       .repeat        ; And move on to next char
+    28                                  .done:
+    29 00000039 61                           popa
+    30 0000003A C3                           ret

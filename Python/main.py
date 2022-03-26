@@ -1,7 +1,11 @@
+#!/usr/bin/python3
+#
+
 import functions
 
+
 def main():
-    a = 1
-    print(functions.square(a))
+    for a in range(1, 11):
+        print('{:>4}'.format(functions.square(a)))
 
 main()

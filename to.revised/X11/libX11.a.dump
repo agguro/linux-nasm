@@ -1,0 +1,5019 @@
+
+AllCells.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+0000000000000000 T XAllocColorCells
+                 U _XEatDataWords
+                 U _XGetRequest
+                 U _XRead32
+                 U _XReply
+
+AllowEv.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XAllowEvents
+                 U _XGetRequest
+
+AllPlanes.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+0000000000000000 T XAllocColorPlanes
+                 U _XGetRequest
+                 U _XRead32
+                 U _XReply
+
+AutoRep.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+0000000000000050 T XAutoRepeatOff
+0000000000000000 T XAutoRepeatOn
+                 U XChangeKeyboardControl
+
+Backgnd.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XSetWindowBackground
+
+BdrWidth.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XSetWindowBorderWidth
+
+Bell.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XBell
+                 U _XGetRequest
+
+Border.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XSetWindowBorder
+
+ChAccCon.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000070 T XDisableAccessControl
+0000000000000060 T XEnableAccessControl
+                 U _XGetRequest
+0000000000000000 T XSetAccessControl
+
+ChActPGb.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XChangeActivePointerGrab
+                 U _XGetRequest
+
+ChClMode.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XSetCloseDownMode
+
+ChCmap.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XSetWindowColormap
+
+ChGC.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XChangeGC
+                 U _XFlushGCCache
+                 U _XUpdateGCCache
+
+ChKeyCon.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+0000000000000000 T XChangeKeyboardControl
+                 U _XData32
+                 U _XGetRequest
+
+ChkIfEv.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XCheckIfEvent
+                 U _XDeq
+                 U _XEventsQueued
+                 U _XFlush
+                 U _XStoreEventCookie
+
+ChkMaskEv.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XCheckMaskEvent
+                 U _XDeq
+                 U _XEventsQueued
+                 U _Xevent_to_mask
+                 U _XFlush
+                 U _XFreeEventCookies
+
+ChkTypEv.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XCheckTypedEvent
+                 U _XDeq
+                 U _XEventsQueued
+                 U _XFlush
+                 U _XFreeEventCookies
+                 U _XStoreEventCookie
+
+ChkTypWEv.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XCheckTypedWindowEvent
+                 U _XDeq
+                 U _XEventsQueued
+                 U _XFlush
+                 U _XFreeEventCookies
+                 U _XStoreEventCookie
+
+ChkWinEv.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XCheckWindowEvent
+                 U _XDeq
+                 U _XEventsQueued
+                 U _Xevent_to_mask
+                 U _XFlush
+                 U _XFreeEventCookies
+
+ChPntCon.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XChangePointerControl
+                 U _XGetRequest
+
+ChProp.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memcpy
+                 U memmove
+                 U __stack_chk_fail
+0000000000000000 T XChangeProperty
+                 U _XData32
+                 U _XGetRequest
+                 U _XSend
+
+ChSaveSet.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000070 T XAddToSaveSet
+0000000000000000 T XChangeSaveSet
+                 U _XGetRequest
+0000000000000080 T XRemoveFromSaveSet
+
+ChWAttrs.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XChangeWindowAttributes
+                 U _XGetRequest
+                 U _XProcessWindowAttributes
+
+ChWindow.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XResizeWindow
+
+CirWin.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XCirculateSubwindows
+                 U _XGetRequest
+
+CirWinDn.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XCirculateSubwindowsDown
+                 U _XGetRequest
+
+CirWinUp.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XCirculateSubwindowsUp
+                 U _XGetRequest
+
+ClDisplay.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U xcb_disconnect
+0000000000000000 T XCloseDisplay
+                 U _XFreeDisplayStructure
+                 U XFreeGC
+                 U XSync
+                 U XUnloadFont
+
+ClearArea.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XClearArea
+                 U _XGetRequest
+
+Clear.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XClearWindow
+                 U _XGetRequest
+
+ConfWind.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XMoveResizeWindow
+
+Context.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U _XCreateMutex_fn
+0000000000000450 T XDeleteContext
+0000000000000370 T XFindContext
+                 U _XFreeMutex_fn
+                 U _XLockMutex_fn
+0000000000000160 T XSaveContext
+                 U _XUnlockMutex_fn
+
+ConvSel.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XConvertSelection
+                 U _XGetRequest
+
+CopyArea.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XCopyArea
+                 U _XFlushGCCache
+                 U _XGetRequest
+
+CopyCmap.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XcmsCopyCmapRecAndFree
+0000000000000000 T XCopyColormapAndFree
+                 U _XGetRequest
+
+CopyGC.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XCopyGC
+                 U _XFlushGCCache
+                 U _XGetRequest
+
+CopyPlane.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XCopyPlane
+                 U _XFlushGCCache
+                 U _XGetRequest
+
+CrBFData.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+0000000000000000 T XCreateBitmapFromData
+                 U XCreateGC
+                 U XCreatePixmap
+                 U XFreeGC
+                 U XFreePixmap
+                 U XPutImage
+
+CrCmap.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XcmsAddCmapRec
+0000000000000000 T XCreateColormap
+                 U _XGetRequest
+
+CrCursor.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XCreatePixmapCursor
+                 U _XGetRequest
+                 U _XTryShapeBitmapCursor
+
+CrGC.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U __stack_chk_fail
+0000000000000540 T XCreateGC
+                 U _XData32
+0000000000000720 T XFlushGC
+0000000000000700 T _XFlushGCCache
+0000000000000740 T XGContextFromGC
+                 U _XGetRequest
+00000000000002a0 T _XUpdateGCCache
+
+CrGlCur.o:
+                 U dlopen
+                 U dlsym
+                 U _GLOBAL_OFFSET_TABLE_
+                 U strrchr
+0000000000000370 T XCreateGlyphCursor
+                 U _XGetRequest
+                 U _Xglobal_lock
+                 U _XLockMutex_fn
+0000000000000090 T _XNoticeCreateBitmap
+0000000000000170 T _XNoticePutBitmap
+0000000000000250 T _XTryShapeBitmapCursor
+                 U _XUnlockMutex_fn
+
+CrPFBData.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U XCreateGC
+                 U XCreatePixmap
+0000000000000000 T XCreatePixmapFromBitmapData
+                 U XFreeGC
+                 U XFreePixmap
+                 U XPutImage
+
+CrPixmap.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XCreatePixmap
+                 U _XGetRequest
+                 U _XNoticeCreateBitmap
+
+CrWindow.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XCreateSimpleWindow
+                 U _XGetRequest
+
+Cursor.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XCreateFontCursor
+                 U XCreateGlyphCursor
+                 U XLoadFont
+
+DefCursor.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XDefineCursor
+                 U _XGetRequest
+
+DelProp.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XDeleteProperty
+                 U _XGetRequest
+
+Depths.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+0000000000000000 T XListDepths
+
+DestSubs.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XDestroySubwindows
+                 U _XGetRequest
+
+DestWind.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XDestroyWindow
+                 U _XGetRequest
+
+DisName.o:
+                 U getenv
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XDisplayName
+
+DrArc.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XDrawArc
+                 U _XFlushGCCache
+                 U _XGetRequest
+
+DrArcs.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memcpy
+                 U memmove
+                 U __stack_chk_fail
+                 U _XData32
+0000000000000000 T XDrawArcs
+                 U _XFlushGCCache
+                 U _XGetRequest
+                 U _XSend
+
+DrLine.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XDrawLine
+                 U _XFlushGCCache
+                 U _XGetRequest
+
+DrLines.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memcpy
+                 U memmove
+                 U __stack_chk_fail
+                 U _XData32
+0000000000000000 T XDrawLines
+                 U _XFlushGCCache
+                 U _XGetRequest
+                 U _XSend
+
+DrPoint.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XDrawPoint
+                 U _XFlushGCCache
+                 U _XGetRequest
+
+DrPoints.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memcpy
+                 U memmove
+                 U __stack_chk_fail
+                 U _XData32
+0000000000000000 T XDrawPoints
+                 U _XFlushGCCache
+                 U _XGetRequest
+                 U _XSend
+
+DrRect.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XDrawRectangle
+                 U _XFlushGCCache
+                 U _XGetRequest
+
+DrRects.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memcpy
+                 U memmove
+                 U __stack_chk_fail
+                 U _XData32
+0000000000000000 T XDrawRectangles
+                 U _XFlushGCCache
+                 U _XGetRequest
+                 U _XSend
+
+DrSegs.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memcpy
+                 U memmove
+                 U __stack_chk_fail
+                 U _XData32
+0000000000000000 T XDrawSegments
+                 U _XFlushGCCache
+                 U _XGetRequest
+                 U _XSend
+
+ErrDes.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U __snprintf_chk
+                 U __stack_chk_fail
+                 U strlen
+                 U strncpy
+0000000000000430 T XGetErrorDatabaseText
+0000000000000230 T XGetErrorText
+                 U _Xglobal_lock
+                 U _XLockMutex_fn
+                 U XrmDestroyDatabase
+                 U XrmGetFileDatabase
+                 U XrmGetResource
+                 U XrmInitialize
+                 U _XUnlockMutex_fn
+
+ErrHndlr.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XDefaultError
+                 U _XDefaultIOError
+                 U _XErrorFunction
+                 U _Xglobal_lock
+                 U _XIOErrorFunction
+                 U _XLockMutex_fn
+0000000000000000 T XSetErrorHandler
+0000000000000080 T XSetIOErrorHandler
+                 U _XUnlockMutex_fn
+
+evtomask.o:
+0000000000000000 R _Xevent_to_mask
+
+EvToWire.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T _XEventToWire
+                 U _XUnknownNativeEvent
+
+FetchName.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+0000000000000000 T XFetchName
+00000000000000c0 T XGetIconName
+                 U XGetWindowProperty
+
+FillArc.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XFillArc
+                 U _XFlushGCCache
+                 U _XGetRequest
+
+FillArcs.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memcpy
+                 U memmove
+                 U __stack_chk_fail
+                 U _XData32
+0000000000000000 T XFillArcs
+                 U _XFlushGCCache
+                 U _XGetRequest
+                 U _XSend
+
+FillPoly.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memcpy
+                 U memmove
+                 U __stack_chk_fail
+                 U _XData32
+0000000000000000 T XFillPolygon
+                 U _XFlushGCCache
+                 U _XGetRequest
+                 U _XSend
+
+FillRct.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XFillRectangle
+                 U _XFlushGCCache
+                 U _XGetRequest
+
+FillRcts.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memcpy
+                 U memmove
+                 U __stack_chk_fail
+                 U _XData32
+0000000000000000 T XFillRectangles
+                 U _XFlushGCCache
+                 U _XGetRequest
+                 U _XSend
+
+FilterEv.o:
+                 U _Xevent_to_mask
+0000000000000000 T XFilterEvent
+
+Flush.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XFlush
+                 U _XFlush
+
+Font.o:
+                 U free
+                 U fwrite
+                 U getenv
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memcpy
+                 U shmat
+                 U shmctl
+                 U shmdt
+                 U __stack_chk_fail
+                 U stderr
+                 U strcpy
+                 U __strcpy_chk
+                 U strlen
+                 U strrchr
+                 U XAddToExtensionList
+                 U _XAsyncErrorHandler
+                 U _XDeqAsyncHandler
+                 U _XEatDataWords
+                 U XEHeadOfExtensionList
+0000000000000c60 T _XF86BigfontFreeFontMetrics
+0000000000000d60 T _XF86LoadQueryLocaleFont
+                 U XFindOnExtensionList
+                 U _XFreeExtData
+0000000000000ca0 T XFreeFont
+                 U _XGetRequest
+                 U XInitExtension
+                 U _XlcCurrentLC
+                 U _XlcNCompareISOLatin1
+0000000000000fa0 T XLoadQueryFont
+0000000000000bd0 T XQueryFont
+                 U _XRead
+                 U _XRead32
+                 U _XReply
+                 U _XSend
+
+FontInfo.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U realloc
+                 U __stack_chk_fail
+                 U strlen
+                 U _XEatDataWords
+                 U _XF86BigfontFreeFontMetrics
+0000000000000520 T XFreeFontInfo
+                 U _XGetRequest
+0000000000000000 T XListFontsWithInfo
+                 U _XRead32
+                 U _XReadPad
+                 U _XReply
+                 U _XSend
+
+FontNames.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U __stack_chk_fail
+                 U strlen
+                 U _XEatDataWords
+0000000000000240 T XFreeFontNames
+                 U _XGetRequest
+0000000000000000 T XListFonts
+                 U _XReadPad
+                 U _XReply
+                 U _XSend
+
+FreeCmap.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XcmsDeleteCmapRec
+0000000000000000 T XFreeColormap
+                 U _XGetRequest
+
+FreeCols.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XData32
+0000000000000000 T XFreeColors
+                 U _XGetRequest
+
+FreeCurs.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XFreeCursor
+                 U _XGetRequest
+
+FreeEData.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T _XFreeExtData
+
+FreeEventData.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U XFree
+0000000000000000 T XFreeEventData
+                 U _XIsEventCookie
+
+FreeGC.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XFreeExtData
+0000000000000000 T XFreeGC
+                 U _XGetRequest
+
+FreePix.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XFreePixmap
+                 U _XGetRequest
+
+FSSaver.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000060 T XActivateScreenSaver
+0000000000000000 T XForceScreenSaver
+                 U _XGetRequest
+0000000000000080 T XResetScreenSaver
+
+FSWrap.o:
+                 U __ctype_b_loc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memcpy
+                 U __stack_chk_fail
+                 U stpcpy
+                 U strchr
+                 U strdup
+                 U strlen
+00000000000003b0 T XBaseFontNameListOfFontSet
+                 U XCloseOM
+00000000000003d0 T XContextDependentDrawing
+00000000000003f0 T XContextualDrawing
+00000000000001d0 T XCreateFontSet
+                 U XCreateOC
+00000000000003e0 T XDirectionalDependentDrawing
+0000000000000400 T XExtentsOfFontSet
+0000000000000390 T XFontsOfFontSet
+0000000000000420 T XFreeFontSet
+00000000000003c0 T XLocaleOfFontSet
+                 U XOpenOM
+0000000000000000 T _XParseBaseFontNameList
+
+GCMisc.o:
+0000000000000000 T XSetArcMode
+0000000000000070 T XSetFillRule
+00000000000000e0 T XSetFillStyle
+0000000000000150 T XSetGraphicsExposures
+00000000000001c0 T XSetSubwindowMode
+
+Geom.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+0000000000000000 T XGeometry
+                 U XParseGeometry
+
+GetAtomNm.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memcpy
+                 U __stack_chk_fail
+                 U strlen
+                 U _XDeqAsyncHandler
+                 U _XEatDataWords
+                 U _XGetAsyncData
+                 U _XGetAsyncReply
+0000000000000240 T XGetAtomName
+0000000000000360 T XGetAtomNames
+                 U _XGetRequest
+                 U _XReadPad
+                 U _XReply
+                 U _XUpdateAtomCache
+
+GetColor.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U strlen
+                 U XAllocColor
+0000000000000000 T XAllocNamedColor
+                 U XcmsCCCOfColormap
+                 U _XcmsResolveColorString
+                 U _XcmsRGB_to_XColor
+                 U _XGetRequest
+                 U _XReply
+                 U _XSend
+
+GetDflt.o:
+                 U getenv
+                 U getpwnam_r
+                 U getpwuid_r
+                 U getuid
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U __strcat_chk
+                 U strncpy
+                 U strrchr
+0000000000000290 T XGetDefault
+                 U _XGetHostname
+                 U XrmGetFileDatabase
+                 U XrmGetStringDatabase
+                 U XrmInitialize
+                 U XrmMergeDatabases
+                 U XrmQGetResource
+                 U XrmStringToQuark
+
+GetEventData.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XFetchEventCookie
+0000000000000000 T XGetEventData
+
+GetFPath.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U __stack_chk_fail
+                 U _XEatDataWords
+0000000000000200 T XFreeFontPath
+0000000000000000 T XGetFontPath
+                 U _XGetRequest
+                 U _XReadPad
+                 U _XReply
+
+GetFProp.o:
+0000000000000000 T XGetFontProperty
+
+GetGCVals.o:
+0000000000000000 T XGetGCValues
+
+GetGeom.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+0000000000000000 T XGetGeometry
+                 U _XGetRequest
+                 U _XReply
+
+GetHColor.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+0000000000000000 T XAllocColor
+                 U _XGetRequest
+                 U _XReply
+
+GetHints.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U __stack_chk_fail
+                 U strcpy
+                 U strlen
+00000000000005d0 T XGetClassHint
+0000000000000410 T XGetCommand
+00000000000002a0 T XGetIconSizes
+0000000000000290 T XGetNormalHints
+0000000000000000 T XGetSizeHints
+                 U XGetTextProperty
+0000000000000500 T XGetTransientForHint
+                 U XGetWindowProperty
+0000000000000130 T XGetWMHints
+0000000000000280 T XGetZoomHints
+                 U XTextPropertyToStringList
+
+GetIFocus.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+0000000000000000 T XGetInputFocus
+                 U _XGetRequest
+                 U _XReply
+
+GetImage.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U __stack_chk_fail
+                 U XCreateImage
+                 U _XEatDataWords
+0000000000000000 T XGetImage
+                 U _XGetRequest
+                 U _XGetScanlinePad
+0000000000000300 T XGetSubImage
+                 U _XReadPad
+                 U _XReply
+                 U _XSetImage
+                 U _XVIDtoVisual
+
+GetKCnt.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+0000000000000000 T XGetKeyboardControl
+                 U _XGetRequest
+                 U _XReply
+
+GetMoEv.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U __stack_chk_fail
+                 U _XEatDataWords
+0000000000000000 T XGetMotionEvents
+                 U _XGetRequest
+                 U _XRead
+                 U _XReply
+
+GetNrmHint.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U XGetWindowProperty
+0000000000000180 T XGetWMNormalHints
+0000000000000000 T XGetWMSizeHints
+
+GetPCnt.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+0000000000000000 T XGetPointerControl
+                 U _XGetRequest
+                 U _XReply
+
+GetPntMap.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U __stack_chk_fail
+                 U _XEatData
+                 U _XEatDataWords
+0000000000000250 T XGetKeyboardMapping
+0000000000000000 T XGetPointerMapping
+                 U _XGetRequest
+                 U _XRead
+                 U _XRead32
+                 U _XReply
+
+GetProp.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U __stack_chk_fail
+                 U _XEatDataWords
+                 U _XError
+                 U _XGetRequest
+0000000000000000 T XGetWindowProperty
+                 U _XRead32
+                 U _XReadPad
+                 U _XReply
+
+GetRGBCMap.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U __stack_chk_fail
+0000000000000000 T XGetRGBColormaps
+                 U XGetWindowProperty
+                 U _XScreenOfWindow
+
+GetSOwner.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U _XGetRequest
+0000000000000000 T XGetSelectionOwner
+                 U _XReply
+
+GetSSaver.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U _XGetRequest
+0000000000000000 T XGetScreenSaver
+                 U _XReply
+
+GetStCmap.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U XGetRGBColormaps
+0000000000000000 T XGetStandardColormap
+                 U _XScreenOfWindow
+
+GetTxtProp.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+0000000000000000 T XGetTextProperty
+                 U XGetWindowProperty
+0000000000000110 T XGetWMClientMachine
+0000000000000100 T XGetWMIconName
+00000000000000f0 T XGetWMName
+
+GetWAttrs.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U _XDeqAsyncHandler
+                 U _XGetAsyncReply
+                 U _XGetRequest
+0000000000000320 T XGetWindowAttributes
+0000000000000130 T _XGetWindowAttributes
+                 U _XReply
+                 U _XVIDtoVisual
+
+GetWMCMapW.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U XGetWindowProperty
+0000000000000000 T XGetWMColormapWindows
+                 U XInternAtom
+
+GetWMProto.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U XGetWindowProperty
+0000000000000000 T XGetWMProtocols
+                 U XInternAtom
+
+globals.o:
+0000000000000008 C _qfree
+0000000000000004 C _Xdebug
+0000000000000008 C _XErrorFunction
+0000000000000008 C _XHeadOfDisplayList
+0000000000000008 C _XIOErrorFunction
+
+GrButton.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XGrabButton
+
+GrKeybd.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U _XGetRequest
+0000000000000000 T XGrabKeyboard
+                 U _XReply
+
+GrKey.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XGrabKey
+
+GrPointer.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U _XGetRequest
+0000000000000000 T XGrabPointer
+                 U _XReply
+
+GrServer.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XGrabServer
+
+Host.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memcpy
+0000000000000000 T XAddHost
+00000000000002a0 T XAddHosts
+                 U _XGetRequest
+0000000000000150 T XRemoveHost
+0000000000000400 T XRemoveHosts
+
+Iconify.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+0000000000000000 T XIconifyWindow
+                 U XInternAtom
+                 U XSendEvent
+
+IfEvent.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XDeq
+0000000000000000 T XIfEvent
+                 U _XReadEvents
+                 U _XStoreEventCookie
+
+imConv.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U KeySymToUcs4
+                 U __memcpy_chk
+                 U __stack_chk_fail
+                 U strcmp
+                 U _Utf8GetConvByName
+0000000000000110 T _XimGetCharCode
+0000000000000080 T _XimGetLocaleCode
+0000000000000180 T _XimLookupMBText
+0000000000000560 T _XimLookupUTF8Text
+0000000000000390 T _XimLookupWCText
+                 U XkbGetXlibControls
+                 U XkbSetXlibControls
+                 U _XlcConvert
+                 U XLookupString
+
+ImText16.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+0000000000000000 T XDrawImageString16
+                 U _XFlushGCCache
+                 U _XGetRequest
+                 U _XReply
+                 U _XSend
+
+ImText.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+0000000000000000 T XDrawImageString
+                 U _XFlushGCCache
+                 U _XGetRequest
+                 U _XReply
+                 U _XSend
+
+ImUtil.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+0000000000001260 T XCreateImage
+0000000000000bb0 T _XGetBitsPerPixel
+0000000000000b70 T _XGetScanlinePad
+0000000000001420 T XInitImage
+0000000000000c10 T _XInitImageFuncPtrs
+                 U _XReverse_Bytes
+00000000000014d0 T _XSetImage
+
+InitExt.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U __stack_chk_fail
+                 U strdup
+0000000000000140 T XAddExtension
+0000000000000220 T XAddToExtensionList
+                 U _XDefaultWireError
+0000000000000210 T XEHeadOfExtensionList
+0000000000000ab0 T XESetBeforeFlush
+00000000000005b0 T XESetCloseDisplay
+0000000000000740 T XESetCopyEventCookie
+00000000000002e0 T XESetCopyGC
+0000000000000490 T XESetCreateFont
+0000000000000250 T XESetCreateGC
+0000000000000900 T XESetError
+0000000000000990 T XESetErrorString
+00000000000007c0 T XESetEventToWire
+0000000000000370 T XESetFlushGC
+0000000000000520 T XESetFreeFont
+0000000000000400 T XESetFreeGC
+0000000000000a20 T XESetPrintErrorValues
+0000000000000840 T XESetWireToError
+0000000000000640 T XESetWireToEvent
+00000000000006c0 T XESetWireToEventCookie
+0000000000000230 T XFindOnExtensionList
+0000000000000000 T XInitExtension
+                 U XQueryExtension
+                 U _XUnknownCopyEventCookie
+                 U _XUnknownNativeEvent
+                 U _XUnknownWireEvent
+                 U _XUnknownWireEventCookie
+
+InsCmap.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XInstallColormap
+
+IntAtom.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memcpy
+                 U __stack_chk_fail
+                 U strcpy
+                 U _XDeqAsyncHandler
+0000000000000000 T _XFreeAtomTable
+                 U _XGetAsyncReply
+                 U _XGetRequest
+00000000000005c0 T XInternAtom
+0000000000000710 T XInternAtoms
+                 U _XReply
+                 U _XSend
+00000000000002c0 T _XUpdateAtomCache
+
+KeyBind.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memcpy
+                 U __stack_chk_fail
+0000000000000690 T XConvertCase
+                 U XFreeModifiermap
+                 U XGetKeyboardMapping
+                 U XGetModifierMapping
+                 U XkbKeysymToModifiers
+0000000000000f50 T _XKeycodeToKeysym
+0000000000000e50 T _XKeyInitialize
+0000000000000fa0 T _XKeysymToKeycode
+0000000000001760 T _XKeysymToModifiers
+0000000000001040 T _XLookupKeysym
+0000000000001510 T _XLookupString
+00000000000015a0 T XRebindKeysym
+0000000000000d40 T _XRefreshKeyboardMapping
+00000000000010a0 T _XTranslateKey
+00000000000013b0 T _XTranslateKeySym
+
+KeysymStr.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U __snprintf_chk
+                 U __stack_chk_fail
+                 U strlen
+                 U strncmp
+                 U _XInitKeysymDB
+0000000000000050 T XKeysymToString
+                 U _XkeyTable
+                 U XrmEnumerateDatabase
+                 U XrmPermStringToQuark
+                 U XrmQuarkToString
+
+KillCl.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XKillClient
+
+LiHosts.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memchr
+                 U __stack_chk_fail
+                 U _XEatDataWords
+                 U _XGetRequest
+0000000000000000 T XListHosts
+                 U _XRead
+                 U _XReply
+
+LiICmaps.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U __stack_chk_fail
+                 U _XEatDataWords
+                 U _XGetRequest
+0000000000000000 T XListInstalledColormaps
+                 U _XRead32
+                 U _XReply
+
+LiProps.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U __stack_chk_fail
+                 U _XEatDataWords
+                 U _XGetRequest
+0000000000000000 T XListProperties
+                 U _XRead32
+                 U _XReply
+
+ListExt.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U __stack_chk_fail
+                 U _XEatDataWords
+00000000000001f0 T XFreeExtensionList
+                 U _XGetRequest
+0000000000000000 T XListExtensions
+                 U _XReadPad
+                 U _XReply
+
+LoadFont.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memcpy
+                 U __stack_chk_fail
+                 U strlen
+                 U _XF86LoadQueryLocaleFont
+                 U _XGetRequest
+0000000000000000 T XLoadFont
+                 U _XSend
+
+LockDis.o:
+0000000000000000 T XLockDisplay
+00000000000000d0 T XUnlockDisplay
+
+locking.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U pthread_cond_broadcast
+                 U pthread_cond_destroy
+                 U pthread_cond_init
+                 U pthread_cond_signal
+                 U pthread_cond_wait
+                 U pthread_mutex_destroy
+                 U pthread_mutex_init
+                 U pthread_mutex_lock
+                 U pthread_mutex_unlock
+                 U pthread_self
+                 U _XCreateMutex_fn
+                 U _XFreeDisplayLock_fn
+                 U _XFreeMutex_fn
+                 U _Xglobal_lock
+                 U _Xi18n_lock
+                 U _XIDHandler
+                 U _XInitDisplayLock_fn
+0000000000000720 T XInitThreads
+                 U _XLockMutex_fn
+                 U _XSeqSyncFunction
+                 U _Xthread_self_fn
+                 U _XUnlockMutex_fn
+
+LookupCol.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memcpy
+                 U __stack_chk_fail
+                 U strlen
+                 U XcmsCCCOfColormap
+                 U _XcmsResolveColorString
+                 U _XcmsRGB_to_XColor
+                 U _XGetRequest
+0000000000000000 T XLookupColor
+                 U _XReply
+                 U _XSend
+                 U _XUnresolveColor
+
+LowerWin.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XLowerWindow
+
+Macros.o:
+                 U _GLOBAL_OFFSET_TABLE_
+00000000000004e0 T XAddPixel
+00000000000000e0 T XAllPlanes
+0000000000000270 T XBitmapBitOrder
+0000000000000280 T XBitmapPad
+0000000000000260 T XBitmapUnit
+00000000000000a0 T XBlackPixel
+0000000000000340 T XBlackPixelOfScreen
+00000000000003f0 T XCellsOfScreen
+0000000000000000 T XConnectionNumber
+0000000000000240 T XDefaultColormap
+0000000000000360 T XDefaultColormapOfScreen
+0000000000000220 T XDefaultDepth
+0000000000000370 T XDefaultDepthOfScreen
+0000000000000080 T XDefaultGC
+0000000000000380 T XDefaultGCOfScreen
+0000000000000040 T XDefaultRootWindow
+0000000000000030 T XDefaultScreen
+0000000000000300 T XDefaultScreenOfDisplay
+0000000000000060 T XDefaultVisual
+0000000000000390 T XDefaultVisualOfScreen
+00000000000004a0 T XDestroyImage
+00000000000001a0 T XDisplayCells
+0000000000000120 T XDisplayHeight
+0000000000000160 T XDisplayHeightMM
+0000000000000320 T XDisplayOfScreen
+0000000000000180 T XDisplayPlanes
+0000000000000210 T XDisplayString
+0000000000000100 T XDisplayWidth
+0000000000000140 T XDisplayWidthMM
+0000000000000430 T XDoesBackingStore
+0000000000000420 T XDoesSaveUnders
+0000000000000440 T XEventMaskOfScreen
+00000000000004b0 T XGetPixel
+                 U _XGetRequest
+00000000000003d0 T XHeightMMOfScreen
+00000000000003b0 T XHeightOfScreen
+0000000000000290 T XImageByteOrder
+00000000000002e0 T XLastKnownRequestProcessed
+0000000000000410 T XMaxCmapsOfScreen
+0000000000000400 T XMinCmapsOfScreen
+00000000000002a0 T XNextRequest
+                 U _XNextRequest
+00000000000004f0 T XNoOp
+00000000000003e0 T XPlanesOfScreen
+00000000000001f0 T XProtocolRevision
+00000000000001e0 T XProtocolVersion
+00000000000004c0 T XPutPixel
+00000000000000f0 T XQLength
+0000000000000010 T XRootWindow
+0000000000000330 T XRootWindowOfScreen
+00000000000001c0 T XScreenCount
+0000000000000450 T XScreenNumberOfScreen
+00000000000002f0 T XScreenOfDisplay
+00000000000001d0 T XServerVendor
+00000000000004d0 T XSubImage
+0000000000000200 T XVendorRelease
+00000000000000c0 T XWhitePixel
+0000000000000350 T XWhitePixelOfScreen
+00000000000003c0 T XWidthMMOfScreen
+00000000000003a0 T XWidthOfScreen
+
+MapRaised.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XMapRaised
+
+MapSubs.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XMapSubwindows
+
+MapWindow.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XMapWindow
+
+MaskEvent.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XDeq
+                 U _Xevent_to_mask
+                 U _XFreeEventCookies
+0000000000000000 T XMaskEvent
+                 U _XReadEvents
+
+Misc.o:
+0000000000000030 T XDisplayKeycodes
+0000000000000020 T XDisplayMotionBufferSize
+0000000000000060 T XExtendedMaxRequestSize
+0000000000000000 T XMaxRequestSize
+0000000000000010 T XResourceManagerString
+0000000000000050 T XVisualIDFromVisual
+
+ModMap.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memcpy
+                 U __stack_chk_fail
+0000000000000420 T XDeleteModifiermapEntry
+                 U _XEatDataWords
+0000000000000280 T XFreeModifiermap
+0000000000000000 T XGetModifierMapping
+                 U _XGetRequest
+00000000000002b0 T XInsertModifiermapEntry
+0000000000000210 T XNewModifiermap
+                 U _XReadPad
+                 U _XReply
+                 U _XSend
+0000000000000120 T XSetModifierMapping
+
+MoveWin.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XMoveWindow
+
+NextEvent.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XDeq
+                 U _XFreeEventCookies
+0000000000000000 T XNextEvent
+                 U _XReadEvents
+                 U _XStoreEventCookie
+
+OCWrap.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+0000000000000000 T XCreateOC
+0000000000000140 T XDestroyOC
+00000000000002d0 T XGetOCValues
+                 U _XlcCountVaList
+                 U _XlcVaToArgList
+0000000000000190 T XOMOfOC
+00000000000001a0 T XSetOCValues
+
+OMWrap.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U _XCloseLC
+0000000000000060 T XCloseOM
+0000000000000310 T XDisplayOfOM
+00000000000001e0 T XGetOMValues
+                 U _XlcCountVaList
+                 U _XlcVaToArgList
+0000000000000320 T XLocaleOfOM
+                 U _XOpenLC
+0000000000000000 T XOpenOM
+00000000000000b0 T XSetOMValues
+
+OpenDis.o:
+                 U calloc
+                 U __fprintf_chk
+                 U free
+                 U getenv
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U __stack_chk_fail
+                 U stderr
+                 U strdup
+                 U strncpy
+                 U strtol
+                 U _XAllocID
+                 U _XAllocIDs
+                 U xcb_disconnect
+                 U xcb_get_maximum_request_length
+                 U xcb_get_setup
+                 U _XConnectXCB
+                 U XCreateGC
+                 U _Xdebug
+                 U _XEatDataWords
+                 U _XErrorFunction
+0000000000000000 B _XFreeDisplayLock_fn
+0000000000000000 T _XFreeDisplayStructure
+                 U _XFreeEventCookies
+                 U _XFreeExtData
+                 U _XFreeX11XCBStructure
+                 U _XGetRequest
+0000000000000008 B _XInitDisplayLock_fn
+                 U _XIOErrorFunction
+                 U _XIsEventCookie
+                 U XkbUseExtension
+00000000000003d0 T XOpenDisplay
+                 U _XPollfdCacheInit
+                 U _XReadPad
+                 U _XReply
+                 U XrmDestroyDatabase
+                 U XSetErrorHandler
+                 U XSetIOErrorHandler
+                 U _XStoreEventCookie
+                 U XSynchronize
+                 U _XUnknownNativeEvent
+                 U _XUnknownWireEvent
+                 U _XVIDtoVisual
+                 U _XWireToEvent
+
+ParseCmd.o:
+                 U exit
+                 U __fprintf_chk
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U stderr
+                 U strcmp
+0000000000000000 T XrmParseCommand
+                 U XrmPutLineResource
+                 U XrmQPutStringResource
+                 U XrmStringToBindingQuarkList
+                 U XrmStringToQuark
+
+ParseCol.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memcpy
+                 U __stack_chk_fail
+                 U strlen
+                 U XcmsCCCOfColormap
+                 U _XcmsResolveColorString
+                 U _XcmsRGB_to_XColor
+                 U _XGetRequest
+0000000000000000 T XParseColor
+                 U _XReply
+                 U _XSend
+
+ParseGeom.o:
+0000000000000000 T XParseGeometry
+
+PeekEvent.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U _XCopyEventCookie
+0000000000000000 T XPeekEvent
+                 U _XReadEvents
+                 U _XStoreEventCookie
+
+PeekIfEv.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U _XCopyEventCookie
+0000000000000000 T XPeekIfEvent
+                 U _XReadEvents
+                 U _XStoreEventCookie
+
+Pending.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XEventsQueued
+                 U _XEventsQueued
+0000000000000070 T XPending
+
+PixFormats.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+0000000000000000 T XListPixmapFormats
+
+PmapBgnd.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XSetWindowBackgroundPixmap
+
+PmapBord.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XSetWindowBorderPixmap
+
+PolyReg.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U realloc
+                 U __stack_chk_fail
+                 U XCreateRegion
+                 U XDestroyRegion
+00000000000000f0 T XPolygonRegion
+
+PolyTxt16.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memcpy
+                 U memset
+0000000000000000 T XDrawText16
+                 U _XFlush
+                 U _XFlushGCCache
+                 U _XGetRequest
+
+PolyTxt.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XDrawText
+                 U _XFlush
+                 U _XFlushGCCache
+                 U _XGetRequest
+
+PropAlloc.o:
+                 U calloc
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000030 T XAllocClassHint
+0000000000000040 T XAllocIconSize
+0000000000000000 T XAllocSizeHints
+0000000000000010 T XAllocStandardColormap
+0000000000000020 T XAllocWMHints
+
+PutBEvent.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U __stack_chk_fail
+                 U _XCopyEventCookie
+                 U _XFetchEventCookie
+                 U _XIsEventCookie
+0000000000000390 T XPutBackEvent
+0000000000000000 T _XPutBackEvent
+
+PutImage.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memcpy
+                 U __stack_chk_fail
+                 U _XAllocScratch
+                 U _XFlushGCCache
+                 U _XGetRequest
+                 U _XInitImageFuncPtrs
+                 U _XNoticePutBitmap
+00000000000015e0 T XPutImage
+00000000000015b0 T _XReverse_Bytes
+                 U _XSend
+
+Quarks.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U realloc
+                 U _Xglobal_lock
+                 U _XLockMutex_fn
+00000000000000b0 T Xpermalloc
+00000000000000f0 T _XrmInternalStringToQuark
+00000000000005c0 T XrmPermStringToQuark
+0000000000000670 T XrmQuarkToString
+0000000000000580 T XrmStringToQuark
+0000000000000610 T XrmUniqueQuark
+                 U _XUnlockMutex_fn
+
+QuBest.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U _XGetRequest
+0000000000000000 T XQueryBestSize
+                 U _XReply
+
+QuColor.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U _XGetRequest
+0000000000000000 T XQueryColor
+                 U _XRead
+                 U _XReply
+
+QuColors.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memmove
+                 U __stack_chk_fail
+                 U _XData32
+                 U _XEatDataWords
+                 U _XGetRequest
+00000000000001d0 T XQueryColors
+                 U _XRead
+                 U _XReply
+
+QuCurShp.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U _XGetRequest
+0000000000000000 T XQueryBestCursor
+                 U _XReply
+
+QuExt.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U strlen
+                 U _XGetRequest
+0000000000000000 T XQueryExtension
+                 U _XReply
+                 U _XSend
+
+QuKeybd.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U _XGetRequest
+0000000000000000 T XQueryKeymap
+                 U _XReply
+
+QuPntr.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U _XGetRequest
+0000000000000000 T XQueryPointer
+                 U _XReply
+
+QuStipShp.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U _XGetRequest
+0000000000000000 T XQueryBestStipple
+                 U _XReply
+
+QuTextE16.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memcpy
+                 U __stack_chk_fail
+                 U _XAllocScratch
+                 U _XGetRequest
+0000000000000000 T XQueryTextExtents16
+                 U _XReply
+                 U _XSend
+
+QuTextExt.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memcpy
+                 U __stack_chk_fail
+                 U _XAllocScratch
+                 U _XGetRequest
+0000000000000000 T XQueryTextExtents
+                 U _XReply
+                 U _XSend
+
+QuTileShp.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U _XGetRequest
+0000000000000000 T XQueryBestTile
+                 U _XReply
+
+QuTree.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U __stack_chk_fail
+                 U _XEatDataWords
+                 U _XGetRequest
+0000000000000000 T XQueryTree
+                 U _XRead32
+                 U _XReply
+
+RaiseWin.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XRaiseWindow
+
+RdBitF.o:
+                 U __ctype_b_loc
+                 U fclose
+                 U fgets
+                 U fopen
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _IO_getc
+                 U malloc
+                 U sscanf
+                 U __stack_chk_fail
+                 U strrchr
+                 U XCreateBitmapFromData
+0000000000000540 T XReadBitmapFile
+0000000000000090 T XReadBitmapFileData
+
+RecolorC.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XRecolorCursor
+
+ReconfWin.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+0000000000000000 T XConfigureWindow
+                 U _XData32
+                 U _XGetRequest
+
+ReconfWM.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U _XAsyncErrorHandler
+                 U XConfigureWindow
+                 U _XData32
+                 U _XDeqAsyncHandler
+                 U _XGetRequest
+0000000000000000 T XReconfigureWMWindow
+                 U _XReply
+                 U XSendEvent
+
+Region.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memcpy
+                 U realloc
+                 U __stack_chk_fail
+                 U _XAllocTemp
+0000000000001030 T XClipBox
+0000000000000fd0 T XCreateRegion
+0000000000001180 T XDestroyRegion
+00000000000017c0 T XEmptyRegion
+00000000000017d0 T XEqualRegion
+                 U _XFreeTemp
+00000000000011f0 T XIntersectRegion
+00000000000011a0 T XOffsetRegion
+0000000000001890 T XPointInRegion
+0000000000001920 T XRectInRegion
+                 U _XSetClipRectangles
+0000000000001060 T XSetRegion
+0000000000001580 T XShrinkRegion
+0000000000001690 T XSubtractRegion
+00000000000013d0 T XUnionRectWithRegion
+0000000000001270 T XUnionRegion
+0000000000001710 T XXorRegion
+
+RegstFlt.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+0000000000000030 T _XRegisterFilterByMask
+00000000000000e0 T _XRegisterFilterByType
+00000000000001a0 T _XUnregisterFilter
+
+RepWindow.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XReparentWindow
+
+RestackWs.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XRestackWindows
+
+RotProp.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XData32
+                 U _XGetRequest
+0000000000000000 T XRotateWindowProperties
+
+ScrResStr.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U XGetWindowProperty
+                 U XInternAtom
+0000000000000000 T XScreenResourceString
+
+SelInput.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XSelectInput
+
+SendEvent.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U _XEventToWire
+                 U _XGetRequest
+0000000000000000 T XSendEvent
+
+SetBack.o:
+0000000000000000 T XSetBackground
+
+SetClMask.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XFlushGCCache
+0000000000000000 T XSetClipMask
+
+SetClOrig.o:
+0000000000000000 T XSetClipOrigin
+
+SetCRects.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memcpy
+                 U memmove
+                 U __stack_chk_fail
+                 U _XData32
+                 U _XGetRequest
+                 U _XSend
+00000000000001d0 T XSetClipRectangles
+0000000000000000 T _XSetClipRectangles
+
+SetDashes.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memcpy
+                 U _XGetRequest
+                 U _XSend
+0000000000000000 T XSetDashes
+
+SetFont.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XFlushGCCache
+0000000000000000 T XSetFont
+
+SetFore.o:
+0000000000000000 T XSetForeground
+
+SetFPath.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memcpy
+                 U strlen
+                 U _XGetRequest
+                 U _XSend
+0000000000000000 T XSetFontPath
+
+SetFunc.o:
+0000000000000000 T XSetFunction
+
+SetHints.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U __stack_chk_fail
+                 U strcpy
+                 U strlen
+                 U XChangeProperty
+0000000000000530 T XSetClassHint
+00000000000002f0 T XSetCommand
+0000000000000220 T XSetIconSizes
+0000000000000210 T XSetNormalHints
+0000000000000000 T XSetSizeHints
+0000000000000400 T XSetStandardProperties
+0000000000000500 T XSetTransientForHint
+0000000000000120 T XSetWMHints
+0000000000000200 T XSetZoomHints
+                 U XStoreName
+
+SetIFocus.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XSetInputFocus
+
+SetLocale.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U strchr
+                 U strncpy
+                 U strstr
+0000000000000000 T _XlcMapOSLocaleName
+
+SetLStyle.o:
+0000000000000000 T XSetLineAttributes
+
+SetNrmHint.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U XChangeProperty
+0000000000000150 T XSetWMNormalHints
+0000000000000000 T XSetWMSizeHints
+
+SetPMask.o:
+0000000000000000 T XSetPlaneMask
+
+SetPntMap.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memcpy
+                 U __stack_chk_fail
+00000000000000f0 T XChangeKeyboardMapping
+                 U _XData32
+                 U _XGetRequest
+                 U _XReply
+                 U _XSend
+0000000000000000 T XSetPointerMapping
+
+SetRGBCMap.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U __stack_chk_fail
+                 U XChangeProperty
+0000000000000000 T XSetRGBColormaps
+
+SetSOwner.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XSetSelectionOwner
+
+SetSSaver.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XSetScreenSaver
+
+SetState.o:
+0000000000000000 T XSetState
+
+SetStCmap.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U _XScreenOfWindow
+                 U XSetRGBColormaps
+0000000000000000 T XSetStandardColormap
+
+SetStip.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XFlushGCCache
+0000000000000000 T XSetStipple
+
+SetTile.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XFlushGCCache
+0000000000000000 T XSetTile
+
+SetTSOrig.o:
+0000000000000000 T XSetTSOrigin
+
+SetTxtProp.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U XChangeProperty
+0000000000000000 T XSetTextProperty
+0000000000000090 T XSetWMClientMachine
+0000000000000060 T XSetWMIconName
+0000000000000030 T XSetWMName
+
+SetWMCMapW.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U XChangeProperty
+                 U XInternAtom
+0000000000000000 T XSetWMColormapWindows
+
+SetWMProto.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U XChangeProperty
+                 U XInternAtom
+0000000000000000 T XSetWMProtocols
+
+StBytes.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U XChangeProperty
+0000000000000020 T XFetchBuffer
+00000000000000f0 T XFetchBytes
+                 U XGetWindowProperty
+0000000000000000 T XRotateBuffers
+                 U XRotateWindowProperties
+0000000000000100 T XStoreBuffer
+0000000000000150 T XStoreBytes
+
+StColor.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XStoreColor
+
+StColors.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U _XGetRequest
+                 U _XSend
+0000000000000000 T XStoreColors
+
+StName.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U strlen
+                 U XChangeProperty
+0000000000000050 T XSetIconName
+0000000000000000 T XStoreName
+
+StNColor.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memcpy
+                 U __stack_chk_fail
+                 U strlen
+                 U XcmsCCCOfColormap
+                 U _XcmsResolveColorString
+                 U _XcmsRGB_to_XColor
+                 U _XGetRequest
+                 U _XSend
+                 U XStoreColor
+0000000000000000 T XStoreNamedColor
+
+StrKeysym.o:
+                 U free
+                 U getenv
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memmove
+                 U __stack_chk_fail
+                 U strcmp
+                 U strdup
+                 U strlen
+                 U strtoul
+0000000000000000 T _XInitKeysymDB
+0000000000001d40 R _XkeyTable
+                 U XrmGetFileDatabase
+                 U XrmInitialize
+                 U _XrmInternalStringToQuark
+                 U XrmQGetResource
+                 U XrmStringToQuark
+0000000000000080 T XStringToKeysym
+
+StrToText.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U strcpy
+                 U strlen
+0000000000000000 T XStringListToTextProperty
+
+Sync.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U _XGetRequest
+                 U _XReply
+0000000000000000 T XSync
+
+Synchro.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000090 T XSetAfterFunction
+                 U XSync
+0000000000000020 T XSynchronize
+
+Text16.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XDrawString16
+                 U _XFlush
+                 U _XFlushGCCache
+                 U _XGetRequest
+
+Text.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XDrawString
+                 U _XFlush
+                 U _XFlushGCCache
+                 U _XGetRequest
+
+TextExt16.o:
+0000000000000000 T XTextExtents16
+00000000000004c0 T _XTextHeight16
+00000000000002d0 T XTextWidth16
+
+TextExt.o:
+0000000000000000 T XTextExtents
+00000000000003f0 T _XTextHeight
+0000000000000270 T XTextWidth
+
+TextToStr.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memcpy
+0000000000000160 T XFreeStringList
+0000000000000000 T XTextPropertyToStringList
+
+TrCoords.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U _XGetRequest
+                 U _XReply
+0000000000000000 T XTranslateCoordinates
+
+UndefCurs.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XUndefineCursor
+
+UngrabBut.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XUngrabButton
+
+UngrabKbd.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XUngrabKeyboard
+
+UngrabKey.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XUngrabKey
+
+UngrabPtr.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XUngrabPointer
+
+UngrabSvr.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XUngrabServer
+
+UninsCmap.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XUninstallColormap
+
+UnldFont.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XUnloadFont
+
+UnmapSubs.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XUnmapSubwindows
+
+UnmapWin.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XUnmapWindow
+
+VisUtil.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U realloc
+0000000000000000 T XGetVisualInfo
+0000000000000400 T XMatchVisualInfo
+                 U _XVIDtoVisual
+
+WarpPtr.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XGetRequest
+0000000000000000 T XWarpPointer
+
+Window.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+0000000000000170 T XCreateWindow
+                 U _XData32
+                 U _XGetRequest
+0000000000000000 T _XProcessWindowAttributes
+
+WinEvent.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XDeq
+                 U _Xevent_to_mask
+                 U _XFreeEventCookies
+                 U _XReadEvents
+0000000000000000 T XWindowEvent
+
+Withdraw.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U XSendEvent
+                 U XUnmapWindow
+0000000000000000 T XWithdrawWindow
+
+WMGeom.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U XParseGeometry
+0000000000000000 T XWMGeometry
+
+WMProps.o:
+                 U getenv
+                 U _GLOBAL_OFFSET_TABLE_
+                 U setlocale
+                 U __stack_chk_fail
+                 U strlen
+                 U strrchr
+                 U XChangeProperty
+                 U _XGetHostname
+                 U XInternAtom
+                 U XSetClassHint
+                 U XSetCommand
+                 U XSetWMClientMachine
+                 U XSetWMHints
+                 U XSetWMIconName
+                 U XSetWMName
+                 U XSetWMNormalHints
+0000000000000000 T XSetWMProperties
+
+WrBitF.o:
+                 U fclose
+                 U fopen
+                 U __fprintf_chk
+                 U free
+                 U fwrite
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U strrchr
+                 U XGetImage
+0000000000000000 T XWriteBitmapFile
+
+xcb_disp.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memcpy
+                 U pthread_cond_init
+                 U __stack_chk_fail
+                 U xcb_connect
+                 U xcb_connection_has_error
+                 U xcb_connect_to_display_with_auth_info
+                 U xcb_generate_id
+                 U xcb_get_file_descriptor
+                 U xcb_parse_display
+0000000000000110 T _XConnectXCB
+00000000000002d0 T _XFreeX11XCBStructure
+                 U _Xglobal_lock
+                 U _XLockMutex_fn
+0000000000000000 T XSetAuthorization
+                 U _XUnlockMutex_fn
+
+xcb_io.o:
+                 U __assert_fail
+                 U __errno_location
+                 U __fdelt_chk
+                 U free
+                 U fwrite
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memcpy
+                 U memmove
+                 U select
+                 U __stack_chk_fail
+                 U stderr
+0000000000000f50 T _XAllocID
+0000000000000fa0 T _XAllocIDs
+                 U xcb_connection_has_error
+                 U xcb_generate_id
+                 U xcb_poll_for_event
+                 U xcb_poll_for_reply64
+                 U xcb_take_socket
+                 U xcb_wait_for_event
+                 U xcb_wait_for_reply64
+                 U xcb_writev
+0000000000000000 T _XEatData
+000000000000001f T _XEatDataWords
+                 U _XEnq
+                 U _XError
+0000000000000c20 T _XEventsQueued
+0000000000000f10 T _XFlush
+0000000000001040 T _XIDHandler
+                 U _XIOError
+00000000000016e0 T _XNextRequest
+                 U _XProcessInternalConnection
+0000000000001580 T _XRead
+0000000000000d10 T _XReadEvents
+0000000000001690 T _XReadPad
+0000000000001060 T _XReply
+0000000000000a40 T _XSend
+                 U _XSetPrivSyncFunction
+                 U _XSetSeqSyncFunction
+
+XlibAsync.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memcpy
+0000000000000000 T _XAsyncErrorHandler
+0000000000000090 T _XDeqAsyncHandler
+                 U _XEatData
+00000000000001e0 T _XGetAsyncData
+00000000000000d0 T _XGetAsyncReply
+                 U _XIOError
+                 U _XRead
+
+XlibInt.o:
+                 U __assert_fail
+                 U __errno_location
+                 U exit
+                 U __fprintf_chk
+                 U fputc
+                 U free
+                 U fwrite
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memmove
+                 U realloc
+                 U __snprintf_chk
+                 U __stack_chk_fail
+                 U stderr
+                 U strerror
+                 U strlen
+                 U strncpy
+                 U uname
+0000000000000d50 T XAddConnectionWatch
+0000000000001e10 T _XAllocScratch
+0000000000001e70 T _XAllocTemp
+0000000000001160 T _XCopyEventCookie
+0000000000000020 B _XCreateMutex_fn
+0000000000001f90 T _XData32
+0000000000001a00 T _XDefaultError
+0000000000001960 T _XDefaultIOError
+0000000000001a30 T _XDefaultWireError
+00000000000011d0 T _XDeq
+0000000000001ce0 T _XEnq
+0000000000001a40 T _XError
+                 U _XErrorFunction
+0000000000001070 T _XFetchEventCookie
+                 U _XFlush
+0000000000001f70 T XFree
+0000000000001000 T _XFreeEventCookies
+0000000000000018 B _XFreeMutex_fn
+0000000000001ea0 T _XFreeTemp
+                 U XGetErrorDatabaseText
+                 U XGetErrorText
+                 U XGetGeometry
+0000000000002020 T _XGetHostname
+0000000000002170 T _XGetRequest
+0000000000000028 B _Xglobal_lock
+                 U _XIDHandler
+0000000000000b60 T XInternalConnectionNumbers
+0000000000001bb0 T _XIOError
+                 U _XIOErrorFunction
+0000000000000fd0 T _XIsEventCookie
+0000000000000010 B _XLockMutex_fn
+00000000000006c0 T _XPollfdCacheAdd
+00000000000006f0 T _XPollfdCacheDel
+0000000000000680 T _XPollfdCacheInit
+0000000000000cc0 T XProcessInternalConnection
+0000000000000c50 T _XProcessInternalConnection
+                 U _XRead
+0000000000000810 T _XRead32
+0000000000000900 T _XRegisterInternalConnection
+0000000000000ec0 T XRemoveConnectionWatch
+                 U _XReply
+00000000000020c0 T _XScreenOfWindow
+0000000000002230 T _XSeqSyncFunction
+0000000000000880 T _XSetLastRequestRead
+0000000000000730 T _XSetPrivSyncFunction
+0000000000000780 T _XSetSeqSyncFunction
+0000000000001c10 T _XStoreEventCookie
+0000000000000000 B _Xthread_self_fn
+0000000000001280 T _XUnknownCopyEventCookie
+0000000000001290 T _XUnknownNativeEvent
+0000000000001260 T _XUnknownWireEvent
+0000000000001270 T _XUnknownWireEventCookie
+0000000000000008 B _XUnlockMutex_fn
+0000000000000a60 T _XUnregisterInternalConnection
+0000000000001ed0 T _XVIDtoVisual
+00000000000012a0 T _XWireToEvent
+
+Xrm.o:
+                 U calloc
+                 U close
+                 U fclose
+                 U ferror
+                 U fopen
+                 U __fprintf_chk
+                 U fputc
+                 U fputs
+                 U free
+                 U fwrite
+                 U __fxstat
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _IO_putc
+                 U malloc
+                 U memcpy
+                 U memset
+                 U open
+                 U read
+                 U realloc
+                 U __stack_chk_fail
+                 U strlen
+                 U strncpy
+                 U __strncpy_chk
+                 U strrchr
+                 U unlink
+                 U _XCreateMutex_fn
+                 U _XFreeMutex_fn
+                 U _XLockMutex_fn
+0000000000004b60 T XrmCombineDatabase
+00000000000050b0 T XrmCombineFileDatabase
+0000000000005a60 T XrmDestroyDatabase
+00000000000051a0 T XrmEnumerateDatabase
+0000000000004960 T XrmGetDatabase
+0000000000005030 T XrmGetFileDatabase
+0000000000005960 T XrmGetResource
+0000000000004fd0 T XrmGetStringDatabase
+0000000000004930 T XrmInitialize
+                 U _XrmInitParseInfo
+                 U _XrmInternalStringToQuark
+0000000000005a10 T XrmLocaleOfDatabase
+0000000000004b80 T XrmMergeDatabases
+                 U XrmPermStringToQuark
+00000000000052c0 T XrmPutFileDatabase
+0000000000004f60 T XrmPutLineResource
+0000000000004c60 T XrmPutResource
+0000000000004e60 T XrmPutStringResource
+0000000000005820 T XrmQGetResource
+0000000000005370 T XrmQGetSearchList
+0000000000005510 T XrmQGetSearchResource
+0000000000004bb0 T XrmQPutResource
+0000000000004d50 T XrmQPutStringResource
+                 U XrmQuarkToString
+0000000000005b00 T XrmSetDatabase
+0000000000004a70 T XrmStringToBindingQuarkList
+                 U XrmStringToQuark
+00000000000049b0 T XrmStringToQuarkList
+                 U _XUnlockMutex_fn
+
+ICWrap.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U __stack_chk_fail
+0000000000000690 T XCreateIC
+0000000000000800 T XDestroyIC
+0000000000000880 T XGetICValues
+0000000000000540 T XGetIMValues
+0000000000000b60 T XIMOfIC
+0000000000000bc0 T XmbLookupString
+0000000000000b70 T XmbResetIC
+0000000000000b20 T XSetICFocus
+00000000000009d0 T XSetICValues
+00000000000003f0 T XSetIMValues
+0000000000000b40 T XUnsetICFocus
+0000000000000c00 T Xutf8LookupString
+0000000000000b90 T Xutf8ResetIC
+00000000000002e0 T XVaCreateNestedList
+0000000000000be0 T XwcLookupString
+0000000000000b80 T XwcResetIC
+
+IMWrap.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memcpy
+                 U __memcpy_chk
+                 U __stack_chk_fail
+0000000000000260 T XCloseIM
+                 U _XCloseLC
+0000000000000050 T _XCopyToArg
+00000000000002b0 T XDisplayOfIM
+0000000000000000 T _XIMCompileResourceList
+                 U _XlcCurrentLC
+00000000000002c0 T XLocaleOfIM
+0000000000000200 T XOpenIM
+                 U _XOpenLC
+00000000000002d0 T XRegisterIMInstantiateCallback
+                 U XrmStringToQuark
+0000000000000340 T XUnregisterIMInstantiateCallback
+
+XDefaultIMIF.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U mbstowcs
+                 U __stack_chk_fail
+                 U strdup
+                 U strstr
+0000000000000610 T _XDefaultOpenIM
+                 U XFree
+                 U _XlcCloseConverter
+                 U _XlcOpenConverter
+                 U XLookupString
+
+XDefaultOMIF.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U __stack_chk_fail
+                 U strchr
+                 U strdup
+                 U strlen
+                 U strncpy
+                 U strrchr
+0000000000001640 T _XDefaultOpenOM
+                 U XDrawImageString
+                 U XDrawString
+                 U XFreeFont
+                 U XFreeFontInfo
+                 U XFreeFontNames
+                 U XFreeStringList
+                 U XGetAtomName
+                 U XGetFontProperty
+                 U _XlcCompareISOLatin1
+                 U _XlcCompileResourceList
+                 U _XlcConvert
+                 U _XlcGetValues
+                 U _XlcOpenConverter
+                 U _XlcResetConverter
+                 U _XlcSetValues
+                 U XListFonts
+                 U XListFontsWithInfo
+                 U XLoadQueryFont
+                 U _XParseBaseFontNameList
+                 U XSetFont
+                 U XTextExtents
+                 U XTextWidth
+
+imCallbk.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U mblen
+                 U memcpy
+                 U __stack_chk_fail
+                 U strlen
+0000000000000950 T _XimCbDispatch
+                 U _XimError
+                 U _XimICOfXICID
+                 U _XimSetHeader
+
+imDefFlt.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U _XimForwardEvent
+                 U _XimProcSyncReply
+00000000000003e0 T _XimRegisterFilter
+00000000000004c0 T _XimRegisterServerFilter
+00000000000004a0 T _XimReregisterFilter
+                 U _XimServerDestroy
+                 U _XimTriggerNotify
+0000000000000450 T _XimUnregisterFilter
+0000000000000520 T _XimUnregisterServerFilter
+                 U XLookupString
+                 U _XRegisterFilterByMask
+                 U _XRegisterFilterByType
+                 U XSelectInput
+                 U _XUnregisterFilter
+
+imDefIc.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memcpy
+                 U realloc
+                 U __stack_chk_fail
+                 U XGetICValues
+                 U _XimCheckCreateICValues
+                 U _XimDecodeICATTRIBUTE
+                 U _XimEncodeICATTRIBUTE
+                 U _XimFlush
+                 U _XimFreeCommitInfo
+                 U _XimGetCurrentICValues
+                 U _XimMakeICAttrIDList
+                 U _XimProcError
+00000000000013f0 T _XimProtoCreateIC
+                 U _XimProtoMbLookupString
+                 U _XimProtoUtf8LookupString
+                 U _XimProtoWcLookupString
+                 U _XimRead
+                 U _XimRegisterFilter
+                 U _XimSetCurrentICValues
+                 U _XimSetHeader
+                 U _XimSetICMode
+                 U _XimUnregisterFilter
+                 U _XimWrite
+
+imDefIm.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memcpy
+                 U realloc
+                 U __sprintf_chk
+                 U __stack_chk_fail
+                 U strcpy
+                 U __strcpy_chk
+                 U strlen
+                 U strncmp
+                 U strncpy
+                 U XConvertSelection
+                 U XCreateSimpleWindow
+                 U XDestroyWindow
+                 U XFree
+                 U XGetAtomName
+                 U _XGetLCValues
+                 U XGetSelectionOwner
+                 U XGetWindowProperty
+                 U XIfEvent
+                 U _XimCbDispatch
+0000000000000260 T _XimCheckDataSize
+                 U _XimCommitCallback
+                 U _XimConnect
+                 U _Ximctstombs
+                 U _Ximctstoutf8
+                 U _Ximctstowcs
+                 U _XimDecodeIMATTRIBUTE
+                 U _XimDestroyIMStructureList
+                 U _XimDispatchInit
+                 U _XimEncodeIMATTRIBUTE
+                 U _XimErrorCallback
+                 U _XimExtension
+                 U _XimFlush
+                 U _XimForwardEventCallback
+                 U _XimFreeProtoIntrCallback
+                 U _XimGetAttributeID
+                 U _XimGetCurrentIMValues
+0000000000001510 T _XimGetMyEndian
+                 U _XimInitialResourceInfo
+                 U _XimMakeIMAttrIDList
+                 U _XimProcError
+                 U _XimProtoCreateIC
+0000000000001800 T _XimProtoIMFree
+0000000000001b20 T _XimProtoOpenIM
+                 U _XimRead
+                 U _XimRegisterDispatcher
+                 U _XimRegisterServerFilter
+                 U _XimRegisterTriggerKeysCallback
+                 U _XimRegProtoIntrCallback
+                 U _XimResetIMInstantiateCallback
+                 U _XimSetCurrentIMValues
+                 U _XimSetEventMaskCallback
+0000000000000280 T _XimSetHeader
+                 U _XimSetIMMode
+                 U _XimSetInnerICResourceList
+                 U _XimSetInnerIMResourceList
+                 U _XimShutdown
+                 U _XimSyncCallback
+                 U _XimTransportRec
+                 U _XimUnregisterServerFilter
+                 U _XimWrite
+                 U XInternAtom
+                 U _XlcCloseConverter
+                 U _XlcCompareISOLatin1
+                 U _XlcOpenConverter
+
+imDefLkup.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memcpy
+                 U __memcpy_chk
+                 U __stack_chk_fail
+                 U XGetWindowAttributes
+0000000000000e80 T _XimCommitCallback
+0000000000001140 T _Ximctstombs
+0000000000001320 T _Ximctstoutf8
+0000000000001150 T _Ximctstowcs
+0000000000000bd0 T _XimError
+0000000000000b60 T _XimErrorCallback
+                 U _XimFlush
+00000000000009b0 T _XimForwardEvent
+00000000000004b0 T _XimForwardEventCallback
+0000000000000600 T _XimFreeCommitInfo
+00000000000005a0 T _XimGetWindowEventmask
+00000000000002f0 T _XimICOfXICID
+                 U _XimLookupMBText
+                 U _XimLookupUTF8Text
+                 U _XimLookupWCText
+0000000000000650 T _XimProcError
+00000000000003a0 T _XimProcSyncReply
+                 U _XimProtoEventToWire
+0000000000001330 T _XimProtoMbLookupString
+00000000000015f0 T _XimProtoUtf8LookupString
+0000000000001490 T _XimProtoWcLookupString
+                 U _XimProtoWireToEvent
+                 U _XimRead
+0000000000000d10 T _XimRegisterTriggerKeysCallback
+                 U _XimReregisterFilter
+0000000000000440 T _XimRespSyncReply
+0000000000000330 T _XimSetEventMaskCallback
+                 U _XimSetHeader
+0000000000000660 T _XimSync
+0000000000000460 T _XimSyncCallback
+00000000000009c0 T _XimTriggerNotify
+                 U _XimWrite
+                 U _XlcConvert
+                 U _XlcResetConverter
+                 U XPutBackEvent
+
+imDispch.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+0000000000000130 T _XimDispatchInit
+00000000000000f0 T _XimFreeProtoIntrCallback
+                 U _XimRegisterDispatcher
+0000000000000090 T _XimRegProtoIntrCallback
+
+imEvToWire.o:
+0000000000000000 T _XimProtoEventToWire
+0000000000000bd0 T _XimProtoWireToEvent
+
+imExten.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U __stack_chk_fail
+                 U strcpy
+                 U strlen
+                 U strncmp
+                 U XFree
+00000000000000e0 T _XimExtension
+                 U _XimFlush
+                 U _XimGetWindowEventmask
+                 U _XimICOfXICID
+                 U _XimProcError
+                 U _XimProcSyncReply
+                 U _XimRead
+                 U _XimRegProtoIntrCallback
+                 U _XimReregisterFilter
+                 U _XimSetHeader
+                 U _XimWrite
+                 U XSelectInput
+
+imImSw.o:
+                 U _XimCheckIfLocalProcessing
+                 U _XimCheckIfThaiProcessing
+0000000000000000 D _XimImSportRec
+                 U _XimLocalIMFree
+                 U _XimLocalOpenIM
+                 U _XimProtoIMFree
+                 U _XimProtoOpenIM
+                 U _XimThaiIMFree
+                 U _XimThaiOpenIM
+
+imInsClbk.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U __stack_chk_fail
+                 U stpcpy
+                 U strcmp
+                 U strcpy
+                 U strlen
+                 U _XCloseLC
+                 U XFree
+                 U _XGetLCValues
+                 U XGetSelectionOwner
+                 U XGetWindowAttributes
+                 U XGetWindowProperty
+00000000000002d0 T _XimRegisterIMInstantiateCallback
+00000000000006a0 T _XimResetIMInstantiateCallback
+00000000000004b0 T _XimUnRegisterIMInstantiateCallback
+                 U XInternAtom
+                 U _XRegisterFilterByType
+                 U XSelectInput
+                 U _XUnregisterFilter
+
+imInt.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U realloc
+                 U strchr
+                 U strdup
+                 U strncpy
+0000000000000330 T _XimDestroyIMStructureList
+                 U _XimImSportRec
+0000000000000000 T _XimOpenIM
+                 U _XimRegisterIMInstantiateCallback
+                 U _XimResetIMInstantiateCallback
+0000000000000380 T _XimServerDestroy
+                 U _XimUnRegisterIMInstantiateCallback
+0000000000000460 T _XInitIM
+
+imKStoUCS.o:
+0000000000000000 T KeySymToUcs4
+
+imLcFlt.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+0000000000000000 T _XimLocalFilter
+                 U XLookupString
+                 U XPutBackEvent
+                 U _XPutBackEvent
+
+imLcGIc.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U _XimGetCurrentICValues
+                 U _XimGetICValueData
+0000000000000000 T _XimLocalGetICValues
+
+imLcIc.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memcpy
+                 U __stack_chk_fail
+                 U _XimCheckLocalInputStyle
+0000000000000180 T _XimLocalCreateIC
+                 U _XimLocalFilter
+                 U _XimLocalGetICValues
+                 U _XimLocalMbLookupString
+                 U _XimLocalSetICValues
+                 U _XimLocalUtf8LookupString
+                 U _XimLocalWcLookupString
+                 U _XimSetCurrentICValues
+                 U _XimSetICDefaults
+                 U _XimSetICMode
+                 U _XimSetICValueData
+                 U _XRegisterFilterByType
+                 U _XUnregisterFilter
+
+imLcIm.o:
+                 U __assert_fail
+                 U calloc
+                 U close
+                 U fclose
+                 U fdopen
+                 U fopen
+                 U __fprintf_chk
+                 U free
+                 U fwrite
+                 U __fxstat
+                 U getegid
+                 U getenv
+                 U geteuid
+                 U getgid
+                 U getuid
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U mmap
+                 U munmap
+                 U nl_langinfo
+                 U open
+                 U __sprintf_chk
+                 U __stack_chk_fail
+                 U stderr
+                 U stpcpy
+                 U strchr
+                 U strcpy
+                 U strdup
+                 U strncmp
+                 U time
+                 U unlink
+00000000000000d0 T _XimCheckIfLocalProcessing
+                 U _XimDestroyIMStructureList
+                 U _XimGetCurrentIMValues
+                 U _XimGetIMValueData
+                 U _XimGetMyEndian
+                 U _XimInitialResourceInfo
+                 U _XimLcctstombs
+                 U _XimLcctstoutf8
+                 U _XimLcctstowcs
+                 U _XimLocalCreateIC
+0000000000000000 T _XimLocalGetIMValues
+0000000000000190 T _XimLocalIMFree
+0000000000000430 T _XimLocalOpenIM
+0000000000000060 T _XimLocalSetIMValues
+                 U _XimParseStringFile
+                 U _XimSetCurrentIMValues
+                 U _XimSetICResourceList
+                 U _XimSetIMMode
+                 U _XimSetIMResourceList
+                 U _XimSetIMValueData
+                 U _XimSetLocalIMDefaults
+                 U _XlcCloseConverter
+                 U _XlcFileName
+                 U _XlcOpenConverter
+                 U __xstat
+
+imLcLkup.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memcpy
+                 U __stack_chk_fail
+                 U strlen
+0000000000000900 T _XimLcctstombs
+0000000000000ae0 T _XimLcctstoutf8
+0000000000000910 T _XimLcctstowcs
+00000000000001c0 T _XimLocalMbLookupString
+00000000000006d0 T _XimLocalUtf8LookupString
+00000000000004a0 T _XimLocalWcLookupString
+                 U _XimLookupMBText
+                 U _XimLookupUTF8Text
+                 U _XimLookupWCText
+                 U _XlcConvert
+                 U _XlcResetConverter
+                 U _Xlcwctomb
+                 U _Xwcslen
+
+imLcPrs.o:
+                 U fclose
+                 U fileno
+                 U fopen
+                 U free
+                 U __fxstat
+                 U getenv
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _IO_getc
+                 U KeySymToUcs4
+                 U malloc
+                 U memcpy
+                 U realloc
+                 U __stack_chk_fail
+                 U strcmp
+                 U strcpy
+                 U ungetc
+00000000000011c0 T _XimParseStringFile
+                 U _XlcConvert
+                 U _XlcFileName
+                 U xlocaledir
+                 U _Xmbstoutf8
+                 U _Xmbstowcs
+                 U XStringToKeysym
+
+imLcSIc.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U _XimGetCurrentICValues
+0000000000000000 T _XimLocalSetICValues
+                 U _XimSetCurrentICValues
+                 U _XimSetICValueData
+
+imRm.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U __stack_chk_fail
+                 U strdup
+                 U XExtentsOfFontSet
+                 U XGetGeometry
+                 U XGetRGBColormaps
+                 U XGetWindowAttributes
+0000000000000cb0 T _XimCheckCreateICValues
+0000000000000f10 T _XimCheckICMode
+0000000000000dc0 T _XimCheckIMMode
+0000000000001790 T _XimCheckLocalInputStyle
+                 U _XIMCompileResourceList
+0000000000001950 T _XimDecodeLocalICAttr
+0000000000001870 T _XimDecodeLocalIMAttr
+0000000000001450 T _XimEncodeLocalICAttr
+0000000000001370 T _XimEncodeLocalIMAttr
+0000000000001bb0 T _XimGetCurrentICValues
+0000000000001b20 T _XimGetCurrentIMValues
+00000000000019d0 T _XimGetICValueData
+00000000000018c0 T _XimGetIMValueData
+0000000000000d40 T _XimGetResourceListRec
+0000000000000d00 T _XimGetResourceListRecByQuark
+0000000000001f40 T _XimInitialResourceInfo
+                 U _XimLocalFilter
+0000000000001d90 T _XimSetCurrentICValues
+0000000000001b70 T _XimSetCurrentIMValues
+0000000000001200 T _XimSetICDefaults
+0000000000000e20 T _XimSetICMode
+0000000000000c50 T _XimSetICResourceList
+00000000000014e0 T _XimSetICValueData
+0000000000000d70 T _XimSetIMMode
+0000000000000c30 T _XimSetIMResourceList
+00000000000013c0 T _XimSetIMValueData
+0000000000000c90 T _XimSetInnerICResourceList
+0000000000000c70 T _XimSetInnerIMResourceList
+0000000000001170 T _XimSetLocalIMDefaults
+                 U _XRegisterFilterByType
+                 U XrmStringToQuark
+                 U _XUnregisterFilter
+
+imRmAttr.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memcpy
+                 U __stack_chk_fail
+                 U stpcpy
+                 U strcmp
+                 U strlen
+                 U strncpy
+                 U _XCopyToArg
+                 U XCreateFontSet
+                 U XFontsOfFontSet
+                 U XFree
+                 U XGetRGBColormaps
+                 U _XimCheckICMode
+                 U _XimCheckIMMode
+                 U _XIMCompileResourceList
+0000000000000c70 T _XimDecodeICATTRIBUTE
+0000000000000ae0 T _XimDecodeIMATTRIBUTE
+                 U _XimDecodeLocalICAttr
+                 U _XimDecodeLocalIMAttr
+0000000000001060 T _XimEncodeICATTRIBUTE
+0000000000000e60 T _XimEncodeIMATTRIBUTE
+                 U _XimEncodeLocalICAttr
+                 U _XimEncodeLocalIMAttr
+0000000000001860 T _XimGetAttributeID
+                 U _XimGetCurrentICValues
+                 U _XimGetCurrentIMValues
+                 U _XimGetResourceListRec
+00000000000008d0 T _XimMakeICAttrIDList
+00000000000007f0 T _XimMakeIMAttrIDList
+                 U _XimRegisterFilter
+                 U _XimSetCurrentICValues
+                 U _XimUnregisterFilter
+                 U XrmStringToQuark
+
+imThaiFlt.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U XBell
+                 U XFree
+                 U XFreeModifiermap
+                 U XGetModifierMapping
+                 U XIMOfIC
+0000000000000480 T _XimThaiFilter
+                 U XKeysymToKeycode
+                 U _XlcCloseConverter
+                 U _XlcConvert
+                 U _Xlcmbstoutf8
+                 U _XlcOpenConverter
+                 U _XlcResetConverter
+                 U _Xlcwcstombs
+                 U XPutBackEvent
+                 U XwcLookupString
+
+imThaiIc.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memcpy
+                 U __stack_chk_fail
+                 U _XimCheckLocalInputStyle
+                 U _XimLocalGetICValues
+                 U _XimLocalMbLookupString
+                 U _XimLocalSetICValues
+                 U _XimLocalUtf8LookupString
+                 U _XimLocalWcLookupString
+                 U _XimSetCurrentICValues
+                 U _XimSetICDefaults
+                 U _XimSetICMode
+                 U _XimSetICValueData
+0000000000000200 T _XimThaiCreateIC
+                 U _XimThaiFilter
+                 U _XRegisterFilterByType
+                 U _XUnregisterFilter
+
+imThaiIm.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U _XGetLCValues
+0000000000000000 T _XimCheckIfThaiProcessing
+                 U _XimGetCurrentIMValues
+                 U _XimInitialResourceInfo
+                 U _XimLcctstombs
+                 U _XimLcctstoutf8
+                 U _XimLcctstowcs
+                 U _XimLocalGetIMValues
+                 U _XimLocalSetIMValues
+                 U _XimSetCurrentIMValues
+                 U _XimSetICResourceList
+                 U _XimSetIMMode
+                 U _XimSetIMResourceList
+                 U _XimSetLocalIMDefaults
+00000000000004b0 T _XimThaiCloseIM
+                 U _XimThaiCreateIC
+00000000000000f0 T _XimThaiIMFree
+0000000000000290 T _XimThaiOpenIM
+                 U _XlcCloseConverter
+                 U _XlcOpenConverter
+
+imTrX.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memcpy
+                 U __memcpy_chk
+                 U __sprintf_chk
+                 U __stack_chk_fail
+                 U XChangeProperty
+                 U XCreateSimpleWindow
+                 U XDestroyWindow
+                 U XFlush
+                 U XFree
+                 U XGetWindowAttributes
+                 U XGetWindowProperty
+                 U XIfEvent
+                 U _XimFilterWaitEvent
+0000000000000d70 T _XimXConf
+                 U XInternAtom
+                 U XPutBackEvent
+                 U _XRegisterFilterByType
+                 U XSelectInput
+                 U XSendEvent
+                 U _XUnregisterFilter
+
+imTrans.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U __stack_chk_fail
+                 U strdup
+                 U XCreateSimpleWindow
+                 U XDestroyWindow
+                 U XFlush
+                 U _XimFilterWaitEvent
+0000000000000360 T _XimFreeTransIntrCallback
+0000000000000000 T _XimTransCallDispatcher
+0000000000000410 T _XimTransConf
+00000000000000c0 T _XimTransFilterWaitEvent
+0000000000000070 T _XimTransFlush
+00000000000002a0 T _XimTransInternalConnection
+0000000000000140 T _XimTransRead
+0000000000000080 T _XimTransRegisterDispatcher
+00000000000000e0 T _XimTransWrite
+                 U _XimXTransClose
+                 U _XimXTransConnect
+                 U _XimXTransDisconnect
+                 U _XimXTransGetConnectionNumber
+                 U _XimXTransOpenCOTSClient
+                 U _XimXTransRead
+                 U _XimXTransWrite
+                 U XPutBackEvent
+                 U _XRegisterFilterByType
+                 U _XRegisterInternalConnection
+                 U _XUnregisterFilter
+                 U _XUnregisterInternalConnection
+
+imTransR.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memcpy
+                 U memset
+                 U __stack_chk_fail
+0000000000000440 T _XimConnect
+                 U _XimError
+0000000000000570 T _XimFilterWaitEvent
+0000000000000560 T _XimFlush
+0000000000000470 T _XimRead
+0000000000000550 T _XimRegisterDispatcher
+0000000000000450 T _XimShutdown
+                 U _XimTransConf
+0000000000000000 D _XimTransportRec
+0000000000000460 T _XimWrite
+                 U _XimXConf
+
+lcCT.o:
+                 U __fprintf_chk
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memcmp
+                 U memcpy
+                 U __stack_chk_fail
+                 U stderr
+                 U strcmp
+                 U strlen
+                 U _XlcAddCharSet
+0000000000001210 T _XlcAddCT
+                 U _XlcCreateDefaultCharSet
+                 U _XlcGetCharSet
+0000000000001520 T _XlcInitCTInfo
+0000000000001070 T _XlcParseCharSet
+                 U _XlcSetConverter
+
+lcCharSet.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memcpy
+                 U __stack_chk_fail
+                 U strchr
+                 U strlen
+0000000000000090 T _XlcAddCharSet
+                 U _XlcCompileResourceList
+                 U _XlcCountVaList
+0000000000000260 T _XlcCreateDefaultCharSet
+0000000000000000 T _XlcGetCharSet
+0000000000000040 T _XlcGetCharSetWithSide
+00000000000000e0 T _XlcGetCSValues
+                 U _XlcGetValues
+                 U _XlcParseCharSet
+                 U _XlcVaToArgList
+                 U XrmStringToQuark
+
+lcConv.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U __stack_chk_fail
+00000000000005e0 T _XlcCloseConverter
+00000000000005f0 T _XlcConvert
+00000000000003c0 T _XlcOpenConverter
+0000000000000600 T _XlcResetConverter
+00000000000002f0 T _XlcSetConverter
+                 U XrmStringToQuark
+
+lcDB.o:
+                 U calloc
+                 U fclose
+                 U fgets
+                 U fopen
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U realloc
+                 U __stack_chk_fail
+                 U strcpy
+                 U __strcpy_chk
+                 U strdup
+                 U strlen
+                 U strncmp
+                 U strncpy
+00000000000015f0 T _XlcCreateLocaleDataBase
+0000000000001530 T _XlcDestroyLocaleDataBase
+                 U _XlcFileName
+0000000000001490 T _XlcGetLocaleDataBase
+0000000000001480 T _XlcGetResource
+                 U XrmStringToQuark
+
+lcDefConv.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U mbtowc
+                 U __stack_chk_fail
+                 U wctomb
+                 U _XlcAddUtf8Converters
+                 U _XlcCreateLC
+0000000000000be0 T _XlcDefaultLoader
+                 U _XlcDestroyLC
+                 U _XlcGenericMethods
+                 U _XlcSetConverter
+
+lcDynamic.o:
+
+lcFile.o:
+                 U access
+                 U __ctype_b_loc
+                 U fclose
+                 U fgets
+                 U fopen
+                 U free
+                 U getegid
+                 U getenv
+                 U geteuid
+                 U getgid
+                 U getresgid
+                 U getresuid
+                 U getuid
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memcpy
+                 U realloc
+                 U __snprintf_chk
+                 U __stack_chk_fail
+                 U strchr
+                 U strcmp
+                 U strcpy
+                 U strdup
+                 U strlen
+                 U strncpy
+                 U strstr
+00000000000003f0 T _XlcFileName
+00000000000008a0 T _XlcLocaleDirName
+0000000000000c70 T _XlcLocaleLibDirName
+0000000000000870 T _XlcResolveI18NPath
+0000000000000600 T _XlcResolveLocaleName
+00000000000002b0 T xlocaledir
+
+lcGenConv.o:
+                 U calloc
+                 U __ctype_get_mb_cur_max
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U mbtowc
+                 U __stack_chk_fail
+                 U strcmp
+                 U strcpy
+                 U strlen
+                 U strncmp
+                 U strncpy
+                 U wctomb
+                 U _XlcAddUtf8Converters
+                 U _XlcCreateLC
+0000000000003ab0 T _XlcGenericLoader
+                 U _XlcGenericMethods
+                 U _XlcGetCharSet
+                 U _XlcNCompareISOLatin1
+                 U _XlcResetConverter
+                 U _XlcSetConverter
+
+lcGeneric.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memcpy
+                 U realloc
+                 U __snprintf_chk
+                 U sscanf
+                 U __stack_chk_fail
+                 U __strcat_chk
+                 U strchr
+                 U strdup
+                 U strlen
+                 U strncpy
+                 U strrchr
+                 U strtol
+                 U _XlcAddCharSet
+                 U _XlcAddCT
+                 U _XlcCompareISOLatin1
+                 U _XlcCreateDefaultCharSet
+0000000000000790 T _XlcDbg_printValue
+0000000000000000 D _XlcGenericMethods
+                 U _XlcGetCharSet
+                 U _XlcGetResource
+                 U _XlcNCompareISOLatin1
+00000000000005d0 T _XlcParse_scopemaps
+                 U _XlcPublicMethods
+                 U XrmStringToQuark
+
+lcInit.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XlcAddLoader
+                 U _XlcDefaultLoader
+0000000000000040 T _XlcDeInitLoader
+                 U _XlcGenericLoader
+0000000000000000 T _XlcInitLoader
+                 U _XlcRemoveLoader
+                 U _XlcUtf8Loader
+
+lcPrTxt.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U __stack_chk_fail
+                 U strcmp
+                 U strcpy
+                 U strlen
+                 U strncpy
+                 U XInternAtom
+                 U _XlcCloseConverter
+                 U _XlcConvert
+                 U _XlcOpenConverter
+                 U _XlcResetConverter
+00000000000005a0 T _XmbTextPropertyToTextList
+00000000000005e0 T _Xutf8TextPropertyToTextList
+0000000000000600 T _XwcFreeStringList
+                 U _Xwcscpy
+                 U _Xwcslen
+00000000000005c0 T _XwcTextPropertyToTextList
+
+lcPubWrap.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U strdup
+0000000000000000 T _XGetLCValues
+                 U _XlcCountVaList
+0000000000000150 T _XlcCreateLC
+0000000000000140 T _XlcDestroyLC
+                 U _XlcVaToArgList
+
+lcPublic.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U __stack_chk_fail
+                 U strdup
+                 U strlen
+                 U strtol
+                 U _XInitIM
+                 U _XInitOM
+                 U _XlcCompareISOLatin1
+                 U _XlcCompileResourceList
+                 U _XlcCreateLocaleDataBase
+                 U _XlcDefaultMapModifiers
+                 U _XlcDestroyLocaleDataBase
+                 U _XlcGetLocaleDataBase
+                 U _XlcGetResource
+                 U _XlcGetValues
+                 U _XlcInitCTInfo
+                 U _XlcMapOSLocaleName
+00000000000000e0 D _XlcPublicMethods
+                 U _XlcResolveLocaleName
+                 U _XmbTextListToTextProperty
+                 U _XmbTextPropertyToTextList
+                 U _XrmDefaultInitParseInfo
+                 U _Xutf8TextListToTextProperty
+                 U _Xutf8TextPropertyToTextList
+                 U _XwcFreeStringList
+                 U _XwcTextListToTextProperty
+                 U _XwcTextPropertyToTextList
+
+lcRM.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U __stack_chk_fail
+                 U _XCloseLC
+                 U _XlcCloseConverter
+                 U _XlcConvert
+                 U _XlcOpenConverter
+                 U _XlcResetConverter
+00000000000001d0 T _XrmDefaultInitParseInfo
+
+lcStd.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U strlen
+                 U _XlcCloseConverter
+                 U _XlcConvert
+                 U _XlcCurrentLC
+0000000000000630 T _Xlcmbstoutf8
+0000000000000270 T _Xlcmbstowcs
+0000000000000000 T _Xlcmbtowc
+                 U _XlcOpenConverter
+0000000000000490 T _Xlcwcstombs
+0000000000000140 T _Xlcwctomb
+0000000000000390 T _Xmblen
+0000000000000730 T _Xmbstoutf8
+00000000000003b0 T _Xmbstowcs
+0000000000000380 T _Xmbtowc
+00000000000005a0 T _Xwcscmp
+00000000000003c0 T _Xwcscpy
+0000000000000460 T _Xwcslen
+00000000000005d0 T _Xwcsncmp
+00000000000003f0 T _Xwcsncpy
+0000000000000590 T _Xwcstombs
+00000000000003a0 T _Xwctomb
+
+lcTxtPr.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memcpy
+                 U __stack_chk_fail
+                 U strcpy
+                 U strlen
+                 U XInternAtom
+                 U _XlcCloseConverter
+                 U _XlcConvert
+                 U _XlcOpenConverter
+                 U _XlcResetConverter
+00000000000005b0 T _XmbTextListToTextProperty
+00000000000005f0 T _Xutf8TextListToTextProperty
+                 U _Xwcslen
+00000000000005d0 T _XwcTextListToTextProperty
+
+lcUTF8.o:
+                 U abort
+                 U __ctype_get_mb_cur_max
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U mbtowc
+                 U __snprintf_chk
+                 U __stack_chk_fail
+                 U strcmp
+00000000000054d0 T _Utf8GetConvByName
+                 U wctomb
+0000000000005850 T _XlcAddGB18030LocaleConverters
+0000000000005550 T _XlcAddUtf8Converters
+0000000000005640 T _XlcAddUtf8LocaleConverters
+                 U _XlcCompareISOLatin1
+                 U _XlcGetCharSet
+                 U _XlcGetCharSetWithSide
+                 U _XlcGetResource
+                 U _XlcSetConverter
+                 U XrmStringToQuark
+
+lcUTF8Load.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XlcAddGB18030LocaleConverters
+                 U _XlcAddUtf8Converters
+                 U _XlcAddUtf8LocaleConverters
+                 U _XlcCompareISOLatin1
+                 U _XlcCreateLC
+                 U _XlcDestroyLC
+                 U _XlcGenericMethods
+0000000000000000 T _XlcUtf8Loader
+
+lcUtil.o:
+0000000000000000 T _XlcCompareISOLatin1
+0000000000000050 T _XlcNCompareISOLatin1
+
+lcWrap.o:
+                 U free
+                 U getenv
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memcpy
+                 U setlocale
+                 U __stack_chk_fail
+                 U strchr
+                 U strcmp
+                 U strcpy
+                 U strlen
+                 U strncmp
+0000000000000430 T _XCloseLC
+0000000000000850 T XDefaultString
+0000000000000008 C _Xi18n_lock
+00000000000001f0 T _XlcAddLoader
+0000000000000a70 T _XlcCompileResourceList
+0000000000000880 T _XlcCopyFromArg
+0000000000000910 T _XlcCopyToArg
+0000000000000970 T _XlcCountVaList
+00000000000004c0 T _XlcCurrentLC
+00000000000000e0 T _XlcDefaultMapModifiers
+                 U _XlcDeInitLoader
+0000000000000ac0 T _XlcGetValues
+                 U _XlcInitLoader
+                 U _XlcMapOSLocaleName
+0000000000000190 T _XlcRemoveLoader
+0000000000000b80 T _XlcSetValues
+0000000000000000 T _XlcValidModSyntax
+00000000000009d0 T _XlcVaToArgList
+                 U _XLockMutex_fn
+0000000000000700 T XmbTextListToTextProperty
+00000000000005e0 T XmbTextPropertyToTextList
+0000000000000270 T _XOpenLC
+00000000000005b0 T _XrmInitParseInfo
+                 U XrmPermStringToQuark
+0000000000000500 T XSetLocaleModifiers
+0000000000000590 T XSupportsLocale
+                 U _XUnlockMutex_fn
+00000000000007c0 T Xutf8TextListToTextProperty
+00000000000006a0 T Xutf8TextPropertyToTextList
+0000000000000820 T XwcFreeStringList
+0000000000000760 T XwcTextListToTextProperty
+0000000000000640 T XwcTextPropertyToTextList
+
+mbWMProps.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+0000000000000000 T XmbSetWMProperties
+                 U XmbTextListToTextProperty
+                 U XSetWMProperties
+
+mbWrap.o:
+00000000000000e0 T XmbDrawImageString
+00000000000000d0 T XmbDrawString
+0000000000000000 T XmbDrawText
+00000000000000f0 T XmbTextEscapement
+0000000000000100 T XmbTextExtents
+0000000000000110 T XmbTextPerCharExtents
+
+omDefault.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U __stack_chk_fail
+                 U XDrawImageString
+                 U XDrawString
+                 U _XlcConvert
+0000000000000e80 T _XmbDefaultDrawImageString
+0000000000000b60 T _XmbDefaultDrawString
+0000000000000140 T _XmbDefaultTextEscapement
+00000000000002f0 T _XmbDefaultTextExtents
+0000000000000570 T _XmbDefaultTextPerCharExtents
+                 U _XomInitConverter
+                 U XSetFont
+                 U XTextExtents
+                 U XTextWidth
+0000000000001040 T _Xutf8DefaultDrawImageString
+0000000000000d30 T _Xutf8DefaultDrawString
+0000000000000220 T _Xutf8DefaultTextEscapement
+0000000000000490 T _Xutf8DefaultTextExtents
+00000000000009f0 T _Xutf8DefaultTextPerCharExtents
+0000000000000ef0 T _XwcDefaultDrawImageString
+0000000000000be0 T _XwcDefaultDrawString
+0000000000000150 T _XwcDefaultTextEscapement
+00000000000003b0 T _XwcDefaultTextExtents
+0000000000000880 T _XwcDefaultTextPerCharExtents
+
+omGeneric.o:
+                 U calloc
+                 U __ctype_b_loc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memcpy
+                 U __memcpy_chk
+0000000000001eb0 T read_EncodingInfo
+                 U realloc
+                 U __snprintf_chk
+                 U sscanf
+                 U __stack_chk_fail
+                 U stpcpy
+                 U strchr
+                 U strcpy
+                 U strdup
+                 U strlen
+                 U strncpy
+                 U strrchr
+                 U strtol
+                 U XFree
+                 U XFreeFont
+                 U XFreeFontInfo
+                 U XFreeFontNames
+                 U XFreeStringList
+                 U XGetAtomName
+                 U XGetFontProperty
+0000000000002920 T _XInitOM
+                 U _XlcCloseConverter
+                 U _XlcCompareISOLatin1
+                 U _XlcCompileResourceList
+                 U _XlcDbg_printValue
+                 U _XlcGetCharSet
+                 U _XlcGetResource
+                 U _XlcGetValues
+                 U _XlcParse_scopemaps
+                 U _XlcSetValues
+                 U XListFonts
+                 U XListFontsWithInfo
+                 U XLoadQueryFont
+                 U _XmbDefaultDrawImageString
+                 U _XmbDefaultDrawString
+                 U _XmbDefaultTextEscapement
+                 U _XmbDefaultTextExtents
+                 U _XmbDefaultTextPerCharExtents
+                 U _XmbGenericDrawImageString
+                 U _XmbGenericDrawString
+                 U _XmbGenericTextEscapement
+                 U _XmbGenericTextExtents
+                 U _XmbGenericTextPerCharExtents
+0000000000002850 T _XomGenericOpenOM
+                 U _XParseBaseFontNameList
+                 U _Xutf8DefaultDrawImageString
+                 U _Xutf8DefaultDrawString
+                 U _Xutf8DefaultTextEscapement
+                 U _Xutf8DefaultTextExtents
+                 U _Xutf8DefaultTextPerCharExtents
+                 U _Xutf8GenericDrawImageString
+                 U _Xutf8GenericDrawString
+                 U _Xutf8GenericTextEscapement
+                 U _Xutf8GenericTextExtents
+                 U _Xutf8GenericTextPerCharExtents
+                 U _XwcDefaultDrawImageString
+                 U _XwcDefaultDrawString
+                 U _XwcDefaultTextEscapement
+                 U _XwcDefaultTextExtents
+                 U _XwcDefaultTextPerCharExtents
+                 U _XwcGenericDrawImageString
+                 U _XwcGenericDrawString
+                 U _XwcGenericTextEscapement
+                 U _XwcGenericTextExtents
+                 U _XwcGenericTextPerCharExtents
+
+omImText.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U XChangeGC
+                 U XFillRectangle
+                 U XGetGCValues
+0000000000000150 T _XmbGenericDrawImageString
+                 U _XomGenericDrawString
+                 U _XomGenericTextExtents
+                 U XSetFillStyle
+                 U XSetForeground
+                 U XSetFunction
+0000000000000190 T _Xutf8GenericDrawImageString
+0000000000000170 T _XwcGenericDrawImageString
+
+omText.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U XDrawString
+                 U XDrawString16
+0000000000000870 T _XmbGenericDrawString
+                 U _XomConvert
+0000000000000000 T _XomGenericDrawString
+                 U _XomGetFontDataFromFontSet
+                 U _XomInitConverter
+                 U XSetFont
+                 U XTextExtents
+                 U XTextExtents16
+                 U XTextWidth
+                 U XTextWidth16
+00000000000008b0 T _Xutf8GenericDrawString
+0000000000000890 T _XwcGenericDrawString
+
+omTextEsc.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+0000000000000600 T _XmbGenericTextEscapement
+                 U _XomConvert
+                 U _XomGetFontDataFromFontSet
+                 U _XomInitConverter
+                 U _XTextHeight
+                 U _XTextHeight16
+                 U XTextWidth
+                 U XTextWidth16
+0000000000000620 T _Xutf8GenericTextEscapement
+0000000000000610 T _XwcGenericTextEscapement
+
+omTextExt.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+00000000000002a0 T _XmbGenericTextExtents
+                 U _XomConvert
+0000000000000000 T _XomGenericTextExtents
+                 U _XomInitConverter
+                 U XTextExtents
+                 U XTextExtents16
+00000000000002e0 T _Xutf8GenericTextExtents
+00000000000002c0 T _XwcGenericTextExtents
+
+omTextPer.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+0000000000000610 T _XmbGenericTextPerCharExtents
+                 U _XomConvert
+                 U _XomInitConverter
+0000000000000670 T _Xutf8GenericTextPerCharExtents
+0000000000000640 T _XwcGenericTextPerCharExtents
+
+omXChar.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U strchr
+                 U strlen
+                 U XFreeFontInfo
+                 U _XlcConvert
+                 U _XlcOpenConverter
+                 U _XlcResetConverter
+                 U XLoadQueryFont
+0000000000000460 T _XomConvert
+0000000000000080 T _XomGetFontDataFromFontSet
+00000000000006f0 T _XomInitConverter
+
+utf8WMProps.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U XSetWMProperties
+0000000000000000 T Xutf8SetWMProperties
+                 U Xutf8TextListToTextProperty
+
+utf8Wrap.o:
+00000000000000e0 T Xutf8DrawImageString
+00000000000000d0 T Xutf8DrawString
+0000000000000000 T Xutf8DrawText
+00000000000000f0 T Xutf8TextEscapement
+0000000000000100 T Xutf8TextExtents
+0000000000000110 T Xutf8TextPerCharExtents
+
+wcWrap.o:
+00000000000000e0 T XwcDrawImageString
+00000000000000d0 T XwcDrawString
+0000000000000000 T XwcDrawText
+00000000000000f0 T XwcTextEscapement
+0000000000000100 T XwcTextExtents
+0000000000000110 T XwcTextPerCharExtents
+
+xim_trans.o:
+                 U calloc
+                 U close
+                 U connect
+                 U __ctype_b_loc
+                 U __ctype_tolower_loc
+                 U __errno_location
+                 U fcntl
+                 U fflush
+                 U free
+                 U freeaddrinfo
+                 U gai_strerror
+                 U getaddrinfo
+                 U getpeername
+                 U getsockname
+                 U getsockopt
+                 U _GLOBAL_OFFSET_TABLE_
+                 U inet_ntop
+                 U inet_pton
+                 U ioctl
+                 U malloc
+                 U memcpy
+                 U read
+                 U readv
+                 U setsockopt
+                 U shutdown
+                 U __snprintf_chk
+                 U socket
+                 U __stack_chk_fail
+                 U stderr
+                 U strchr
+                 U strcmp
+                 U strdup
+                 U strlen
+                 U strncpy
+                 U strrchr
+                 U uname
+                 U unlink
+                 U __vfprintf_chk
+                 U write
+                 U writev
+00000000000008e0 T _XimXTransBytesReadable
+0000000000000940 T _XimXTransClose
+0000000000000980 T _XimXTransCloseForCloning
+0000000000001dd0 T _XimXTransConnect
+0000000000000930 T _XimXTransDisconnect
+0000000000000800 T _XimXTransFreeConnInfo
+0000000000000af0 T _XimXTransGetConnectionNumber
+0000000000000b00 T _XimXTransGetHostname
+00000000000009d0 T _XimXTransGetMyAddr
+0000000000000a60 T _XimXTransGetPeerAddr
+00000000000009c0 T _XimXTransIsLocal
+0000000000001da0 T _XimXTransOpenCLTSClient
+0000000000001d70 T _XimXTransOpenCOTSClient
+00000000000008f0 T _XimXTransRead
+0000000000000910 T _XimXTransReadv
+0000000000000850 T _XimXTransSetOption
+0000000000000100 D _XimXTransSocketINET6Funcs
+0000000000000180 D _XimXTransSocketINETFuncs
+0000000000000080 D _XimXTransSocketLocalFuncs
+0000000000000200 D _XimXTransSocketTCPFuncs
+0000000000000000 D _XimXTransSocketUNIXFuncs
+0000000000000900 T _XimXTransWrite
+0000000000000920 T _XimXTransWritev
+
+AddDIC.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U strcmp
+0000000000000000 T XcmsAddColorSpace
+                 U _XcmsDIColorSpaces
+                 U _XcmsDIColorSpacesInit
+                 U _XcmsPushPointerArray
+                 U _XcmsRegFormatOfPrefix
+
+AddSF.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U strcmp
+0000000000000000 T XcmsAddFunctionSet
+                 U _XcmsDDColorSpaces
+                 U _XcmsDDColorSpacesInit
+                 U _XcmsPushPointerArray
+                 U _XcmsRegFormatOfPrefix
+                 U _XcmsSCCFuncSets
+                 U _XcmsSCCFuncSetsInit
+
+CCC.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+00000000000000a0 T XcmsCreateCCC
+0000000000000000 T XcmsDefaultCCC
+0000000000000230 T XcmsFreeCCC
+                 U _XcmsGetIntensityMap
+                 U _XcmsInitDefaultCCCs
+                 U _XcmsInitScrnInfo
+
+CvColW.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T _XcmsConvertColorsWithWhitePt
+                 U _XcmsDDConvertColors
+                 U _XcmsDIConvertColors
+
+CvCols.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memcpy
+                 U memset
+                 U __stack_chk_fail
+                 U strcmp
+0000000000000870 T XcmsConvertColors
+00000000000003c0 T _XcmsDDConvertColors
+                 U _XcmsDIColorSpaces
+0000000000000090 T _XcmsDIConvertColors
+0000000000000290 T _XcmsEqualWhitePts
+                 U _XcmsRegColorSpaces
+0000000000000de0 T _XcmsRegFormatOfPrefix
+
+HVC.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U sscanf
+                 U __stack_chk_fail
+                 U strchr
+                 U strdup
+                 U strncmp
+                 U _XcmsArcTangent
+                 U XcmsCIEuvYToCIEXYZ
+00000000000001e0 T XcmsCIEuvYToTekHVC
+                 U _XcmsCIEuvY_ValidSpec
+                 U XcmsCIEXYZToCIEuvY
+                 U _XcmsCosine
+                 U _XcmsCubeRoot
+                 U _XcmsDIConvertColors
+                 U _XcmsSine
+                 U _XcmsSquareRoot
+00000000000009a0 T _XcmsTekHVC_CheckModify
+0000000000000000 D XcmsTekHVCColorSpace
+                 U _XcmsTekHVC_prefix
+0000000000000630 T XcmsTekHVCToCIEuvY
+
+HVCGcC.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U XcmsAddColorSpace
+                 U _XcmsDIConvertColors
+                 U XcmsLinearRGBFunctionSet
+0000000000000000 T XcmsTekHVCClipC
+                 U XcmsTekHVCColorSpace
+                 U XcmsTekHVCQueryMaxC
+
+HVCGcV.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U XcmsAddColorSpace
+                 U _XcmsDIConvertColors
+                 U XcmsLinearRGBFunctionSet
+                 U _XcmsTekHVC_CheckModify
+0000000000000000 T XcmsTekHVCClipV
+                 U XcmsTekHVCColorSpace
+                 U XcmsTekHVCQueryMaxV
+                 U _XcmsTekHVCQueryMaxVCRGB
+
+HVCGcVC.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U XcmsAddColorSpace
+                 U _XcmsConvertColorsWithWhitePt
+                 U _XcmsDIConvertColors
+                 U XcmsLinearRGBFunctionSet
+                 U _XcmsSquareRoot
+                 U _XcmsTekHVC_CheckModify
+0000000000000000 T XcmsTekHVCClipVC
+                 U XcmsTekHVCColorSpace
+                 U _XcmsTekHVCQueryMaxVCRGB
+
+HVCMnV.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U XcmsAddColorSpace
+                 U _XcmsTekHVC_CheckModify
+                 U XcmsTekHVCColorSpace
+                 U _XcmsTekHVCQueryMaxVCRGB
+0000000000000000 T XcmsTekHVCQueryMinV
+
+HVCMxC.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U XcmsAddColorSpace
+                 U _XcmsConvertColorsWithWhitePt
+                 U _XcmsTekHVC_CheckModify
+                 U XcmsTekHVCColorSpace
+0000000000000000 T XcmsTekHVCQueryMaxC
+                 U _XcmsTekHVCQueryMaxVCRGB
+
+HVCMxV.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U XcmsAddColorSpace
+                 U _XcmsConvertColorsWithWhitePt
+                 U _XcmsTekHVC_CheckModify
+                 U XcmsTekHVCColorSpace
+0000000000000000 T XcmsTekHVCQueryMaxV
+                 U _XcmsTekHVCQueryMaxVCRGB
+
+HVCMxVC.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U XcmsAddColorSpace
+                 U _XcmsConvertColorsWithWhitePt
+                 U XcmsTekHVCColorSpace
+0000000000000180 T XcmsTekHVCQueryMaxVC
+0000000000000000 T _XcmsTekHVCQueryMaxVCRGB
+
+HVCMxVs.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U XcmsAddColorSpace
+                 U _XcmsConvertColorsWithWhitePt
+                 U XcmsTekHVCColorSpace
+                 U _XcmsTekHVCQueryMaxVCRGB
+0000000000000000 T XcmsTekHVCQueryMaxVSamples
+
+HVCWpAj.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U XcmsAddColorSpace
+                 U _XcmsConvertColorsWithWhitePt
+                 U XcmsTekHVCColorSpace
+0000000000000000 T XcmsTekHVCWhiteShiftColors
+
+IdOfPr.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U __stack_chk_fail
+                 U strcmp
+                 U strlen
+                 U _XcmsCopyISOLatin1Lowered
+                 U _XcmsDDColorSpaces
+                 U _XcmsDIColorSpaces
+0000000000000000 T XcmsFormatOfPrefix
+
+LRGB.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U sscanf
+                 U __stack_chk_fail
+                 U strchr
+                 U strdup
+                 U strlen
+                 U strncmp
+0000000000000730 T XcmsCIEXYZToRGBi
+                 U _XcmsFreeIntensityMaps
+                 U _XcmsGetElement
+                 U _XcmsGetProperty
+00000000000000e0 D XcmsLinearRGBFunctionSet
+00000000000017d0 T _XcmsLRGB_InitScrnDefault
+0000000000000020 D XcmsRGBColorSpace
+0000000000000060 D XcmsRGBiColorSpace
+                 U _XcmsRGBi_prefix
+0000000000000b50 T XcmsRGBiToCIEXYZ
+0000000000001610 T XcmsRGBiToRGB
+                 U _XcmsRGB_prefix
+0000000000001440 T XcmsRGBToRGBi
+                 U XInternAtom
+
+Lab.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U sscanf
+                 U __stack_chk_fail
+                 U strchr
+                 U strdup
+                 U strncmp
+0000000000000000 D XcmsCIELabColorSpace
+                 U _XcmsCIELab_prefix
+00000000000003b0 T XcmsCIELabToCIEXYZ
+0000000000000150 T XcmsCIEXYZToCIELab
+                 U _XcmsCIEXYZ_ValidSpec
+                 U _XcmsCubeRoot
+                 U _XcmsDIConvertColors
+
+LabGcC.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XcmsArcTangent
+0000000000000000 T XcmsCIELabClipab
+                 U XcmsCIELabQueryMaxC
+                 U _XcmsDIConvertColors
+
+LabGcL.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U _XcmsArcTangent
+0000000000000000 T XcmsCIELabClipL
+                 U XcmsCIELabQueryMaxL
+                 U _XcmsCIELabQueryMaxLCRGB
+                 U XcmsCIELabQueryMinL
+                 U _XcmsDIConvertColors
+                 U _XcmsSquareRoot
+
+LabGcLC.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U _XcmsArcTangent
+0000000000000000 T XcmsCIELabClipLab
+                 U _XcmsCIELabQueryMaxLCRGB
+                 U _XcmsConvertColorsWithWhitePt
+                 U _XcmsDIConvertColors
+                 U _XcmsSquareRoot
+
+LabMnL.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U _XcmsCIELabQueryMaxLCRGB
+0000000000000000 T XcmsCIELabQueryMinL
+                 U _XcmsConvertColorsWithWhitePt
+                 U _XcmsCosine
+                 U _XcmsSine
+                 U _XcmsSquareRoot
+
+LabMxC.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+0000000000000000 T XcmsCIELabQueryMaxC
+                 U _XcmsCIELabQueryMaxLCRGB
+                 U _XcmsConvertColorsWithWhitePt
+                 U _XcmsCosine
+                 U _XcmsSine
+                 U _XcmsSquareRoot
+
+LabMxL.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+0000000000000000 T XcmsCIELabQueryMaxL
+                 U _XcmsCIELabQueryMaxLCRGB
+                 U _XcmsConvertColorsWithWhitePt
+                 U _XcmsCosine
+                 U _XcmsSine
+                 U _XcmsSquareRoot
+
+LabMxLC.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+00000000000002d0 T XcmsCIELabQueryMaxLC
+0000000000000000 T _XcmsCIELabQueryMaxLCRGB
+                 U _XcmsConvertColorsWithWhitePt
+                 U _XcmsCosine
+                 U _XcmsSine
+                 U _XcmsSquareRoot
+
+LabWpAj.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XcmsCIELabWhiteShiftColors
+                 U _XcmsConvertColorsWithWhitePt
+
+Luv.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U sscanf
+                 U __stack_chk_fail
+                 U strchr
+                 U strdup
+                 U strncmp
+0000000000000000 D XcmsCIELuvColorSpace
+                 U _XcmsCIELuv_prefix
+00000000000002f0 T XcmsCIELuvToCIEuvY
+0000000000000150 T XcmsCIEuvYToCIELuv
+                 U XcmsCIEuvYToCIEXYZ
+                 U _XcmsCIEuvY_ValidSpec
+                 U XcmsCIEXYZToCIEuvY
+                 U _XcmsCubeRoot
+                 U _XcmsDIConvertColors
+
+LuvGcC.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U _XcmsArcTangent
+0000000000000000 T XcmsCIELuvClipuv
+                 U XcmsCIELuvQueryMaxC
+                 U _XcmsDIConvertColors
+
+LuvGcL.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U _XcmsArcTangent
+0000000000000000 T XcmsCIELuvClipL
+                 U XcmsCIELuvQueryMaxL
+                 U _XcmsCIELuvQueryMaxLCRGB
+                 U XcmsCIELuvQueryMinL
+                 U _XcmsDIConvertColors
+                 U _XcmsSquareRoot
+
+LuvGcLC.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U _XcmsArcTangent
+0000000000000000 T XcmsCIELuvClipLuv
+                 U _XcmsCIELuvQueryMaxLCRGB
+                 U _XcmsConvertColorsWithWhitePt
+                 U _XcmsDIConvertColors
+                 U _XcmsSquareRoot
+
+LuvMnL.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U _XcmsCIELuvQueryMaxLCRGB
+0000000000000000 T XcmsCIELuvQueryMinL
+                 U _XcmsConvertColorsWithWhitePt
+                 U _XcmsCosine
+                 U _XcmsSine
+                 U _XcmsSquareRoot
+
+LuvMxC.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+0000000000000000 T XcmsCIELuvQueryMaxC
+                 U _XcmsCIELuvQueryMaxLCRGB
+                 U _XcmsConvertColorsWithWhitePt
+                 U _XcmsCosine
+                 U _XcmsSine
+                 U _XcmsSquareRoot
+
+LuvMxL.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+0000000000000000 T XcmsCIELuvQueryMaxL
+                 U _XcmsCIELuvQueryMaxLCRGB
+                 U _XcmsConvertColorsWithWhitePt
+                 U _XcmsCosine
+                 U _XcmsSine
+                 U _XcmsSquareRoot
+
+LuvMxLC.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+00000000000002d0 T XcmsCIELuvQueryMaxLC
+0000000000000000 T _XcmsCIELuvQueryMaxLCRGB
+                 U _XcmsConvertColorsWithWhitePt
+                 U _XcmsCosine
+                 U _XcmsSine
+                 U _XcmsSquareRoot
+
+LuvWpAj.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XcmsCIELuvWhiteShiftColors
+                 U _XcmsConvertColorsWithWhitePt
+
+OfCCC.o:
+0000000000000040 T XcmsClientWhitePointOfCCC
+0000000000000000 T XcmsDisplayOfCCC
+0000000000000020 T XcmsScreenNumberOfCCC
+0000000000000030 T XcmsScreenWhitePointOfCCC
+0000000000000010 T XcmsVisualOfCCC
+
+PrOfId.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U strdup
+                 U _XcmsDDColorSpaces
+                 U _XcmsDIColorSpaces
+0000000000000000 T XcmsPrefixOfFormat
+
+QBlack.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U XcmsConvertColors
+0000000000000000 T XcmsQueryBlack
+
+QBlue.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U XcmsConvertColors
+0000000000000000 T XcmsQueryBlue
+
+QGreen.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U XcmsConvertColors
+0000000000000000 T XcmsQueryGreen
+
+QRed.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U XcmsConvertColors
+0000000000000000 T XcmsQueryRed
+
+QWhite.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U XcmsConvertColors
+0000000000000000 T XcmsQueryWhite
+
+QuCol.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XcmsQueryColor
+                 U _XcmsSetGetColor
+                 U XQueryColor
+
+QuCols.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000000 T XcmsQueryColors
+                 U _XcmsSetGetColors
+                 U XQueryColors
+
+SetCCC.o:
+0000000000000050 T XcmsSetCompressionProc
+0000000000000060 T XcmsSetWhiteAdjustProc
+0000000000000000 T XcmsSetWhitePoint
+
+SetGetCols.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U XAllocColor
+                 U XcmsCCCOfColormap
+                 U XcmsConvertColors
+                 U _XcmsRGB_to_XColor
+0000000000000000 T _XcmsSetGetColor
+00000000000001b0 T _XcmsSetGetColors
+                 U _XColor_to_XcmsRGB
+                 U XQueryColor
+                 U XQueryColors
+                 U XStoreColor
+                 U XStoreColors
+
+StCol.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U _XcmsSetGetColor
+0000000000000000 T XcmsStoreColor
+                 U XStoreColor
+
+StCols.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memcpy
+                 U __stack_chk_fail
+                 U _XcmsSetGetColors
+0000000000000000 T XcmsStoreColors
+                 U XStoreColors
+
+UNDEFINED.o:
+0000000000000000 D XcmsUNDEFINEDColorSpace
+
+XRGB.o:
+00000000000000c0 T _XcmsResolveColor
+0000000000000000 T _XcmsRGB_to_XColor
+0000000000000140 T _XcmsUnresolveColor
+0000000000000050 T _XColor_to_XcmsRGB
+0000000000000160 T _XUnresolveColor
+
+XYZ.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U sscanf
+                 U strchr
+                 U strdup
+                 U strncmp
+0000000000000000 D XcmsCIEXYZColorSpace
+                 U _XcmsCIEXYZ_prefix
+0000000000000000 T _XcmsCIEXYZ_ValidSpec
+
+cmsAllCol.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U XAllocColor
+0000000000000000 T XcmsAllocColor
+                 U _XcmsSetGetColor
+
+cmsAllNCol.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U strlen
+                 U XAllocColor
+0000000000000000 T XcmsAllocNamedColor
+                 U XcmsCCCOfColormap
+                 U XcmsConvertColors
+                 U _XcmsResolveColorString
+                 U _XcmsRGB_to_XColor
+                 U _XColor_to_XcmsRGB
+                 U _XGetRequest
+                 U _XReply
+                 U _XSend
+
+cmsCmap.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U _XAsyncErrorHandler
+0000000000000050 T _XcmsAddCmapRec
+0000000000000630 T XcmsCCCOfColormap
+00000000000004d0 T _XcmsCopyCmapRecAndFree
+                 U XcmsCreateCCC
+0000000000000580 T _XcmsDeleteCmapRec
+                 U XcmsFreeCCC
+0000000000000740 T XcmsSetCCCOfColormap
+                 U _XData32
+                 U _XDeqAsyncHandler
+                 U XDestroyWindow
+                 U _XGetRequest
+                 U XGetVisualInfo
+                 U XGetWindowAttributes
+                 U _XReply
+
+cmsColNm.o:
+                 U calloc
+                 U __ctype_b_loc
+                 U fclose
+                 U fgets
+                 U fopen
+                 U free
+                 U getenv
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U qsort
+                 U rewind
+                 U sscanf
+                 U __stack_chk_fail
+                 U strchr
+                 U strcmp
+                 U strlen
+                 U strncmp
+                 U XcmsConvertColors
+00000000000002d0 T _XcmsCopyISOLatin1Lowered
+                 U _XcmsDDConvertColors
+                 U _XcmsDIColorSpaces
+                 U _XcmsDIConvertColors
+                 U _XcmsEqualWhitePts
+0000000000000b70 T _XcmsResolveColorString
+                 U __xstat
+
+cmsGlobls.o:
+                 U XcmsCIELabColorSpace
+0000000000000017 R _XcmsCIELab_prefix
+                 U XcmsCIELuvColorSpace
+0000000000000010 R _XcmsCIELuv_prefix
+                 U XcmsCIEuvYColorSpace
+0000000000000025 R _XcmsCIEuvY_prefix
+                 U XcmsCIExyYColorSpace
+000000000000001e R _XcmsCIExyY_prefix
+                 U XcmsCIEXYZColorSpace
+000000000000002c R _XcmsCIEXYZ_prefix
+00000000000000b0 D _XcmsDDColorSpaces
+00000000000000c0 D _XcmsDDColorSpacesInit
+00000000000000d8 D _XcmsDIColorSpaces
+00000000000000e0 D _XcmsDIColorSpacesInit
+                 U XcmsLinearRGBFunctionSet
+0000000000000000 D _XcmsRegColorSpaces
+                 U XcmsRGBColorSpace
+                 U XcmsRGBiColorSpace
+0000000000000004 R _XcmsRGBi_prefix
+0000000000000000 R _XcmsRGB_prefix
+0000000000000090 D _XcmsSCCFuncSets
+00000000000000a0 D _XcmsSCCFuncSetsInit
+                 U XcmsTekHVCColorSpace
+0000000000000009 R _XcmsTekHVC_prefix
+                 U XcmsUNDEFINEDColorSpace
+
+cmsInt.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memcpy
+0000000000000090 T _XcmsCopyPointerArray
+0000000000000350 T _XcmsFreeIntensityMaps
+0000000000000110 T _XcmsFreePointerArray
+00000000000003a0 T _XcmsGetIntensityMap
+00000000000001c0 T _XcmsInitDefaultCCCs
+0000000000000250 T _XcmsInitScrnInfo
+                 U _XcmsLRGB_InitScrnDefault
+0000000000000120 T _XcmsPushPointerArray
+                 U _XcmsSCCFuncSets
+                 U XcmsTekHVCClipC
+
+cmsLkCol.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memcpy
+                 U __stack_chk_fail
+                 U strlen
+                 U XcmsCCCOfColormap
+                 U XcmsConvertColors
+0000000000000000 T XcmsLookupColor
+                 U _XcmsResolveColor
+                 U _XcmsResolveColorString
+                 U _XcmsUnresolveColor
+                 U _XColor_to_XcmsRGB
+                 U _XGetRequest
+                 U _XReply
+                 U _XSend
+
+cmsMath.o:
+0000000000000000 T _XcmsCubeRoot
+00000000000000e0 T _XcmsSquareRoot
+
+cmsProp.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+0000000000000000 T _XcmsGetElement
+0000000000000060 T _XcmsGetProperty
+                 U XFree
+                 U XGetWindowProperty
+
+cmsTrig.o:
+                 U _GLOBAL_OFFSET_TABLE_
+0000000000000470 T _XcmsArcTangent
+0000000000000240 T _XcmsCosine
+0000000000000000 T _XcmsSine
+                 U _XcmsSquareRoot
+
+uvY.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U sscanf
+                 U __stack_chk_fail
+                 U strchr
+                 U strdup
+                 U strncmp
+0000000000000000 D XcmsCIEuvYColorSpace
+                 U _XcmsCIEuvY_prefix
+0000000000000320 T XcmsCIEuvYToCIEXYZ
+00000000000001c0 T _XcmsCIEuvY_ValidSpec
+0000000000000000 T XcmsCIEXYZToCIEuvY
+                 U _XcmsCIEXYZ_ValidSpec
+                 U _XcmsDIConvertColors
+
+xyY.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U sscanf
+                 U __stack_chk_fail
+                 U strchr
+                 U strdup
+                 U strncmp
+0000000000000000 D XcmsCIExyYColorSpace
+                 U _XcmsCIExyY_prefix
+0000000000000180 T XcmsCIExyYToCIEXYZ
+0000000000000430 T XcmsCIEXYZToCIExyY
+                 U _XcmsCIEXYZ_ValidSpec
+                 U _XcmsDIConvertColors
+
+XKB.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memcpy
+                 U memset
+                 U __stack_chk_fail
+                 U strlen
+                 U XCloseDisplay
+                 U _XFlush
+                 U XGetAtomName
+                 U _XGetRequest
+                 U XInternAtom
+0000000000000ca0 T XkbComputeEffectiveMap
+0000000000000000 D _XkbGetAtomNameFunc
+0000000000001460 T XkbGetAutoResetControls
+00000000000011b0 T XkbGetDetectableAutoRepeat
+0000000000001720 T XkbGetPerClientControls
+0000000000000e90 T XkbGetState
+00000000000009e0 T XkbGetXlibControls
+0000000000000008 D _XkbInternAtomFunc
+0000000000000880 T XkbLatchGroup
+0000000000000690 T XkbLatchModifiers
+00000000000000b0 T XkbLibraryVersion
+0000000000000780 T XkbLockGroup
+00000000000005a0 T XkbLockModifiers
+0000000000001870 T XkbOpenDisplay
+0000000000000000 T XkbQueryExtension
+0000000000000240 T XkbSelectEventDetails
+00000000000000e0 T XkbSelectEvents
+00000000000019a0 T XkbSetAtomFuncs
+0000000000001300 T XkbSetAutoResetControls
+0000000000000a30 T XkbSetDebuggingFlags
+0000000000001050 T XkbSetDetectableAutoRepeat
+00000000000015c0 T XkbSetPerClientControls
+0000000000000970 T XkbSetXlibControls
+                 U XkbUseExtension
+                 U XkbVirtualModsToReal
+0000000000000a20 T XkbXlibControlsImplemented
+                 U XOpenDisplay
+                 U _XReply
+
+XKBAlloc.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memset
+                 U realloc
+0000000000000ae0 T XkbAddDeviceLedInfo
+0000000000000000 T XkbAllocCompatMap
+00000000000007e0 T XkbAllocControls
+0000000000000e00 T XkbAllocDeviceInfo
+0000000000000870 T XkbAllocIndicatorMaps
+00000000000008f0 T XkbAllocKeyboard
+0000000000000230 T XkbAllocNames
+                 U XkbFreeClientMap
+0000000000000180 T XkbFreeCompatMap
+0000000000000830 T XkbFreeControls
+0000000000000ec0 T XkbFreeDeviceInfo
+                 U XkbFreeGeometry
+00000000000008c0 T XkbFreeIndicatorMaps
+0000000000000920 T XkbFreeKeyboard
+0000000000000550 T XkbFreeNames
+                 U XkbFreeServerMap
+0000000000000d10 T XkbResizeDeviceButtonActions
+
+XKBBell.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U XBell
+                 U _XGetRequest
+0000000000000350 T XkbBell
+0000000000000450 T XkbBellEvent
+0000000000000000 T XkbDeviceBell
+0000000000000230 T XkbDeviceBellEvent
+00000000000003e0 T XkbForceBell
+0000000000000120 T XkbForceDeviceBell
+                 U XkbUseExtension
+
+XKBBind.o:
+                 U __ctype_toupper_loc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memcpy
+                 U __stack_chk_fail
+                 U XkbFreeKeyboard
+                 U _XkbGetCharset
+                 U _XkbGetConverters
+                 U XkbGetMap
+                 U XkbGetMapChanges
+                 U XkbGetUpdatedMap
+0000000000000400 T XkbKeycodeToKeysym
+0000000000000990 T XkbKeysymToModifiers
+0000000000001280 T XkbLookupKeyBinding
+0000000000000c80 T XkbLookupKeySym
+                 U _XkbNoteCoreMapChanges
+                 U XkbNoteMapChanges
+0000000000000e10 T XkbRefreshKeyboardMapping
+00000000000002d0 T _XkbReloadDpy
+                 U XkbSelectEventDetails
+0000000000001330 T XkbToControl
+0000000000000e00 T XkbTranslateKey
+0000000000000110 T XkbTranslateKeyCode
+0000000000001390 T XkbTranslateKeySym
+                 U XkbUseExtension
+00000000000005b0 T XKeycodeToKeysym
+                 U _XKeycodeToKeysym
+0000000000000810 T XKeysymToKeycode
+                 U _XKeysymToKeycode
+                 U _XKeysymToModifiers
+0000000000000ba0 T XLookupKeysym
+                 U _XLookupKeysym
+00000000000015e0 T XLookupString
+0000000000000fc0 T XRefreshKeyboardMapping
+                 U _XRefreshKeyboardMapping
+                 U _XTranslateKey
+
+XKBCompat.o:
+                 U __fprintf_chk
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memset
+                 U __stack_chk_fail
+                 U stderr
+                 U _XFlush
+                 U _XGetRequest
+                 U XkbAllocCompatMap
+                 U _XkbFreeReadBuffer
+0000000000000250 T XkbGetCompatMap
+                 U _XkbGetReadBufferPtr
+                 U _XkbInitReadBuffer
+0000000000000000 T _XkbReadGetCompatMapReply
+0000000000000410 T XkbSetCompatMap
+                 U XkbUseExtension
+                 U _XReply
+
+XKBCtrls.o:
+                 U calloc
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U _XGetRequest
+0000000000000470 T XkbChangeEnabledControls
+0000000000000150 T XkbGetAutoRepeatRate
+0000000000000550 T XkbGetControls
+0000000000000b30 T XkbNoteControlsChanges
+0000000000000070 T XkbSetAutoRepeatRate
+00000000000008f0 T XkbSetControls
+0000000000000380 T XkbSetIgnoreLockMods
+0000000000000290 T XkbSetServerInternalMods
+                 U XkbUseExtension
+                 U _XReply
+
+XKBCvt.o:
+                 U getenv
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U XConvertCase
+                 U _XimGetCharCode
+                 U _XimGetLocaleCode
+0000000000000390 T _XkbGetCharset
+0000000000000340 T _XkbGetConverters
+                 U _XlcCurrentLC
+
+XKBExtDev.o:
+                 U calloc
+                 U __fprintf_chk
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memcpy
+                 U memset
+                 U __stack_chk_fail
+                 U stderr
+                 U _XFlush
+                 U _XGetRequest
+                 U XkbAddDeviceLedInfo
+                 U XkbAllocDeviceInfo
+00000000000013b0 T XkbChangeDeviceInfo
+                 U _XkbCopyFromReadBuffer
+                 U XkbFreeDeviceInfo
+                 U _XkbFreeReadBuffer
+0000000000000db0 T XkbGetDeviceButtonActions
+00000000000009e0 T XkbGetDeviceInfo
+0000000000000bb0 T XkbGetDeviceInfoChanges
+0000000000000f70 T XkbGetDeviceLedInfo
+                 U _XkbGetReadBufferCountedString
+                 U _XkbGetReadBufferPtr
+                 U _XkbInitReadBuffer
+0000000000000860 T XkbNoteDeviceChanges
+                 U XkbResizeDeviceButtonActions
+0000000000001610 T XkbSetDeviceButtonActions
+0000000000001140 T XkbSetDeviceInfo
+0000000000001600 T XkbSetDeviceLedInfo
+                 U XkbUseExtension
+                 U _XReply
+
+XKBGAlloc.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memmove
+                 U memset
+                 U realloc
+                 U strcmp
+                 U strdup
+                 U strncmp
+                 U strncpy
+0000000000001060 T XkbAddGeomColor
+0000000000001600 T XkbAddGeomDoodad
+0000000000001300 T XkbAddGeomKey
+0000000000000f20 T XkbAddGeomKeyAlias
+0000000000001160 T XkbAddGeomOutline
+00000000000019e0 T XkbAddGeomOverlay
+0000000000001760 T XkbAddGeomOverlayKey
+0000000000001870 T XkbAddGeomOverlayRow
+0000000000000de0 T XkbAddGeomProperty
+0000000000001360 T XkbAddGeomRow
+0000000000001400 T XkbAddGeomSection
+00000000000011f0 T XkbAddGeomShape
+00000000000009a0 T XkbAllocGeomColors
+0000000000000af0 T XkbAllocGeomDoodads
+0000000000000c10 T XkbAllocGeometry
+00000000000009d0 T XkbAllocGeomKeyAliases
+0000000000000be0 T XkbAllocGeomKeys
+0000000000000b50 T XkbAllocGeomOutlines
+0000000000000ac0 T XkbAllocGeomOverlayKeys
+0000000000000a90 T XkbAllocGeomOverlayRows
+0000000000000a60 T XkbAllocGeomOverlays
+0000000000000bb0 T XkbAllocGeomPoints
+0000000000000970 T XkbAllocGeomProps
+0000000000000b80 T XkbAllocGeomRows
+0000000000000b20 T XkbAllocGeomSectionDoodads
+0000000000000a30 T XkbAllocGeomSections
+0000000000000a00 T XkbAllocGeomShapes
+0000000000000390 T XkbFreeGeomColors
+0000000000000630 T XkbFreeGeomDoodads
+0000000000000730 T XkbFreeGeometry
+0000000000000370 T XkbFreeGeomKeyAliases
+0000000000000580 T XkbFreeGeomKeys
+0000000000000410 T XkbFreeGeomOutlines
+00000000000004a0 T XkbFreeGeomOverlayKeys
+00000000000004f0 T XkbFreeGeomOverlayRows
+0000000000000550 T XkbFreeGeomOverlays
+00000000000003c0 T XkbFreeGeomPoints
+0000000000000340 T XkbFreeGeomProperties
+00000000000005d0 T XkbFreeGeomRows
+0000000000000600 T XkbFreeGeomSections
+0000000000000470 T XkbFreeGeomShapes
+
+XKBGeom.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U strncmp
+                 U _XGetRequest
+                 U XkbAddGeomColor
+                 U XkbAddGeomDoodad
+                 U XkbAddGeomKey
+                 U XkbAddGeomOutline
+                 U XkbAddGeomOverlay
+                 U XkbAddGeomOverlayRow
+                 U XkbAddGeomProperty
+                 U XkbAddGeomRow
+                 U XkbAddGeomSection
+                 U XkbAddGeomShape
+                 U XkbAllocGeomColors
+                 U XkbAllocGeomDoodads
+                 U XkbAllocGeomKeyAliases
+                 U XkbAllocGeomProps
+                 U XkbAllocGeomSections
+                 U XkbAllocGeomShapes
+0000000000000350 T XkbComputeRowBounds
+00000000000005f0 T XkbComputeSectionBounds
+0000000000000170 T XkbComputeShapeBounds
+0000000000000270 T XkbComputeShapeTop
+                 U _XkbCopyFromReadBuffer
+0000000000000870 T XkbFindOverlayForKey
+                 U XkbFreeGeometry
+                 U _XkbFreeReadBuffer
+0000000000001390 T XkbGetGeometry
+00000000000014d0 T XkbGetNamedGeometry
+                 U _XkbGetReadBufferCountedString
+                 U _XkbGetReadBufferPtr
+                 U _XkbInitReadBuffer
+00000000000009c0 T _XkbReadGetGeometryReply
+                 U _XkbSkipReadBufferData
+                 U XkbUseExtension
+                 U _XReply
+
+XKBGetByName.o:
+                 U calloc
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memset
+                 U __stack_chk_fail
+                 U strlen
+                 U _XEatData
+                 U _XFlush
+                 U _XGetRequest
+                 U XkbFreeKeyboard
+0000000000000ae0 T XkbGetKeyboard
+0000000000000000 T XkbGetKeyboardByName
+                 U _XkbReadGetCompatMapReply
+                 U _XkbReadGetGeometryReply
+                 U _XkbReadGetIndicatorMapReply
+                 U _XkbReadGetMapReply
+                 U _XkbReadGetNamesReply
+                 U XkbUseExtension
+                 U _XRead
+                 U _XReply
+
+XKBGetMap.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memset
+                 U realloc
+                 U __stack_chk_fail
+                 U _XGetRequest
+                 U XkbAllocClientMap
+                 U XkbAllocServerMap
+                 U _XkbCopyFromReadBuffer
+                 U _XkbFreeReadBuffer
+00000000000011e0 T XkbGetKeyActions
+0000000000001380 T XkbGetKeyBehaviors
+00000000000014f0 T XkbGetKeyExplicitComponents
+0000000000001670 T XkbGetKeyModifierMap
+00000000000012b0 T XkbGetKeySyms
+0000000000001110 T XkbGetKeyTypes
+00000000000017f0 T XkbGetKeyVirtualModMap
+0000000000001080 T XkbGetMap
+0000000000001970 T XkbGetMapChanges
+                 U _XkbGetReadBufferPtr
+0000000000000fe0 T XkbGetUpdatedMap
+0000000000001450 T XkbGetVirtualMods
+                 U _XkbInitReadBuffer
+                 U _XkbReadBufferCopyKeySyms
+0000000000000220 T _XkbReadGetMapReply
+                 U XkbResizeKeyActions
+                 U XkbResizeKeySyms
+                 U _XkbSkipReadBufferData
+                 U XkbUseExtension
+                 U _XReply
+
+XKBList.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memcpy
+                 U memset
+                 U __stack_chk_fail
+                 U strlen
+                 U _XFlush
+                 U _XGetRequest
+0000000000000150 T XkbFreeComponentList
+                 U _XkbFreeReadBuffer
+                 U _XkbGetReadBufferPtr
+                 U _XkbInitReadBuffer
+0000000000000230 T XkbListComponents
+                 U XkbUseExtension
+                 U _XReply
+
+XKBMAlloc.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memcpy
+                 U memset
+                 U realloc
+                 U __stack_chk_fail
+00000000000010b0 T XkbAddKeyType
+0000000000000040 T XkbAllocClientMap
+00000000000002f0 T XkbAllocServerMap
+0000000000001650 T XkbChangeKeycodeRange
+00000000000005f0 T XkbCopyKeyType
+0000000000000810 T XkbCopyKeyTypes
+0000000000002300 T XkbFreeClientMap
+0000000000002490 T XkbFreeServerMap
+                 U XkbInitCanonicalKeyTypes
+0000000000002090 T XkbResizeKeyActions
+0000000000001330 T XkbResizeKeySyms
+0000000000000890 T XkbResizeKeyType
+
+XKBMisc.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memcpy
+                 U __memcpy_chk
+                 U memset
+                 U __stack_chk_fail
+                 U XConvertCase
+                 U XkbAllocClientMap
+                 U XkbAllocServerMap
+0000000000000f90 T XkbApplyCompatMapToKey
+0000000000001a00 T XkbApplyVirtualModChanges
+0000000000000f00 T XkbChangeTypesOfKey
+                 U XkbCopyKeyType
+0000000000000640 T XkbInitCanonicalKeyTypes
+00000000000007c0 T XkbKeyTypesForCoreSymbols
+                 U XkbResizeKeyActions
+                 U XkbResizeKeySyms
+00000000000017f0 T XkbUpdateActionVirtualMods
+00000000000018a0 T XkbUpdateKeyTypeVirtualMods
+0000000000001de0 T XkbUpdateMapFromCore
+0000000000000f30 T XkbVirtualModsToReal
+
+XKBNames.o:
+                 U calloc
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memset
+                 U realloc
+                 U __stack_chk_fail
+                 U _XData32
+                 U _XFlush
+                 U _XGetRequest
+                 U XkbAllocNames
+00000000000012f0 T XkbChangeNames
+                 U _XkbCopyFromReadBuffer
+                 U _XkbFreeReadBuffer
+00000000000007b0 T XkbGetNames
+                 U _XkbGetReadBufferPtr
+                 U _XkbInitReadBuffer
+0000000000001ed0 T XkbNoteNameChanges
+                 U _XkbReadBufferCopy32
+0000000000000100 T _XkbReadGetNamesReply
+0000000000000980 T XkbSetNames
+                 U _XkbSkipReadBufferData
+                 U XkbUseExtension
+                 U _XReply
+                 U _XSend
+
+XKBRdBuf.o:
+                 U free
+                 U _GLOBAL_OFFSET_TABLE_
+                 U malloc
+                 U memcpy
+00000000000000c0 T _XkbCopyFromReadBuffer
+0000000000000300 T _XkbFreeReadBuffer
+0000000000000350 T _XkbGetReadBufferCountedString
+00000000000002c0 T _XkbGetReadBufferPtr
+0000000000000000 T _XkbInitReadBuffer
+0000000000000280 T _XkbPeekAtReadBuffer
+00000000000001f0 T _XkbReadBufferCopy32
+0000000000000170 T _XkbReadBufferCopyKeySyms
+00000000000001c0 T _XkbReadCopyData32
+0000000000000140 T _XkbReadCopyKeySyms
+0000000000000070 T _XkbSkipReadBufferData
+0000000000000240 T _XkbWriteCopyData32
+0000000000000270 T _XkbWriteCopyKeySyms
+                 U _XRead
+
+XKBSetGeom.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memcpy
+                 U memset
+                 U strlen
+                 U _XAllocTemp
+                 U _XFlush
+                 U _XFreeTemp
+                 U _XGetRequest
+0000000000000230 T XkbSetGeometry
+                 U XkbUseExtension
+                 U _XSend
+
+XKBSetMap.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memcpy
+                 U memset
+                 U _XFlush
+                 U _XGetRequest
+00000000000013f0 T XkbChangeMap
+0000000000001000 T XkbSetMap
+                 U XkbUseExtension
+                 U _XkbWriteCopyKeySyms
+
+XKBUse.o:
+                 U calloc
+                 U __fprintf_chk
+                 U free
+                 U fwrite
+                 U getenv
+                 U _GLOBAL_OFFSET_TABLE_
+                 U __stack_chk_fail
+                 U stderr
+                 U XESetWireToEvent
+                 U _XGetRequest
+                 U XInitExtension
+                 U XInternAtom
+                 U XkbFreeKeyboard
+0000000000000340 T XkbIgnoreExtension
+00000000000002d0 T _XkbNoteCoreMapChanges
+0000000000000040 T XkbNoteMapChanges
+0000000000000370 T XkbUseExtension
+                 U _XReply
+                 U _XSetLastRequestRead
+
+XKBleds.o:
+                 U calloc
+                 U _GLOBAL_OFFSET_TABLE_
+                 U memset
+                 U __stack_chk_fail
+                 U _XFlush
+                 U _XGetRequest
+                 U XkbAllocIndicatorMaps
+                 U _XkbFreeReadBuffer
+0000000000000290 T XkbGetIndicatorMap
+0000000000000000 T XkbGetIndicatorState
+0000000000000670 T XkbGetNamedDeviceIndicator
+00000000000008c0 T XkbGetNamedIndicator
+                 U _XkbGetReadBufferPtr
+                 U _XkbInitReadBuffer
+0000000000000110 T _XkbReadGetIndicatorMapReply
+0000000000000450 T XkbSetIndicatorMap
+00000000000008f0 T XkbSetNamedDeviceIndicator
+0000000000000a80 T XkbSetNamedIndicator
+                 U XkbUseExtension
+                 U _XReply

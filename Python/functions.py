@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 from ctypes import *
 
 so_file = "./libpyfunctions.so"

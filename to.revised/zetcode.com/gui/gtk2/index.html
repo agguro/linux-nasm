@@ -1,0 +1,199 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+<title>GTK+ programming tutorial</title>
+<link rel="stylesheet" href="/cfg/style.css" type="text/css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="GUI, GTK+, programming, tutorial, C, Linux">
+<meta name="description" content="This is GTK+ programming tutorial. In this tutorial, 
+we will learn the basics of GUI programming in GTK+ and C language.">
+<meta name="author" content="Jan Bodnar">
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-5536206-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+<header>
+
+<div>
+<a href="/" title="Home">ZetCode</a>
+</div>
+
+<nav>
+    <a title="All tutorials" href="/all/">All</a>
+    <a title="Spring Boot tutorials" href="/all/#springboot">Spring Boot</a>
+    <a title="Python tutorials" href="/all/#python">Python</a>
+    <a title="C# tutorials" href="/all/#csharp">C#</a>
+    <a title="Java tutorials" href="/all/#java">Java</a>
+    <a title="JavaScript tutorials" href="/all/#js">JavaScript</a>
+    <a title="Subscribe to ZetCode news" href="http://zetcode.us13.list-manage.com/subscribe?u=9def9ccd4c70dbbaf691f90fc&id=6556210f80">Subscribe</a>
+</nav>
+
+</header>
+
+<div class="container">
+
+<div class="ltow">
+    
+<div id="ebooks">
+
+<h2 class="blu">Ebooks</h2>
+
+<ul>
+<li><a href="/ebooks/advancedpyqt5/">PyQt5 ebook</a></li>
+<li><a href="/ebooks/tkinter/">Tkinter ebook</a></li>
+<li><a href="/ebooks/sqlitepython/">SQLite Python</a></li>
+<li><a href="/ebooks/advancedwxpython/">wxPython ebook</a></li>
+<li><a href="/ebooks/windowsapi/">Windows API ebook</a></li>
+<li><a href="/ebooks/advancedjavaswing/">Java Swing ebook</a></li>
+<li><a href="/ebooks/javagames/">Java games ebook</a></li>
+<li><a href="/ebooks/mysqljava/">MySQL Java ebook</a></li>
+</ul>
+
+</div>
+
+</div>
+
+
+<div class="content">
+
+
+
+<h1>GTK+ tutorial</h1>
+
+<p class="last_mod">
+last modified July 16, 2020 
+</p>
+
+<p>
+This is a GTK+ programming tutorial. In this tutorial, we will learn the basics
+of GUI programming in GTK+ and C language. The GTK+ tutorial is suitable for 
+beginners and intermediate programmers. This tutorial covers GTK+ 2.
+</p>
+
+<h2>Table of contents</h2>
+
+<ul>
+  <li><a href="introduction/">Introduction</a></li>
+  <li><a href="firstprograms/">First programs</a></li>
+  <li><a href="menusandtoolbars/">Menus and toolbars</a></li>
+  <li><a href="gtklayoutmanagement/">Layout management</a></li>
+  <li><a href="gtkevents/">Events</a></li>
+  <li><a href="gtkdialogs/">Dialogs</a></li>
+  <li><a href="gtkwidgets/">Widgets </a></li>
+  <li><a href="gtkwidgetsII/">Widgets II</a></li>
+  <li><a href="gtktreeview/">GtkTreeView widget</a></li>
+  <li><a href="gtktextview/">GtkTextView widget</a></li>
+  <li><a href="customwidget/">Custom GTK+ widget</a></li>
+</ul>
+
+
+<h2>GTK+</h2>
+
+<p>
+GTK+ is a library for creating graphical user interfaces. The library is 
+created in C programming language. The GTK+ is also called the GIMP 
+Toolkit. Originally, the library was created while developing the GIMP image 
+manipulation program.
+</p>
+
+<div class="social">
+
+<div class="fb-like" data-href="http://zetcode.com/tutorials/gtktutorial/" data-layout="button_count" 
+  data-action="like" data-show-faces="true" data-share="true"></div>
+
+ 
+</div>
+ 
+ 
+<h2>Related tutorials</h2>
+
+<p>
+<a href="/gui/gtksharp/">GTK# tutorial</a>,
+<a href="/gui/pygtk/">PyGTK tutorial</a>,
+<a href="/gui/rubygtk/">Ruby GTK tutorial</a>, and
+<a href="/gfx/cairo/">Cairo graphics tutorial</a>.
+</p>
+
+<div class="ad-bot square-fix-ad">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- square-fixed-2020 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:300px;height:250px"
+     data-ad-client="ca-pub-9706709751191532"
+     data-ad-slot="6775384732"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+
+
+
+</div> <!-- content -->
+
+<div class="rtow">
+
+<div class="vert-ad">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- vertical-2020 -->
+<ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-9706709751191532"
+        data-ad-slot="5880603481"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+<script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+<div class="square-fix-ad ad-rtow">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- square-fixed-2020 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:300px;height:250px"
+     data-ad-client="ca-pub-9706709751191532"
+     data-ad-slot="6775384732"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+</div> <!-- rtow -->
+
+</div> <!-- container -->
+
+<footer>
+
+<nav>
+<a title="Home page" href="/">Home</a> 
+<a title="Follow on Facebook" href="https://www.facebook.com/zetcode7/">Facebook</a>
+<a title="Follow on Twitter" href="https://twitter.com/janbodnar">Twitter</a>
+<a title="Visit Github" href="https://github.com/janbodnar">Github</a>
+<a title="Subscribe to ZetCode news" href="http://zetcode.us13.list-manage.com/subscribe?u=9def9ccd4c70dbbaf691f90fc&id=6556210f80">Subscribe</a>
+<a title="Privacy policy" href="/privacy">Privacy</a> 
+</nav>
+
+<div>
+<span>&copy; 2007 - 2021 Jan Bodnar</span>
+<span>admin(at)zetcode.com</span>
+</div>
+
+</footer>
+
+</body>
+</html>
+

@@ -1,0 +1,671 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+<title>First programs in GTK+</title>
+<link rel="stylesheet" href="/cfg/style.css" type="text/css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="GUI, First programs in GTK+, GtkWindow, GTK+ library, C">
+<meta name="description" content="In this part of the GTK+ tutorial, we create first, small 
+GTK+ applications. We center a window on the screen, show an icon in the titlebar, display
+a small tooltip, and create a mnemonic for a button widget.">
+<meta name="author" content="Jan Bodnar">
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-5536206-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+<body>
+
+<header>
+
+<div>
+<a href="/" title="Home">ZetCode</a>
+</div>
+
+<nav>
+    <a title="All tutorials" href="/all/">All</a>
+    <a title="Spring Boot tutorials" href="/all/#springboot">Spring Boot</a>
+    <a title="Python tutorials" href="/all/#python">Python</a>
+    <a title="C# tutorials" href="/all/#csharp">C#</a>
+    <a title="Java tutorials" href="/all/#java">Java</a>
+    <a title="JavaScript tutorials" href="/all/#js">JavaScript</a>
+    <a title="Subscribe to ZetCode news" href="http://zetcode.us13.list-manage.com/subscribe?u=9def9ccd4c70dbbaf691f90fc&id=6556210f80">Subscribe</a>
+</nav>
+
+</header>
+
+<div class="container">
+
+<div class="ltow">
+    
+<div id="ebooks">
+
+<h2 class="blu">Ebooks</h2>
+
+<ul>
+<li><a href="/ebooks/advancedpyqt5/">PyQt5 ebook</a></li>
+<li><a href="/ebooks/tkinter/">Tkinter ebook</a></li>
+<li><a href="/ebooks/sqlitepython/">SQLite Python</a></li>
+<li><a href="/ebooks/advancedwxpython/">wxPython ebook</a></li>
+<li><a href="/ebooks/windowsapi/">Windows API ebook</a></li>
+<li><a href="/ebooks/advancedjavaswing/">Java Swing ebook</a></li>
+<li><a href="/ebooks/javagames/">Java games ebook</a></li>
+<li><a href="/ebooks/mysqljava/">MySQL Java ebook</a></li>
+</ul>
+
+</div>
+
+</div>
+
+
+<div class="content">
+
+
+<nav>
+<a href="..">Contents</a>
+<a href="../introduction/">Previous</a>
+<a href="../menusandtoolbars/">Next</a>
+</nav>
+
+
+<h1>First programs in GTK+</h1>
+
+<p class="last_mod">
+last modified July 16, 2020 
+</p>
+
+<p>
+In this part of the GTK+ programming tutorial, we create our first programs 
+in GTK+.  We center a window on the screen, show an icon in the titlebar, display
+a small tooltip, and create a mnemonic for a button widget.
+</p>
+
+<div class="ad-top square-fix-ad">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- square-fixed-2020 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:300px;height:250px"
+     data-ad-client="ca-pub-9706709751191532"
+     data-ad-slot="6775384732"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+
+<h2>Simple example</h2>
+
+<p>
+Our first example shows a basic window. 
+</p>
+
+<div class="codehead">simple.c</div>
+<pre class="code">
+#include &lt;gtk/gtk.h&gt;
+
+int main(int argc, char *argv[]) {
+
+  GtkWidget *window;
+
+  gtk_init(&amp;argc, &amp;argv);
+
+  window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  gtk_widget_show(window);
+  
+  g_signal_connect(window, "destroy",
+      G_CALLBACK(gtk_main_quit), NULL);  
+
+  gtk_main();
+
+  return 0;
+}
+</pre>
+
+<p>
+This example shows a basic window on the screen. 
+</p>
+
+<pre class="explanation">
+GtkWidget *window;
+</pre>
+
+<p>
+<code>GtkWidget</code> is the base class that all widgets in GTK+ derive from. 
+It manages the widget lifecycle, states, and style.
+</p>
+
+<pre class="explanation">
+gtk_init(&amp;argc, &amp;argv);
+</pre>
+
+<p>
+The <code>gtk_init()</code> function initializes GTK+ and parses some standard 
+command line options. This function must be called before using any other GTK+ 
+functions.
+</p>
+
+<pre class="explanation">
+window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+</pre>
+
+<p>
+The <code>gtk_window_new()</code> function creates a new <code>GtkWindow</code>, 
+which is a toplevel window that can contain other widgets.
+The window type is <code>GTK_WINDOW_TOPLEVEL</code>; toplevel windows have a 
+titlebar and a border. They are managed by the window manager. 
+</p>
+
+<pre class="explanation">
+gtk_widget_show(window);
+</pre>
+
+<p>
+The <code>get_widget_show()</code> flags a widget to be displayed. Any widget 
+that is not shown will not appear on the screen. 
+</p>
+
+<pre class="explanation">
+g_signal_connect(window, "destroy",
+    G_CALLBACK(gtk_main_quit), NULL);  
+</pre>
+
+<p>
+The <code>g_signal_connect()</code> function connects a callback function 
+to a signal for a particular object. The window does not react to the 
+<code>destroy</code> signal by default. We must explicitly terminate the application 
+by connecting the <code>destroy</code> signal to the built-in 
+<code>gtk_main_quit()</code> function, which terminates the application.
+</p>
+
+<pre class="explanation">
+gtk_main();
+</pre>
+
+<p>
+This code enters the GTK+ main loop. From this point, 
+the application sits and waits for events to happen.
+</p>
+
+<pre class="compact">
+$ gcc -o simple simple.c `pkg-config --libs --cflags gtk+-2.0`
+</pre>
+
+<p>
+This is how we compile the example. 
+</p>
+
+<figure>
+<img src="/img/gui/cgtk/simple.png" alt="Simple">
+<figcaption>Figure: Simple</figcaption>
+</figure>
+
+
+<h2>Centering the window</h2>
+
+<p>
+If we do not position the window ourselves, the window manager will 
+position it for us. In the next example, we will center the window.  
+</p>
+
+<div class="codehead">center.c</div>
+<pre class="code">
+#include &lt;gtk/gtk.h&gt;
+
+int main(int argc, char *argv[]) {
+    
+  GtkWidget *window;
+
+  gtk_init(&amp;argc, &amp;argv);
+
+  window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  gtk_window_set_title(GTK_WINDOW(window), "Center");
+  gtk_window_set_default_size(GTK_WINDOW(window), 230, 150);
+  gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
+  gtk_widget_show(window);
+
+  g_signal_connect(G_OBJECT(window), "destroy",
+      G_CALLBACK(gtk_main_quit), NULL);
+
+  gtk_main();
+
+  return 0;
+}
+</pre>
+
+<p>
+In the example, we center the window, set a title, and size the window.  
+</p>
+
+<pre class="explanation">
+gtk_window_set_title(GTK_WINDOW(window), "Center");
+</pre>
+
+<p>
+The <code>gtk_window_set_title()</code> function sets a window title. 
+If we do not set a title ourselves, the GTK+ will use a name of a source file as a title.
+</p>
+
+<pre class="explanation">
+gtk_window_set_default_size(GTK_WINDOW(window), 230, 150);
+</pre>
+
+<p>
+This <code>gtk_window_set_default_size()</code> sets the size of the window to
+230x150. Note that we are talking about the client area, excluding the decorations 
+provided by the window manager. 
+</p>
+
+<pre class="explanation">
+gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
+</pre>
+
+<p>
+Passing the <code>GTK_WIN_POS_CENTER</code> constant to the <code>gtk_window_set_position()</code>
+function centers the program on the screen.
+</p>
+
+
+<h2>The application icon</h2>
+
+<p>
+In the next example, we show the application icon. Most window managers display the 
+icon in the left corner of the titlebar and also on the taskbar. 
+</p>
+
+<div class="codehead">icon.c</div>
+<pre class="code">
+#include &lt;gtk/gtk.h&gt;
+
+GdkPixbuf *create_pixbuf(const gchar * filename) {
+    
+   GdkPixbuf *pixbuf;
+   GError *error = NULL;
+   pixbuf = gdk_pixbuf_new_from_file(filename, &amp;error);
+   
+   if (!pixbuf) {
+       
+      fprintf(stderr, "%s\n", error->message);
+      g_error_free(error);
+   }
+
+   return pixbuf;
+}
+
+int main(int argc, char *argv[]) {
+    
+  GtkWidget *window;
+  GdkPixbuf *icon;
+
+  gtk_init(&amp;argc, &amp;argv);
+
+  window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  gtk_window_set_title(GTK_WINDOW(window), "Icon");
+  gtk_window_set_default_size(GTK_WINDOW(window), 230, 150);
+  gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
+  
+  icon = create_pixbuf("web.png");  
+  gtk_window_set_icon(GTK_WINDOW(window), icon);
+  
+  gtk_widget_show(window);
+
+  g_signal_connect(G_OBJECT(window), "destroy",
+      G_CALLBACK(gtk_main_quit), NULL);
+      
+  g_object_unref(icon);    
+
+  gtk_main();
+
+  return 0;
+}
+</pre>
+
+<p>
+The code example shows an application icon. 
+</p>
+
+<pre class="explanation">
+pixbuf = gdk_pixbuf_new_from_file(filename, &amp;error);
+</pre>
+
+<p>
+The <code>gdk_pixbuf_new_from_file()</code> function creates a new pixbuf by 
+loading an image from a file. The file format is detected automatically. 
+If NULL is returned, then an error will be set.
+</p>
+
+<pre class="explanation">
+if (!pixbuf) {
+    
+    fprintf(stderr, "%s\n", error->message);
+    g_error_free(error);
+}
+</pre>
+
+<p>
+An error message is printed if the icon could not be loaded.
+</p>
+
+<pre class="explanation">
+icon = create_pixbuf("web.png");  
+gtk_window_set_icon(GTK_WINDOW(window), icon);
+</pre>
+
+<p>
+The <code>gtk_window_set_icon()</code> displays the 
+icon for the window. The <code>create_pixbuf()</code> creates 
+a <code>GdkPixbuf</code> from a PNG file. 
+</p>
+
+<pre class="explanation">
+g_object_unref(icon);
+</pre>
+
+<p>
+The <code>g_object_unref()</code> decreases the reference count of the pixbuf object.
+When its reference count drops to 0, the object is finalized (i.e. its memory is freed).
+</p>
+
+<figure>
+<img src="/img/gui/cgtk/icon.png" alt="Icon">
+<figcaption>Figure: Icon</figcaption>
+</figure>
+
+<div class="ad-mid square-fix-ad">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- square-fixed-2020 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:300px;height:250px"
+     data-ad-client="ca-pub-9706709751191532"
+     data-ad-slot="6775384732"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+
+<h2>Tooltip</h2>
+
+<p>
+A tooltip is a small rectangular window, which gives a brief information 
+about an object. It is usually a GUI component; it is part of the help 
+system of the application.
+</p>
+
+<div class="codehead">tooltip.c</div>
+<pre class="code">
+#include &lt;gtk/gtk.h&gt;
+
+int main(int argc, char *argv[]) {
+
+  GtkWidget *window;
+  GtkWidget *button;
+  GtkWidget *halign;
+
+  gtk_init(&amp;argc, &amp;argv);
+
+  window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  gtk_window_set_title(GTK_WINDOW(window), "Tooltip");
+  gtk_window_set_default_size(GTK_WINDOW(window), 300, 200);
+  gtk_container_set_border_width(GTK_CONTAINER(window), 15);
+  
+  button = gtk_button_new_with_label("Button");
+  gtk_widget_set_tooltip_text(button, "Button widget");
+  
+  halign = gtk_alignment_new(0, 0, 0, 0);
+  gtk_container_add(GTK_CONTAINER(halign), button);
+  gtk_container_add(GTK_CONTAINER(window), halign);  
+
+  gtk_widget_show_all(window);
+  
+  g_signal_connect(G_OBJECT(window), "destroy",
+      G_CALLBACK(gtk_main_quit), NULL);  
+
+  gtk_main();
+
+  return 0;
+}
+</pre>
+
+<p>
+The example shows a basic tooltip on a button widget.
+</p>
+
+<pre class="explanation">
+gtk_container_set_border_width(GTK_CONTAINER(window), 15);
+</pre>
+
+<p>
+The <code>gtk_container_set_border_width()</code> sets some border space
+around the edges of the window.
+</p>
+
+<pre class="explanation">
+gtk_widget_set_tooltip_text(button, "Button widget");
+</pre>
+
+<p>
+The <code>gtk_widget_set_tooltip_text()</code> sets a basic tooltip 
+for the given widget.
+</p>
+
+<pre class="explanation">
+halign = gtk_alignment_new(0, 0, 0, 0);
+gtk_container_add(GTK_CONTAINER(halign), button);
+</pre>
+
+<p>
+The <code>GtkAlignment</code> is a basic container which can be
+used to align its child to the sides of the window. In our case, 
+the button is placed to the upper-left corner of the window.
+The first parameters of the function are the xalign and yalign.
+A value of 0 for xalign indicates left alignment; a value of
+0 for yalign indicates top alignment. The third and fourth parameters
+are scaling values. Passing 0 to both parameters indicates that
+the widget does not expand in both directions.
+</p>
+
+<pre class="explanation">
+gtk_container_add(GTK_CONTAINER(window), halign);
+</pre>
+
+<p>
+The <code>GtkAlignment</code> is set to be the main container of
+the window.
+</p>
+
+<pre class="explanation">
+gtk_widget_show_all(window);
+</pre>
+
+<p>
+When we are dealing with multiple widgets, it is easier to 
+call <code>gtk_widget_show_all()</code> on the container than individually 
+showing all widgets. In our case, both the window and the button are
+shown in one shot.
+</p>
+
+<figure>
+<img src="/img/gui/cgtk/tooltip.png" alt="Tooltip">
+<figcaption>Figure: Tooltip</figcaption>
+</figure>
+
+
+
+<h2>Mnemonic</h2>
+
+<p>
+<em>Mnemonics</em> are shortcut keys that activate a widget that supports mnemonics. 
+They can be used with labels, buttons, or menu items. The mnemonic is created by adding 
+the _ character to the widget's label. It causes the next character to be the mnemonic. 
+The character is combined with the mouseless modifier, usually <kbd>Alt</kbd>. 
+The chosen character is underlined, but it may be emphasized in a platform specific manner. 
+On some platforms, the character is only underlined after pressing the mouseless modifier.
+</p>
+
+<div class="codehead">mnemonic.c</div>
+<pre class="code">
+#include &lt;gtk/gtk.h&gt;
+
+void print_msg(GtkWidget *widget, gpointer window) {
+
+  g_printf("Button clicked\n");
+}
+
+int main(int argc, char *argv[]) {
+
+  GtkWidget *window;
+  GtkWidget *button;
+  GtkWidget *halign;
+
+  gtk_init(&amp;argc, &amp;argv);
+
+  window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  gtk_window_set_title(GTK_WINDOW(window), "Mnemonic");
+  gtk_window_set_default_size(GTK_WINDOW(window), 300, 200);
+  gtk_container_set_border_width(GTK_CONTAINER(window), 15);
+  
+  button = gtk_button_new_with_mnemonic("_Button");
+  
+  g_signal_connect(button, "clicked", 
+      G_CALLBACK(print_msg), NULL);  
+  
+  halign = gtk_alignment_new(0, 0, 0, 0);
+  gtk_container_add(GTK_CONTAINER(halign), button);
+  gtk_container_add(GTK_CONTAINER(window), halign);  
+
+  gtk_widget_show_all(window);
+  
+  g_signal_connect(G_OBJECT(window), "destroy",
+      G_CALLBACK(gtk_main_quit), NULL); 
+
+  gtk_main();
+
+  return 0;
+}
+</pre>
+
+<p>
+We set a mnemonic for a button widget. It can be activated with the <kbd>Alt</kbd>+<kbd>B</kbd> 
+keyboard shortcut.
+</p>
+
+<pre class="explanation">
+button = gtk_button_new_with_mnemonic("_Button");
+</pre>
+
+<p>
+The <code>gtk_button_new_with_mnemonic()</code> function creates a new <code>GtkButton</code> 
+containing a label. If characters in label are preceded by an underscore, they are underlined. 
+</p>
+
+<pre class="explanation">
+g_signal_connect(button, "clicked", 
+    G_CALLBACK(print_msg), NULL); 
+</pre>
+
+<p>
+When we fire the button, a message is printed to the console. With the <code>g_signal_connect()</code>
+function, we connect a <code>clicked</code> signal to the <code>print_msg</code> function.
+</p>
+
+<p>
+At this moment, there are three ways to activate the button: a left mouse button click, 
+the <kbd>Alt</kbd>+<kbd>B</kbd> shortcut, and the <kbd>Space</kbd> key (provided the button 
+has the focus).
+</p>
+
+<figure>
+<img src="/img/gui/cgtk/mnemonic.png" alt="Mnemonic">
+<figcaption>Figure: Mnemonic</figcaption>
+</figure>
+
+<p>
+In this chapter we have created some simple GTK+ programs. 
+</p>
+
+
+<div class="ad-bot square-fix-ad">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- square-fixed-2020 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:300px;height:250px"
+     data-ad-client="ca-pub-9706709751191532"
+     data-ad-slot="6775384732"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+<nav>
+<a href="..">Contents</a> 
+<a href="../introduction/">Previous</a>
+<a href="../menusandtoolbars/">Next</a>
+</nav>
+
+
+
+</div> <!-- content -->
+
+<div class="rtow">
+
+<div class="vert-ad">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- vertical-2020 -->
+<ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-9706709751191532"
+        data-ad-slot="5880603481"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+<script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+<div class="square-fix-ad ad-rtow">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- square-fixed-2020 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:300px;height:250px"
+     data-ad-client="ca-pub-9706709751191532"
+     data-ad-slot="6775384732"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+</div> <!-- rtow -->
+
+</div> <!-- container -->
+
+<footer>
+
+<nav>
+<a title="Home page" href="/">Home</a> 
+<a title="Follow on Facebook" href="https://www.facebook.com/zetcode7/">Facebook</a>
+<a title="Follow on Twitter" href="https://twitter.com/janbodnar">Twitter</a>
+<a title="Visit Github" href="https://github.com/janbodnar">Github</a>
+<a title="Subscribe to ZetCode news" href="http://zetcode.us13.list-manage.com/subscribe?u=9def9ccd4c70dbbaf691f90fc&id=6556210f80">Subscribe</a>
+<a title="Privacy policy" href="/privacy">Privacy</a> 
+</nav>
+
+<div>
+<span>&copy; 2007 - 2021 Jan Bodnar</span>
+<span>admin(at)zetcode.com</span>
+</div>
+
+</footer>
+
+</body>
+</html>
+

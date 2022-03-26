@@ -6,6 +6,7 @@
 ;description: This example comes from stackoverflow (https://stackoverflow.com/questions/20317417/nasm-notify-send/64191219#64191219).  Because the original code couldn't be build with the use of gcc, it's slightly modified to build
 ;             it the what  I call hardcore assemble and link.  You  must install libnotify-dev to have this one build.
 ;             The program sends from a terminal a notification message to linux desktop (GUI) wich pops up at the upper right corner in my case.
+;	      you must install libnotify-dev (sudo apt install libnotify-dev)
 
 bits 64
  

@@ -1,0 +1,20 @@
+http://wiki.osdev.org/El-Torito#Creating_the_Structure_in_the_ISO_filesystem
+
+create bootable CD
+
+make bootcat.bin
+dd if=/dev/zero of=bootcat.bin bs=1 count=2k
+change first bytes in: 01 00 00 00 41 67 67 75 72 6F 20 42 6F 6F 74 61 62 6C 65 20 43 44 20 20 20 20 20 20 20 20 55 AA
+
+create directory structure cdrom/boot
+copy bootcat.bin in cdrom/boot
+
+create boot file (ex: boot.bin
+copy boot.bin in cdrom/boot
+
+make cdrom image
+in directory cdrom and in terminal execute:
+mkisofs -R -J -c boot/bootcat.bin -b boot/boot.bin -no-emul-boot -boot-load-size 4 -o cd.iso .
+
+to test: run image with:
+qemu-system-x86_64 -boot d -cdrom cd.iso -m 512

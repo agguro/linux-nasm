@@ -1,0 +1,137 @@
+     1                                  %include "../includes/startup.inc"
+     2                              <1> %ifndef _ASM_BOOTCD_INC_
+     3                              <1>      %define   _ASM_BOOTCD_INC_ 1
+     4                              <1> 
+     5                              <1>      %define   KERNELSTARTCS   0x0070   ; we load the kernel at 0070:0000 the I/O drivers from IO.SYS and IBMBIO.COM
+     6                              <1>      %define   KERNELSTARTIP   0x0000   ; this gives us 0070:0000 - 07C0:0000 memory to use for kernel.bin
+     7                              <1>      %define   PEMCS           0x3000
+     8                              <1>      %define   PEMIP           0x0000
+     9                              <1>      %define   PEMSS           0x7000
+    10                              <1>      %define   PEMSP           0xFFFE
+    11                              <1>      
+    12                              <1> STRUC SPECIFICATION_PACKET_STRUC
+    13 00000000 ??                  <1>      .packed_size:                 resb      1
+    14 00000001 ??                  <1>      .boot_media_type:             resb      1
+    15 00000002 ??                  <1>      .drive_number:                resb      1
+    16 00000003 ??                  <1>      .controller_index:            resb      1
+    17 00000004 ????????            <1>      .logical_block_address:       resd      1
+    18 00000008 ????                <1>      .device_specification:        resw      1
+    19 0000000A ????                <1>      .buffer_segment:              resw      1
+    20 0000000C ????                <1>      .load_segment:                resw      1
+    21 0000000E ????                <1>      .virtual_sectors:             resw      1
+    22 00000010 ??                  <1>      .cylinder_count:              resb      1
+    23 00000011 ??                  <1>      .sector_count:                resb      1
+    24 00000012 ??                  <1>      .head_count:                  resb      1
+    25                              <1> ENDSTRUC
+    26                              <1> 
+    27                              <1> %macro SPECIFICATION_PACKET 1
+    28                              <1>      %1:  ISTRUC SPECIFICATION_PACKET_STRUC
+    29                              <1>           at   SPECIFICATION_PACKET_STRUC.packed_size,                 db        0x13
+    30                              <1>           at   SPECIFICATION_PACKET_STRUC.boot_media_type,             db        0
+    31                              <1>           at   SPECIFICATION_PACKET_STRUC.drive_number,                db        0
+    32                              <1>           at   SPECIFICATION_PACKET_STRUC.controller_index,            db        0
+    33                              <1>           at   SPECIFICATION_PACKET_STRUC.logical_block_address,       dd        0
+    34                              <1>           at   SPECIFICATION_PACKET_STRUC.device_specification,        dw        0
+    35                              <1>           at   SPECIFICATION_PACKET_STRUC.buffer_segment,              dw        0
+    36                              <1>           at   SPECIFICATION_PACKET_STRUC.load_segment,                dw        0
+    37                              <1>           at   SPECIFICATION_PACKET_STRUC.virtual_sectors,             dw        0
+    38                              <1>           at   SPECIFICATION_PACKET_STRUC.cylinder_count,              db        0
+    39                              <1>           at   SPECIFICATION_PACKET_STRUC.sector_count,                db        0
+    40                              <1>           at   SPECIFICATION_PACKET_STRUC.head_count,                  db        0
+    41                              <1>      IEND
+    42                              <1>      %define %1.packed_size                 %1+SPECIFICATION_PACKET_STRUC.packed_size
+    43                              <1>      %define %1.boot_media_type             %1+SPECIFICATION_PACKET_STRUC.boot_media_type
+    44                              <1>      %define %1.drive_number                %1+SPECIFICATION_PACKET_STRUC.drive_number
+    45                              <1>      %define %1.controller_index            %1+SPECIFICATION_PACKET_STRUC.controller_index
+    46                              <1>      %define %1.logical_block_address       %1+SPECIFICATION_PACKET_STRUC.logical_block_address
+    47                              <1>      %define %1.device_specification        %1+SPECIFICATION_PACKET_STRUC.device_specification
+    48                              <1>      %define %1.buffer_segment              %1+SPECIFICATION_PACKET_STRUC.buffer_segment
+    49                              <1>      %define %1.load_segment                %1+SPECIFICATION_PACKET_STRUC.load_segment
+    50                              <1>      %define %1.virtual_sectors             %1+SPECIFICATION_PACKET_STRUC.virtual_sectors
+    51                              <1>      %define %1.cylinder_count              %1+SPECIFICATION_PACKET_STRUC.cylinder_count
+    52                              <1>      %define %1.sector_count                %1+SPECIFICATION_PACKET_STRUC.sector_count
+    53                              <1>      %define %1.head_count                  %1+SPECIFICATION_PACKET_STRUC.head_count
+    54                              <1> %endmacro
+    55                              <1> 
+    56                              <1> STRUC DISK_ADDRESS_PACKET_STRUC
+    57 00000000 ??                  <1>      .size:                        resb      1
+    58 00000001 ??                  <1>      .reserved:                    resb      1
+    59 00000002 ????                <1>      .sectors_to_read:             resw      1
+    60 00000004 ????                <1>      .offset:                      resw      1
+    61 00000006 ????                <1>      .segment:                     resw      1
+    62 00000008 ????????            <1>      .start_absolute_sector:       resd      1
+    63 0000000C ????????            <1>      .transfer_buffer_address:     resd      1
+    64                              <1> ENDSTRUC
+    65                              <1> 
+    66                              <1> %macro DISK_ADDRESS_PACKET 3
+    67                              <1>      %1:  ISTRUC DISK_ADDRESS_PACKET_STRUC
+    68                              <1>           at   DISK_ADDRESS_PACKET_STRUC.size,                        db        16
+    69                              <1>           at   DISK_ADDRESS_PACKET_STRUC.reserved,                    db        0
+    70                              <1>           at   DISK_ADDRESS_PACKET_STRUC.sectors_to_read,             dw        1
+    71                              <1>           at   DISK_ADDRESS_PACKET_STRUC.offset,                      dw        %3
+    72                              <1>           at   DISK_ADDRESS_PACKET_STRUC.segment,                     dw        %2
+    73                              <1>           at   DISK_ADDRESS_PACKET_STRUC.start_absolute_sector,       dd        16
+    74                              <1>           at   DISK_ADDRESS_PACKET_STRUC.transfer_buffer_address,     dd        0
+    75                              <1>      IEND
+    76                              <1>      %define %1.size                         %1+DISK_ADDRESS_PACKET_STRUC.size
+    77                              <1>      %define %1.sectors_to_read              %1+DISK_ADDRESS_PACKET_STRUC.sectors_to_read
+    78                              <1>      %define %1.offset                       %1+DISK_ADDRESS_PACKET_STRUC.offset
+    79                              <1>      %define %1.segment                      %1+DISK_ADDRESS_PACKET_STRUC.segment
+    80                              <1>      %define %1.start_absolute_sector        %1+DISK_ADDRESS_PACKET_STRUC.start_absolute_sector
+    81                              <1>      %define %1.transfer_buffer_address      %1+DISK_ADDRESS_PACKET_STRUC.transfer_buffer_address
+    82                              <1> %endmacro
+    83                              <1> 
+    84                              <1> %endif
+     2                                  
+     3                                       BITS 16
+     4                                       
+     5                                  os_main:
+     6                                       ; initialisation of kernel
+     7                                       ; cs, ds, es, fs, gs and ss points to same segment (where kernel is loaded)
+     8                                       ; sp points to last word of stacksegment
+     9 00000000 FC                           cld
+    10 00000001 8CC8                         mov       ax, cs                   ; Set all segments to match where kernel is loaded
+    11 00000003 8ED8                         mov       ds, ax                   
+    12 00000005 8EC0                         mov       es, ax                   
+    13 00000007 8EE0                         mov       fs, ax                   
+    14 00000009 8EE8                         mov       gs, ax
+    15 0000000B FA                           cli                                ; Clear interrupts
+    16 0000000C 8ED0                         mov       ss, ax                   ; Set stack segment and pointer
+    17 0000000E BCFEFF                       mov       sp, 0FFFEh
+    18 00000011 FB                           sti                                ; Restore interrupts
+    19                                       
+    20 00000012 B8024F                       mov       ax, 0x4F02
+    21 00000015 BB0701                       mov       bx, 0x107                ; <-1280x1024 256 = 107h colors
+    22 00000018 B8024F                       mov       ax,0x4F02
+    23 0000001B CD10                         int       0x10
+    24                                       
+    25                                       ; print welcome screen
+    26 0000001D BE[3700]                     mov       si, welcome
+    27 00000020 E80300                       call      print
+    28                                       
+    29                                  osloop:
+    30                                  
+    31 00000023 F4                           hlt
+    32 00000024 EBFD                         jmp       osloop
+    33                                  
+    34                                  print:
+    35 00000026 60                           pusha
+    36 00000027 B40E                         mov       ah, 0Eh             ; int 10h teletype function
+    37 00000029 BB0F00                       mov       bx, 0x000F
+    38                                  .repeat:
+    39 0000002C AC                           lodsb                         ; Get char from string
+    40 0000002D 3C00                         cmp       al, 0
+    41 0000002F 7404                         je        .done               ; If char is zero, end of string
+    42 00000031 CD10                         int       10h                 ; Otherwise, print it
+    43 00000033 EBF7                         jmp       .repeat             ; And move on to next char
+    44                                  .done:
+    45 00000035 61                           popa
+    46 00000036 C3                           ret
+    47                                       
+    48 00000037 4D696E69204B65726E-     welcome:       db   "Mini Kernel example by Agguro - Version 1.0.0 Beta", 10, 13, 0
+    48 00000040 656C206578616D706C-
+    48 00000049 652062792041676775-
+    48 00000052 726F202D2056657273-
+    48 0000005B 696F6E20312E302E30-
+    48 00000064 20426574610A0D00   
+    49                                       
