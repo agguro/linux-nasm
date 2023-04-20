@@ -1,4 +1,4 @@
-BIN= exeapp1 exeapp2 exeapp3 exeapp4 extxterm forkdemo pipedemo1 pipedemo2 pipedemo3 pipedemo4 pipedemo5 pipedemo6 forkdemo sigfpe threads
+BIN= exeapp1 exeapp2 exeapp3 exeapp4 extxterm forkdemo pipedemo1 pipedemo2 pipedemo3 pipedemo4 pipedemo5 pipedemo6 forkdemo sigfpe threads zip unzip
 
 NASM=/usr/bin/nasm
 NASMOPTS=-felf64 -Fdwarf
