@@ -3,7 +3,7 @@
 .PHONY: debug
 
 LIBNAME=libpyfunctions
-LIBS=-lc `pkg-config --libs gtk+-3.0`
+LIBS=-lc
 VERSION=1.0.0
 O = .o
 SO = .so
@@ -18,7 +18,7 @@ $(LIBNAME)$(SO) : $(LIBNAME)$(O)
 
 $(LIBNAME)$(O) : $(LIBNAME)$(ASM)
 	nasm $(ASFLAGS) -o $(LIBNAME)$(O) $(LIBNAME)$(ASM)
-	
+
 release:
 	$(MAKE) $(LIBNAME)$(SO) ASFLAGS="-felf64" LDFLAGS="-melf_x86_64"
 	ln -sf $(LIBNAME)$(SO).$(VERSION) $(LIBNAME)$(SO)
@@ -30,6 +30,7 @@ debug:
 	ln -sf $(LIBNAME)$(SO).$(VERSION) $(LIBNAME)$(SO)
 	ln -sf $(LIBNAME)$(SO).$(VERSION) $(LIBNAME)$(SO).1
 	ln -sf $(LIBNAME)$(SO).$(VERSION) $(LIBNAME)$(SO).1.0
-	
+
 clean:
-	rm -f *$(O) $(LIBNAME).* *$(LST)
+	rm -f *$(O) *.so.* *$(LST)
+	rm -rf __pycache__
