@@ -13,19 +13,19 @@ bits 64
 ; each global function/method/routine (whatever you call it) must start with the PROLOGUE
 %macro _prologue 0
     push    rbp
-    mov     rbp,rsp 
-    push    rbx 
-    call    .get_GOT 
-.get_GOT: 
-    pop     rbx 
-    add     rbx,_GLOBAL_OFFSET_TABLE_+$$-.get_GOT wrt ..gotpc 
+    mov     rbp,rsp
+    push    rbx
+    call    .get_GOT
+.get_GOT:
+    pop     rbx
+    add     rbx,_GLOBAL_OFFSET_TABLE_+$$-.get_GOT wrt ..gotpc
 %endmacro
 
 ; each global function/method/routine (whatever you call it) must end with the EPILOGUE
 %macro _epilogue 0
-    mov     rbx,[rbp-8] 
-    mov     rsp,rbp 
-    pop     rbp 
+    mov     rbx,[rbp-8]
+    mov     rsp,rbp
+    pop     rbp
     ret
 %endmacro
 
@@ -40,7 +40,7 @@ bits 64
 ; macro to end the procedure
 %macro _endp 0
     _epilogue
-%endmacro    
+%endmacro
 
 extern  _GLOBAL_OFFSET_TABLE_
 
