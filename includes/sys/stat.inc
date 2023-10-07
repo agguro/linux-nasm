@@ -17,7 +17,7 @@
      %define   O_NOCTTY              256
      %define   O_TRUNC               512
      %define   O_APPEND             1024
-
+     %define   O_TMPFILE         4259840        ; 020000000 | O_DIRECTORY
      %define   O_DIRECTORY         65536 
      %define   O_NONBLOCK           2048
      %define   O_NDELAY       O_NONBLOCK
