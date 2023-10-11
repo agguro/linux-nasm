@@ -1,10 +1,10 @@
 ;project:       Webservices
-;name:          definitions.asm
-;build:         nasm -felf64 definitions.asm -l definitions.lst -o definitions.o
-;               ld -melf_x86_64 -g --dynamic-linker /lib64/ld-linux-x86-64.so.2 -o definitions definitions.o `pkg-config --libs openssl`
-;description:   Get Smartschool definitions
+;name:          getallaccountsextended.asm
+;build:         nasm -felf64 getallaccountsextended.asm -l getallaccountsextended.lst -o getallaccountsextended.o
+;               ld -melf_x86_64 -g --dynamic-linker /lib64/ld-linux-x86-64.so.2 -o getallaccountsextended getallaccountsextended.o `pkg-config --libs openssl`
+;description:   Get Smartschool getallaccountsextended
 
-%include "definitions/main.inc"
+%include "getallaccountsextended/main.inc"
 
 section .text
 
@@ -15,7 +15,7 @@ _start:
 
 ;O_RDWR to have the possibility to tail -f and watch the output
 
-    syscall open,filename,O_RDWR | O_CREAT | O_EXCL , S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP
+    syscall open,filename,O_RDWR | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP
     test    rax,rax
     js      file_creation_error                 ;negative return values are errors
     mov     qword[file_fd],rax
