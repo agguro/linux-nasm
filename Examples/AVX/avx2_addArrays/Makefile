@@ -3,7 +3,7 @@ all : main.o avx2_addArrays.o
 	strip -s avx2_addArrays
 
 debug: main.o avx2_addArrays.o
-	g++ -no-pie -o addarrays main.o avx2_addArrays.o
+	g++ -no-pie -o avx2_addArrays main.o avx2_addArrays.o
 
 avx2_addArrays.o : avx2_addArrays.asm
 	nasm -felf64 -g -Fdwarf -o avx2_addArrays.o avx2_addArrays.asm

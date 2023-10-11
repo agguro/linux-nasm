@@ -1,6 +1,6 @@
 <pre>
 <?php
-    $files = array("avx512_addArrays.asm","main.cpp","Makefile");
+    $files = array("avx_addArrays.asm","main.cpp","Makefile");
     foreach ($files as $file){
         ?>
 <b><?php echo $file; ?></b><br />

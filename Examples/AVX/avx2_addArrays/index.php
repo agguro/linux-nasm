@@ -1,19 +1,12 @@
 <pre>
-<b>avx2_addArrays.asm</b>
-
-<?php   
-    echo (str_replace(array("<",">"),array("&lt;","&gt;"),file_get_contents("avx2_addArrays.asm")));
-?>
-
-<b>main.cpp</b>
-
 <?php
-    echo (str_replace(array("<",">"),array("&lt;","&gt;"),file_get_contents("main.cpp")));
-?>
-
-<b>Makefile</b>
-
+    $files = array("avx2_addArrays.asm","main.cpp","Makefile");
+    foreach ($files as $file){
+        ?>
+<b><?php echo $file; ?></b><br />
+<?php echo (str_replace(array("<",">"),array("&lt;","&gt;"),file_get_contents($file))); ?>
+<br />
 <?php
-    echo (str_replace(array("<",">"),array("&lt;","&gt;"),file_get_contents("Makefile")));
-?>
+} ?>
+
 </pre>

@@ -1,16 +1,16 @@
-// avx2_addArrays - Use AVX2 instructions to add two arrays.
+// avx512_addArrays - Use AVX2 instructions to add two arrays.
 // main.cpp
 //
 // g++ -g -c -pipe -no-pie -O2 -std=gnu++1z -Wall -Wextra -fPIC -o main.o main.cpp
-// nasm -felf64 -g -Fdwarf -o avx2_addArrays.o avx2_addArrays.asm
-// g++ -no-pie -o avx2_addArrays main.o avx2_addArrays.o
+// nasm -felf64 -g -Fdwarf -o avx512_addArrays.o avx512_addArrays.asm
+// g++ -no-pie -o avx512_addArrays main.o avx512_addArrays.o
 
 #include <iostream>
 
 using std::cout;
 using std::endl;
 
-extern "C" void avx2_addArrays(float dest[], float arr1[], float arr2[]);
+extern "C" void avx512_addArrays(float dest[], float arr1[], float arr2[]);
 
 void printArray(float[], int count);
 
@@ -29,7 +29,7 @@ float dest[8] __attribute__((aligned(32)));     // Destination arrayµ
 
 int main() {
 	
-	avx2_addArrays(dest, array1, array2);       // Call the assembly routine
+	avx512_addArrays(dest, array1, array2);       // Call the assembly routine
     printArray(dest, 8);
 }
 
