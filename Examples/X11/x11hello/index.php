@@ -1,6 +1,6 @@
 <pre>
 <?php
-    $files = array("libpyfunctions.asm","functions.py","main.py","Makefile");
+    $files = array("x11hello.asm","Makefile");
     foreach ($files as $file){
         ?>
 <b><?php echo $file; ?></b><br />
@@ -8,6 +8,5 @@
 <br />
 <?php
 } ?>
+
 </pre>
-
-
