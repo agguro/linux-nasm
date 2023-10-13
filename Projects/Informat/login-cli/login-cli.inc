@@ -12,12 +12,12 @@ extern stringsearch
 %define EOL		    10
 
 section .bss
-	%include 'includes/section_bss.asm'
+	%include 'section.bss.inc'
 	
 section .rodata
-	%include 'includes/section_rodata.asm'
+	%include 'section.rodata.inc'
 	
 section .data
-	%include 'includes/section_data.asm'
+	%include 'section.data.inc'
 	
 %endif

@@ -1,4 +1,4 @@
-##Makefile for informat login project
+## Makefile for informat project login-cli
 
 .phony: clean
 .phony: release
@@ -13,12 +13,13 @@ LST	= .lst
 ASFLAGS	= "-felf64"
 LDFLAGS	= -s -melf_x86_64 -no-pie
 LIBS	=
-OBJS	=  stringsearch.o
+OBJS	= stringsearch.o
+INC     = login-cli.inc section.bss.inc section.rodata.inc section.data.inc
 
 $(NAME): $(NAME)$(O) $(OBJS)
-	ld $(LDFLAGS) $(NAME)$(O) -o $(NAME) $(OBJS) $(LIBS)
+	ld $(LDFLAGS) -o $(NAME) $(NAME)$(O) $(OBJS) $(LIBS)
 
-$(NAME)$(O): $(NAME)$(ASM)
+$(NAME)$(O): $(NAME)$(ASM) $(INC)
 	nasm $(ASFLAGS) $(NAME)$(ASM) -o $(NAME)$(O)
 
 stringsearch.o:stringsearch.asm

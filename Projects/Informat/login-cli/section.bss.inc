@@ -1,11 +1,10 @@
-<pre>
 ;project:       Informat
 ;
 ;name:          section_bss.asm
 ;
-;description:   uninitialized data section for informat.asm
+;date:          17 aug 2020
 ;
-;note:          this file may not be assembled, only included in login-cli.asm
+;description:   uninitialized data section for informat.asm
 
 bits 64
 
@@ -18,4 +17,3 @@ section .bss
 	
     ;socket
     fdsocket:           resq    1
-</pre>

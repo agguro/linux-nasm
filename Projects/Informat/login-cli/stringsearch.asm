@@ -1,4 +1,3 @@
-<pre>
 ;project:       Informat
 ;
 ;name:          stringsearch.asm
@@ -55,4 +54,3 @@ stringsearch:
     mov     rsp,rbp
     pop     rbp
     ret
-</pre>

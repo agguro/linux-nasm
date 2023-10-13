@@ -1,12 +1,13 @@
-<pre>
 ;project:        Informat
 ;
 ;name:           section_rodata.asm
 ;
+;date:           17 aug 2020
+;
 ;description:    initialized read-only data section for informat.asm
 ;
-;note:           this file may not be assembled, only included in login-cli.asm
-;                problems can arise when the IP address of the domain change.
+;note:           problems can arise when the IP address of the domain change.
+;                todo: connect with domainname instead of IP address
 
 bits 64
 
@@ -48,4 +49,3 @@ login_succesfull:   db    'you are logged in',EOL
 
 access_denied:      db    'access denied',EOL
 .len:               equ   $-access_denied
-</pre>

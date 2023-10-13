@@ -1,11 +1,10 @@
-<pre>
 ;project:       Informat.asm
 ;
 ;name:          section_data.asm
 ;
-;description:   initialized global variables and static local variables section for informat.asm
+;date:          17 aug 2020
 ;
-;note:          this file may not be assembled, only included in informat.asm
+;description:   initialized global variables and static local variables section for informat.asm
 
 bits 64
 
@@ -22,4 +21,3 @@ password_buf:       times   256 db 0
 .len:               equ     $-password_buf
 login_length:       dq      0
 password_length:    dq      0
-</pre>
