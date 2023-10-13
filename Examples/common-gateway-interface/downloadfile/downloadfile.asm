@@ -20,7 +20,7 @@ section .rodata
     response:       db  'Content-type: text/html',10,10
                     db  '<span>the file was not found</span>',10
     .length:        equ $-response
-    filename:       db  'logo.png',0    ; put it wherever you want, just keep track of the right location in your path
+    filename:       db  'downloads/logo.png',0    ; put it wherever you want, just keep track of the right location in your path
     errorfile:      db  '[downloadfile] $[CGIROOT]/logo.png not found error',10
     .length:        equ $-errorfile
     errorNoMemory:  db  '[downloadfile error] out of memory error',10     ; this message will be written to the Apache error log
