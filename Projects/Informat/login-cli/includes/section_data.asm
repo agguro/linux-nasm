@@ -1,3 +1,4 @@
+<pre>
 ;project:       Informat.asm
 ;
 ;name:          section_data.asm
@@ -21,3 +22,4 @@ password_buf:       times   256 db 0
 .len:               equ     $-password_buf
 login_length:       dq      0
 password_length:    dq      0
+</pre>

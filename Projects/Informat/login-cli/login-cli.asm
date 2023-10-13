@@ -1,3 +1,4 @@
+<pre>
 ;name: login-cli.asm
 ;
 ;description: login from a Linux terminal for Informat
@@ -197,3 +198,4 @@ error:
 ;later we need to distinguish the errors
 syscall write,stderr,errormsg,errormsg.len
 syscall exit,1
+</pre>

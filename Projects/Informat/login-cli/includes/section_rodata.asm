@@ -1,3 +1,4 @@
+<pre>
 ;project:        Informat
 ;
 ;name:           section_rodata.asm
@@ -47,3 +48,4 @@ login_succesfull:   db    'you are logged in',EOL
 
 access_denied:      db    'access denied',EOL
 .len:               equ   $-access_denied
+</pre>

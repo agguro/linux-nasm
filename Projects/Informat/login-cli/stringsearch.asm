@@ -1,8 +1,9 @@
-;project:   Informat
+<pre>
+;project:       Informat
 ;
-;name:      stringsearch.asm
+;name:          stringsearch.asm
 ;
-;date:      17 aug 2020
+;date:          17 aug 2020
 ;
 ;description:   search in a giving string at rsi with length r8 for the presence of
 ;               a substring at rdi with length rdx.  If present rax returns
@@ -54,3 +55,4 @@ stringsearch:
     mov     rsp,rbp
     pop     rbp
     ret
+</pre>

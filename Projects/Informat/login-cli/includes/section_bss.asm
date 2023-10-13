@@ -1,3 +1,4 @@
+<pre>
 ;project:       Informat
 ;
 ;name:          section_bss.asm
@@ -17,3 +18,4 @@ section .bss
 	
     ;socket
     fdsocket:           resq    1
+</pre>
