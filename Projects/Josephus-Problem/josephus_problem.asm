@@ -1,4 +1,4 @@
-;name:         josephus.asm
+;name:         josephus_problem.asm
 ;
 ;build:        nasm -felf64 josephus.asm -l josephus.lst -o josephus.o
 ;              ld -s -melf_x86_64 -o josephus josephus.o 
