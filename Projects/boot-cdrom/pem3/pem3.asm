@@ -6,10 +6,7 @@ pemloading:  db   'PEM3 loading, please wait....', 10, 13, 0
 start:
 
      mov       si, pemloading
-     ; test if stack behaves
-     push      si
-     xor       si, si
-     pop       si
+
      call      Print
      retf
 

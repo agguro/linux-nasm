@@ -1,0 +1,3 @@
+%define ACCESSCODE b68c0145c090e8259b47
+%define CODE 1AA
+%define RECURSIVE 0

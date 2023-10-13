@@ -29,8 +29,8 @@ section .rodata
     eol:            db    EOL
     eol.len:        equ   $-eol    
 %endif
-    ipaddress:      db    52,166,251,248
     port:           db    0,80
+    hostname:       db    "webservice.informatsoftware.be",0
 
 request:
     .part1:         db    'GET /wsInfSoft/wsInformat.asmx/AuthenticateUser?sUserName='

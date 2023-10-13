@@ -68,7 +68,8 @@
     %define SO_SELECT_ERR_QUEUE    45
     %define SO_BUSY_POLL           46
     %define SO_MAX_PACING_RATE     47
-    %define AF_INET                2
+    %define AF_INET                2        ; IPv4 protocol
+    %define AF_INET6               22       ; IPv6 protocol 
     %define AF_LOCAL               1
     %define SOCK_STREAM            1
     %define PF_INET                2

@@ -5,6 +5,7 @@ create bootable CD
 make bootcat.bin
 dd if=/dev/zero of=bootcat.bin bs=1 count=2k
 change first bytes in: 01 00 00 00 41 67 67 75 72 6F 20 42 6F 6F 74 61 62 6C 65 20 43 44 20 20 20 20 20 20 20 20 55 AA
+printf '\x01\x00\x00\x00\x41\x67\x67\x75\x72\x6F\x20\x42\x6F\x6F\x74\x61\x62\x6C\x65\x20\x43\x44\x20\x20\x20\x20\x20\x20\x20\x20\x55\xAA' | dd of=bootcat.bin bs=1 seek=0 count=32 conv=notrunc
 
 create directory structure cdrom/boot
 copy bootcat.bin in cdrom/boot

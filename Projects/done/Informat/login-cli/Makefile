@@ -11,10 +11,11 @@ ASM	= .asm
 INC	= .inc
 LST	= .lst
 ASFLAGS	= "-felf64"
-LDFLAGS	= -s -melf_x86_64 -no-pie
+LDFLAGS	= -melf_x86_64 -g --dynamic-linker /lib64/ld-linux-x86-64.so.2 -s -melf_x86_64 -no-pie
 LIBS	=
 OBJS	= stringsearch.o
 INC     = login-cli.inc section.bss.inc section.rodata.inc section.data.inc
+LIBS    = -lc
 
 $(NAME): $(NAME)$(O) $(OBJS)
 	ld $(LDFLAGS) -o $(NAME) $(NAME)$(O) $(OBJS) $(LIBS)

@@ -15,8 +15,8 @@
  *   ./output/outelf.mac
  *   ./output/outmacho.mac
  *   ./output/outobj.mac
- *   ./output/outrdf2.mac
  *   ./output/outrdf.mac
+ *   ./output/outrdf2.mac
  */
 
 #include "tables.h"
@@ -815,6 +815,19 @@ const unsigned char obj_stdmac[] = {
 };
 #endif
 
+#if defined(OF_RDF)
+const unsigned char rdf_stdmac[] = {
+    /* From ./output/outrdf.mac */
+        /*    0 */ p_define,'_','_','?','S','E','C','T','?','_','_',' ','[','s','e','c','t','i','o','n',' ','.','t','e','x','t',']',EOL,
+        /*   28 */ p_imacro,'l','i','b','r','a','r','y',' ','1','+','.','n','o','l','i','s','t',EOL,
+        /*   47 */ '[','l','i','b','r','a','r','y',' ','%','1',']',EOL,
+        /*   60 */ p_endmacro,EOL,
+        /*   62 */ p_macro,'_','_','?','N','A','S','M','_','C','D','e','c','l','?','_','_',' ','1',EOL,
+        /*   82 */ p_endmacro,EOL,
+        /*   84 */ EOL
+};
+#endif
+
 #if defined(OF_RDF2)
 const unsigned char rdf2_stdmac[] = {
     /* From ./output/outrdf2.mac */
@@ -828,19 +841,6 @@ const unsigned char rdf2_stdmac[] = {
         /*   94 */ p_macro,'_','_','?','N','A','S','M','_','C','D','e','c','l','?','_','_',' ','1',EOL,
         /*  114 */ p_endmacro,EOL,
         /*  116 */ EOL
-};
-#endif
-
-#if defined(OF_RDF)
-const unsigned char rdf_stdmac[] = {
-    /* From ./output/outrdf.mac */
-        /*    0 */ p_define,'_','_','?','S','E','C','T','?','_','_',' ','[','s','e','c','t','i','o','n',' ','.','t','e','x','t',']',EOL,
-        /*   28 */ p_imacro,'l','i','b','r','a','r','y',' ','1','+','.','n','o','l','i','s','t',EOL,
-        /*   47 */ '[','l','i','b','r','a','r','y',' ','%','1',']',EOL,
-        /*   60 */ p_endmacro,EOL,
-        /*   62 */ p_macro,'_','_','?','N','A','S','M','_','C','D','e','c','l','?','_','_',' ','1',EOL,
-        /*   82 */ p_endmacro,EOL,
-        /*   84 */ EOL
 };
 #endif
 const int use_package_count = 5;

@@ -19,8 +19,8 @@ start:
 ; 1310720 / 16640 = 78,7 banks per screen (79)
 
 mov ax, 0xA000
-mov es:ax
-mov ds:ax
+mov es,ax
+mov ds,ax
 
 mov cx, STARTBANK                                              ; banknumber
 nextbank:

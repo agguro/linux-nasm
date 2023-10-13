@@ -22,7 +22,7 @@
 
 %define LF 0x0A
 %define CR 0x0D
-%define HOST "linuxnasm.be:443"
+%define HOST "http://webservice.informatsoftware.be/wsinfsoft/wsInfSoftLeerlingen.asmx?WSDL:80"
 %define EOL CR,LF
 
 %define MSG_CTX_NULL "The creation of a new SSL_CTX object failed."

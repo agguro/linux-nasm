@@ -1,12 +1,12 @@
-; Name:         bubblesort.asm
+;name:         bubblesort.asm
 ;
-; Build:        nasm "-felf64" bubblesort.asm -l bubblesort.lst -o bubblesort.o
-;               ld -s -melf_x86_64 -o bubblesort bubblesort.o
+;description:  Demonstration of the BubbleSort Algorithm, with or without optimzing steps.
+;              The program needs to be re-assembled and linked when changing to an
+;              optimization step.
+;              source : https://en.wikipedia.org/wiki/Bubble_sort
 ;
-; Description:  Demonstration of the BubbleSort Algorithm, with or without optimzing steps.
-;               The program needs to be re-assembled and linked when changing to an
-;               optimization step.
-;               Source : https://en.wikipedia.org/wiki/Bubble_sort
+;build:        nasm "-felf64" bubblesort.asm -l bubblesort.lst -o bubblesort.o
+;              ld -s -melf_x86_64 -o bubblesort bubblesort.o
 
 
 bits 64
@@ -20,7 +20,7 @@ bits 64
 ; 1 : n-th pass finds the n-th largest elements
 ; 2 : no check after last swap
 
-%define OPTIMIZE_STEP 2                 ; select 0, 1 or 2
+%define OPTIMIZE_STEP 2
 
 %define TRUE      1
 %define FALSE     0
@@ -50,15 +50,21 @@ section .data
 ; and determine the swaps and iterations.
 
     datasize:      equ       8   
-    array:         ARRAY     9223372036854775807, 15421441199845202, 75, 15, 0, -854, -7854, -48545825, -9223372036854775808
+    array:         ARRAY     154,2144,119,98,4,520,2, 75, 15, 0, -85,-4, -78,-54, -485,-458,-25, -92,-233,720,368,547,758,8, -233,72,-36,854,-775,807
     .length        equ       ($-array)/datasize
 
     title:         STRING    {"Bubblesort Algorithm - Agguro 2012",10}
+
+%if OPTIMIZE_STEP == 0
+    opt0:          STRING    {"Optimization step: no optimization",10}
+%endif
 %if OPTIMIZE_STEP == 1
     opt1:          STRING    {"Optimization step: n-th pass finds the n-th largest elements",10}
-%elif OPTIMIZE_STEP == 2
+%endif
+%if OPTIMIZE_STEP == 2
     opt2:          STRING    {"Optimization step: no check after last swap",10}
 %endif
+
     unsorted:      STRING    {"The UNSORTED array:",10,"-------------------",10}
     sorted:        STRING    {10,"The SORTED array:",10,"-----------------",10}
     iterations:    STRING    {10,"Number of iterations: "}
@@ -82,15 +88,23 @@ _start:
     mov       rsi, title
     mov       rdx, title.length
     call      Print.string
+
+    %if OPTIMIZE_STEP == 0
+         mov       rsi, opt0
+         mov       rdx, opt0.length
+         call      Print.string
+    %endif
     %if OPTIMIZE_STEP == 1
          mov       rsi, opt1
          mov       rdx, opt1.length
          call      Print.string
-    %elif OPTIMIZE_STEP == 2
+    %endif
+    %if OPTIMIZE_STEP == 2
          mov       rsi, opt2
          mov       rdx, opt2.length
          call      Print.string
     %endif 
+
 ; display the unsorted Array on screen
     mov       rsi, unsorted
     mov       rdx, unsorted.length
@@ -99,17 +113,18 @@ _start:
     call      ShowArray
 
 ; Here the Bubblesort algorithm starts. Depending the value of OPTIMIZE_STEP an optimized or
-; non-optimized version is included. On error the default (0) is used.
-%if OPTIMIZE_STEP == 1
-    %include "optimizingstep1.asm"
-%elif OPTIMIZE_STEP == 2
-    %include "optimizingstep2.asm"
-%elif OPTIMZE STEP == 0
-    %include "optimizingstep0.asm"
-%elif
-    %warning "no OPTIMIZE_STEP defined, defaulting to 0"
+; non-optimized version is included.
+
+%if OPTIMIZE_STEP == 0
     %include "optimizingstep0.asm"
 %endif
+%if OPTIMIZE_STEP == 1
+    %include "optimizingstep1.asm"
+%endif
+%if OPTIMIZE_STEP == 2
+    %include "optimizingstep2.asm"
+%endif
+
 ; End of the BubbleSort algorithm.
 
 ; all we need to do is to display the sorted Array and restore the used registers

@@ -22,8 +22,8 @@
     19                                  ; 1310720 / 16640 = 78,7 banks per screen (79)
     20                                  
     21 00000024 B800A0                  mov ax, 0xA000
-    22 00000027 8EC0                    mov es:ax
-    23 00000029 8ED8                    mov ds:ax
+    22 00000027 8EC0                    mov es,ax
+    23 00000029 8ED8                    mov ds,ax
     24                                  
     25 0000002B B90A00                  mov cx, STARTBANK                                              ; banknumber
     26                                  nextbank:

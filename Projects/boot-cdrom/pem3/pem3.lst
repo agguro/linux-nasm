@@ -9,22 +9,19 @@
      6                                  start:
      7                                  
      8 00000022 BE[0200]                     mov       si, pemloading
-     9                                       ; test if stack behaves
-    10 00000025 56                           push      si
-    11 00000026 31F6                         xor       si, si
-    12 00000028 5E                           pop       si
-    13 00000029 E80100                       call      Print
-    14 0000002C CB                           retf
-    15                                  
-    16                                  Print:
-    17 0000002D 60                           pusha
-    18 0000002E B40E                         mov       ah, 0Eh              ; int 10h teletype function
-    19                                  .repeat:
-    20 00000030 AC                           lodsb                    ; Get char from string
-    21 00000031 3C00                         cmp       al, 0
-    22 00000033 7404                         je        .done          ; If char is zero, end of string
-    23 00000035 CD10                         int       10h            ; Otherwise, print it
-    24 00000037 EBF7                         jmp       .repeat        ; And move on to next char
-    25                                  .done:
-    26 00000039 61                           popa
-    27 0000003A C3                           ret
+     9                                  
+    10 00000025 E80100                       call      Print
+    11 00000028 CB                           retf
+    12                                  
+    13                                  Print:
+    14 00000029 60                           pusha
+    15 0000002A B40E                         mov       ah, 0Eh              ; int 10h teletype function
+    16                                  .repeat:
+    17 0000002C AC                           lodsb                    ; Get char from string
+    18 0000002D 3C00                         cmp       al, 0
+    19 0000002F 7404                         je        .done          ; If char is zero, end of string
+    20 00000031 CD10                         int       10h            ; Otherwise, print it
+    21 00000033 EBF7                         jmp       .repeat        ; And move on to next char
+    22                                  .done:
+    23 00000035 61                           popa
+    24 00000036 C3                           ret

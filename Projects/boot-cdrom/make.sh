@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!/bin/bash
 
 echo "Removing earlier files"
 rm -rfv cdrom/*

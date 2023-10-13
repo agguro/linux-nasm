@@ -24,11 +24,11 @@ os_main:
      int       0x10
 
      ; print welcome screen
-     mov       si, welcome
-     call      Print
+     ;mov       si, welcome
+     ;call      Print
      
      ; load file from cd
-     mov       si, pem1
+     mov       si, pem2
      call      LoadFile     
      jc        NotFound                 ; file wasn't found, so not loaded and will not be executed
      call      Execute
@@ -46,8 +46,7 @@ NotFound:
 
 Continue: 
 
-     mov       si, welcome
-     call      Print
+
      
 osloop:
 

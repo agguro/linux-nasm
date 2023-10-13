@@ -10,10 +10,10 @@ section .bss
 
 ;DATA section
 section .data
-%include "getallaccountsextended/getallaccountsextended.data.inc"
+%include "definitions/definitions.data.inc"
 
 ;RODATA section
 section .rodata
 %include "include/ssl/sslsocket.rodata.inc"
-%include "getallaccountsextended/getallaccountsextended.rodata.inc"
+%include "definitions/definitions.rodata.inc"
 

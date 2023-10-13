@@ -5,8 +5,10 @@
 %include "asm-generic/errno.inc"
 %include "asm-generic/socket.inc"
 %include "sys/time.inc"
+%include "netdb.inc"
 
 extern stringsearch
+extern gethostbyname
 
 %define BUFFERSIZE	4096		; buffersize in bytes for the reply
 %define EOL		    10
