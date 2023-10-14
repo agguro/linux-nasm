@@ -1,4 +1,3 @@
-<pre>
 ;name:        unzip.asm
 ;
 ;by:          agguro (2023)
@@ -17,19 +16,23 @@ bits 64
 [list +]
 
 section .data
-        
-    command:        db  "/usr/bin/unzip",0      ;full path!
-    argv0:          db  "-o", 0                 ;force overwrite existing files
-    argv1:          db  "example.zip", 0
 
-    argvPtr:        dq  command                 ;argument list
-                    dq  argv0
-                    dq  argv1
+    command1:       db  "/usr/bin/unzip",0      ;full path!
+    argv10:         db  "testdoc.docx",0       ;no error if existing, make parent directories as needed         
+    argv11:         db  "-d", 0
+    argv12:         db  "testdoc.docx-unzip", 0
+    argv1Ptr:       dq  command1                ;argument list
+                    dq  argv10
+                    dq  argv11
+                    dq  argv12
+                    dq  0                       ;end of argument list
 
     ;this list ends with dq 0. Since there are no environment parameters to set
     ;I use the NULL pointer of the environment parmeters.
 
     envPtr:         dq  0                       ;environment parameter list
+
+
 
     forkerror:      db  "fork error",10
     .len:           equ $-forkerror
@@ -59,9 +62,8 @@ _start:
     jmp     .exit
 
 .runchild:
-    syscall execve,command,argvPtr,envPtr
+    syscall execve,command1,argv1Ptr,envPtr
     jns     .exit
     syscall write,stderr,execveerror,execveerror.len
 .exit:    
     syscall exit,0
-</pre>
