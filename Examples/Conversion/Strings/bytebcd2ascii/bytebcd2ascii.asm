@@ -1,7 +1,7 @@
 ;name: bytebcd2ascii.asm
 ;
 ;description: Convert a 8 bit packed bcd in lower 8 bits of rdi to ascii in rax.
-;             
+; 
 ;build: nasm -felf64 bytebcd2ascii.asm -o bytebcd2ascii.o
 
 bits 64

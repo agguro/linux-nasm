@@ -1,20 +1,20 @@
-;name: toupper.asm
+;name: tolower.asm
 ;
 ;description: convert a zero-terminated alphanumeric string to uppercase.
 ;             Bit 5 in a alphanumeric character indicates if a
 ;             character is upper or lower case.  Set or reset this bit gives the required
 ;             case of that character.
 ;
-;build: nasm -felf64 toupper.asm -o toupper.o
+;build: nasm -felf tolower.asm -o tolower.o                                                                                                                       
 
 bits 64
-   
-section .text
 
-global toupper
-    
-toupper:
-;replace all characters in a stringz at rdi to uppercase
+global tolower
+
+section .text
+   
+tolower:
+;replace all characters in a stringz at rdi to lowercase
     push    rdi                 ;save original memory address
     push    rsi                 ;save rsi
     push    rax
@@ -24,12 +24,12 @@ toupper:
     lodsb                       ;read byte
     and     al, al
     jz      .done
-    cmp     al, "a"
+    cmp     al, "A"
     jb      .skip
-    cmp     al, "z"
+    cmp     al, "Z"
     ja      .skip
 .change:
-    and     al,0xDF
+    or      al,0x20
 .skip:
     stosb
     jmp     .repeat

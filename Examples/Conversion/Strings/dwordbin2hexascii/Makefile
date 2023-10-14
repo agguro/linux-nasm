@@ -1,7 +1,7 @@
-BIN=arguments
+BIN=dwordbin2hexascii
 
 NASM=/usr/bin/nasm
-NASMOPTS=-felf64 -Fdwarf
+NASMOPTS=-felf64 -Fdwarf -g
 LDOPS=-melf_x86_64 -g
 
 all: $(BIN)

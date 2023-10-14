@@ -1,4 +1,4 @@
-;name: fpuhextobcd.asm
+;name: fpuhex2bcd.asm
 ;
 ;description: conversion from hexadecimal to bcd using the fpu.
 ;             The buffer to store the bcd value must be 10 bytes long.
@@ -22,13 +22,13 @@
 ;             The program doesn't check the boundaries of the hexadecimal value which are
 ;             [0xF21F494C589C0001,0x0DE0B6B3A763FFFF] signed values
 ;
-;build: nasm -felf64 fpuhextobcd.asm -o fpuhextobcd.asm
+;build: nasm -felf64 fpuhex2bcd.asm -o fpuhex2bcd.asm
 
 bits 64
 
-global fpuhextobcd
+global fpuhex2bcd
 
-fpuhextobcd:
+fpuhex2bcd:
     ;get hexadecimal value at rdi in fpu
     fild    qword[rdi]
     ;store value in fpu as bcd at rsi

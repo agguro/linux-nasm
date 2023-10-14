@@ -13,7 +13,7 @@ section .text
 
 global switchcase
     
-switcase:
+switchcase:
 ;toggle case of characters in a stringz at rdi
     push    rdi                 ;save original memory address
     push    rsi                 ;save rsi
