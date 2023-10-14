@@ -16,7 +16,7 @@ bits 64
 [list +]
 
 section .data
-        
+
     filename:       db  "hello",0 
     .len:           equ $-filename
     ; argument pointer list to pass to the application to be executed, terminated by 0
@@ -28,9 +28,9 @@ section .data
     .len:           equ $-execveerror
     wait4error:     db  "wait4 error",10
     .len:           equ $-wait4error
-    
+
 section .text
-    
+
 global _start
 _start:
 
@@ -39,17 +39,17 @@ _start:
     jns     .continue
     syscall write,stderr,forkerror,forkerror.len
     jmp     .exit
-.continue:    
+.continue:
     jz     .runchild
     ; wait for child to terminate
     syscall wait4, 0, 0, 0, 0
     jns     .exit
     syscall write,stderr,wait4error,wait4error.len
     jmp     .exit
-    
+
 .runchild:
     syscall execve, filename, argvPtr, envPtr
     jns     .exit
     syscall write,stderr,execveerror,execveerror.len
-.exit:    
+.exit:
     syscall exit,0

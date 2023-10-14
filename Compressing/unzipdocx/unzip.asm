@@ -18,7 +18,7 @@ bits 64
 section .data
 
     command1:       db  "/usr/bin/unzip",0      ;full path!
-    argv10:         db  "testdoc.docx",0       ;no error if existing, make parent directories as needed         
+    argv10:         db  "testdoc.docx",0        ;no error if existing, make parent directories as needed         
     argv11:         db  "-d", 0
     argv12:         db  "testdoc.docx-unzip", 0
     argv1Ptr:       dq  command1                ;argument list
