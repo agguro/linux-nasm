@@ -1,6 +1,0 @@
-To build this project
-
-with QT5 IDE: open .pro file and configure.
-from command line: open directory in terminal and run
->> qmake
->> make

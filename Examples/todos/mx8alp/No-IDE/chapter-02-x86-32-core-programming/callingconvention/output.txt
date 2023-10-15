@@ -1,3 +1,0 @@
-Input:  a:      3 b:      5 c:      8
-Output: s1a:   16 s2a:   98 s3a:  664
-        s1b:   16 s2b:   98 s3b:  664

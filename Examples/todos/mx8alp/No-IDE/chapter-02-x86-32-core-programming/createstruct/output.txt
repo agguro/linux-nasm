@@ -1,5 +1,0 @@
-Contents of TestStruct 'ts'
-  ts->Val8:   40
-  ts->Val16:  -401
-  ts->Val32:  400002
-  ts->Val64:  -4000000003
