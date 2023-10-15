@@ -12,7 +12,7 @@
 
 [list -]
      %include "unistd.inc"
-     %include "fcntl.inc"
+     %include "sys/fcntl.inc"
 [list +]
 
      %define FIFO_NAME "american_maid"

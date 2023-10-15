@@ -230,32 +230,32 @@ ENDSTRUC
         at SIGCONTEXT_STRUC.reserved, times 8 dq 0 
     IEND
   
-    %define %1.r8:         %1+SIGINFO_T_STRUC.r8
-    %define %1.r9:         %1+SIGINFO_T_STRUC.r9
-    %define %1.r10:        %1+SIGINFO_T_STRUC.r10
-    %define %1.r11:        %1+SIGINFO_T_STRUC.r11
-    %define %1.r12:        %1+SIGINFO_T_STRUC.r12
-    %define %1.r13:        %1+SIGINFO_T_STRUC.r13
-    %define %1.r14:        %1+SIGINFO_T_STRUC.r14
-    %define %1.r15:        %1+SIGINFO_T_STRUC.r15
-    %define %1.rdi:        %1+SIGINFO_T_STRUC.rdi
-    %define %1.rsi:        %1+SIGINFO_T_STRUC.rsi
-    %define %1.rbp:        %1+SIGINFO_T_STRUC.rbp
-    %define %1.rbx:        %1+SIGINFO_T_STRUC.rbx
-    %define %1.rdx:        %1+SIGINFO_T_STRUC.rdx
-    %define %1.rax:        %1+SIGINFO_T_STRUC.rax
-    %define %1.rcx:        %1+SIGINFO_T_STRUC.rcx
-    %define %1.rsp:        %1+SIGINFO_T_STRUC.rsp
-    %define %1.rip:        %1+SIGINFO_T_STRUC.rip
-    %define %1.rflags:     %1+SIGINFO_T_STRUC.rflags
-    %define %1.cs:         %1+SIGINFO_T_STRUC.cs
-    %define %1.gs:         %1+SIGINFO_T_STRUC.gs
-    %define %1.fs:         %1+SIGINFO_T_STRUC.fs
-    %define %1.err:        %1+SIGINFO_T_STRUC.err
-    %define %1.trapno:     %1+SIGINFO_T_STRUC.trapno
-    %define %1.oldmask:    %1+SIGINFO_T_STRUC.oldmask
-    %define %1.cr2:        %1+SIGINFO_T_STRUC.cr2
-    %define %1.fpstate:    %1+SIGINFO_T_STRUC.fpstate
+    %define %1.r8:         %1+SIGCONTEXT_STRUC.r8
+    %define %1.r9:         %1+SIGCONTEXT_STRUC.r9
+    %define %1.r10:        %1+SIGCONTEXT_STRUC.r10
+    %define %1.r11:        %1+SIGCONTEXT_STRUC.r11
+    %define %1.r12:        %1+SIGCONTEXT_STRUC.r12
+    %define %1.r13:        %1+SIGCONTEXT_STRUC.r13
+    %define %1.r14:        %1+SIGCONTEXT_STRUC.r14
+    %define %1.r15:        %1+SIGCONTEXT_STRUC.r15
+    %define %1.rdi:        %1+SIGCONTEXT_STRUC.rdi
+    %define %1.rsi:        %1+SIGCONTEXT_STRUC.rsi
+    %define %1.rbp:        %1+SIGCONTEXT_STRUC.rbp
+    %define %1.rbx:        %1+SIGCONTEXT_STRUC.rbx
+    %define %1.rdx:        %1+SIGCONTEXT_STRUC.rdx
+    %define %1.rax:        %1+SIGCONTEXT_STRUC.rax
+    %define %1.rcx:        %1+SIGCONTEXT_STRUC.rcx
+    %define %1.rsp:        %1+SIGCONTEXT_STRUC.rsp
+    %define %1.rip:        %1+SIGCONTEXT_STRUC.rip
+    %define %1.rflags:     %1+SIGCONTEXT_STRUC.rflags
+    %define %1.cs:         %1+SIGCONTEXT_STRUC.cs
+    %define %1.gs:         %1+SIGCONTEXT_STRUC.gs
+    %define %1.fs:         %1+SIGCONTEXT_STRUC.fs
+    %define %1.err:        %1+SIGCONTEXT_STRUC.err
+    %define %1.trapno:     %1+SIGCONTEXT_STRUC.trapno
+    %define %1.oldmask:    %1+SIGCONTEXT_STRUC.oldmask
+    %define %1.cr2:        %1+SIGCONTEXT_STRUC.cr2
+    %define %1.fpstate:    %1+SIGCONTEXT_STRUC.fpstate
 %endmacro
 
 STRUC SIGNALSTACK_STRUC

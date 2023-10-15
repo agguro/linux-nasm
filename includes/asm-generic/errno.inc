@@ -1,5 +1,5 @@
 %ifndef _ASM_GENERIC_ERRNO_INC_
-%define _ASM_GENERIC_ERRNO_INC_
+%define _ASM_GENERIC_ERRNO_INC_ 1
     
     %include "asm-generic/errno-base.inc"
     

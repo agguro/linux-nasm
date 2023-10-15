@@ -56,12 +56,13 @@ section .data
     msgSignalError:     db      "sigaction error, terminating program.", 10
     .length:            equ     $-msgSignalError
 
-section .txt
+section .text
 global  _start
 _start:
 
     ; get the programs PID
     syscall     getpid
+
     ; convert to decimal and ...
     call        Hex2Dec
     mov         rdi, msgPID.pid
@@ -116,9 +117,9 @@ Exit:
     
 ; The SIGUSR1 handler
 procSigUSR1:
-    pop         r8                                      ; interrupt break address from stack, just in case
+;    pop         r8                                      ; interrupt break address from stack, just in case
     mov         byte [got_usr1], 1                      ; just put 1 in got_usr1
-    push        r8                                      ; interrupt break address back on stack
+;    push        r8                                      ; interrupt break address back on stack
     ret                                                 ; we can also jump to another location in the main program,
                                                         ; we just have to restore the stack.                                            
 ; return from signal handler and cleanup stack frame                                                        

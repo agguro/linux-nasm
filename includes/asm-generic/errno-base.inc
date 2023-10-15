@@ -1,5 +1,5 @@
 %ifndef _ASM_GENERIC_ERRNO_BASE_INC_
-%define _ASM_GENERIC_ERRNO_BASE_INC_
+%define _ASM_GENERIC_ERRNO_BASE_INC_ 1
 
     %define   EPERM       -1     ; Operation not permitted
     %define   ENOENT      -2     ; No such file or directory
@@ -17,7 +17,7 @@
     %define   EFAULT     -14     ; Bad address
     %define   ENOTBLK    -15     ; Block device required
     %define   EBUSY      -16     ; Device or resource busy
-    %define   EEXIST     -17     ; File   Exists
+    %define   EEXIST     -17     ; File Exists
     %define   EXDEV      -18     ; Cross-device link
     %define   ENODEV     -19     ; No such device
     %define   ENOTDIR    -20     ; Not a directory
@@ -54,7 +54,7 @@
     %define   EFAULT.text      "Bad address"
     %define   ENOTBLK.text     "Block device required"
     %define   EBUSY.text       "Device or resource busy"
-    %define   EEXIST.text      "File   Exists"
+    %define   EEXIST.text      "File exists"
     %define   EXDEV.text       "Cross-device link"
     %define   ENODEV.text      "No such device"
     %define   ENOTDIR.text     "Not a directory"

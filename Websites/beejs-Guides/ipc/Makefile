@@ -1,5 +1,4 @@
-BIN=fork1 sigint sigusr pipe1 pipe2 pipe3 speak tick lockdemo kirk spock semdemo semrm shmdemo mmapdemo echoc echos spair extxterm
-
+BIN=fork1 sigint sigusr pipe1 pipe2 pipe3 speak tick lockdemo kirk spock  semrm shmdemo mmapdemo echoc echos spair semdemo
 NASM=/usr/bin/nasm
 NASMOPTS=-felf64 -Fdwarf
 LDOPS=-melf_x86_64 -g

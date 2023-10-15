@@ -13,8 +13,8 @@ bits 64
 
 [list -]
     %include "unistd.inc"
-    %include "fcntl.inc"
-    %include "sys/mman.inc"
+    %include "sys/fcntl.inc"
+    %include "asm-generic/mman.inc"
     %include "sys/stat.inc"
     %include "sys/page.inc"
 [list +]

@@ -16,13 +16,15 @@
 bits 64
 
 [list -]
+
     %include    "unistd.inc"
     %include    "sys/ipc.inc"
     %include    "sys/sem.inc"
     %include    "sys/termios.inc"
     %include    "sys/stat.inc"
     %include    "sys/time.inc"
-    %include    "errors.inc"
+    %include    "asm-generic/errno.inc"
+
 [list +]
 
     %define MAX_RETRIES 10

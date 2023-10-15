@@ -1,5 +1,5 @@
 %ifndef _ASM_SYS_TIME_INC_
-%define _ASM_SYS_TIME_INC_
+%define _ASM_SYS_TIME_INC_ 1
 
     %define CLOCK_REALTIME 0
 

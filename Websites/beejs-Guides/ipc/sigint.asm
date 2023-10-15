@@ -47,7 +47,7 @@ section .data
     
     SIGACTION   sigaction
     
-section .txt
+section .text
 
 global  _start
 _start:
@@ -57,7 +57,7 @@ _start:
     mov     qword [sigaction.sa_handler], rax          ; in sigaction structure
     
     ; sa.sa_flags = SA_RESTART;
-    ; sa.sa_flags = 0 gives a segmentation fault, still need to investigate
+    ; sa.sa_flags = 0 gives a segmentation fault
     
     ; here a zero for sa.flags lead us to a segmentation fault, I still need to figure it out to intercept
     ; the error.
