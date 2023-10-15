@@ -1,0 +1,9 @@
+Before GlChar:     10
+       GlShort:    20
+       GlInt:      30
+       GlLongLong: 4294967294
+
+After  GlChar:     13
+       GlShort:    25
+       GlInt:      -7
+       GlLongLong: 4294967305

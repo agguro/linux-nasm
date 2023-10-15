@@ -1,0 +1,5 @@
+
+Results for ConcatStrings
+  des_len: 18 (18) des: One Two Three Four 
+  des_len: 15 (15) des: Red Green Blue  
+  des_len: 24 (24) des: Airplane Car Truck Boat  

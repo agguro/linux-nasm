@@ -1,0 +1,12 @@
+
+Results for CallingConvention2
+               a                b
+               2                3
+              -2                5
+              -6               -7
+               7                8
+              12                4
+               5                9
+
+sum_a:        18 sum_b:        22
+prod_a:    10080 prod_b:   -30240
