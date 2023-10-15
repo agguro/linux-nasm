@@ -30,7 +30,7 @@ section .rodata:
     host:       db  "localhost",0
     port:       dq  3306
     user:       dq  "user",0
-    password:   dq  "password",0
+    password:   dq  "Password",0
 
 section .data
 
