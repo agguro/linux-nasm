@@ -146,29 +146,18 @@ _start:
      call      exit
      
 timer_handler:
-     push    rbp
-     mov     rbp,rsp
-     
      mov       rdi, qword[checkbox.handle]
      call      gtk_toggle_button_get_active
-     
      cmp       rax, TRUE
      jnz       .disconnect
-
      mov       rdi, message
      xor       rax, rax
      call      g_print
-
 .disconnect:     
      mov       rax, TRUE
-     mov        rbp,rsp
-     pop        rbp
-
      ret
 
 toggle_signal:
-    push rbp
-    mov  rbp,rsp
      ; RDI has GtkWidget *widget
      ; RSI has gpointer window
      call      gtk_toggle_button_get_active
@@ -178,12 +167,9 @@ toggle_signal:
      mov       rsi, active
      mov       rdi, qword[window]
      call      gtk_window_set_title
-     jmp    .done
+     ret
 .disconnect:
      mov       rsi, inactive
      mov       rdi, qword[window]
      call      gtk_window_set_title
-.done:
-     mov        rbp,rsp
-     pop        rbp
      ret     

@@ -43,13 +43,12 @@ bits 64
      extern    gtk_widget_show_all
      extern    gtk_main
      extern    exit
+     extern    gtk_color_selection_dialog_new
      extern    gtk_dialog_run
+     extern    gtk_color_selection_dialog_get_color_selection
+     extern    gtk_color_selection_get_current_color
+     extern    gtk_widget_modify_fg
      extern    gtk_widget_destroy
-
-     extern gtk_color_chooser_dialog_new
-     extern gtk_color_chooser_get_rgba
-     extern gtk_widget_override_color
-
      ; debugging
 %if DEBUG = 1
      extern    g_print
@@ -181,7 +180,7 @@ _start:
 
      xor       r9d, r9d                             ; combination of GConnectFlags 
      xor       r8d, r8d                             ; a GClosureNotify for data
-     mov       rcx, qword[window.handle]             ; pointer to the data to pass
+     mov       rcx, qword[label.handle]             ; pointer to the data to pass
      mov       rdx, select_color                    ; pointer to the handler
      mov       rsi, signal.clicked                  ; pointer to the signal
      mov       rdi, qword[color.handle]             ; pointer to the widget instance
@@ -214,9 +213,11 @@ select_color:
      ; create stackframe to prevent segmentation faults
      push      rbp
      mov       rbp, rsp
+     mov       r14, rdi
+     mov       r15, rsi
 
      mov       rdi, dialog.title
-     call      gtk_color_chooser_dialog_new
+     call      gtk_color_selection_dialog_new
      mov       qword[dialog.handle], rax
 
          ; if we should leave next three lines we get : Gtk-Message: GtkDialog mapped without a transient parent. This is discouraged.
@@ -231,19 +232,47 @@ select_color:
      cmp       eax, GTK_RESPONSE_OK                         ; don't use RAX
      jne       .exit
 
-     mov        rsi,color
      mov       rdi, qword[dialog.handle]
-     call      gtk_color_chooser_get_rgba
+     call      gtk_color_selection_dialog_get_color_selection
      mov       qword[colorsel], rax
+
+     mov       rdi, qword[colorsel]
+     mov       rsi, color
+     call      gtk_color_selection_get_current_color
+
+     ; debugging
+%if DEBUG = 1    
+     mov       rdi, format
+     mov       esi, dword[color+GdkColor.pixel]
+     xor       rax, rax
+     call      g_print
+
+     mov       rdi, format
+     xor       rsi, rsi
+     mov       si,  word[color+GdkColor.red]
+     xor       rax, rax
+     call      g_print
+
+     mov       rdi, format
+     xor       rsi, rsi
+     mov       si,  word[color+GdkColor.green]
+     xor       rax, rax
+     call      g_print
+
+     mov       rdi, format
+     xor       rsi, rsi
+     mov       si,  word[color+GdkColor.blue]
+     xor       rax, rax
+     call      g_print
+%endif
 
      mov       rdi, qword[label.handle]                                     ; label pointer
      mov       rsi, GTK_STATE_NORMAL
      mov       rdx, color
+     call      gtk_widget_modify_fg
 
-     call      gtk_widget_override_color
 .exit:
      mov       rdi, qword[dialog.handle]
      call      gtk_widget_destroy
-     mov       rsp,rbp
-     pop       rbp
+     leave
      ret

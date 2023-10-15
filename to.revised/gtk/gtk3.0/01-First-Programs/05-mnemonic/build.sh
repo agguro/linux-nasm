@@ -8,6 +8,4 @@ mkdir build
 cd build
 ../configure
 make
-echo "run program ..."
-./version
 echo "done."

@@ -1,7 +1,7 @@
 ; Name        : entersignal.asm
 ;
 ; Build       : nasm -felf64 -o entersignal.o -l entersignal.lst entersignal.asm
-;               ld -s -m elf_x86_64 entersignal.o -o entersignal -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 `pkg-config --libs gtk+-2.0`
+;               ld -s -m elf_x86_64 entersignal.o -o entersignal -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 -lgtk-3 -lgobject-2.0  -lglib-2.0 -lgdk_pixbuf-2.0 -lgdk-3
 ;
 ; Description : onenter and onleave signals and events example
 ;
@@ -10,8 +10,6 @@
 ; I've added this to be complete in this example.
 ;
 ; C - source : http://zetcode.com/tutorials/gtktutorial/gtkevents/
-;              The text on the website mentions that the button color should change but I wasn't able to fix that. In the source and in this
-;              program it doesn't work.  Got something to do with event boxes....
 
 bits 64
 
@@ -24,37 +22,45 @@ bits 64
      extern    gtk_init
      extern    gtk_main
      extern    gtk_main_quit
-     extern    gtk_widget_modify_bg
+     extern    gtk_widget_override_color
      extern    gtk_widget_set_size_request
      extern    gtk_widget_show_all
      extern    gtk_window_new
      extern    gtk_window_set_default_size
      extern    gtk_window_set_position
      extern    gtk_window_set_title
+     extern    g_print
      extern    g_signal_connect_data
+     extern    gtk_css_provider_load_from_data
+     extern    gtk_css_provider_new
+     extern    gtk_style_context_add_provider_for_screen
+     extern    gdk_display_get_default
+     extern    gdk_display_get_default_screen
+     extern    gtk_style_context_remove_provider_for_screen
      
      %define   GTK_WIN_POS_CENTER                 1
      %define   GTK_WINDOW_TOPLEVEL                0
      %define   NULL                               0
+     %define   GTK_STATE_FLAG_PRELIGHT            2
+     %define   GTK_STYLE_PROVIDER_PRIORITY_USER   800
 [list +]
 
-struc GdkColor
-     .pixel:   resd      1
-     .red:     resw      1
-     .green:   resw      1
-     .blue:    resw      1
+struc GdkRGBA
+     .red:     resq      1
+     .green:   resq      1
+     .blue:    resq      1
+     .alpha:   resq      1
 endstruc
 
 section .data
 
 color:
-istruc GdkColor
-     at GdkColor.pixel,  dd   0
-     at GdkColor.red,    dw   65535
-     at GdkColor.green,  dw   0
-     at GdkColor.blue,   dw   0
+istruc GdkRGBA
+     at GdkRGBA.red,      dq   1.0
+     at GdkRGBA.green,    dq   0.0
+     at GdkRGBA.blue,     dq   0.0
+     at GdkRGBA.alpha,    dq   1.0
 iend
-
      window:
      .handle:       dq   0
      .title:        db   "enter signal", 0
@@ -69,16 +75,22 @@ iend
      signal:
      .enter:   db   "enter-notify-event", 0
      .destroy: db   "destroy", 0
+     .leave:   db   "leave-notify-event", 0
      
      message:
      .clicked: db   "Clicked", 10, 0
+     
+     cssprovider:
+     .handle:            dq   0
+     .cssred:            db   "GtkWindow {background-color: red;}"
+     .cssredsize:        equ  $-cssprovider.cssred
                
      display:
      .handle:  dq   0
      
      screen:
      .handle:  dq   0
-
+     
 section .text
      global _start
      
@@ -132,7 +144,15 @@ _start:
      mov       rcx, NULL
      mov       rdx, onenter
      mov       rsi, signal.enter
-     mov       rdi, qword[window.handle]
+     mov       rdi, qword[button.handle]
+     call      g_signal_connect_data
+
+     xor       r9d, r9d
+     xor       r8d, r8d
+     mov       rcx, NULL
+     mov       rdx, onleave
+     mov       rsi, signal.leave
+     mov       rdi, qword[button.handle]
      call      g_signal_connect_data
      
      xor       r9d, r9d
@@ -155,13 +175,36 @@ onenter:
 ; this event occurs when you hover over the button with the mousepointer
 ; parameters are passed in rdi, rsi
      ; change the textcolor of the button
-     push	rbp
-     mov	rbp,rsp
      mov       rdx, color
-     mov       rsi, 0       ;GTK_STATE_FLAG_NORMAL
-     
+     mov       rsi, GTK_STATE_FLAG_PRELIGHT
      ; rdi has already the widget
-     call      gtk_widget_modify_bg
-     mov	rsp,rbp
-     pop	rbp
+     call      gtk_widget_override_color
+     ; change the window color in red
+     call      gtk_css_provider_new
+     mov       qword[cssprovider.handle], rax
+     
+     call      gdk_display_get_default
+     mov       qword[display.handle], rax
+     
+     mov       rdi, qword[display.handle]
+     call      gdk_display_get_default_screen
+     mov       qword[screen.handle], rax
+     
+     mov       rcx, 0
+     mov       rdx, cssprovider.cssredsize
+     mov       rsi, cssprovider.cssred
+     mov       rdi, qword[cssprovider.handle]
+     call      gtk_css_provider_load_from_data
+     
+     mov       rdx, GTK_STYLE_PROVIDER_PRIORITY_USER
+     mov       rsi, qword[cssprovider.handle]
+     mov       rdi, qword[screen.handle]
+     call      gtk_style_context_add_provider_for_screen
+     ret
+
+onleave:
+     ; change the window color to default
+     mov       rdi, qword[screen.handle]
+     mov       rsi, qword[cssprovider.handle] 
+     call      gtk_style_context_remove_provider_for_screen
      ret

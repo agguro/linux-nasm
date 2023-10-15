@@ -1,4 +1,4 @@
-TARGETS=version simple center icon tooltip mnemonic appiconmem incdec
+TARGETS=version simple center icon tooltip mnemonic
 
 ASM=/usr/bin/nasm
 LD=/usr/bin/ld

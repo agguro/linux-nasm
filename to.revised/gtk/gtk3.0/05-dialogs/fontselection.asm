@@ -197,18 +197,18 @@ select_font:
     ; create stackframe to prevent segmentation faults
     push    rbp
     mov     rbp, rsp
+    mov     r14, rdi
+    mov     r15, rsi
     
-        extern gtk_font_chooser_dialog_new
-    xor rsi,rsi
-    xor rdi,rdi
-    call    gtk_font_chooser_dialog_new
-    mov     [dialog.handle],rax
+    mov     rdi, dialog.title
+    call    gtk_font_selection_dialog_new
+    mov     qword[dialog.handle], rax
 
     ; if we should leave next three lines we get : Gtk-Message: GtkDialog mapped without a transient parent. This is discouraged.
     mov     rdi, qword[dialog.handle]
     mov     rsi, qword[window.handle]
     call    gtk_window_set_transient_for
-     
+    
     mov     rdi, qword[dialog.handle]
     call    gtk_dialog_run
     mov     qword[result], rax
@@ -219,8 +219,7 @@ select_font:
     jne     .exit
 .setFont:
     mov     rdi, qword[dialog.handle]
-    extern gtk_font_chooser_get_font
-    call    gtk_font_chooser_get_font
+    call    gtk_font_selection_dialog_get_font_name
     mov     qword[font.name], rax
     
     mov     rdi, qword[font.name]
@@ -237,6 +236,5 @@ select_font:
 .exit:
     mov     rdi, qword[dialog.handle]
     call    gtk_widget_destroy
-    mov     rsp,rbp
-    pop     rbp
+    leave
     ret

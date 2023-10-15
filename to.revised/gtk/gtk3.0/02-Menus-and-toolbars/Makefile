@@ -1,4 +1,4 @@
-TARGETS=imagemenu simplemenu toolbar checkmenuitem popupmenu submenu undoredo
+TARGETS=version simple center icon tooltip mnemonic
 
 ASM=/usr/bin/nasm
 LD=/usr/bin/ld
