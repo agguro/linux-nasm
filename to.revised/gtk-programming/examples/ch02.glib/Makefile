@@ -6,22 +6,22 @@ PROGS = sortlist tree hash message list mem
 all: $(PROGS)
 
 sortlist: sortlist.c 
-	$(CC) `gtk-config --cflags` `gtk-config --libs` sortlist.c -o sortlist 
+	$(CC) `pkg-config --libs --cflags gtk+-2.0` sortlist.c -o sortlist 
 
 tree: tree.c 
-	$(CC) `gtk-config --cflags` `gtk-config --libs` tree.c -o tree 
+	$(CC) `pkg-config --libs --cflags gtk+-2.0` tree.c -o tree 
 
 hash: hash.c
-	$(CC) `gtk-config --cflags` `gtk-config --libs` hash.c -o hash 
+	$(CC) `pkg-config --libs --cflags gtk+-2.0` hash.c -o hash 
 
 message: message.c
-	$(CC) `gtk-config --cflags` `gtk-config --libs` message.c -o message 
+	$(CC) `pkg-config --libs --cflags gtk+-2.0` message.c -o message 
 
 list: list.c
-	$(CC) `gtk-config --cflags` `gtk-config --libs` list.c -o list 
+	$(CC) `pkg-config --libs --cflags gtk+-2.0` list.c -o list 
 
 mem: mem.c
-	$(CC) `gtk-config --cflags` `gtk-config --libs` mem.c -o mem 
+	$(CC) `pkg-config --libs --cflags gtk+-2.0` mem.c -o mem 
 
 IGNORED = *.o $(PROGS)
 

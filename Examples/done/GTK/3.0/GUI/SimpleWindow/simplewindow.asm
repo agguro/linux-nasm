@@ -1,12 +1,11 @@
-; Name        : simplewindow.asm
+;name        : simplewindow.asm
 ;
-; Build       : nasm -felf64 -o simplewindow.o -l simplewindow.lst simplewindow.asm
-;               ld -s -m elf_x86_64 simplewindow.o -o simplewindow -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2
-;               -lgtk-3 -lgobject-2.0  -lglib-2.0 -lgdk_pixbuf-2.0 -lgdk-3
+;build       : nasm -felf64 -o simplewindow.o -l simplewindow.lst simplewindow.asm
+;               ld -s -m elf_x86_64 simplewindow.o -o simplewindow -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 -lgtk-3 -lgobject-2.0  -lglib-2.0 -lgdk_pixbuf-2.0 -lgdk-3
 ;
-; Description : a simple window with the basic functionalities and a title
+;description : a simple window with the basic functionalities and a title
 ;
-; C - source  : http://zetcode.com/gui/gtk2/firstprograms/
+;source : http://zetcode.com/gui/gtk2/firstprograms/
 
 bits 64
 
@@ -15,14 +14,14 @@ bits 64
     %define   GTK_WIN_POS_CENTER    1
     %define   FALSE                 0
     %define   TRUE                  1
-    extern  gtk_init
-    extern  gtk_main
-    extern  gtk_main_quit
-    extern  gtk_widget_show
-    extern  gtk_window_new
-    extern  gtk_window_set_title
-    extern  g_signal_connect_data
-    extern  exit
+    extern    gtk_init
+    extern    gtk_main
+    extern    gtk_main_quit
+    extern    gtk_widget_show
+    extern    gtk_window_new
+    extern    gtk_window_set_title
+    extern    g_signal_connect_data
+    extern    exit
 [list +]
 
 section .data
