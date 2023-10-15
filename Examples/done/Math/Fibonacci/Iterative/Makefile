@@ -1,4 +1,4 @@
-BIN=arguments
+BIN=fibiterative
 
 NASM=/usr/bin/nasm
 NASMOPTS=-felf64 -Fdwarf

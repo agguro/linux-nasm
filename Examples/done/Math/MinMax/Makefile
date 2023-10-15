@@ -1,4 +1,4 @@
-BIN=arguments
+BIN=minmax
 
 NASM=/usr/bin/nasm
 NASMOPTS=-felf64 -Fdwarf

@@ -1,4 +1,4 @@
-BIN=arguments
+BIN=facrecursive
 
 NASM=/usr/bin/nasm
 NASMOPTS=-felf64 -Fdwarf
