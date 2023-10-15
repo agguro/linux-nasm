@@ -1,19 +1,17 @@
-BIN=minmax
+BIN=arguments
 
 NASM=/usr/bin/nasm
 NASMOPTS=-felf64 -Fdwarf
 LDOPS=-melf_x86_64 -g
 
-.PHONY: all clean
+all: $(BIN)
 
-all: minmax
-	
+$(BIN): $(BIN).o
+	$(LD) $(LDOPS) -o $(BIN) $(BIN).o
+
+$(BIN).o: $(BIN).asm
+	$(NASM) $(NASMOPTS) -o $(BIN).o $(BIN).asm
+
+.PHONY: clean
 clean:
-	rm -rf minmax minmax.o
-
-minmax.o: minmax.asm
-	nasm -felf64 -Fdwarf -o minmax.o minmax.asm
-
-minmax: minmax.o
-	ld -melf_x86_64 -o minmax minmax.o
-
+	rm -f $(BIN).o $(BIN)

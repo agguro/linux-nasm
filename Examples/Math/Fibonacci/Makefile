@@ -1,18 +1,17 @@
-.PHONY: all clean
+BIN=arguments
 
-all:fibrecursive fibiterative
+NASM=/usr/bin/nasm
+NASMOPTS=-felf64 -Fdwarf
+LDOPS=-melf_x86_64 -g
 
+all: $(BIN)
+
+$(BIN): $(BIN).o
+	$(LD) $(LDOPS) -o $(BIN) $(BIN).o
+
+$(BIN).o: $(BIN).asm
+	$(NASM) $(NASMOPTS) -o $(BIN).o $(BIN).asm
+
+.PHONY: clean
 clean:
-	rm -rf fibrecursive fibrecursive.o fibiterative fibiterative.o
-
-fibrecursive: fibrecursive.o
-	ld -melf_x86_64 -o fibrecursive fibrecursive.o
-
-fibrecursive.o: fibrecursive.asm
-	nasm -felf64 -Fdwarf -o fibrecursive.o fibrecursive.asm
-
-fibiterative: fibiterative.o
-	ld -melf_x86_64 -o fibiterative fibiterative.o
-
-fibiterative.o: fibiterative.asm
-	nasm -felf64 -Fdwarf -o fibiterative.o fibiterative.asm
+	rm -f $(BIN).o $(BIN)
