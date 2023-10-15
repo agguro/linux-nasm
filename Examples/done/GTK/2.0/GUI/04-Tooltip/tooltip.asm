@@ -1,14 +1,11 @@
-; Name        : tooltip.asm
+;name : tooltip.asm
 ;
-; Build       : aclocal && autoconf && automake --add-missing --foreign
-;               mkdir build
-;               cd build
-;               ../configure
-;               make
+;build : /usr/bin/nasm -felf64 -Fdwarf -g -o tooltip.o tooltip.asm
+;        ld --dynamic-linker /lib64/ld-linux-x86-64.so.2 -no-pie -melf_x86_64 -g -o tooltip tooltip.o -lc -lgtk-x11-2.0 -lgdk-x11-2.0 -lgobject-2.0 -lgdk_pixbuf-2.0
 ;
-; Description : tooltip demo
+;description : a button with a tooltip in a simple window. Hoover over the button and wait...
 ;
-; Source      : http://zetcode.com/gui/gtk2/firstprograms/
+;source : http://zetcode.com/gui/gtk2/firstprograms/
 
 bits 64
 

@@ -1,17 +1,13 @@
-; Name        : icon.asm
+;name : windowicon.asm
 ;
-; Build       : aclocal && autoconf && automake --add-missing --foreign
-;               mkdir build
-;               cd build
-;               ../configure
-;               make
+;build : /usr/bin/nasm -felf64 -Fdwarf -g -o windowicon.o windowicon.asm
+;        ld --dynamic-linker /lib64/ld-linux-x86-64.so.2 -no-pie -melf_x86_64 -g -o windowicon windowicon.o -lc -lgtk-x11-2.0 -lgdk-x11-2.0 -lgobject-2.0 -lgdk_pixbuf-2.0
 ;
-; Description : a simple window with application icon
+;description : a simple window with application icon
 ;
-; Remark      : when copying the application to another location you need to copy the image file 'logo.png' with it in
-;               the same directory.
+; Remark      : when copying the application to another location you need to copy the image file 'favicon.png' in the same directory.
 ;
-; Source      : http://zetcode.com/gui/gtk2/firstprograms/
+;source : http://zetcode.com/gui/gtk2/firstprograms/
 
 bits 64
 
@@ -36,7 +32,7 @@ bits 64
 section .rodata
     szTitle:        db   "icon",0
     szDestroy:      db   "destroy",0
-    szFile:         db   "../favicon.png",0                   ;must be in the build directory
+    szFile:         db   "favicon.png",0                   ;must be in the build directory
     szErrPixbuf:    db   "ERROR loading %s",10,0
 
 section .bss
