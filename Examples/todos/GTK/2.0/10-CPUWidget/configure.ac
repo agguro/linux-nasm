@@ -1,6 +1,6 @@
 AC_PREREQ([2.69])
 
-AC_INIT([cpuWidget], [1.0.0], [aggurobe@gmail.com], [cpuWidget],[https://linuxnasm.be])
+AC_INIT([mycpu], [1.0.0], [aggurobe@gmail.com], [mycpu],[https://linuxnasm.be])
 
 AX_PROG_NASM([nasm_avail="no"])
 

@@ -1,19 +1,19 @@
 NASM = /usr/bin/nasm
 LD   = /usr/bin/ld
-bin_PROGRAMS = cpuWidget
-cpuWidget_NASMFLAGS = @PACKAGE_NASMFLAGS@
-cpuWidget_LDFLAGS = @PACKAGE_LDFLAGS@
-cpuWidget_LIBS = @PACKAGE_LIBS@
-cpuWidget_SOURCES = $(bin_PROGRAMS).asm
+bin_PROGRAMS = version
+version_NASMFLAGS = @PACKAGE_NASMFLAGS@
+version_LDFLAGS = @PACKAGE_LDFLAGS@
+version_LIBS = @PACKAGE_LIBS@
+version_SOURCES = $(bin_PROGRAMS).asm
 
 .asm.o:
-	$(NASM) $(cpuWidget_NASMFLAGS) $< -o $@
+	$(NASM) $(version_NASMFLAGS) $< -o $@
 	
-cpuWidget$(EXEEXT): $(bin_PROGRAMS).o
-	ld $(cpuWidget_LDFLAGS) $(cpuWidget_LIBS) $^ -o $@
+version$(EXEEXT): $(bin_PROGRAMS).o
+	ld $(version_LDFLAGS) $(version_LIBS) $^ -o $@
 	
 no-debug: $(bin_PROGRAMS)$(EXEEXT)
 	strip -s $(bin_PROGRAMS)$(EXEEXT)
 	
 clean:
-	rm -rf $(cpuWidget_OBJS) $(bin_PROGRAMS)$(EXEEXT)
+	rm -rf $(version_OBJS) $(bin_PROGRAMS)$(EXEEXT)
