@@ -177,11 +177,11 @@ button_clicked:
 toggle_signal:
 	push	rbp
 	mov		rbp,rsp
-	sub		rsp,0x08
+
      ; RDI has GtkWidget *widget
      ; RSI has gpointer window
-     mov       r14, rdi
-     mov       r15, rsi
+     push   rsi
+
      call      gtk_toggle_button_get_active
      and       rax, rax
      jz        .disconnect
@@ -191,13 +191,14 @@ toggle_signal:
      mov       rcx, NULL
      mov       rdx, button_clicked
      mov       rsi, signal.clicked
-     mov       rdi, r15
+     pop    rdi
+    push    rdi
      call      g_signal_connect_data
      mov       qword[handler.id], rax
      jmp		.exit
 .disconnect:
      mov       rsi, qword[handler.id]
-     mov       rdi, r15
+     pop       rdi
      call      g_signal_handler_disconnect
 .exit:
      mov	rsp,rbp
