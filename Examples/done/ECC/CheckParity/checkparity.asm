@@ -1,4 +1,4 @@
-;name: checkparitybit.asm
+;name: checkparity.asm
 ;
 ;description: check the parity bit against a databit string with the parity variant
 ;             taken into account.  There is a difference in the parity flag (PF) of
@@ -63,26 +63,26 @@ _start:
     syscall write,stdout,variant1,variant1.len
     mov     rdi,qword[databits1]
     mov     rsi,VARIANT_EVEN
-    call    checkparitybit
+    call    checkparity
     call    decision
 
     syscall write,stdout,variant2,variant2.len
     mov     rdi,qword[databits1]
     mov     rsi,VARIANT_ODD
-    call    checkparitybit
+    call    checkparity
     call    decision
 
     syscall write,stdout,bitstring2,bitstring2.len
     syscall write,stdout,variant1,variant1.len
     mov     rdi,qword[databits2]
     mov     rsi,VARIANT_EVEN
-    call    checkparitybit
+    call    checkparity
     call    decision
 
     syscall write,stdout,variant2,variant2.len
     mov     rdi,qword[databits2]
     mov     rsi,VARIANT_ODD
-    call    checkparitybit
+    call    checkparity
     call    decision
 
     syscall exit,0
@@ -96,7 +96,7 @@ decision:
     syscall write,stdout,wrong,wrong.len
     ret
 
-checkparitybit:
+checkparity:
     push    rdx
     mov     rax,rdi
     shr     rax,1               ;rule out all but the parity-bit
