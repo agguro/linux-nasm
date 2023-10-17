@@ -3,9 +3,9 @@
 ;build : nasm -felf64 -o inc-dec.o -l inc-dec.lst inc-dec.asm
 ;        ld -s -m elf_x86_64 aboutbox.o -o aboutbox --dynamic-linker /lib64/ld-linux-x86-64.so.2 -lc `pkg-config --libs gtk+-3.0`
 ;
-;description : three widgets example (two buttons and one label)
+; Description : three widgets example (two buttons and one label)
 ;
-;source  : http://zetcode.com/gui/gtk2/firstprograms/
+; C - source  : http://zetcode.com/gui/gtk2/firstprograms/
 
 bits 64
 
