@@ -1,6 +1,6 @@
 <pre>
 <?php
-    $files = array("simplewindow.asm","Makefile");
+    $files = array("timer.asm","Makefile");
     foreach ($files as $file){
         ?>
 <b><?php echo $file; ?></b><br />

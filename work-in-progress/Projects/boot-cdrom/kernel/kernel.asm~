@@ -19,7 +19,7 @@ os_main:
      mov       byte[bootdrive], dl      ; save boot drive letter
      
      mov       ax, 0x4F02
-     mov       bx, 0x107              ; <-1280x1024 256 = 107h colors
+     mov       bx, 0x102            ; <-1280x1024 256 = 107h colors
      mov       ax,0x4F02
      int       0x10
 
