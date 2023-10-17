@@ -1,8 +1,7 @@
-; Name        : inc-dec.asm
+;name  : inc-dec.asm
 ;
-; Build       : nasm -felf64 -o inc-dec.o -l inc-dec.lst inc-dec.asm
-;               ld -s -m elf_x86_64 aboutbox.o -o aboutbox -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2
-;               -lgtk-3 -lgobject-2.0  -lglib-2.0 -lgdk_pixbuf-2.0 -lgdk-3
+;build : nasm -felf64 -o inc-dec.o -l inc-dec.lst inc-dec.asm
+;        ld -s -m elf_x86_64 aboutbox.o -o aboutbox -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 `pkg-config --libs gtk+-3.0`
 ;
 ; Description : three widgets example (two buttons and one label)
 ;
@@ -202,6 +201,8 @@ _start:
 
 ; signal handlers     
 Increase:
+    push    rbp
+    mov     rbp,rsp
     ; adjust counter
     inc     qword[count]
     ; print to buffer
@@ -214,9 +215,13 @@ Increase:
     mov     rdi, qword[label]
     mov     rsi, buffer
     call    gtk_label_set_text
+    mov     rsp,rbp
+    pop     rbp
     ret
     
 Decrease:
+    push    rbp
+    mov     rbp,rsp
     ; adjust counter
     dec     qword[count]
     ; print to buffer
@@ -229,4 +234,6 @@ Decrease:
     mov     rdi, qword[label]
     mov     rsi, buffer
     call    gtk_label_set_text
+    mov     rsp,rbp
+    pop     rbp
     ret

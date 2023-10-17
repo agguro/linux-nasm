@@ -1,4 +1,4 @@
-BIN=timer
+BIN=incdec
 
 NASM=/usr/bin/nasm
 NASMOPTS=-felf64 -Fdwarf -g

@@ -1,6 +1,6 @@
 <pre>
 <?php
-    $files = array("incdec.asm","Makefile");
+    $files = array("simplewindow.asm","Makefile");
     foreach ($files as $file){
         ?>
 <b><?php echo $file; ?></b><br />
