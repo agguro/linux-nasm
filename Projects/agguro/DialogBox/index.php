@@ -8,8 +8,6 @@
 <br />
 <?php
 } ?>
-<b>logo.png</b>
 <img width="50" height="50" src="logo.png" /><br />
-<b>
 <img width="150" height="50" src="picture.png" /><br />
 </pre>

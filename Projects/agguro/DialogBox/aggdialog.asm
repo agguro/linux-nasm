@@ -50,13 +50,11 @@ bits 64
     %define   GTK_WIN_POS_CENTER       1
     %define   GDK_BUTTON_PRESS_MASK    256
 
-section .rodata
+section .data
     logo:               incbin    "logo.png"
     .size:              equ  $-logo
     picture:            incbin    "picture.png"
     .size:              equ  $-picture
-
-section .data
 
     window:
     .handle:            dq   0
