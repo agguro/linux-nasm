@@ -1,7 +1,7 @@
-;name        : simplewindow.asm
+;name : simplewindow.asm
 ;
-;build       : nasm -felf64 -o simplewindow.o -l simplewindow.lst simplewindow.asm
-;               ld -s -m elf_x86_64 simplewindow.o -o simplewindow -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 -lgtk-3 -lgobject-2.0  -lglib-2.0 -lgdk_pixbuf-2.0 -lgdk-3
+;build : nasm -felf64 -o simplewindow.o -l simplewindow.lst simplewindow.asm
+;        ld -s -m elf_x86_64 simplewindow.o -o simplewindow --dynamic-linker -lc `pkg-config --libs gtk+-3.0`
 ;
 ;description : a simple window with the basic functionalities and a title
 ;
