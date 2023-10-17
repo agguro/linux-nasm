@@ -80,7 +80,7 @@ section .data
 	dialog:		dq	0
 	pixbuf:		dq	0
 	
-section .text
+section.text
 	global _start
 	
 _start:

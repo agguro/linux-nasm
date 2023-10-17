@@ -1,11 +1,11 @@
-; Name        : messagedialogs.asm
+;name        : messagedialogs.asm
 ;
-; Build       : nasm -felf64 -o messagedialogs.o -l messagedialogs.lst messagedialogs.asm
-;               ld -s -m elf_x86_64 messagedialogs.o -o messagedialogs -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 `pkg-config --libs gtk+-2.0`
+;build       : nasm -felf64 -o messagedialogs.o -l messagedialogs.lst messagedialogs.asm
+;              ld -s -m elf_x86_64 messagedialogs.o -o messagedialogs -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 `pkg-config --libs gtk+-2.0`
 ;
-; Description : message dialog boxes
+;description : message dialog boxes
 
-; C - source  : http://zetcode.com/tutorials/gtktutorial/gtkdialogs/
+;source : http://zetcode.com/tutorials/gtktutorial/gtkdialogs/
 
 bits      64
 align     16
@@ -335,5 +335,6 @@ show_warning:
      call      gtk_dialog_run
      mov       rdi, qword[dialog.handle]
      call      gtk_widget_destroy
-     leave
+     mov       rsp, rbp
+    pop     rbp
      ret
