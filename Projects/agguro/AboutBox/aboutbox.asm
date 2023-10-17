@@ -1,15 +1,15 @@
-; Name        : aboutbox.asm
-
-; Build       : nasm -felf64 -o aboutbox.o -l aboutbox.lst aboutbox.asm
-;               ld -s -m elf_x86_64 aboutbox.o -o aboutbox -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2
-;               -lgtk-3 -lgobject-2.0  -lglib-2.0 -lgdk_pixbuf-2.0 -lgdk-3
+;name : aboutbox.asm
 ;
-; Description : an aboutbox example
+;build : nasm -felf64 -o aboutbox.o -l aboutbox.lst aboutbox.asm
+;        ld -s -m elf_x86_64 aboutbox.o -o aboutbox --dynamic-linker /lib64/ld-linux-x86-64.so.2 -lc `pkg-config --libs gtk+-3.0`
 ;
-; Remark      : Click on the window to see the Aboutbox
+;description : an aboutbox example
 ;
-; C - source : http://zetcode.com/gui/gtk2/gtkdialogs/
-;              http://stackoverflow.com/questions/14121166/gdk-pixbuf-load-image-from-memory
+;remark : be sure to have a Resources folder with the required images
+;         click on the window to see the Aboutbox
+;
+;source : http://zetcode.com/gui/gtk2/gtkdialogs/
+;         http://stackoverflow.com/questions/14121166/gdk-pixbuf-load-image-from-memory
 
 bits 64
 
@@ -50,12 +50,13 @@ bits 64
     %define   GTK_WIN_POS_CENTER       1
     %define   GDK_BUTTON_PRESS_MASK    256
 
-section .data
-    logo:               incbin    "../logo.png"
+section .rodata
+    logo:               incbin    "../Resources/agguro-bol-64-64.png"
     .size:              equ  $-logo
-    picture:            incbin    "../picture.png"
+    picture:            incbin    "../Resources/agguro-logo-381-138.png"
     .size:              equ  $-picture
 
+section .data
     window:
     .handle:            dq   0
     .title:             db   "click on the window",0
@@ -69,7 +70,7 @@ section .data
     .version:           db   "1.0 - demo", 0
     .copyright:         db   "(c) Agguro - 2015", 0
     .comments:          db   "This is an example to create an about dialogbox", 0
-    .website:           db   "http://www.agguro.be", 0
+    .website:           db   "https://github.com/agguro", 0
 
     loader:             dq   0
     pixbuffer:

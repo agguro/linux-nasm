@@ -1,6 +1,6 @@
 <pre>
 <?php
-    $files = array("aggdialog.asm","Makefile");
+    $files = array("appiconmem.asm","Makefile");
     foreach ($files as $file){
         ?>
 <b><?php echo $file; ?></b><br />
@@ -8,6 +8,4 @@
 <br />
 <?php
 } ?>
-<img width="50" height="50" src="logo.png" /><br />
-<img width="150" height="50" src="picture.png" /><br />
 </pre>
