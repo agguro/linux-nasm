@@ -1,0 +1,252 @@
+     1                                  ; Name        : colorselection.asm
+     2                                  ;
+     3                                  ; Build       : nasm -felf64 -o colorselection.o -l colorselection.lst colorselection.asm
+     4                                  ;               ld -s -m elf_x86_64 colorselection.o -o colorselection -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 -lgtk-3 -lgobject-2.0  -lglib-2.0 -lgdk_pixbuf-2.0 -lgdk-3
+     5                                  ;
+     6                                  ; Description : a color selection dialogbox
+     7                                  ;
+     8                                  ; C - source  : http://zetcode.com/tutorials/gtktutorial/gtkdialogs/
+     9                                  
+    10                                  %define DEBUG 0                         ; 0 = no debugging
+    11                                  
+    12                                  bits 64
+    13                                  
+    14                                  [list -]
+    58                                  
+    59                                       struc GdkColor
+    60 00000000 ????????                          .pixel:         resd      1
+    61 00000004 ????                              .red:           resw      1
+    62 00000006 ????                              .green:         resw      1
+    63 00000008 ????                              .blue:          resw      1
+    64                                       endstruc
+    65                                  
+    66                                  section .data
+    67                                       window:
+    68 00000000 0000000000000000             .handle:       dq   0
+    69 00000008 436F6C6F722053656C-          .title:        db   "Color Selection Dialog",0
+    69 00000011 656374696F6E204469-
+    69 0000001A 616C6F6700         
+    70                                  
+    71                                       signal:
+    72 0000001F 64657374726F7900             .destroy:      db   "destroy", 0
+    73 00000027 636C69636B656400             .clicked:      db   "clicked", 0
+    74                                  
+    75                                       label:
+    76 0000002F 0000000000000000             .handle:       dq   0
+    77 00000037 546869732069732074-          .caption:      db   "This is the demonstration text", 0
+    77 00000040 68652064656D6F6E73-
+    77 00000049 74726174696F6E2074-
+    77 00000052 65787400           
+    78                                       
+    79                                       box:
+    80 00000056 0000000000000000             .handle:       dq   0
+    81                                       
+    82                                       toolbar:
+    83 0000005E 0000000000000000             .handle:       dq   0
+    84                                  
+    85 00000066 0000000000000000             result:        dq   0
+    86                                       dialog:
+    87 0000006E 0000000000000000             .handle:       dq   0
+    88 00000076 53656C65637420436F-          .title:        db   "Select Color", 0
+    88 0000007F 6C6F7200           
+    89                                       
+    90 00000083 67746B2D73656C6563-          GTK_STOCK_SELECT_COLOR:  db   "gtk-select-color", 0
+    90 0000008C 742D636F6C6F7200   
+    91                                           
+    92 00000094 0000000000000000             colorsel:                dq   0
+    93                                       
+    94                                       color:    istruc GdkColor
+    95 0000009C 00000000                          at GdkColor.pixel,            dd   0
+    96 000000A0 0000                              at GdkColor.red,              dw   0
+    97 000000A2 0000                              at GdkColor.green,            dw   0
+    98 000000A4 0000                              at GdkColor.blue,             dw   0
+    99                                       iend
+   100                                       
+   101 000000A6 0000000000000000             .handle:                           dq   0
+   102 000000AE 25640A00                     format:  db "%d", 10, 0
+   103                                       
+   104                                  section .text
+   105                                          global _start
+   106                                  
+   107                                  _start:
+   108 00000000 4831F6                       xor       rsi, rsi                  ; argv
+   109 00000003 4831FF                       xor       rdi, rdi                  ; argc
+   110 00000006 E8(00000000)                 call      gtk_init
+   111                                      
+   112 0000000B BF00000000                   mov       rdi,GTK_WINDOW_TOPLEVEL
+   113 00000010 E8(00000000)                 call      gtk_window_new
+   114 00000015 48890425[00000000]           mov       qword[window], rax
+   115                                  
+   116 0000001D 488B3C25[00000000]           mov       rdi, QWORD[window]
+   117 00000025 BE01000000                   mov       rsi, GTK_WIN_POS_CENTER
+   118 0000002A E8(00000000)                 call      gtk_window_set_position
+   119                                  
+   120 0000002F 488B3C25[00000000]           mov       rdi, qword [window]
+   121 00000037 BEF4010000                   mov       rsi, 500
+   122 0000003C BAC8000000                   mov       rdx, 200
+   123 00000041 E8(00000000)                 call      gtk_window_set_default_size
+   124                                  
+   125                                       ; gtk_window_set_title
+   126 00000046 488B3C25[00000000]           mov       rdi, QWORD[window]
+   127 0000004E 48BE-                        mov       rsi, window.title
+   127 00000050 [0800000000000000] 
+   128 00000058 E8(00000000)                 call      gtk_window_set_title
+   129                                  
+   130 0000005D BF00000000                   mov       rdi, FALSE
+   131 00000062 BE00000000                   mov       rsi, 0
+   132 00000067 E8(00000000)                 call      gtk_vbox_new                      ; don't use gtk_vbox_new <- deprecated
+   133 0000006C 48890425[56000000]           mov       qword[box.handle], rax
+   134                                  
+   135 00000074 488B3C25[00000000]           mov       rdi, qword[window.handle]
+   136 0000007C 488B3425[56000000]           mov       rsi, qword[box.handle]
+   137 00000084 E8(00000000)                 call      gtk_container_add
+   138                                  
+   139 00000089 E8(00000000)                 call      gtk_toolbar_new
+   140 0000008E 48890425[5E000000]           mov       qword[toolbar.handle], rax
+   141                                  
+   142 00000096 488B3C25[5E000000]           mov       rdi, qword[toolbar.handle]
+   143 0000009E BE00000000                   mov       rsi, GTK_TOOLBAR_ICONS
+   144 000000A3 E8(00000000)                 call      gtk_toolbar_set_style
+   145                                  
+   146 000000A8 488B3C25[5E000000]           mov       rdi, qword[toolbar.handle]
+   147 000000B0 BE02000000                   mov       rsi, 2
+   148 000000B5 E8(00000000)                 call      gtk_container_set_border_width
+   149                                  
+   150 000000BA 48BF-                        mov       rdi, GTK_STOCK_SELECT_COLOR
+   150 000000BC [8300000000000000] 
+   151 000000C4 E8(00000000)                 call      gtk_tool_button_new_from_stock
+   152 000000C9 48890425[A6000000]           mov       qword[color.handle], rax
+   153                                  
+   154 000000D1 488B3C25[5E000000]           mov       rdi, qword[toolbar.handle]
+   155 000000D9 488B3425[A6000000]           mov       rsi, qword[color.handle]
+   156 000000E1 48C7C2FFFFFFFF               mov       rdx, -1
+   157 000000E8 E8(00000000)                 call      gtk_toolbar_insert
+   158                                  
+   159 000000ED 488B3C25[56000000]           mov       rdi, qword[box.handle]
+   160 000000F5 488B3425[5E000000]           mov       rsi, qword[toolbar.handle]
+   161 000000FD BA00000000                   mov       rdx, FALSE
+   162 00000102 B900000000                   mov       rcx, FALSE
+   163 00000107 41B805000000                 mov       r8d, 5
+   164 0000010D E8(00000000)                 call      gtk_box_pack_start
+   165                                  
+   166 00000112 48BF-                        mov       rdi, label.caption
+   166 00000114 [3700000000000000] 
+   167 0000011C E8(00000000)                 call      gtk_label_new
+   168 00000121 48890425[2F000000]           mov       qword[label.handle], rax
+   169                                  
+   170 00000129 488B3C25[2F000000]           mov       rdi, qword[label.handle]
+   171 00000131 BE02000000                   mov       rsi, GTK_JUSTIFY_CENTER
+   172 00000136 E8(00000000)                 call      gtk_label_set_justify
+   173                                  
+   174 0000013B 488B3C25[56000000]           mov       rdi, qword[box.handle]
+   175 00000143 488B3425[2F000000]           mov       rsi, qword[label.handle]
+   176 0000014B BA01000000                   mov       rdx, TRUE
+   177 00000150 B900000000                   mov       rcx, FALSE
+   178 00000155 41B805000000                 mov       r8, 5
+   179 0000015B E8(00000000)                 call      gtk_box_pack_start
+   180                                  
+   181 00000160 4531C9                       xor       r9d, r9d                             ; combination of GConnectFlags 
+   182 00000163 4531C0                       xor       r8d, r8d                             ; a GClosureNotify for data
+   183 00000166 488B0C25[2F000000]           mov       rcx, qword[label.handle]             ; pointer to the data to pass
+   184 0000016E 48BA-                        mov       rdx, select_color                    ; pointer to the handler
+   184 00000170 [E501000000000000] 
+   185 00000178 48BE-                        mov       rsi, signal.clicked                  ; pointer to the signal
+   185 0000017A [2700000000000000] 
+   186 00000182 488B3C25[A6000000]           mov       rdi, qword[color.handle]             ; pointer to the widget instance
+   187 0000018A E8(00000000)                 call      g_signal_connect_data                ; the value in RAX is the handler, but we don't store it now
+   188                                  
+   189 0000018F 4531C9                       xor       r9d, r9d                             ; combination of GConnectFlags 
+   190 00000192 4531C0                       xor       r8d, r8d                             ; a GClosureNotify for data
+   191 00000195 488B0C25[00000000]           mov       rcx, qword[window.handle]            ; pointer to the data to pass
+   192 0000019D 48BA-                        mov       rdx, gtk_main_quit      ; pointer to the handler
+   192 0000019F [0000000000000000] 
+   193 000001A7 48BE-                        mov       rsi, signal.destroy     ; pointer to the signal
+   193 000001A9 [1F00000000000000] 
+   194 000001B1 488B3C25[00000000]           mov       rdi, qword[window.handle]      ; pointer to the widget instance
+   195 000001B9 E8(00000000)                 call      g_signal_connect_data   ; the value in RAX is the handler, but we don't store it now
+   196                                  
+   197                                       ; we set the window modal
+   198 000001BE 488B3C25[00000000]           mov       rdi, qword [window.handle]
+   199 000001C6 E8(00000000)                 call      gtk_window_set_modal
+   200                                  
+   201 000001CB 488B3C25[00000000]           mov       rdi, qword [window.handle]
+   202 000001D3 E8(00000000)                 call      gtk_widget_show_all
+   203                                  
+   204 000001D8 E8(00000000)                 call      gtk_main
+   205                                  Exit:
+   206                                       ; to avoid the error message "(simplewindow:9051): Gtk-CRITICAL **: gtk_main_quit: assertion 'main_loops != NULL' failed"
+   207 000001DD 4831FF                       xor       rdi, rdi                ; we don't expect much errors now
+   208 000001E0 E8(00000000)                 call      exit
+   209                                  
+   210                                  select_color:     
+   211                                       ; RDI has GtkWidget *widget
+   212                                       ; RSI has gpointer label
+   213                                       ; create stackframe to prevent segmentation faults
+   214 000001E5 55                           push      rbp
+   215 000001E6 4889E5                       mov       rbp, rsp
+   216 000001E9 4989FE                       mov       r14, rdi
+   217 000001EC 4989F7                       mov       r15, rsi
+   218                                  
+   219 000001EF 48BF-                        mov       rdi, dialog.title
+   219 000001F1 [7600000000000000] 
+   220 000001F9 E8(00000000)                 call      gtk_color_selection_dialog_new
+   221 000001FE 48890425[6E000000]           mov       qword[dialog.handle], rax
+   222                                  
+   223                                           ; if we should leave next three lines we get : Gtk-Message: GtkDialog mapped without a transient parent. This is discouraged.
+   224 00000206 488B3C25[6E000000]           mov       rdi, qword[dialog.handle]
+   225 0000020E 488B3425[00000000]           mov       rsi, qword[window.handle]
+   226 00000216 E8(00000000)                 call      gtk_window_set_transient_for
+   227                                      
+   228 0000021B 488B3C25[6E000000]           mov       rdi, qword[dialog.handle]
+   229 00000223 E8(00000000)                 call      gtk_dialog_run
+   230 00000228 48890425[66000000]           mov       qword[result], rax
+   231                                  
+   232 00000230 83F8FB                       cmp       eax, GTK_RESPONSE_OK                         ; don't use RAX
+   233 00000233 7548                         jne       .exit
+   234                                  
+   235 00000235 488B3C25[6E000000]           mov       rdi, qword[dialog.handle]
+   236 0000023D E8(00000000)                 call      gtk_color_selection_dialog_get_color_selection
+   237 00000242 48890425[94000000]           mov       qword[colorsel], rax
+   238                                  
+   239 0000024A 488B3C25[94000000]           mov       rdi, qword[colorsel]
+   240 00000252 48BE-                        mov       rsi, color
+   240 00000254 [9C00000000000000] 
+   241 0000025C E8(00000000)                 call      gtk_color_selection_get_current_color
+   242                                  
+   243                                       ; debugging
+   244                                  %if DEBUG = 1    
+   245                                       mov       rdi, format
+   246                                       mov       esi, dword[color+GdkColor.pixel]
+   247                                       xor       rax, rax
+   248                                       call      g_print
+   249                                  
+   250                                       mov       rdi, format
+   251                                       xor       rsi, rsi
+   252                                       mov       si,  word[color+GdkColor.red]
+   253                                       xor       rax, rax
+   254                                       call      g_print
+   255                                  
+   256                                       mov       rdi, format
+   257                                       xor       rsi, rsi
+   258                                       mov       si,  word[color+GdkColor.green]
+   259                                       xor       rax, rax
+   260                                       call      g_print
+   261                                  
+   262                                       mov       rdi, format
+   263                                       xor       rsi, rsi
+   264                                       mov       si,  word[color+GdkColor.blue]
+   265                                       xor       rax, rax
+   266                                       call      g_print
+   267                                  %endif
+   268                                  
+   269 00000261 488B3C25[2F000000]           mov       rdi, qword[label.handle]                                     ; label pointer
+   270 00000269 BE00000000                   mov       rsi, GTK_STATE_NORMAL
+   271 0000026E 48BA-                        mov       rdx, color
+   271 00000270 [9C00000000000000] 
+   272 00000278 E8(00000000)                 call      gtk_widget_modify_fg
+   273                                  
+   274                                  .exit:
+   275 0000027D 488B3C25[6E000000]           mov       rdi, qword[dialog.handle]
+   276 00000285 E8(00000000)                 call      gtk_widget_destroy
+   277 0000028A C9                           leave
+   278 0000028B C3                           ret
