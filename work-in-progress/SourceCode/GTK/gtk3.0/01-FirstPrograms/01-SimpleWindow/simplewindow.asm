@@ -1,7 +1,7 @@
-;name        : simplewindow.asm
+;name : simplewindow.asm
 ;
-;build       : nasm -felf64 -o simplewindow.o -l simplewindow.lst simplewindow.asm
-;               ld -s -m elf_x86_64 simplewindow.o -o simplewindow --dynamic-linker -lc `pkg-config --libs gtk+-3.0`
+;build : nasm -felf64 -o simplewindow.o -l simplewindow.lst simplewindow.asm
+;        ld -s -m elf_x86_64 simplewindow.o -o simplewindow --dynamic-linker -lc `pkg-config --libs gtk+-3.0`
 ;
 ;description : a simple window with the basic functionalities and a title
 ;
@@ -14,6 +14,7 @@ bits 64
     %define   GTK_WIN_POS_CENTER    1
     %define   FALSE                 0
     %define   TRUE                  1
+    
     extern    gtk_init
     extern    gtk_main
     extern    gtk_main_quit

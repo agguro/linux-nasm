@@ -13,12 +13,11 @@ endstruc
 		at INT_STRUC.Get,	dq INTEGER_GET
 	iend
 	%define %1.value %1+INT_STRUC.value
-	%define %1.Get   INTEGER_GETMETHOD %1
+	%define %1.Get   INTEGER_GET %1
 
 	%macro INTEGER_GET %1
 		[section .text]
 		GETMETHOD:
-		int 3
 			mov		rdi,%1
 			mov		rax,qword[%1+INT_STRUC.value]
 			and		rax,rax
