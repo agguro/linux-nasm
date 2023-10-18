@@ -32,6 +32,7 @@ ENDSTRUC
     %endif
 
     ;define public methodes
+    %define %1.value        qword[SHORTINT_STRUC + SHORTINT_STRUC.value]
     %define %1.Set          SHORTINTSET %1
     %define %1.Get          SHORTINTGET %1
     %define %1.SetOnChanged SHORTINTONCHANGED %1
