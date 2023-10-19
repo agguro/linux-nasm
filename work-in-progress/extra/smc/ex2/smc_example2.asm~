@@ -1,0 +1,83 @@
+;name: smc_example2.asm
+;
+;build: 
+;
+;source: https://stackoverflow.com/questions/4812869/how-to-write-self-modifying-code-in-x86-assembly
+
+bits 64
+
+%include "unistd.inc"
+
+section .bss
+
+align 4096  ; page size on my machine. You can automate this process using
+            ; libc's getpagesize() to make it bit more portable, but hey!,
+            ; this is a minimum viable product!
+
+exec: resb 4096
+
+
+
+
+section .text
+
+    mprotectsuccess: db "mprotect output value 0", 0x0A
+    .len:   equ $-mprotectsuccess
+
+    mprotectfailure: db "mprotect failure, segfault", 0x0A
+    .len:   equ $-mprotectfailure
+
+global _start
+
+_start:
+    ; prologue
+    push rbp
+    mov  rbp, rsp
+
+    ; body
+    syscall mprotect,exec,0x2710,7
+    
+    ; call mprotect
+
+    ; print output from the mprotect function. If other than 0, the code will
+    ; segfault on `jmp rax`.
+    
+    and rax, rax
+    jz  .success
+.failure:
+    syscall write, stdout,mprotectfailure,mprotectfailure.len
+    jmp .continue                   ;run into trouble
+.success:
+    syscall write, stdout,mprotectsuccess,mprotectsuccess.len
+.continue:
+
+    ; the subroutine will move 0x45 to rax, the return to the address
+    ; in register r15
+
+    ; set the return address
+    mov  r15, back
+
+    ; rdi will be a counter that counts how many program bytes were written
+    xor rdi, rdi
+
+    ; 48 c7 c0 45 00 00 00      'mov rax, 0x45'
+
+    mov rax, 0x0000000045c0c748
+    mov qword [exec + rdi], rax
+    add rdi, 7
+
+    ; 41 ff e7              jmp    [r15]
+
+    mov eax, 0x00e7ff41
+    mov dword [exec + rdi], eax
+    add rdi, 3
+
+    mov rax, exec
+    jmp [rax]
+
+back:
+    ; epilogue
+    mov  rsp, rbp
+    pop  rbp
+    ret
+

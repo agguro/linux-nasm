@@ -7,7 +7,7 @@ char buffer [0x2000];
 void* bufferp;
 
 char* hola_mundo = "Hola mundo!";
-void (*_printf)(const char*,...);
+int (*_printf)(const char*,...);
 
 void hola()
 { 
@@ -18,11 +18,11 @@ int main ( void )
 {
     //Compute the start of the page
     bufferp = (void*)( ((unsigned long)buffer+0x1000) & 0xfffff000 );
-    if(mprotect(bufferp, 1024, PROT_READ|PROT_EXEC|PROT_WRITE))
+    /*if(mprotect(bufferp, 1024, PROT_READ|PROT_EXEC|PROT_WRITE))
     {
         printf("mprotect failed\n");
         return(1);
-    }
+    }*/
     //The printf function has to be called by an exact address
     _printf = printf;
 
@@ -34,3 +34,4 @@ int main ( void )
 
     return(0);
 }
+
