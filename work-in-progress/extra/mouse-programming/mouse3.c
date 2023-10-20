@@ -109,8 +109,7 @@ void create_windows(WIN my_windows[])
         set_win_params(&my_windows[2], nlines, ncols, 1, 2 + ncols);
 
         my_windows[3].p_win = newwin(nlines, ncols, 2 + nlines, 2 + ncols);
-        set_win_params(&my_windows[3], nlines, ncols, 2 + nlines, 2 +
-ncols);
+        set_win_params(&my_windows[3], nlines, ncols, 2 + nlines, 2 + ncols);
 }
 
 void set_win_params(WIN *win, int nlines, int ncols, int y, int x)

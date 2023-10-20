@@ -1,4 +1,4 @@
-
+TODO: determine length of larger strings
 
 section .data
     the_string: db "this",0," is a damn large string",0
@@ -14,7 +14,10 @@ pcmpeqb xmm4, [rdi]
 pmovmskb eax, xmm4
 test eax, eax                 ; ZF=0 if there are any set bits = any matches
 jnz .found_a_zero
+
     nop
+    ;TODO
+
 .found_a_zero:
     shr eax,1
     ret
