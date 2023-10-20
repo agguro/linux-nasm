@@ -19,9 +19,6 @@ align 4096  ; page size on my machine. You can automate this process using
 
 exec: resb 4096
 
-
-
-
 section .text
 
     mprotectsuccess: db "mprotect output value 0.", 0x0A
