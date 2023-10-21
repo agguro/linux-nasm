@@ -4,7 +4,7 @@
 .PHONY: shortcuts
 
 LIBNAME=shared
-LIBS=-lc `pkg-config --libs gtk+-3.0`
+LIBS=-lc -lglib-2.0
 VERSION=1.0.0
 O = .o
 SO = .so
@@ -22,15 +22,13 @@ $(LIBNAME)$(O) : $(LIBNAME)$(ASM)
 	nasm $(ASFLAGS) -o $(LIBNAME)$(O) $(LIBNAME)$(ASM)
 	
 release:
-	$(MAKE) lib$(LIBNAME)$(SO) ASFLAGS="-felf64" LDFLAGS="-melf_x86_64"
-	$(MAKE) shortcuts
+	$(MAKE) $(LIBS) lib$(LIBNAME)$(SO) ASFLAGS="-felf64" LDFLAGS="-melf_x86_64"
 
 debug:
-	$(MAKE) lib$(LIBNAME)$(SO) ASFLAGS="-felf64 -Fdwarf -g" LDFLAGS="-g -melf_x86_64"
-	$(MAKE) shortcuts
+	$(MAKE) $(LIBS) lib$(LIBNAME)$(SO) ASFLAGS="-felf64 -Fdwarf -g" LDFLAGS="-g -melf_x86_64"
 	
 clean:
-	rm -f *$(O) lib$(LIBNAME).* *$(LST)
+	rm -f *$(O) lib$(LIBNAME).* *$(LST)  gmon.out
 
 shortcuts:
 	ln -sf lib$(LIBNAME)$(SO).$(VERSION) lib$(LIBNAME)$(SO)

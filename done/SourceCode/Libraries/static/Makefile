@@ -26,4 +26,4 @@ debug:
 	$(MAKE) lib$(LIBNAME)$(ARCH) ASFLAGS="-felf64 -Fdwarf -g" LDFLAGS="-g -melf_x86_64" AROPT="rcs"
 
 clean:
-	rm -f lib$(LIBNAME)$(ARCH) $(LIBNAME)$(LST) $(LIBNAME)$(O) *$(LST)
+	rm -f lib$(LIBNAME)$(ARCH) $(LIBNAME)$(LST) $(LIBNAME)$(O) *$(LST) gmon.out

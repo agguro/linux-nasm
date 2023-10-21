@@ -103,8 +103,8 @@ _start:
 
 ;a global function to get the version number returned in rax
 _proc getversion
-    ;two ways to get the external vaiable
-    ;first if it's stored in the datasegment, but this is a long approach
+    ;two ways to get the external variable
+    ;first if it's stored in the datasegment
     mov     rax,major_version wrt ..gotoff                  ;get offset to GOT
     add     rax,rbx                                         ;add GOT to get the address to the addres of the variable
     mov     rax,[rax]                                       ;get the address of the variable
@@ -125,7 +125,11 @@ _endp
 _proc printversionstring1
     mov     rdi,[rbx + versionstring1 wrt ..got]            ;the adress to the version string
     xor     rax,rax                                         ;in .data section of using program
+    push    rbp
+    mov     rbp, rsp
     call    printf wrt ..plt
+    mov     rsp, rbp
+    pop     rbp
 _endp
 
 ;versionstring2 isn't declared global, it will reside in the data section of the library rather
@@ -140,5 +144,9 @@ _proc printversionstring2
     mov     rdi,versionstring2 wrt ..gotoff                 ;the adress to the version string
     add     rdi,rbx                                         ;in .data section of library
     xor     rax,rax
+    push    rbp
+    mov     rbp, rsp
     call    printf wrt ..plt
+    mov     rsp, rbp
+    pop     rbp
 _endp

@@ -1,6 +1,6 @@
 <pre>
 <?php
-    $files = array("congruentialprng.asm","Makefile");
+    $files = array("static.asm","Makefile");
     foreach ($files as $file){
         ?>
 <b><?php echo $file; ?></b><br />
@@ -8,5 +8,4 @@
 <br />
 <?php
 } ?>
-
 </pre>
