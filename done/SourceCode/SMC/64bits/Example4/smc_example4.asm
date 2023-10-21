@@ -1,7 +1,7 @@
-;name: smc_example2.asm
+;name: smc_example4.asm
 ;
-;build: /usr/bin/nasm -felf64 -Fdwarf -o smc_example2.o smc_example2.asm
-;       ld -melf_x86_64 -g -o smc_example2 smc_example2.o
+;build: /usr/bin/nasm -felf64 -Fdwarf -o smc_example4.o smc_example4.asm
+;       ld -melf_x86_64 -g -o smc_example4 smc_example4.o
 ;
 ;source: https://stackoverflow.com/questions/4812869/how-to-write-self-modifying-code-in-x86-assembly
 ;        [CasseroleBoi]

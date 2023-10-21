@@ -34,10 +34,6 @@ align 4
     
     endless_loop:       db  "No endless loop here!", 10
     .len:               equ $-endless_loop
-    hello_world_1:      db  "Hello World!", 10
-    .len:               equ $-hello_world_1
-    hello_world_2:      db  "This code was modified!", 10
-    .len:               equ $-hello_world_2
 
     mprotecterror:      db  "syscall mprotect error", 10
     .len:               equ $-mprotecterror

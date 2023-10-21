@@ -1,4 +1,4 @@
-BIN=smc_example3
+BIN=smc_example4
 
 NASM=/usr/bin/nasm
 NASMOPTS=-felf64 -Fdwarf
