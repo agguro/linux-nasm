@@ -1,7 +1,7 @@
-;name: smc_example2.asm
+;name: smc_example1.asm
 ;
-;build: /usr/bin/nasm -felf64 -Fdwarf -o smc_example2.o smc_example2.asm
-;       ld -melf_x86_64 -g -o smc_example2 smc_example2.o
+;build: /usr/bin/nasm -felf64 -Fdwarf -o smc_example1.o smc_example1.asm
+;       ld -melf_x86_64 -g -o smc_example1 smc_example1.o
 ;
 ;source: https://asm.sourceforge.net/articles/smc.html
 ;        Using self modifying code under Linux
