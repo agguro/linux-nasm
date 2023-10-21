@@ -236,5 +236,11 @@ button_pressed:
      mov       rdx, r12                                     ; pointer to string
      call      gtk_statusbar_push
      
+     mov        rsp,rbp
+     pop        rbp
+     ret
+     
+     
+     
      leave
      ret

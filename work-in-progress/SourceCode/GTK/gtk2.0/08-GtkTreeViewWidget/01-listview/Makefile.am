@@ -1,6 +1,6 @@
 NASM = /usr/bin/nasm
 LD   = /usr/bin/ld
-bin_PROGRAMS = version
+bin_PROGRAMS = listview
 version_NASMFLAGS = @PACKAGE_NASMFLAGS@
 version_LDFLAGS = @PACKAGE_LDFLAGS@
 version_LIBS = @PACKAGE_LIBS@

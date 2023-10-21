@@ -51,7 +51,7 @@ section .data
 	image:			dq	0
 	szDestroy:		db	"destroy",0
 	szTitle:		db	"Red Rock",0
-	szImageFile:	db	"/home/agguro/Nasm/source/gtk3.0/07-widgets-II/redrock.jpg",0
+	szImageFile:	db	"./redrock.jpg",0
 	
 section .text
      global _start

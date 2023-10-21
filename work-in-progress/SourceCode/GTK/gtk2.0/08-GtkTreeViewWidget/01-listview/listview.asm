@@ -158,7 +158,6 @@ _start:
     call    gtk_tree_view_get_selection
     mov     qword[selection],rax
 
-section .text
     ;connect the changed signal to on_changed event handler
     xor     r9d,r9d                    ; combination of GConnectFlags 
     xor     r8d,r8d                    ; a GClosureNotify for data
