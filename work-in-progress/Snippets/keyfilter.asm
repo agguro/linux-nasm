@@ -1,16 +1,6 @@
-;name: keyboard.asm
-;
-;description:
-;
-
-bits 64
-
-section .text
-
 ;name: keyfilter.asm
 ;
 ;description: The program displays the ASCII code in hexadecimal of the pressed key.
-;
 ;
 ;build: nasm -felf64 keyfilter.asm -o keyfilter.o
 ;       ld -melf_x86_64 keyfilter.o -o keyfilter
