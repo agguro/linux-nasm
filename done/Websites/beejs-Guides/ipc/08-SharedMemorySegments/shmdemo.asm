@@ -53,7 +53,7 @@ section .rodata
     msgReadFrom:    db  "segment contains   : "
     .length:        equ $-msgReadFrom
     eol:            db  10
-    filename:       db  "shmdemo",0
+    filename:       db  "./shmdemo",0
 
 section .data
 

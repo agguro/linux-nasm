@@ -79,6 +79,8 @@ _start:
     mov     al, byte[buf]
     and     al, 0b11011111
     mov     byte[buf], al
+    
+    
     syscall write, qword[sv.1], buf, 1
     syscall write, stdout, child.send, child.send.len
     syscall write, stdout, buf, 1

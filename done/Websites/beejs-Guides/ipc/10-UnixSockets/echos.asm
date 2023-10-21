@@ -1,7 +1,7 @@
 ;name:         echos.asm
 ;
 ;build:        nasm "-felf64" echos.asm -l echos.lst -o echos.o
-;               ld -s -melf_x86_64 -o echos echos.o 
+;              ld -s -melf_x86_64 -o echos echos.o 
 ;
 ;description:  Demonstration on linux sockets based on an example from Beej's Guide to IPC.
 ;              This is the echo server program which must start before echo client starts(logic)
@@ -14,7 +14,8 @@ bits 64
 [list -]
     %include "unistd.inc"
     %include "signals.inc"
-    %include "asm-generic/socket.inc"       
+    %include "asm-generic/socket.inc"
+    %include "sys/fcntl.inc"
 [list +]
 
 section .bss
@@ -30,15 +31,6 @@ section .bss
 
 section .rodata
 
-    ;sun socket:
-    local:
-    .sun_family:    dw    1
-    .sun_path:      db    "echo_socket",0
-    .len:           equ   $-local
-    remote:         
-    .sun_family:    dw    1
-    .sun_path:      db    "echo_socket",0
-    .len:           equ   $-remote
     msg:
     .socket:        db  "error: socket",10
     .socket.len:    equ $-msg.socket
@@ -60,11 +52,22 @@ section .rodata
 section .data
 
     SIGACTION   sigaction
-
+    ;sun socket:
+    local:
+    .sun_family:    dw    1
+    .sun_path:      db    "echo_socket",0
+    .len:           equ   $-local
+    remote:         
+    .sun_family:    dw    1
+    .sun_path:      db    "echo_socket",0
+    .len:           equ   $-remote
       
 section .text
     global _start:
 _start:
+    ;sometimes I've a problem creating the socket, perhaps putyting it in a loop and
+    ;try an certain amount of tries can resolve this.
+    syscall mknod,local.sun_path,S_IFIFO | S_IRUSR | S_IWUSR,0   
     ; create socket
     syscall socket,PF_LOCAL,SOCK_STREAM,0           ;AF_UNIX is the posix name, same as PF_LOCAL
     mov     qword[s],rax                            ;save socket
@@ -121,7 +124,9 @@ _start:
     jne     .@7
     ;close socket 2
     syscall close,qword[s2]
+    
 .@7:
+    syscall write,stdout,buffer,buffer.len
     mov     rax,qword[n]
     and     rax,rax
     jg      .@8
@@ -145,5 +150,3 @@ _start:
     jz      .@6
     syscall close,qword[s2]
     jmp     .@4
-    
-    syscall exit,0

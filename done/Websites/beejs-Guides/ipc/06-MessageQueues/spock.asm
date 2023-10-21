@@ -27,7 +27,7 @@ struc MSG_BUF
 endstruc
 
 section .rodata
-     path_to_file:       db   "../demofile", 0
+     path_to_file:       db   "./kirk", 0
      proj_id:            db   "B"
      msg:                db   "Spock: Ready to receive messages, captain.", 10
      .length:            equ  $-msg

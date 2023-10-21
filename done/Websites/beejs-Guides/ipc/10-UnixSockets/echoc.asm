@@ -29,11 +29,7 @@ section .bss
 
 section .rodata
 
-    ;sun socket:
-    remote:
-    .sun_family:        dw    0
-    .sun_path:          db    "echo_socket",0
-    .len:               equ   $-remote
+
     msg:
     .socket:            db  "error: socket",10
     .socket.len:        equ $-msg.socket
@@ -61,14 +57,19 @@ section .rodata
 section .data
 
     SIGACTION   sigaction
-
+    ;sun socket:
+    remote:
+    .sun_family:        dw    1
+    .sun_path:          db    "echo_socket",0
+    .len:               equ   $-remote
+    
 section .text
 
 global _start:
 _start:
        
     ; create socket
-    syscall socket,PF_LOCAL,SOCK_STREAM,0               ;AF_UNIX is the posix name, same as PF_LOCAL
+    syscall socket,PF_LOCAL,PF_LOCAL,SOCK_STREAM,0       ;AF_UNIX is the posix name, same as PF_LOCAL
     mov     qword[s],rax                                ;save socket
     and     rax,rax
     jns     .@1                                         ;if rax<0 then msg
