@@ -1,8 +1,9 @@
-BIN=arguments
+BIN=httpserver
 
 NASM=/usr/bin/nasm
-NASMOPTS=-felf64 -Fdwarf
-LDOPS=-melf_x86_64 -g
+NASMOPTS=-felf64
+LDOPS=-melf_x86_64 --dynamic-linker /lib64/ld-linux-x86-64.so.2
+LIBS=-lc `pkg-config --libs openssl`
 
 all: $(BIN)
 

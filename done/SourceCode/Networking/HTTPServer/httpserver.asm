@@ -21,10 +21,11 @@
 ;               in terminal.
 ;               To terminate this program either use kill [pid] or ctrl-C.
 ;
-; notes about google chrome : if the content-length isn't correct it hangs
-;                             use firefox (matters less) to see the real content-length
+;notes about google chrome : if the content-length isn't correct it hangs
+;                            use firefox (matters less) to see the real content-length
 
 bits 64
+
 [list -]
 	%include "unistd.inc"
 	%include "sys/wait.inc"

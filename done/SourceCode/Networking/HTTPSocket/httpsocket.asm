@@ -1,7 +1,7 @@
-;name:          sockettest.asm
+;name: httpsocket.asm
 ;
-;build:         nasm -felf64 sockettest.asm -l sockettest.lst -o sockettest.o
-;               ld -s -melf_x86_64 -o sockettest sockettest.o 
+;build: nasm -felf64 httpsocket.asm -l httpsocket.lst -o httpsocket.o
+;       ld -s -melf_x86_64 -o httpsocket httpsocket.o 
 ;
 ;description: Testprogram to connect to localhost:4444 and interact with several server examples.
 ;             (Like HTTP,FTP,... own build servers like httpserver example.)
@@ -9,6 +9,7 @@
 ;             use it as it suits you or not at all.
 
 bits 64
+
 [list -]
     %include "unistd.inc"
     %include "asm-generic/socket.inc"

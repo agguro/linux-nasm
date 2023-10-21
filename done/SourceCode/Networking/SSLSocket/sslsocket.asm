@@ -1,7 +1,10 @@
-;name:          sslsocket.asm
-;build:         nasm -felf64 sslsockettest.asm -l sslsockettest.lst -o sslsockettest.o
-;               ld -melf_x86_64 -g --dynamic-linker /lib64/ld-linux-x86-64.so.2 -o sslsockettest sslsockettest.o `pkg-config --libs openssl`
-;description:   this program is a convertion to assembly language of a C program from the internet.  I forgot the origin.
+;name: sslsocket.asm
+;
+;build: nasm -felf64 sslsockettest.asm -l sslsockettest.lst -o sslsockettest.o
+;
+;       ld -melf_x86_64 -g --dynamic-linker /lib64/ld-linux-x86-64.so.2 -o sslsockettest sslsockettest.o `pkg-config --libs openssl`
+;
+;description: this program is a convertion to assembly language of a C program from the internet.  I forgot the origin.
 
 bits 64
 
