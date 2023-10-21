@@ -1,8 +1,8 @@
-BIN=smc_example1
+BIN=smc_example2
 
 NASM=/usr/bin/nasm
-NASMOPTS=-felf64
-LDOPS=-m elf_x86_64
+NASMOPTS=-felf32
+LDOPS=-m elf_i386
 
 all: $(BIN)
 
