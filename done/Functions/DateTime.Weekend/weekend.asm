@@ -3,7 +3,7 @@
 ;build: nasm -felf64 weekend.asm -o weekend.o
 ;
 ;description: determine whether a day is a weekend day or not. 
-
+;
 ;
 ; day         nr   binary in al  al <- al + 2  al <- al >> 4
 ; ----------  ---  ------------  ------------  -------------
