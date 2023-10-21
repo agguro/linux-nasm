@@ -1,11 +1,12 @@
-;name: congruentialrng.asm
+;name: congruentialprng.asm
 ;
 ;description: Create pseudo random number x in an interval [a,b] using the 
 ;             congruential pseudo random generator from George Marsaglia.
-;             http://school.anhb.uwa.edu.au/personalpages/kwessen/shared/Marsaglia03.html
 ;
-;build: nasm -felf64 congruentialrng.asm -o congruentialrng.o
-;       ld -melf_x86_64 -o congruentialrng congruentialrng.o
+;build: nasm -felf64 congruentialprng.asm -o congruentialprng.o
+;       ld -melf_x86_64 -o congruentialprng congruentialprng.o
+;
+;source: http://school.anhb.uwa.edu.au/personalpages/kwessen/shared/Marsaglia03.html
 
 bits 64
 

@@ -1,32 +1,14 @@
 ;name: xorshift.asm
 ;
 ;description: Create pseudo random number x in an interval [a,b] using the
-;             XorShift pseudo random generator from George Marsaglia
-;             http://en.wikipedia.org/wiki/Xorshift
-;             at the end a list of generated numbers is shown
+;             XorShift pseudo random generator from George Marsaglia.
 ;
 ;build: nasm -felf64 -Fdwarf -o xorshift.o xorshift.asm
 ;       ld -melf_x86_64 -g -o xorshift xorshift.o
 ;
-;example output:
-;3,1,9,8,2,9,9,5,3,1,6,5,9,3,2,8,7,4,4,1,2,4,6,6,6,3,8,3,8,7,9,
-;4,3,4,6,6,5,2,4,1,6,5,8,3,1,3,4,9,6,4,4,4,5,4,8,8,9,5,5,8,2,9,
-;3,2,4,2,4,8,1,9,8,2,5,6,3,8,7,5,9,9,7,3,9,3,3,3,3,2,3,7,3,5,7,
-;4,9,9,5,8,7,2,2,6,3,3,9,8,9,7,9,2,1,8,8,9,5,9,7,8,6,5,4,8,4,2,
-;2,7,7,3,9,5,3,8,5,6,4,5,5,9,3,5,4,3,4,3,8,8,2,2,8,2,5,9,3,4,4,
-;1,1,9,6,8,1,8,3,8,7,6,9,2,4,5,1,6,5,3,3,9,3,2,3,9,2,4,1,5,7,3,
-;1,1,7,2,5,2,8,4,5,1,5,5,4,8,5,1,3,4,5,2,7,9,2,7,1,9,8,7,6,6,2,
-;1,7,8,3,8,5,4,7,8,7,1,5,7,1,2,6,7,6,8,7,6,9,4,2,4,1,2,3,9,9,2,
-;1,3,1,8,8,3,8
-;number of generated 1's : 23
-;number of generated 2's : 29
-;number of generated 3's : 36
-;number of generated 4's : 29
-;number of generated 5's : 30
-;number of generated 6's : 20
-;number of generated 7's : 23
-;number of generated 8's : 34
-;number of generated 9's : 31
+;source: http://en.wikipedia.org/wiki/Xorshift
+;
+;remark: produced numbers and count for each is displayed to stdout
 
 bits 64
 

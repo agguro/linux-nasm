@@ -2,14 +2,14 @@
 ;
 ;description: Mersenne twister algorithm to generate 32 bits unsigned integers.
 ;
-;source: http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/emt.html
-;        http://en.wikipedia.org/wiki/Mersenne_twister
+;build: nasm -felf64 MT19937-32.asm -o MT19937-32.o
+;       ld -melf_x86_64 -o MT19937-32 MT19937-32.o
 ;
 ;remarks: The routine GenerateNumbers can be called ,the Initialize subroutine does this
 ;         before returning to the caller,in case the user forgets it.
 ;
-;build: nasm -felf64 MT19937-32.asm -o MT19937-32.o
-;       ld -melf_x86_64 -o MT19937-32 MT19937-32.o
+;source: http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/emt.html
+;        http://en.wikipedia.org/wiki/Mersenne_twister
 
 bits 64
 

@@ -1,4 +1,4 @@
-BIN=arguments
+BIN=MT19937-32
 
 NASM=/usr/bin/nasm
 NASMOPTS=-felf64 -Fdwarf
