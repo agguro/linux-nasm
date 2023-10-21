@@ -1,6 +1,6 @@
 <pre>
 <?php
-    $files = array("sslsocket.asm","sslsocket.inc","Makefile");
+    $files = array("httpserver.asm","Makefile");
     foreach ($files as $file){
         ?>
 <b><?php echo $file; ?></b><br />
