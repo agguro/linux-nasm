@@ -35,4 +35,4 @@ debug:
 	make $(NAME) ASFLAGS="-felf64 -Fdwarf -g -l $(NAME)$(LST) -DDEBUG" LDFLAGS="-g -melf_x86_64"
 
 clean:
-	@rm -f $(NAME) $(NAME)$(LST) $(NAME)$(O)
+	@rm -f $(NAME) $(NAME)$(LST) *.$(O)
