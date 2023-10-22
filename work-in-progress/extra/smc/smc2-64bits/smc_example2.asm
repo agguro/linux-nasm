@@ -74,54 +74,6 @@ smc_start:
 
 	;execute unmodified code first
 	
-code1:
-    .start:
-        mov	dword ecx, hello_world_1
-    .mark_1:
-        mov	dword edx, hello_world_1.len
-    .mark_2:
-        syscall write, stdout
-    .end:
-    .len:   equ $-code1
-    
-	;copy code snippet from above to our page (address is still in ebp)
-
-	mov	dword ecx, code1.len
-	mov	dword esi, code1.start
-	mov	dword edi, ebp
-	cld
-	rep movsb
-
-	;append 'ret' opcode to it, so that we can do a call to it
-
-	mov	byte  al, [return]
-	stosb
-
-	;change start address and length of the text in the copied code
-
-	mov	dword eax, hello_world_2
-	mov	dword ebx, (code1.mark_1 - code1.start)
-	mov	dword [ebx + ebp - 4], eax
-	mov	dword eax, hello_world_2.len
-	mov	dword ebx, (code1.mark_2 - code1.start)
-	mov	dword [ebx + ebp - 4], eax
-
-	;finally call it
-
-	call	dword ebp
-    syscall exit,0
-
-smc_error:
-    ;added to source
-    syscall write,stdout,mprotecterror,mprotecterror.len
-    syscall exit,1
-        
-return:
-	ret
-	
-%ifdef continue
-;copy second example
-
 	mov	dword ecx, code2.len
 	mov	dword esi, code2.start
 	mov	dword edi, ebp

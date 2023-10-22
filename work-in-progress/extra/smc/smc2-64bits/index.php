@@ -1,6 +1,6 @@
 <pre>
 <?php
-    $files = array("smc_example1.asm","Makefile");
+    $files = array("smc_example2.asm","Makefile");
     foreach ($files as $file){
         ?>
 <b><?php echo $file; ?></b><br />
