@@ -1,12 +1,12 @@
-; name : avx512_addArrays.asm
+;name : avx512_addArrays.asm
 ;
-; description : add 2 arrays with AVX512 instructions
+;description : add 2 arrays with AVX512 instructions
 ;
-; assemble : nasm -felf64 -Fdwarf -o avx512_addArrays.o avx512_addArrays.asm
+;build : nasm -felf64 -Fdwarf -o avx512_addArrays.o avx512_addArrays.asm
 ;
-; C calling : extern "C" void avx512_addArrays(float dest[], float arr1[], float arr2[]);
+;C calling : extern "C" void avx512_addArrays(float dest[], float arr1[], float arr2[]);
 ;
-; source : https://www.physicsforums.com/insights/an-intro-to-avx-512-assembly-programming/
+;source : https://www.physicsforums.com/insights/an-intro-to-avx-512-assembly-programming/
 
 bits 64
 
@@ -24,12 +24,12 @@ avx512_addArrays:
     ; rdi : pointer to dest
     ; rsi : pointer to array1
     ; rdx : pointer to array2
-   
+
     vzeroall
-    vmovaps     zmm0, zword [rsi]           ; Load the first source array
-    vmovaps     zmm1, zword [rdx]           ; Load the second source array
-    vaddps      zmm2, zmm0, zmm1            ; Add the two arrays
-    vmovaps     zword [rdi], zmm2           ; Store the array sum
+    vmovaps zmm0, zword [rsi]           ; Load the first source array
+    vmovaps zmm1, zword [rdx]           ; Load the second source array
+    vaddps  zmm2, zmm0, zmm1            ; Add the two arrays
+    vmovaps zword [rdi], zmm2           ; Store the array sum
 
     mov     rsp, rbp
     pop     rbp
