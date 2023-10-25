@@ -1,9 +1,12 @@
-// avx_addArrays - Use AVX instructions to add two arrays.
-// main.cpp
-//
-// g++ -g -c -pipe -no-pie -O2 -std=gnu++1z -Wall -Wextra -fPIC -o main.o main.cpp
-// nasm -felf64 -g -Fdwarf -o avx_addArrays.o avx_addArrays.asm
-// g++ -no-pie -o avx_addArrays main.o avx_addArrays.o
+/* avx_addArrays - Use AVX instructions to add two arrays.
+*
+* main.cpp
+*
+* g++ -g -c -pipe -no-pie -O2 -std=gnu++1z -Wall -Wextra -fPIC -o main.o main.cpp
+* nasm -felf64 -g -Fdwarf -o avx_addArrays.o avx_addArrays.asm
+* g++ -no-pie -o avx_addArrays main.o avx_addArrays.o
+*
+*/
 
 #include <iostream>
 
@@ -28,16 +31,16 @@ float array2[] __attribute__((aligned(16))) =   // Second source array
 float dest[4] __attribute__((aligned(16)));     // Destination arrayµ
 
 int main() {
-	
-	avx_addArrays(dest, array1, array2);        // Call the assembly routine
+
+    avx_addArrays(dest, array1, array2);        // Call the assembly routine
     printArray(dest, 4);
 }
 
 void printArray(float arr[], int count)
 {
-	for (int i = 0; i < count; i++)
-	{
-		cout << arr[i] << '\t';
-	}
-	cout << endl;
+    for (int i = 0; i < count; i++)
+    {
+        cout << arr[i] << '\t';
+    }
+    cout << endl;
 }
