@@ -1,10 +1,10 @@
-; name        : avx_addArrays.asm
+;name        : avx_addArrays.asm
 ;
-; description : add 2 arrays with AVX instructions
+;description : add 2 arrays with AVX instructions
 ;
-; build       : nasm -felf64 -Fdwarf -o avx_addArrays.o avx_addArrays.asm 
+;build       : nasm -felf64 -Fdwarf -o avx_addArrays.o avx_addArrays.asm
 ;
-; C calling   : extern "C" void avx_addArrays(float dest[], float arr1[], float arr2[]);
+;C calling   : extern "C" void avx_addArrays(float dest[], float arr1[], float arr2[]);
 
 bits 64
 

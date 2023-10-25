@@ -1,11 +1,11 @@
-/* avx_addArrays - Use AVX instructions to add two arrays.
+/*
+* avx_addArrays - Use AVX instructions to add two arrays.
 *
 * main.cpp
 *
 * g++ -g -c -pipe -no-pie -O2 -std=gnu++1z -Wall -Wextra -fPIC -o main.o main.cpp
 * nasm -felf64 -g -Fdwarf -o avx_addArrays.o avx_addArrays.asm
 * g++ -no-pie -o avx_addArrays main.o avx_addArrays.o
-*
 */
 
 #include <iostream>
