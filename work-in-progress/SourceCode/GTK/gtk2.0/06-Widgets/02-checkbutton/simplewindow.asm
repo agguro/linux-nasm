@@ -36,18 +36,15 @@ _start:
     xor     rdi,rdi                 
     xor     rsi,rsi
     call    gtk_init
-
     ;if initialization doesn't succeed then the application
     ;terminates.  If that is unwanted behaviour then we need
     ;to use gtk_init_check instead.
     ;https://developer.gnome.org/gtk2/stable/gtk2-General.html#gtk-init
-
     ;create a new window
     mov     rdi,GTK_WINDOW_TOPLEVEL
     call    gtk_window_new
     mov     qword[window],rax
-    
-;set the title
+    ;set the title
     mov     rdi,rax
     mov     rsi,szTitle
     call    gtk_window_set_title
