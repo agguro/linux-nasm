@@ -1,41 +1,52 @@
-# database configuration files
+# Prerequisites
+*.d
 
-database.conf
-
-# C++ objects and libs
-
-*.slo
-*.lo
+# Object files
 *.o
+*.ko
+*.obj
+*.elf
+
+# Linker output
+*.ilk
+*.map
+*.exp
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
 *.a
 *.la
-*.lai
-*.so
+*.lo
+
+# Shared objects (inc. Windows DLLs)
 *.dll
+*.so
+*.so.*
 *.dylib
 
-# Qt-es
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
 
-/.qmake.cache
-/.qmake.stash
-*.pro.user
-*.pro.user.*
-*.qbs.user
-*.qbs.user.*
-*.moc
-moc_*.cpp
-qrc_*.cpp
-ui_*.h
-*build-*
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
 
-# QtCreator
-
-*.autosave
-
-# QtCtreator Qml
-*.qmlproject.user
-*.qmlproject.user.*
-
-# QtCtreator CMake
-CMakeLists.txt.user
-
+# Kernel Module Compile Results
+*.mod*
+*.cmd
+.tmp_versions/
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
