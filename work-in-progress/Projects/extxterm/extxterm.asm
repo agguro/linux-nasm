@@ -8,7 +8,7 @@ bits 64
 
 %include "../extxterm/extxterm.inc"
 
-global main
+global _start
 
 section .bss
 ;uninitialized read-write data 
@@ -70,7 +70,7 @@ section .rodata
     .len:           equ     $-stdoutmsg
 section .text
 
-main:
+_start:
     ;create a FIFO file to communicate with the terminal to get the tty of it.
     ;once we got it, we can delete it and communication continues over the
     ;tty device.
