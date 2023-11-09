@@ -1,6 +1,6 @@
 <pre>
 <?php
-    $files = array("libmodulo97.asm","mod97template.asm","bebankacc.asm","bedrvlic.asm","beidcard.asm","bern.asm","besiscard.asm","bevatnr.asm","structmsg.asm","Makefile");
+    $files = array("libmodulo97.asm","mod97template.asm","bebankacc.asm","bedrvrlic.asm","beidcard.asm","berrn.asm","besiscard.asm","bevatnr.asm","structmsg.asm","Makefile");
     foreach ($files as $file){
         ?>
 <b><?php echo $file; ?></b><br />
