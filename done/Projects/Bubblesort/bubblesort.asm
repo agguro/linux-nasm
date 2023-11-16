@@ -5,9 +5,13 @@
 ;              optimization step.
 ;              source : https://en.wikipedia.org/wiki/Bubble_sort
 ;
-;build:        nasm "-felf64" bubblesort.asm -l bubblesort.lst -o bubblesort.o
+;build:        ;O : [default] no optimization
+;              nasm -felf64 -dOPTIMIZE_STEP=0 bubblesort.asm -l bubblesort.lst -o bubblesort.o
+;build:        ;1 : n-th pass finds the n-th largest elements
+;              nasm -felf64 -dOPTIMIZE_STEP=1 bubblesort.asm -l bubblesort.lst -o bubblesort.o
+;build:        ;2 : no check after last swap
+;              nasm -felf64 -dOPTIMIZE_STEP=2 bubblesort.asm -l bubblesort.lst -o bubblesort.o
 ;              ld -s -melf_x86_64 -o bubblesort bubblesort.o
-
 
 bits 64
 
@@ -20,7 +24,10 @@ bits 64
 ; 1 : n-th pass finds the n-th largest elements
 ; 2 : no check after last swap
 
-%define OPTIMIZE_STEP 2
+%ifndef OPTIMIZE_STEP
+   %define OPTIMIZE_STEP 0
+   %warning "build defaults to 'no optimization'"
+%endif
 
 %define TRUE      1
 %define FALSE     0
@@ -38,6 +45,7 @@ bits 64
 %endmacro
 
 section .bss
+
 ; 64 bit integers have a range of -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
 ; both included, so we need a buffer of 20 bytes at least to store them
 Buffer:
@@ -59,10 +67,10 @@ section .data
     opt0:          STRING    {"Optimization step: no optimization",10}
 %endif
 %if OPTIMIZE_STEP == 1
-    opt1:          STRING    {"Optimization step: n-th pass finds the n-th largest elements",10}
+    opt0:          STRING    {"Optimization step: n-th pass finds the n-th largest elements",10}
 %endif
 %if OPTIMIZE_STEP == 2
-    opt2:          STRING    {"Optimization step: no check after last swap",10}
+    opt0:          STRING    {"Optimization step: no check after last swap",10}
 %endif
 
     unsorted:      STRING    {"The UNSORTED array:",10,"-------------------",10}
@@ -89,21 +97,9 @@ _start:
     mov       rdx, title.length
     call      Print.string
 
-    %if OPTIMIZE_STEP == 0
-         mov       rsi, opt0
-         mov       rdx, opt0.length
-         call      Print.string
-    %endif
-    %if OPTIMIZE_STEP == 1
-         mov       rsi, opt1
-         mov       rdx, opt1.length
-         call      Print.string
-    %endif
-    %if OPTIMIZE_STEP == 2
-         mov       rsi, opt2
-         mov       rdx, opt2.length
-         call      Print.string
-    %endif 
+    mov       rsi, opt0
+    mov       rdx, opt0.length
+    call      Print.string
 
 ; display the unsorted Array on screen
     mov       rsi, unsorted

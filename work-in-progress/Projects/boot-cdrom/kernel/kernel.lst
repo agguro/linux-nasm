@@ -111,7 +111,7 @@
     28                                       ;call      Print
     29                                       
     30                                       ; load file from cd
-    31 00000021 BE[8000]                     mov       si, pem1
+    31 00000021 BE[9200]                     mov       si, pem3
     32 00000024 E8E701                       call      LoadFile     
     33 00000027 7205                         jc        NotFound                 ; file wasn't found, so not loaded and will not be executed
     34 00000029 E8D502                       call      Execute

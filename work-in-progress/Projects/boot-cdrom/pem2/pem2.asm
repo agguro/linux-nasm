@@ -10,7 +10,7 @@ BITS    16
 retf
       
 ; ---------------------------
-msg1: db      'Hola mi hombre', 13, 10, 0
+msg1: db      'PEM2 test demo', 13, 10, 0
 ; ---------------------------
 ; IN (bl,ds:si) OUT ()
 WriteStringWithAttributeMode19:
