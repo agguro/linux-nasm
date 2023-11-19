@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/Demo4.dir/Demo4.cpp.o -o ../output/Demo4  ../output/libOpenXLSX-static.a 

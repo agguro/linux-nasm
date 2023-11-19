@@ -1,0 +1,26 @@
+var searchData=
+[
+  ['cell_473',['cell',['../d5/d04/class_open_x_l_s_x_1_1_x_l_worksheet.html#a432041b2828ea0c3ca91dc38eae7dc0a',1,'OpenXLSX::XLWorksheet::cell(const std::string &amp;ref)'],['../d5/d04/class_open_x_l_s_x_1_1_x_l_worksheet.html#abd85ec78e0c9d0679fb044e9f64f7eac',1,'OpenXLSX::XLWorksheet::cell(const XLCellReference &amp;ref)'],['../d5/d04/class_open_x_l_s_x_1_1_x_l_worksheet.html#a9da66898af171c52158413b0ccd9a06f',1,'OpenXLSX::XLWorksheet::cell(uint32_t rowNumber, uint16_t columnNumber)']]],
+  ['cellcount_474',['cellCount',['../d8/d11/class_open_x_l_s_x_1_1_x_l_row.html#a57afc90589f4d291e724d4857cd40f4b',1,'OpenXLSX::XLRow']]],
+  ['cellreference_475',['cellReference',['../df/dd5/class_open_x_l_s_x_1_1_x_l_cell.html#abb52c18fc150d9a89517b5ab0b34af69',1,'OpenXLSX::XLCell']]],
+  ['chartsheet_476',['chartsheet',['../d8/da0/class_open_x_l_s_x_1_1_x_l_workbook.html#ad27c0697b52fe98dd00abd80315975ae',1,'OpenXLSX::XLWorkbook']]],
+  ['chartsheetcount_477',['chartsheetCount',['../d8/da0/class_open_x_l_s_x_1_1_x_l_workbook.html#a195f44b12597fe5091eceab89b716553',1,'OpenXLSX::XLWorkbook']]],
+  ['chartsheetexists_478',['chartsheetExists',['../d8/da0/class_open_x_l_s_x_1_1_x_l_workbook.html#a7ff144c12f076d63b07f9772911d996d',1,'OpenXLSX::XLWorkbook']]],
+  ['chartsheetnames_479',['chartsheetNames',['../d8/da0/class_open_x_l_s_x_1_1_x_l_workbook.html#aa8ad9f89ffcae86f82275878389b4e9f',1,'OpenXLSX::XLWorkbook']]],
+  ['clear_480',['clear',['../d0/d71/class_open_x_l_s_x_1_1_x_l_cell_range.html#ac8bb3912a3ce86b15842e79d0b421204',1,'OpenXLSX::XLCellRange::clear()'],['../dd/dc2/class_open_x_l_s_x_1_1_x_l_cell_value.html#ac8bb3912a3ce86b15842e79d0b421204',1,'OpenXLSX::XLCellValue::clear()']]],
+  ['clearstring_481',['clearString',['../d0/d74/class_open_x_l_s_x_1_1_x_l_shared_strings.html#ae3b85e3fce8d9c909764e7ce6e112ba4',1,'OpenXLSX::XLSharedStrings']]],
+  ['clone_482',['clone',['../d0/d52/class_open_x_l_s_x_1_1_x_l_sheet_base.html#af20dd48c23748c1cf229b3c5f709c62f',1,'OpenXLSX::XLSheetBase::clone()'],['../df/dfe/class_open_x_l_s_x_1_1_x_l_sheet.html#af20dd48c23748c1cf229b3c5f709c62f',1,'OpenXLSX::XLSheet::clone()']]],
+  ['clonename_483',['cloneName',['../dc/dd3/class_open_x_l_s_x_1_1_x_l_command_clone_sheet.html#aeb74e40cae5b8967d225871ee7dd8903',1,'OpenXLSX::XLCommandCloneSheet']]],
+  ['clonesheet_484',['cloneSheet',['../d8/da0/class_open_x_l_s_x_1_1_x_l_workbook.html#ac35329c55b35c018f0b5d15052828195',1,'OpenXLSX::XLWorkbook']]],
+  ['close_485',['close',['../d3/d6a/class_open_x_l_s_x_1_1_x_l_document.html#a5ae591df94fc66ccb85cbb6565368bca',1,'OpenXLSX::XLDocument::close()'],['../d4/d4a/class_open_x_l_s_x_1_1_x_l_zip_archive.html#a5ae591df94fc66ccb85cbb6565368bca',1,'OpenXLSX::XLZipArchive::close()']]],
+  ['color_486',['color',['../d0/d52/class_open_x_l_s_x_1_1_x_l_sheet_base.html#ad631ec051f39e629d18e1fcf47b5a46c',1,'OpenXLSX::XLSheetBase::color()'],['../df/dfe/class_open_x_l_s_x_1_1_x_l_sheet.html#a975b1ef95e71f57fa4ca2fafbbb91bf1',1,'OpenXLSX::XLSheet::color()']]],
+  ['column_487',['column',['../dc/d0f/class_open_x_l_s_x_1_1_x_l_cell_reference.html#ad6f342153fb46c158e72fcb7fc0fb0b7',1,'OpenXLSX::XLCellReference::column()'],['../d5/d04/class_open_x_l_s_x_1_1_x_l_worksheet.html#a373132499fd3e8704a878d6f32dae9cb',1,'OpenXLSX::XLWorksheet::column()']]],
+  ['columnasnumber_488',['columnAsNumber',['../dc/d0f/class_open_x_l_s_x_1_1_x_l_cell_reference.html#a7e471e9bc76674613298d790b85508bf',1,'OpenXLSX::XLCellReference']]],
+  ['columnasstring_489',['columnAsString',['../dc/d0f/class_open_x_l_s_x_1_1_x_l_cell_reference.html#a2df5b3f8a977be98c8831a754bcd4bfa',1,'OpenXLSX::XLCellReference']]],
+  ['columncount_490',['columnCount',['../d5/d04/class_open_x_l_s_x_1_1_x_l_worksheet.html#ae79330853ef4b496b8187b360444c7b7',1,'OpenXLSX::XLWorksheet']]],
+  ['columnnode_491',['columnNode',['../d7/d44/class_open_x_l_s_x_1_1_x_l_column.html#a5133683ef970211c7dbd2e1d97e4f908',1,'OpenXLSX::XLColumn']]],
+  ['contentitem_492',['contentItem',['../d1/d37/class_open_x_l_s_x_1_1_x_l_content_types.html#a28adb33f3dad803fb17c78ebd14ea679',1,'OpenXLSX::XLContentTypes']]],
+  ['coordinatesfromaddress_493',['coordinatesFromAddress',['../dc/d0f/class_open_x_l_s_x_1_1_x_l_cell_reference.html#a28203835d31f14f77bc4359226cb51bd',1,'OpenXLSX::XLCellReference']]],
+  ['create_494',['create',['../d3/d6a/class_open_x_l_s_x_1_1_x_l_document.html#a13f5011c572a74e5d0edf69e24716c45',1,'OpenXLSX::XLDocument']]],
+  ['createinternalsheetid_495',['createInternalSheetID',['../d8/da0/class_open_x_l_s_x_1_1_x_l_workbook.html#a053a5f8b49284df2b074b34427a87f5a',1,'OpenXLSX::XLWorkbook']]]
+];

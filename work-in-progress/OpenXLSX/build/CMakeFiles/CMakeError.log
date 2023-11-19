@@ -1,0 +1,90 @@
+Performing C++ SOURCE FILE Test HAVE_CXX_FLAG_WSHORTEN_64_TO_32 failed with the following output:
+Change Dir: /mnt/DATA/Projects/sgi/OpenXLSX/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_df7d3/fast && /usr/bin/make  -f CMakeFiles/cmTC_df7d3.dir/build.make CMakeFiles/cmTC_df7d3.dir/build
+make[1]: Entering directory '/mnt/DATA/Projects/sgi/OpenXLSX/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_df7d3.dir/src.cxx.o
+/usr/bin/c++ -DHAVE_CXX_FLAG_WSHORTEN_64_TO_32  -std=c++11  -Wall  -Wextra  -Wshadow  -Wshorten-64-to-32   -Wshorten-64-to-32 -std=c++17 -o CMakeFiles/cmTC_df7d3.dir/src.cxx.o -c /mnt/DATA/Projects/sgi/OpenXLSX/build/CMakeFiles/CMakeTmp/src.cxx
+c++: error: unrecognized command line option '-Wshorten-64-to-32'
+c++: error: unrecognized command line option '-Wshorten-64-to-32'
+make[1]: *** [CMakeFiles/cmTC_df7d3.dir/build.make:85: CMakeFiles/cmTC_df7d3.dir/src.cxx.o] Error 1
+make[1]: Leaving directory '/mnt/DATA/Projects/sgi/OpenXLSX/build/CMakeFiles/CMakeTmp'
+make: *** [Makefile:140: cmTC_df7d3/fast] Error 2
+
+
+Source file was:
+int main() { return 0; }
+Performing C++ SOURCE FILE Test HAVE_CXX_FLAG_WD654 failed with the following output:
+Change Dir: /mnt/DATA/Projects/sgi/OpenXLSX/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_b64ad/fast && /usr/bin/make  -f CMakeFiles/cmTC_b64ad.dir/build.make CMakeFiles/cmTC_b64ad.dir/build
+make[1]: Entering directory '/mnt/DATA/Projects/sgi/OpenXLSX/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_b64ad.dir/src.cxx.o
+/usr/bin/c++ -DHAVE_CXX_FLAG_WD654  -std=c++11  -Wall  -Wextra  -Wshadow  -fstrict-aliasing  -Wno-deprecated-declarations  -Wstrict-aliasing  -wd654   -wd654 -std=c++17 -o CMakeFiles/cmTC_b64ad.dir/src.cxx.o -c /mnt/DATA/Projects/sgi/OpenXLSX/build/CMakeFiles/CMakeTmp/src.cxx
+c++: error: unrecognized command line option '-wd654'
+c++: error: unrecognized command line option '-wd654'
+make[1]: *** [CMakeFiles/cmTC_b64ad.dir/build.make:85: CMakeFiles/cmTC_b64ad.dir/src.cxx.o] Error 1
+make[1]: Leaving directory '/mnt/DATA/Projects/sgi/OpenXLSX/build/CMakeFiles/CMakeTmp'
+make: *** [Makefile:140: cmTC_b64ad/fast] Error 2
+
+
+Source file was:
+int main() { return 0; }
+Performing C++ SOURCE FILE Test HAVE_CXX_FLAG_WTHREAD_SAFETY failed with the following output:
+Change Dir: /mnt/DATA/Projects/sgi/OpenXLSX/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_81e70/fast && /usr/bin/make  -f CMakeFiles/cmTC_81e70.dir/build.make CMakeFiles/cmTC_81e70.dir/build
+make[1]: Entering directory '/mnt/DATA/Projects/sgi/OpenXLSX/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_81e70.dir/src.cxx.o
+/usr/bin/c++ -DHAVE_CXX_FLAG_WTHREAD_SAFETY  -std=c++11  -Wall  -Wextra  -Wshadow  -fstrict-aliasing  -Wno-deprecated-declarations  -Wstrict-aliasing  -Wthread-safety   -Wthread-safety -std=c++17 -o CMakeFiles/cmTC_81e70.dir/src.cxx.o -c /mnt/DATA/Projects/sgi/OpenXLSX/build/CMakeFiles/CMakeTmp/src.cxx
+c++: error: unrecognized command line option '-Wthread-safety'
+c++: error: unrecognized command line option '-Wthread-safety'
+make[1]: *** [CMakeFiles/cmTC_81e70.dir/build.make:85: CMakeFiles/cmTC_81e70.dir/src.cxx.o] Error 1
+make[1]: Leaving directory '/mnt/DATA/Projects/sgi/OpenXLSX/build/CMakeFiles/CMakeTmp'
+make: *** [Makefile:140: cmTC_81e70/fast] Error 2
+
+
+Source file was:
+int main() { return 0; }
+Performing C++ SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
+Change Dir: /mnt/DATA/Projects/sgi/OpenXLSX/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_1e580/fast && /usr/bin/make  -f CMakeFiles/cmTC_1e580.dir/build.make CMakeFiles/cmTC_1e580.dir/build
+make[1]: Entering directory '/mnt/DATA/Projects/sgi/OpenXLSX/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_1e580.dir/src.cxx.o
+/usr/bin/c++ -DCMAKE_HAVE_LIBC_PTHREAD  -std=c++11  -Wall  -Wextra  -Wshadow  -fstrict-aliasing  -Wno-deprecated-declarations  -Wstrict-aliasing  -std=c++17 -o CMakeFiles/cmTC_1e580.dir/src.cxx.o -c /mnt/DATA/Projects/sgi/OpenXLSX/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_1e580
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1e580.dir/link.txt --verbose=1
+/usr/bin/c++   -std=c++11  -Wall  -Wextra  -Wshadow  -fstrict-aliasing  -Wno-deprecated-declarations  -Wstrict-aliasing  CMakeFiles/cmTC_1e580.dir/src.cxx.o -o cmTC_1e580 
+/usr/bin/ld: CMakeFiles/cmTC_1e580.dir/src.cxx.o: in function `main':
+src.cxx:(.text+0x46): undefined reference to `pthread_create'
+/usr/bin/ld: src.cxx:(.text+0x52): undefined reference to `pthread_detach'
+/usr/bin/ld: src.cxx:(.text+0x5e): undefined reference to `pthread_cancel'
+/usr/bin/ld: src.cxx:(.text+0x6f): undefined reference to `pthread_join'
+collect2: error: ld returned 1 exit status
+make[1]: *** [CMakeFiles/cmTC_1e580.dir/build.make:106: cmTC_1e580] Error 1
+make[1]: Leaving directory '/mnt/DATA/Projects/sgi/OpenXLSX/build/CMakeFiles/CMakeTmp'
+make: *** [Makefile:140: cmTC_1e580/fast] Error 2
+
+
+Source file was:
+#include <pthread.h>
+
+static void* test_func(void* data)
+{
+  return data;
+}
+
+int main(void)
+{
+  pthread_t thread;
+  pthread_create(&thread, NULL, test_func, NULL);
+  pthread_detach(thread);
+  pthread_cancel(thread);
+  pthread_join(thread, NULL);
+  pthread_atfork(NULL, NULL, NULL);
+  pthread_exit(NULL);
+
+  return 0;
+}
+
