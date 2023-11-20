@@ -28,7 +28,7 @@ os_main:
      ;call      Print
      
      ; load file from cd
-     mov       si, pem3
+     mov       si, pem1
      call      LoadFile     
      jc        NotFound                 ; file wasn't found, so not loaded and will not be executed
      call      Execute
