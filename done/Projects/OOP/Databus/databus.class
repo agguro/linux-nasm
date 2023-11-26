@@ -22,12 +22,13 @@
 ;
 ; Properties
 ; [databusname].[bitnr].value       ; value of the corresponding bit in the databus
-
+;
+; TODO: add methods and properties for the databus itself
 
 %ifndef _ASM_DATABUS_CLASS_
 %define _ASM_DATABUS_CLASS_
 
-    %include "classes/bit.class"
+    %include "bit.class"
 
     STRUC DATABUS_STRUC
     .0:        resq    1   ; LSB
