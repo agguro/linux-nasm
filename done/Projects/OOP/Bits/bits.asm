@@ -27,7 +27,7 @@ section .data
     .length:    equ $-reset
 
     bita:       db  "bit a "
-    .length:    equ	$-bita
+    .length:    equ $-bita
     
     bitb:       db  "bit b "
     .length:    equ $-bitb
