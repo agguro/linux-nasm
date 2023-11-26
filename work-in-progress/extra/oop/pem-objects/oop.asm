@@ -7,9 +7,9 @@
 
 BITS 64
 [list -]
-%include "bit.class"
-%include "databus.class"
-;%include "gate.class"
+%include "classes/bit.class"
+%include "classes/databus.class"
+;%include "classes/gate.class"
 
 [list +]
 

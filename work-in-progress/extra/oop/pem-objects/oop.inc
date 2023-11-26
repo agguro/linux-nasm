@@ -3,7 +3,7 @@
 
 %include "unistd.inc"
 %include "sys/termios.inc"
-%include "errors.inc"
+%include "asm-generic/errno.inc"
 
 %macro syscall.write 1
     mov     rdi, STDOUT

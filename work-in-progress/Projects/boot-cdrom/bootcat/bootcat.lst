@@ -1,0 +1,10 @@
+     1                                  ORG 0
+     2                                  BITS 16
+     3                                  
+     4                                  BootCat:
+     5 00000000 01000000                     DD   1
+     6 00000004 41676775726F20426F-          DB   "Agguro Bootable CD        "
+     6 0000000D 6F7461626C65204344-
+     6 00000016 2020202020202020   
+     7 0000001E 55AA                         DB   0x55, 0xAA                              ; must be last
+     8 00000020 00<rep 7E0h>            TIMES 2048-($-BootCat)   DB 0

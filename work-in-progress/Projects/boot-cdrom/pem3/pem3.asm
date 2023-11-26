@@ -12,7 +12,7 @@ start:
 
 Print:
      pusha
-     mov       ah, 0Eh        ; int 10h teletype function
+     mov       ah, 0Eh              ; int 10h teletype function
 .repeat:
      lodsb                    ; Get char from string
      cmp       al, 0
