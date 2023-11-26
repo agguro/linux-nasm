@@ -1,6 +1,10 @@
-; name:  bits.asm
+;name:  bits.asm
 ; 
-; build: see makefile or
+;build: nasm -f elf64 -o bits.o bits.asm -l bits.list
+;        ld -s bits.o  -o bits
+;
+;description: this is my first attempt to program in OOP style. Most if not all of the
+;             code is included in the bit.class file.
 
 BITS 64
 [list -]
