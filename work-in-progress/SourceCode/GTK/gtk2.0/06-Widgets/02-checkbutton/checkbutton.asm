@@ -7,193 +7,178 @@
 ;
 ; C - source  : http://zetcode.com/tutorials/gtktutorial/gtkwidgets/
 
-
 bits 64
 
 [list -]
-     
-     %define   GTK_WINDOW_TOPLEVEL   0
-     %define   GTK_WIN_POS_CENTER    1
-     %define   TRUE                  1
-
      extern    exit
+     extern    gtk_button_new_with_label
+     extern    gtk_container_add
+     extern    gtk_fixed_new
+     extern    gtk_fixed_put
      extern    gtk_init
-     extern    gtk_window_new
-     extern    gtk_window_set_title
-     extern    gtk_window_set_default_size
-     extern    gtk_window_set_position
-     extern    gtk_window_set_icon
-     extern    gtk_widget_show_all
      extern    gtk_main
      extern    gtk_main_quit
-     extern    g_signal_connect_data
-     extern    gdk_pixbuf_new_from_file
-     extern    gdk_pixbuf_loader_new
-     extern    gdk_pixbuf_loader_write
-     extern    gdk_pixbuf_loader_get_pixbuf
-     extern    gtk_container_add    
-     extern    gtk_fixed_new
-     extern    gtk_fixed_put    
-     extern    gtk_check_button_new_with_label
-     extern    gtk_toggle_button_set_active
      extern    gtk_widget_set_size_request
-     extern    gtk_widget_set_can_focus
+     extern    gtk_widget_show_all
+     extern    gtk_window_new
+     extern    gtk_window_set_default_size
+     extern    gtk_window_set_position
+     extern    gtk_window_set_title
+     extern    g_print
+     extern    g_signal_connect_data
+     extern    gtk_check_button_new_with_label
      extern    gtk_toggle_button_get_active
+     extern    gtk_toggle_button_set_active
+     extern    g_signal_handler_disconnect
+     
+     %define   GTK_WIN_POS_CENTER       1
+     %define   GTK_WINDOW_TOPLEVEL      0
+     %define   NULL                     0
+     %define   TRUE                     1
+     %define   FALSE                    0
+     
 [list +]
 
 section .data
-     logo:               incbin    "../logo.png"
-          .size:         equ       $-logo    
+
      window:
-          .title:
-               db        "GtkCheckButton"
-          .endtitle:     db        0
-          .handle:       dq        0
-
-    fixed:
-        .handle: dq 0
-
+     .handle:  dq   0
+     .title:   db   "Disconnect", 0
+     
+     fixed:
+     .handle:  dq   0
+     
+     button:
+     .handle:  dq   0
+     .label:   db   "Click", 0
+     
+     checkbox:
+     .handle:  dq   0
+     .label:   db   "Connect", 0
+     
      signal:
-          .destroy:      db        "destroy", 0
-          .clicked:      db        "clicked", 0
-     checkbutton:
-          .caption:      db   "Show title", 0
-
+     .clicked: db   "clicked", 0
+     .destroy: db   "destroy", 0
+     
+     message:
+     .clicked: db   "Clicked", 10, 0
+     
+     handler:
+     .id:      dq   0
+     
 section .text
      global _start
-
+     
 _start:
 
-     ; Folowing code generates a window, shows it and can be closed. It has an application icon set
-     ; and will be used for all GtkWidget demonstrations
-;;     xor       rsi, rsi                  ; argv
-;;     xor       rdi, rdi                  ; argc
-;;     call      gtk_init
+     xor       rdi, rdi                      ; no commandline arguments will be passed
+     xor       rsi, rsi
+     call      gtk_init
 
-     ; loading the the application icon in a buffer -> pixbuffer
-
-;     call      gdk_pixbuf_loader_new
-;     mov       r13, rax                                  ; pointer to loader in R15
-
-;     mov       rdi, r13
-;     mov       rsi, logo
-;     mov       edx, logo.size
-;     xor       rcx, rcx
-;     call      gdk_pixbuf_loader_write
-
-;     mov       rdi, r13
-;     call      gdk_pixbuf_loader_get_pixbuf
-;     mov       r14, rax                                  ; pointer to pixbuffer in R14
-
-     ; the main window
-     xor       rdi, rdi                                  ; GTK_WINDOW_TOPLEVEL = 0 in RDI
+     mov       rdi, GTK_WINDOW_TOPLEVEL
      call      gtk_window_new
-
-;     mov       qword[window.handle], rax                                  ; pointer to window in R13
-
-;;     mov       rdi, r13                                  ; pointer to window in RDI
+     mov       qword[window.handle], rax
      
-     mov rdi,qword[window.handle]
+     mov       rsi, GTK_WIN_POS_CENTER
+     mov       rdi, qword[window.handle]
+     call      gtk_window_set_position
+    
+     mov       rdx, 150
+     mov       rsi, 250
+     mov       rdi, qword[window.handle]
+     call      gtk_window_set_default_size
+        
      mov       rsi, window.title
+     mov       rdi, qword[window.handle]
      call      gtk_window_set_title
 
-;;     mov       rdi, r13                                  ; pointer to window in RDI
-
-     mov rdi,qword[window.handle]
-     mov       rsi, 500
-     mov       rdx, 300
-     call      gtk_window_set_default_size
-
-;;     mov       rdi, r13                                  ; pointer to window in RDI
-
-     mov rdi,qword[window.handle]
-     mov       rsi, GTK_WIN_POS_CENTER
-     call      gtk_window_set_position
-
-
-;;     mov       rdi, r13                                  ; pointer to window instance in RDI
-     mov rdi,qword[window.handle]
-     mov       rsi, r14                                  ; pointer to pixbuffer instance in RSI
-     call      gtk_window_set_icon
-
-     xor       r9d, r9d                        ; combination of GConnectFlags
-     xor       r8d, r8d                        ; a GClosureNotify for data
-
-;;     mov       rcx, r13                        ; pointer to window instance in RCX
-
-     mov       rcx, qword[window.handle]      ; pointer to window instance in RCX
-     mov       rdx, gtk_main_quit              ; pointer to the handler
-     mov       rsi, signal.destroy             ; pointer to the signal
-;;     mov       rdi, r13                        ; pointer to window instance in RDI
-
-     mov       rdi, qword[window.handle]      ; pointer to window instance in RCX
-
-     call      g_signal_connect_data           ; the value in RAX is the handler, but we don't store it now
-
      call      gtk_fixed_new
-
-;;     mov       r14, rax                                     ; save pointer to frame
-
-     mov       qword[fixed.handle], rax                                     ; save pointer to frame
+     mov       qword[fixed.handle], rax
      
-     mov       rsi, rax                                     ; pointer to frame
-;;     mov       rdi, r13                                     ; pointer to window
-     mov       rdi, qword[window.handle]      ; pointer to window instance in RCX
-
+     mov       rsi, qword[fixed.handle]
+     mov       rdi, qword[window.handle]
      call      gtk_container_add
+
+;     mov       rdi, button.label
+;     call      gtk_button_new_with_label
+;     mov       qword[button.handle], rax
+
+;     mov       rdx, 30
+;     mov       rsi, 80
+;     mov       rdi, qword[button.handle]
+;     call      gtk_widget_set_size_request    
      
-     ; R13 = pointer to window
-     ; R14 : pointer to frame     
-     ; if R15 is used, save it before calling this routine
-
-;     mov       rdi, checkbutton.caption
-;     call      gtk_check_button_new_with_label;
-;     mov       r15, rax
-;     mov       rdi, r15                                     ; pointer to checkbutton
-;     mov       rsi, TRUE
-;     call      gtk_toggle_button_set_active
-;     mov       rdi, r15
-;     mov       rsi, TRUE
-;     call      gtk_widget_set_can_focus
-;     xor       r9, r9                                       ; combination of GConnectFlags
-;     xor       r8, r8                                       ; a GClosureNotify for data
-;     mov       rcx, r13                                     ; pointer to window instance in RCX
-;     mov       rdx, toggle_title                            ; pointer to the handler
-;     mov       rsi, signal.clicked                          ; pointer to the signal
-;     mov       rdi, r15                                     ; pointer to checkbutton in RDI
-;     call      g_signal_connect_data                          ; GtkCheckButton example
-
-;     mov       rsi, r15                                     ; pointer to button
-;     mov       rdi, r14                                     ; pointer to fixed
-;     mov       rdx, 50                                      ; coordinates on window for fixed widget
-;     mov       rcx, rdx
+;     mov       rcx, 50
+;     mov       rdx, 30
+;     mov       rsi, qword[button.handle]
+;     mov       rdi, qword[fixed.handle]
 ;     call      gtk_fixed_put
+     
+     mov       rdi, checkbox.label
+     call      gtk_check_button_new_with_label
+     mov       qword[checkbox.handle], rax
+     
+     mov       rsi, TRUE
+     mov       rdi, qword[checkbox.handle]
+     call      gtk_toggle_button_set_active
+     
+     mov       rcx, 50
+     mov       rdx, 130
+     mov       rsi, qword[checkbox.handle]
+     mov       rdi, qword[fixed.handle]
+     call      gtk_fixed_put
+            
+     xor       r9d, r9d
+     xor       r8d, r8d     
+     mov       rcx, qword[button.handle]
+     mov       rdx, toggle_signal
+     mov       rsi, signal.clicked
+     mov       rdi, qword[checkbox.handle]
+     call      g_signal_connect_data
 
-;;     mov       rdi, r13                                     ; pointer to window instance in RDI
+     xor       r9d, r9d
+     xor       r8d, r8d
+     mov       rcx, NULL
+     mov       rdx, gtk_main_quit
+     mov       rsi, signal.destroy
+     mov       rdi, qword[window.handle]
+     call      g_signal_connect_data
 
-     mov       rdi, qword[window.handle]      ; pointer to window instance in RCX
+     mov       rdi, qword[window.handle]
      call      gtk_widget_show_all
 
      call      gtk_main
-Exit:
+     
      xor       rdi, rdi
      call      exit
+    
+toggle_signal:
+	push	rbp
+	mov		rbp,rsp
 
-toggle_title:
-     ; RDI = pointer to the calling checkbutton
-     ; RSI = pointer to the parent window
-     ; events always start with a stackframe
-     push      rbp
-     mov       rbp, rsp
-     ; check if the checkbutton is checked
-     mov       r15, rsi                                     ; save pointer to window
-     call      gtk_toggle_button_get_active
-     mov       rdi, r15
-     mov       rsi, window.title
-     cmp       eax, TRUE
-     je        .set_title
-     mov       rsi, window.endtitle
-.set_title:
-     call      gtk_window_set_title
-     leave
+     ; RDI has GtkWidget *widget
+     ; RSI has gpointer window
+;     push   rsi
+
+;     call      gtk_toggle_button_get_active
+;     and       rax, rax
+;     jz        .disconnect
+.connect:
+;     xor       r9d, r9d
+;     xor       r8d, r8d
+;     mov       rcx, NULL
+;     mov       rdx, button_clicked
+;     mov       rsi, signal.clicked
+;     pop    rdi
+;    push    rdi
+;     call      g_signal_connect_data
+;     mov       qword[handler.id], rax
+;     jmp		.exit
+.disconnect:
+;     mov       rsi, qword[handler.id]
+;     pop       rdi
+;     call      g_signal_handler_disconnect
+.exit:
+     mov	rsp,rbp
+     pop	rbp
      ret
