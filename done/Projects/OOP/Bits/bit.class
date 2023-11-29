@@ -17,6 +17,7 @@
 ;   [bitname].OnReset   ; pointer to routine executed when the bit is reset
 ; Properties:
 ;   [bitname].value     ; value of the bit
+;   [bitname].name      ; pointer to name of the bit
 
 %ifndef _ASM_BIT_CLASS_
 %define _ASM_BIT_CLASS_
@@ -77,7 +78,7 @@
             mov     rax, %1+BIT_STRUC.OnReset
             mov     [rax], rdx
         %endmacro
-
+	
     %endif    
         
         %define %1.Set          BITSET %1
@@ -105,7 +106,7 @@
     %endmacro
 
         ; Allthough not the best practice in OOP programming 'jmp' instructions are used to
-        ; parts of other procedures (methods).  In real OOP we will not do this.
+        ; parts of other procedures (methods).
         
         section .text
 

@@ -1,15 +1,15 @@
+file=bits
+target=elf64
+
 .PHONY : clean
 .PHONY : again
 
-file=oop
-target=elf64
-
 $(file) : $(file).o
 	ld -s $(file).o  -o $(file)
-$(file).o : $(file).asm $(file).inc #../classes/bit.class ../classes/databus.class
+$(file).o : $(file).asm
 	nasm -f $(target) -o $(file).o $(file).asm -l $(file).list
 clean:
-	rm -f *.o *~ *.list *.dump $(file) *.out.*
+	rm -f *.o *~ *.list $(file)
 again:
 	touch $(file).asm
 	make
