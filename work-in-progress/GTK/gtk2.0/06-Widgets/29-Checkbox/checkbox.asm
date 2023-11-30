@@ -1,9 +1,9 @@
-; Name        : gtkcheckbutton.asm
+; name        : checkbutton.asm
 ;
-; Build       : nasm -felf64 -o gtkcheckbutton.o -l gtkcheckbutton.lst gtkcheckbutton.asm
-;               ld -s -m elf_x86_64 gtkcheckbutton.o -o gtkcheckbutton -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 -lgtk-3 -lgobject-2.0  -lglib-2.0 -lgdk_pixbuf-2.0 -lgdk-3
+; build       : nasm -felf64 -o checkbutton.o -l checkbutton.lst checkbutton.asm
+;               ld -s -m elf_x86_64 checkbutton.o -o checkbutton -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 -lgtk-3 -lgobject-2.0  -lglib-2.0 -lgdk_pixbuf-2.0 -lgdk-3
 ;
-; Description : Gtk widgets examples
+; description : Gtk widgets examples
 ;
 ; C - source  : http://zetcode.com/tutorials/gtktutorial/gtkwidgets/
 
@@ -29,7 +29,10 @@ bits 64
      extern    gtk_check_button_new_with_label
      extern    gtk_toggle_button_get_active
      extern    gtk_toggle_button_set_active
+     
      extern    g_signal_handler_disconnect
+     extern    gtk_window_set_decorated
+     
      
      %define   GTK_WIN_POS_CENTER       1
      %define   GTK_WINDOW_TOPLEVEL      0
@@ -54,8 +57,8 @@ section .data
      
      checkbox:
      .handle:  dq   0
-     .label:   db   "Connect", 0
-     
+     .label:   db   "Toggle window title bar", 0
+          
      signal:
      .clicked: db   "clicked", 0
      .destroy: db   "destroy", 0
@@ -98,22 +101,7 @@ _start:
      mov       rsi, qword[fixed.handle]
      mov       rdi, qword[window.handle]
      call      gtk_container_add
-
-;     mov       rdi, button.label
-;     call      gtk_button_new_with_label
-;     mov       qword[button.handle], rax
-
-;     mov       rdx, 30
-;     mov       rsi, 80
-;     mov       rdi, qword[button.handle]
-;     call      gtk_widget_set_size_request    
-     
-;     mov       rcx, 50
-;     mov       rdx, 30
-;     mov       rsi, qword[button.handle]
-;     mov       rdi, qword[fixed.handle]
-;     call      gtk_fixed_put
-     
+    
      mov       rdi, checkbox.label
      call      gtk_check_button_new_with_label
      mov       qword[checkbox.handle], rax
@@ -123,15 +111,15 @@ _start:
      call      gtk_toggle_button_set_active
      
      mov       rcx, 50
-     mov       rdx, 130
+     mov       rdx, 10
      mov       rsi, qword[checkbox.handle]
      mov       rdi, qword[fixed.handle]
      call      gtk_fixed_put
             
      xor       r9d, r9d
      xor       r8d, r8d     
-     mov       rcx, qword[button.handle]
-     mov       rdx, toggle_signal
+     mov       rcx, qword[checkbox.handle]
+     mov       rdx, onCheckbox_clicked
      mov       rsi, signal.clicked
      mov       rdi, qword[checkbox.handle]
      call      g_signal_connect_data
@@ -152,33 +140,17 @@ _start:
      xor       rdi, rdi
      call      exit
     
-toggle_signal:
+onCheckbox_clicked:
 	push	rbp
 	mov		rbp,rsp
 
      ; RDI has GtkWidget *widget
      ; RSI has gpointer window
-;     push   rsi
 
-;     call      gtk_toggle_button_get_active
-;     and       rax, rax
-;     jz        .disconnect
-.connect:
-;     xor       r9d, r9d
-;     xor       r8d, r8d
-;     mov       rcx, NULL
-;     mov       rdx, button_clicked
-;     mov       rsi, signal.clicked
-;     pop    rdi
-;    push    rdi
-;     call      g_signal_connect_data
-;     mov       qword[handler.id], rax
-;     jmp		.exit
-.disconnect:
-;     mov       rsi, qword[handler.id]
-;     pop       rdi
-;     call      g_signal_handler_disconnect
-.exit:
+     call   gtk_toggle_button_get_active
+     mov    rsi,rax
+     mov    rdi,qword[window.handle]
+     call   gtk_window_set_decorated     
      mov	rsp,rbp
      pop	rbp
      ret
