@@ -1,4 +1,4 @@
-TARGETS=fixed bottomleft vbox table cornerbuttons windows
+TARGETS=fixed bottomleft vbox table cornerbuttons
 
 ASM=/usr/bin/nasm
 LD=/usr/bin/ld

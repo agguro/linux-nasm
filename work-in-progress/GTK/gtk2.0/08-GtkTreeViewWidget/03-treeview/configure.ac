@@ -1,6 +1,6 @@
-AC_PREREQ([2.69])
+AC_PREREQ([2.71])
 
-AC_INIT([treeview], [1.0.0], [aggurobe@gmail.com], [treeview],[https://linuxnasm.be])
+AC_INIT([treeview],[1.0.0],[aggurobe@gmail.com],[treeview],[https://linuxnasm.be])
 
 AX_PROG_NASM([nasm_avail="no"])
 
