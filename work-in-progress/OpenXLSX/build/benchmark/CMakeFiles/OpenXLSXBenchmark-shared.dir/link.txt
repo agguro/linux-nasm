@@ -1,1 +1,0 @@
-/usr/bin/c++     CMakeFiles/OpenXLSXBenchmark-shared.dir/Benchmark.cpp.o  -o ../output/OpenXLSXBenchmark-shared  -Wl,-rpath,/mnt/DATA/Projects/sgi/OpenXLSX/build/output ../output/libbenchmark.a ../output/libbenchmark_main.a ../output/libOpenXLSX-shared.so ../output/libbenchmark.a -pthread 
