@@ -4488,8 +4488,8 @@ fi
 
 
 pkg_failed=no
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for $pkg_config_args" >&5
-printf %s "checking for $pkg_config_args... " >&6; }
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for GLIB" >&5
+printf %s "checking for GLIB... " >&6; }
 
 if test -n "$GLIB_CFLAGS"; then
     pkg_cv_GLIB_CFLAGS="$GLIB_CFLAGS"
@@ -4529,7 +4529,7 @@ fi
 
 
 if test $pkg_failed = yes; then
-        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+   	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
 printf "%s\n" "no" >&6; }
 
 if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
@@ -4547,7 +4547,7 @@ fi
 
 	:
 elif test $pkg_failed = untried; then
-        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+     	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
 printf "%s\n" "no" >&6; }
 	:
 else

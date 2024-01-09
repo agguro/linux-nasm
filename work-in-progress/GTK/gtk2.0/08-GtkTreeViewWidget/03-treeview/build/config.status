@@ -594,11 +594,11 @@ S["am__EXEEXT_TRUE"]="#"
 S["LTLIBOBJS"]=""
 S["LIBOBJS"]=""
 S["GTK_LIBS"]="-lgtk-x11-2.0 -lgdk-x11-2.0 -lpangocairo-1.0 -latk-1.0 -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 -lpangoft2-1.0 -lpango-1.0 -lgobject-2.0 -lglib-2.0 -lharf"\
-"buzz -lfontconfig -lfreetype"
-S["GTK_CFLAGS"]="-pthread -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/gdk-pixbu"\
-"f-2.0 -I/usr/include/x86_64-linux-gnu -I/usr/include/pango-1.0 -I/usr/include/harfbuzz -I/usr/include/pango-1.0 -I/usr/include/libmount -I/usr/inclu"\
-"de/blkid -I/usr/include/fribidi -I/usr/include/cairo -I/usr/include/pixman-1 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux"\
-"-gnu/glib-2.0/include -I/usr/include/uuid -I/usr/include/freetype2 -I/usr/include/libpng16"
+"buzz -lfontconfig -lfreetype "
+S["GTK_CFLAGS"]="-I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/pango-1.0 -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib"\
+"-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/libmount -I/usr/include/blkid -I/usr/include/fr"\
+"ibidi -I/usr/include/uuid -I/usr/include/cairo -I/usr/include/pixman-1 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/x86_64-linux-gnu -I/usr/include/"\
+"atk-1.0 -pthread "
 S["am__fastdepCC_FALSE"]="#"
 S["am__fastdepCC_TRUE"]=""
 S["CCDEPMODE"]="depmode=gcc3"
@@ -619,8 +619,8 @@ S["GLIB_COMPILE_RESOURCES"]="/usr/bin/glib-compile-resources"
 S["GLIB_MKENUMS"]="/usr/bin/glib-mkenums"
 S["GOBJECT_QUERY"]="/usr/bin/gobject-query"
 S["GLIB_GENMARSHAL"]="/usr/bin/glib-genmarshal"
-S["GLIB_LIBS"]="-lglib-2.0"
-S["GLIB_CFLAGS"]="-I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include"
+S["GLIB_LIBS"]="-lglib-2.0 "
+S["GLIB_CFLAGS"]="-I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include "
 S["PKG_CONFIG_LIBDIR"]=""
 S["PKG_CONFIG_PATH"]=""
 S["PKG_CONFIG"]="/usr/bin/pkg-config"
@@ -655,7 +655,7 @@ S["INSTALL_DATA"]="${INSTALL} -m 644"
 S["INSTALL_SCRIPT"]="${INSTALL}"
 S["INSTALL_PROGRAM"]="${INSTALL}"
 S["PACKAGE_LIBS"]="-lc -lgtk-x11-2.0 -lgdk-x11-2.0 -lpangocairo-1.0 -latk-1.0 -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 -lpangoft2-1.0 -lpango-1.0 -lgobject-2.0 -lglib-2.0 -l"\
-"harfbuzz -lfontconfig -lfreetype"
+"harfbuzz -lfontconfig -lfreetype "
 S["PACKAGE_NASMFLAGS"]="-f elf64 -F dwarf -g"
 S["PACKAGE_LDFLAGS"]="-m elf_x86_64 -g --dynamic-linker /lib64/ld-linux-x86-64.so.2"
 S["nasm"]="nasm"

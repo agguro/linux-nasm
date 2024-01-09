@@ -1,4 +1,4 @@
-#include <gtk/gtk.h>
+#include "gtk/gtk.h"
 
 enum {
   COLUMN = 0,
