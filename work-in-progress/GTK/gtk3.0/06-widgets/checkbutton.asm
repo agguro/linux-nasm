@@ -1,7 +1,7 @@
-; Name        : gtkcheckbutton.asm
+; Name        : checkbutton.asm
 ;
-; Build       : nasm -felf64 -o gtkcheckbutton.o -l gtkcheckbutton.lst gtkcheckbutton.asm
-;               ld -s -m elf_x86_64 gtkcheckbutton.o -o gtkcheckbutton -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 -lgtk-3 -lgobject-2.0  -lglib-2.0 -lgdk_pixbuf-2.0 -lgdk-3
+; Build       : nasm -felf64 -o checkbutton.o -l checkbutton.lst checkbutton.asm
+;               ld -s -m elf_x86_64 checkbutton.o -o checkbutton -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 -lgtk-3 -lgobject-2.0  -lglib-2.0 -lgdk_pixbuf-2.0 -lgdk-3
 ;
 ; Description : Gtk widgets examples
 ;

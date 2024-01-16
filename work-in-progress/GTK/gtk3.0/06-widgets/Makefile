@@ -1,4 +1,4 @@
-TARGETS=button checkbutton frame hscale label markuplabel
+TARGETS=checkbutton combobox entry iconview label markuplabel separators statusbar windows
 
 ASM=/usr/bin/nasm
 LD=/usr/bin/ld
