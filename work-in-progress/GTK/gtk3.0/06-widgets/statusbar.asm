@@ -1,7 +1,7 @@
-; Name        : gtkstatusbar.asù
+; Name        : statusbar.asm
 ;
-; Build       : nasm -felf64 -o gtkstatusbar.o -l gtkstatusbar.lst gtkstatusbar.asm
-;               ld -s -m elf_x86_64 gtkstatusbar.o -o gtkstatusbar -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 -lgtk-3 -lgobject-2.0  -lglib-2.0 -lgdk_pixbuf-2.0 -lgdk-3
+; Build       : nasm -felf64 -o statusbar.o -l statusbar.lst statusbar.asm
+;               ld -s -m elf_x86_64 statusbar.o -o statusbar -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 -lgtk-3 -lgobject-2.0  -lglib-2.0 -lgdk_pixbuf-2.0 -lgdk-3
 ;
 ; Description : Gtk widgets examples
 ;
@@ -54,7 +54,7 @@ section .data
      logo:               incbin    "logo.png"
           .size:         equ       $-logo    
      window:
-          .title:        db        "GtkStatusbar", 0
+          .title:        db        "Statusbar", 0
      signal:
           .destroy:      db        "destroy", 0
           .clicked:      db        "clicked", 0
@@ -213,28 +213,35 @@ Exit:
      
 button_pressed:
      ; this is an event, so create a stackframe
-     ; RDI has the pointer to the calling button and RSI the pointer to the statusbar
+     ; RDI has the pointer to the calling button
+     ; RSI the pointer to the statusbar
+int 3     
      push      rbp
      mov       rbp, rsp
-     mov       r15, rdi                                     ; save calling button pointer
-     mov       r14, rsi                                     ; save pointer to statusbar
+
+;     mov       r15, rdi                                 ;save calling button pointer
+;     mov       r14, rsi                                 ;save pointer to statusbar
      
-     call      gtk_button_get_label
-    
-     mov       rdi, statusbar.caption
-     mov       rsi, rax
-     xor       rax, rax
+     call      gtk_button_get_label                     ;get pointer to label(text)
+     mov       rdi,rax
      call      g_strdup_printf
-     mov       r12, rax                                     ; pointer to output string
+     mov       rsi,rax
+     mov       rdi,statusbar.caption
+
+;     mov       rsi, rax
+;     xor       rax, rax
+;     mov       r12, rax                                     ; pointer to output string
      
-     mov       rdi, r14                                     ; pointer to statusbar
-     mov       rsi, r12                                     ; pointer to string
-     call      gtk_statusbar_get_context_id
+;     mov       rdi, r14                                     ; pointer to statusbar
+;     mov       rsi, r12                                     ; pointer to string
+;     call      gtk_statusbar_get_context_id
      
-     mov       rdi, r14                                     ; pointer to statusbar
-     mov       rsi, rax                                     ; context id
-     mov       rdx, r12                                     ; pointer to string
-     call      gtk_statusbar_push
+;     mov       rdi, r14                                     ; pointer to statusbar
+;     mov       rsi, rax                                     ; context id
+;     mov       rdx, r12                                     ; pointer to string
+;     call      gtk_statusbar_push
      
-     leave
+     mov        rsp,rbp
+     pop        rbp
      ret
+

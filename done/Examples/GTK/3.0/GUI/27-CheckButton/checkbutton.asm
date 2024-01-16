@@ -1,7 +1,7 @@
-; Name        : gtkentry.asm
+; Name        : checkbutton.asm
 ;
-; Build       : nasm -felf64 -o gtkentry.o -l gtkentry.lst gtkentry.asm
-;               ld -s -m elf_x86_64 gtkentry.o -o gtkentry -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 -lgtk-3 -lgobject-2.0  -lglib-2.0 -lgdk_pixbuf-2.0 -lgdk-3
+; Build       : nasm -felf64 -o checkbutton.o -l checkbutton.lst checkbutton.asm
+;               ld -s -m elf_x86_64 checkbutton.o -o checkbutton -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 -lgtk-3 -lgobject-2.0  -lglib-2.0 -lgdk_pixbuf-2.0 -lgdk-3
 ;
 ; Description : Gtk widgets examples
 ;
@@ -12,14 +12,9 @@ bits 64
 
 [list -]
      
-     %define   GTK_WINDOW_TOPLEVEL           0
-     %define   GTK_WIN_POS_CENTER            1
-     %define   GTK_JUSTIFY_CENTER            2
-     %define   TRUE                          1
-     %define   FALSE                         0
-     %define   GTK_FILL                  4
-     %define   GTK_EXPAND                1
-     %define   GTK_SHRINK                2
+     %define   GTK_WINDOW_TOPLEVEL   0
+     %define   GTK_WIN_POS_CENTER    1
+     %define   TRUE                  1
 
      extern    exit
      extern    gtk_init
@@ -37,22 +32,27 @@ bits 64
      extern    gdk_pixbuf_loader_write
      extern    gdk_pixbuf_loader_get_pixbuf
      extern    gtk_container_add    
-     extern    gtk_container_set_border_width
-     extern    gtk_label_new
-     extern    gtk_table_attach
-     extern    gtk_table_new
-     extern    gtk_entry_new
+     extern    gtk_fixed_new
+     extern    gtk_fixed_put    
+     extern    gtk_check_button_new_with_label
+     extern    gtk_toggle_button_set_active
+     extern    gtk_widget_set_size_request
+     extern    gtk_widget_set_can_focus
+     extern    gtk_toggle_button_get_active
 [list +]
 
 section .data
      logo:               incbin    "logo.png"
           .size:         equ       $-logo    
      window:
-          .title:        db        "GtkEntry", 0
+          .title:
+               db        "CheckButton"
+          .endtitle:     db        0
      signal:
           .destroy:      db        "destroy", 0
-     label:
-          .caption:      db        "Name:", 0
+          .clicked:      db        "clicked", 0
+     checkbutton:
+          .caption:      db   "Show title", 0
 
 section .text
      global _start
@@ -90,8 +90,8 @@ _start:
      call      gtk_window_set_title
 
      mov       rdi, r13                                  ; pointer to window in RDI
-     mov       rsi, 200
-     mov       rdx, 10
+     mov       rsi, 500
+     mov       rdx, 300
      call      gtk_window_set_default_size
 
      mov       rdi, r13                                  ; pointer to window in RDI
@@ -110,51 +110,40 @@ _start:
      mov       rdi, r13                        ; pointer to window instance in RDI
      call      g_signal_connect_data           ; the value in RAX is the handler, but we don't store it now
 
-     ; keep in mind R13 is the pointer to the window
-     mov       rdi, r13
-     mov       rsi, 20
-     call      gtk_container_set_border_width
+     call      gtk_fixed_new
+     mov       r14, rax                                     ; save pointer to frame
      
-     ; the table
-     mov       rdi, 1
-     mov       rsi, 2
-     mov       rdx, FALSE
-     call      gtk_table_new
-     mov       r14, rax                                     ; pointer to table
-     
+     mov       rsi, rax                                     ; pointer to frame
      mov       rdi, r13                                     ; pointer to window
-     mov       rsi, r14                                     ; pointer to table
      call      gtk_container_add
-
-     mov       rdi, label.caption
-     call      gtk_label_new
-     mov       rsi, rax                                     ; pointer to label
-     mov       rdi, r14                                     ; pointer to table
-     xor       rdx, rdx
-     mov       rcx, 1
-     xor       r8, r8
-     mov       r9, rcx
-     ; last parameter first on stack
-     push      5
-     push      5
-     push      GTK_FILL | GTK_SHRINK
-     push      GTK_FILL | GTK_SHRINK
-     call      gtk_table_attach
      
-     call      gtk_entry_new
-     mov       rsi, rax                                     ; pointer to entry
-     mov       rdi, r14                                     ; pointer to table
-     mov       rdx, 1
-     mov       rcx, 2
-     xor       r8, r8
-     mov       r9, 1
-     ; last parameter first on stack
-     push      5
-     push      5
-     push      GTK_FILL | GTK_SHRINK
-     push      GTK_FILL | GTK_SHRINK
-     call      gtk_table_attach
-          
+     ; R13 = pointer to window
+     ; R14 : pointer to frame     
+     ; if R15 is used, save it before calling this routine
+
+     mov       rdi, checkbutton.caption
+     call      gtk_check_button_new_with_label;
+     mov       r15, rax
+     mov       rdi, r15                                     ; pointer to checkbutton
+     mov       rsi, TRUE
+     call      gtk_toggle_button_set_active
+     mov       rdi, r15
+     mov       rsi, TRUE
+     call      gtk_widget_set_can_focus
+     xor       r9, r9                                       ; combination of GConnectFlags
+     xor       r8, r8                                       ; a GClosureNotify for data
+     mov       rcx, r13                                     ; pointer to window instance in RCX
+     mov       rdx, toggle_title                            ; pointer to the handler
+     mov       rsi, signal.clicked                          ; pointer to the signal
+     mov       rdi, r15                                     ; pointer to checkbutton in RDI
+     call      g_signal_connect_data                          ; GtkCheckButton example
+
+     mov       rsi, r15                                     ; pointer to button
+     mov       rdi, r14                                     ; pointer to fixed
+     mov       rdx, 50                                      ; coordinates on window for fixed widget
+     mov       rcx, rdx
+     call      gtk_fixed_put
+
      mov       rdi, r13                                     ; pointer to window instance in RDI
      call      gtk_widget_show_all
 
@@ -162,3 +151,33 @@ _start:
 Exit:
      xor       rdi, rdi
      call      exit
+
+toggle_title:
+     ; RDI = pointer to the calling checkbutton
+     ; RSI = pointer to the parent window
+     ; events always start with a stackframe
+
+    push    rbp
+    mov     rbp, rsp
+
+    push    rsi
+    call    gtk_toggle_button_get_active
+    pop     rdi
+    
+    cmp     rax,TRUE
+    jne     .hide_title
+
+    mov     rsi,window.title
+    jmp     .set_title
+    
+.hide_title:
+    mov     rsi,window.endtitle
+
+.set_title:
+
+    call    gtk_window_set_title
+
+    mov     rsp,rbp
+    pop     rbp
+    
+    ret
