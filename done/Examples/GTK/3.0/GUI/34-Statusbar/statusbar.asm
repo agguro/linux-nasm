@@ -1,7 +1,8 @@
-; Name        : statusbar.asm
+; Name        : statusbar.asù
 ;
-; Build       : nasm -felf64 -o statusbar.o -l statusbar.lst statusbar.asm
-;               ld -s -m elf_x86_64 statusbar.o -o statusbar -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 -lgtk-3 -lgobject-2.0  -lglib-2.0 -lgdk_pixbuf-2.0 -lgdk-3
+; Build       : nasm -f elf64 -F dwarf -g ../statusbar.asm -o statusbar.o
+;				ld -m elf_x86_64 -g --dynamic-linker /lib64/ld-linux-x86-64.so.2 -lc -lgtk-x11-2.0 -lgdk-x11-2.0 -lpangocairo-1.0 -latk-1.0 -lcairo -lgdk_pixbuf-2.0 -lgio-2.0
+;				-lpangoft2-1.0 -lpango-1.0 -lgobject-2.0 -lglib-2.0 -lfontconfig -lfreetype statusbar.o -o statusbar
 ;
 ; Description : Gtk widgets examples
 ;
@@ -19,9 +20,11 @@ bits 64
      %define   FALSE                         0
      %define   GTK_ORIENTATION_HORIZONTAL    0
      %define   GTK_ORIENTATION_VERTICAL      1
+     %define   FLOAT1				0x3F800000
      
      extern    exit
      extern    gtk_init
+     extern		g_free
      extern    gtk_window_new
      extern    gtk_window_set_title
      extern    gtk_window_set_default_size
@@ -31,14 +34,14 @@ bits 64
      extern    gtk_main
      extern    gtk_main_quit
      extern    g_signal_connect_data
-     extern    g_free
      extern    gdk_pixbuf_new_from_file
      extern    gdk_pixbuf_loader_new
      extern    gdk_pixbuf_loader_write
      extern    gdk_pixbuf_loader_get_pixbuf
      extern    gtk_container_add    
      extern    gtk_container_set_border_width
-     extern    gtk_box_new
+     extern    gtk_vbox_new
+     extern    gtk_hbox_new
      extern    gtk_box_pack_start
      extern    gtk_button_new_with_label
      extern    gtk_fixed_new
@@ -49,206 +52,196 @@ bits 64
      extern    g_strdup_printf
      extern    gtk_statusbar_get_context_id
      extern    gtk_statusbar_push
+     extern		gtk_alignment_new
 [list +]
 
 section .data
-     logo:               incbin    "logo.png"
-          .size:         equ       $-logo    
-     window:
-          .title:        db        "Statusbar", 0
-     signal:
-          .destroy:      db        "destroy", 0
-          .clicked:      db        "clicked", 0
-     button1:
-          .caption:      db        "OK", 0
-     button2:
-          .caption       db        "APPLY", 0
-     statusbar:
-          .caption:      db        "Button %s clicked", 0
+  window:	dq	0
+  hbox:	dq	0
+  vbox:	dq	0
+  halign:	dq	0
+  balign:	dq	0
+  button1:	dq	0
+  button2:	dq	0
+  statusbar:	dq	0
+  win:	dq	0
+  widget:	dq	0
+  str:	dq	0
+  
+szGtkStatusbar:	db "GtkStatusbar",0
+szOK:	db	"OK",0
+szApply:	db "Apply",0
+szClicked:	db	"clicked",0
+szDestroy:	db	"destroy",0
+szMask:		db "%s button clicked",0
 
 section .text
      global _start
 
 _start:
 
-     ; Folowing code generates a window, shows it and can be closed. It has an application icon set
-     ; and will be used for all GtkWidget demonstrations
-     xor       rsi, rsi                  ; argv
-     xor       rdi, rdi                  ; argc
-     call      gtk_init
+	xor		rsi, rsi                  ; argv
+	xor		rdi, rdi                  ; argc
+	call	gtk_init
 
-     ; loading the the application icon in a buffer -> pixbuffer
+	mov		rdi,GTK_WINDOW_TOPLEVEL
+	call	gtk_window_new
+	mov[window],rax
+	
+	mov		rdi,[window]
+	mov		rsi,GTK_WIN_POS_CENTER
+	call	gtk_window_set_position
+	
+	mov		rdi,[window]
+	mov		rsi,300
+	mov		rdx,200
+	call	gtk_window_set_default_size
+	
+	mov		rdi,[window]
+	mov		rsi,szGtkStatusbar
+	call	gtk_window_set_title
 
-     call      gdk_pixbuf_loader_new
-     mov       r13, rax                                  ; pointer to loader in R15
+	mov		rdi,FALSE
+	xor		rsi,rsi
+	call	gtk_vbox_new
+	mov		[vbox],rax
 
-     mov       rdi, r13
-     mov       rsi, logo
-     mov       edx, logo.size
-     xor       rcx, rcx
-     call      gdk_pixbuf_loader_write
+	mov		rdi,FALSE
+	xor		rsi,rsi
+	call	gtk_hbox_new
+	mov		[hbox],rax
 
-     mov       rdi, r13
-     call      gdk_pixbuf_loader_get_pixbuf
-     mov       r14, rax                                  ; pointer to pixbuffer in R14
+	mov		rdi,[window]
+	mov		rsi,[vbox]
+	call	gtk_container_add
 
-     ; the main window
-     xor       rdi, rdi                                  ; GTK_WINDOW_TOPLEVEL = 0 in RDI
-     call      gtk_window_new
-     mov       r13, rax                                  ; pointer to window in R15
+	pxor	xmm0,xmm0
+	pxor	xmm1,xmm1
+	pxor	xmm2,xmm2
+	pxor	xmm3,xmm3	
+	call	gtk_alignment_new
+	mov		[halign],rax
+	
+	mov		rdi,[halign]
+	mov		rsi,[hbox]
+	call	gtk_container_add
+	
+	mov		rdi,[vbox]
+	mov		rsi,[halign]
+	mov		rdx,TRUE
+	mov		rcx,TRUE 
+	mov		r8,5
+	call	gtk_box_pack_start
 
-     mov       rdi, r13                                  ; pointer to window in RDI
-     mov       rsi, window.title
-     call      gtk_window_set_title
+	mov		rdi,szOK
+	call	gtk_button_new_with_label
+	mov		[button1],rax
 
-     mov       rdi, r13                                  ; pointer to window in RDI
-     mov       rsi, 280
-     mov       rdx, 150
-     call      gtk_window_set_default_size
+	mov		rdi,[button1]
+	mov		rsi,70
+	mov		rdx,30	
+	call	gtk_widget_set_size_request
 
-     mov       rdi, r13                                  ; pointer to window in RDI
-     mov       rsi, GTK_WIN_POS_CENTER
-     call      gtk_window_set_position
+	mov		rdi,szApply
+	call	gtk_button_new_with_label
+	mov		[button2],rax
+	
+	mov		rdi,[button2]
+	mov		rsi,70
+	mov		rdx,30	
+	call	gtk_widget_set_size_request
 
-     mov       rdi, r13                                  ; pointer to window instance in RDI
-     mov       rsi, r14                                  ; pointer to pixbuffer instance in RSI
-     call      gtk_window_set_icon
+	mov		rdi,[hbox]
+	mov		rsi,[button1]
+	mov		rdx,FALSE
+	mov		rcx,FALSE
+	mov		r8,5
+	call	gtk_box_pack_start
 
-     xor       r9d, r9d                        ; combination of GConnectFlags
-     xor       r8d, r8d                        ; a GClosureNotify for data
-     mov       rcx, r13                        ; pointer to window instance in RCX
-     mov       rdx, gtk_main_quit              ; pointer to the handler
-     mov       rsi, signal.destroy             ; pointer to the signal
-     mov       rdi, r13                        ; pointer to window instance in RDI
-     call      g_signal_connect_data           ; the value in RAX is the handler, but we don't store it now
+	mov		rdi,[hbox]
+	mov		rsi,[button2]
+	mov		rdx,FALSE
+	mov		rcx,FALSE
+	mov		r8,0
+	call	gtk_box_pack_start
+		
+	pxor	xmm0,xmm0
+	mov		r14,FLOAT1
+	movq	xmm1,r14
+	movq	xmm2,r14
+	pxor	xmm3,xmm3
+	call	gtk_alignment_new
+	mov		[balign],rax
+	
+	call	gtk_statusbar_new
+	mov		[statusbar],rax
+	
+	mov		rdi,[balign]
+	mov		rsi,[statusbar]
+	call	gtk_container_add
 
-     ; keep in mind R13 is the pointer to the window
-     mov       rdi, GTK_ORIENTATION_VERTICAL
-     mov       rsi, 2
-     call      gtk_box_new
-     mov       r14, rax                                               ; pointer to vbox
+	mov		rdi,[vbox]
+	mov		rsi,[balign]
+	mov		rdx,FALSE
+	mov		rcx,FALSE
+	mov		r8,0
+	call	gtk_box_pack_start
 
-     mov       rdi, r13                                               ; pointer to window
-     mov       rsi, r14                                               ; pointer to vbox
-     call      gtk_container_add
+	mov		rdi,[button1]
+	mov		rsi,szClicked
+	mov		rdx,button_pressed
+	mov		rcx,[statusbar]
+	xor		r8,r8
+	xor		r9,r9
+	call	g_signal_connect_data
 
-     call      gtk_fixed_new
-     mov       r12, rax                                               ; pointer to fixed
-     
-     mov       rdi, r14                                               ; pointer to vbox
-     mov       rsi, r12                                               ; pointer to fixed
-     mov       rdx, TRUE
-     mov       rcx, TRUE
-     mov       r8, 1
-     call      gtk_box_pack_start
-     
-     
-     call      gtk_statusbar_new
-     mov       r15, rax                                               ; pointer to statusbar
-     
-     ; if you want the status bar below the fixed widget
-     mov       rdi, r14                                               ; pointer to vbox
-     mov       rsi, r15                                               ; pointer to statusbar
-     mov       rdx, FALSE
-     mov       rcx, TRUE
-     mov       r8, 1
-     call      gtk_box_pack_start
-     
-     ; from here pointer to vbox isn't needed anymore so we can use r14 again
-     ; button1
-     mov       rdi, button1.caption
-     call      gtk_button_new_with_label
-     mov       r14, rax                                               ; pointer to button1
-     
-     mov       rdi, rax
-     mov       rsi, 80
-     mov       rdx, 30
-     call      gtk_widget_set_size_request
+	mov		rdi,[button2]
+	mov		rsi,szClicked
+	mov		rdx,button_pressed
+	mov		rcx,[statusbar]
+	xor		r8,r8
+	xor		r9,r9
+	call	g_signal_connect_data
 
-     mov       rdi, r12                                               ; pointer to fixed
-     mov       rsi, r14                                               ; pointer to button1
-     mov       rdx, 50
-     mov       rcx, rdx
-     call      gtk_fixed_put
+	mov		rdi,[window]
+	mov		rsi,szDestroy
+	mov		rdx,gtk_main_quit
+	xor		rcx,rcx
+	xor		r8,r8
+	xor		r9,r9
+	call	g_signal_connect_data
 
-     xor       r9d, r9d                        ; combination of GConnectFlags
-     xor       r8d, r8d                        ; a GClosureNotify for data
-     mov       rcx, r15                        ; pointer to statusbar
-     mov       rdx, button_pressed             ; pointer to the handler
-     mov       rsi, signal.clicked             ; pointer to the signal
-     mov       rdi, r14                        ; pointer to button1
-     call      g_signal_connect_data           ; the value in RAX is the handler, but we don't store it now
-     
-     ; from here pointer to button1 isn't needed anymore so we can use r14 again
-     ; button2
-     mov       rdi, button2.caption
-     call      gtk_button_new_with_label
-     mov       r14, rax                                               ; pointer to button1
-     
-     mov       rdi, rax
-     mov       rsi, 80
-     mov       rdx, 30
-     call      gtk_widget_set_size_request
+	mov		rdi,[window]
+	call	gtk_widget_show_all
 
-     mov       rdi, r12                                               ; pointer to fixed
-     mov       rsi, r14                                               ; pointer to button1
-     mov       rdx, 150
-     mov       rcx, 50
-     call      gtk_fixed_put
+	call	gtk_main
 
-     xor       r9d, r9d                        ; combination of GConnectFlags
-     xor       r8d, r8d                        ; a GClosureNotify for data
-     mov       rcx, r15                        ; pointer to statusbar
-     mov       rdx, button_pressed             ; pointer to the handler
-     mov       rsi, signal.clicked             ; pointer to the signal
-     mov       rdi, r14                        ; pointer to button1
-     call      g_signal_connect_data           ; the value in RAX is the handler, but we don't store it now
-           
-     mov       rdi, r13                                     ; pointer to window instance in RDI
-     call      gtk_widget_show_all
-
-     call      gtk_main
-Exit:
-     xor       rdi, rdi
-     call      exit
+	xor		rdi, rdi
+	call    exit
      
 button_pressed:
-     ; this is an event, so create a stackframe
-     ; RDI has the pointer to the widget
-     ; RSI the pointer to the window
-     
-     push      rbp
-     mov       rbp, rsp
+	push	rbp
+	mov		rbp,rsp
+	
+	mov		[widget],rdi
+	mov		[win],rsi
+	mov		rdi,[widget]
+	call	gtk_button_get_label
+	mov		rsi,rax
+	mov		rdi,szMask
+	call	g_strdup_printf
+	mov		[str],rax
 
-     push      r14
-     push      r15
-     mov       r14, rsi                                 ;save pointer to window
-
-     ;rdi has the pointer to the clicked button
-     ;gtk_button_get_label(widget)     
-     call      gtk_button_get_label                     ;get pointer to label(text)        
-     mov       rsi,rax                                  ;save in rdi
-     
-     mov       rdi,statusbar.caption
-     call      g_strdup_printf                          ;copy string
-     mov       r15,rax                                  ;get address of copy
-     
-     mov       rdi,r14                                  ;pointer to the statusbar
-     mov       rsi,r15
-     call      gtk_statusbar_get_context_id             ;get the context id
-     
-     mov       rsi,rax                                  ;save the context id
-     mov       rdx,r15
-     mov       rdi,r14
-     call      gtk_statusbar_push
-     
-     mov        rdi,r15
-     call       g_free
-     
-     pop        r15
-     pop        r14
-     
-     mov        rsp,rbp
-     pop        rbp
-     ret
-
+	mov		rdi,[win]
+	mov		rsi,[str]
+	call	gtk_statusbar_get_context_id
+	mov		rsi,rax
+	mov 	rdi,[win]
+	mov		rdx,[str]
+	call	gtk_statusbar_push
+	mov		rdi,[str]
+	call	g_free
+	
+	mov		rsp,rbp
+	pop		rbp
+	ret

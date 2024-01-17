@@ -45,120 +45,156 @@ bits 64
 [list +]
 
 section .data
-     logo:               incbin    "logo.png"
-          .size:         equ       $-logo    
-     window:
-          .title:        db        "GtkEntry", 0
-     signal:
-          .destroy:      db        "destroy", 0
-     label:
-          .caption:      db        "Name:", 0
+	window:			dq	0
+	table:			dq	0
+	label1:			dq	0
+	label2:			dq	0
+	label3:			dq	0
+	entry1:			dq	0
+	entry2:			dq	0
+	entry3:			dq	0
+	szDestroy:		db	"destroy",0
+	szGtkEntry:		db	"GtkEntry",0
+	szName:			db	"Name",0
+	szAge:			db	"Age",0
+	szOccupation:	db	"Occupation",0
 
 section .text
      global _start
 
 _start:
 
-     ; Folowing code generates a window, shows it and can be closed. It has an application icon set
-     ; and will be used for all GtkWidget demonstrations
-     xor       rsi, rsi                  ; argv
-     xor       rdi, rdi                  ; argc
-     call      gtk_init
+	xor		rdi,rdi
+	xor		rsi,rsi
+	call	gtk_init
 
-     ; loading the the application icon in a buffer -> pixbuffer
+	mov		rdi,GTK_WINDOW_TOPLEVEL
+	call	gtk_window_new
+	mov		[window],rax 
+  
+	mov		rdi,[window]
+	mov		rsi,GTK_WIN_POS_CENTER
+	call	gtk_window_set_position
+  
+	mov		rdi,[window]
+	mov		rsi,szGtkEntry
+	call	gtk_window_set_title
+  
+	mov		rdi,[window]
+	mov		rsi,10
+	call	gtk_container_set_border_width
 
-     call      gdk_pixbuf_loader_new
-     mov       r13, rax                                  ; pointer to loader in R15
+	mov		rdi,3
+	mov		rsi,2
+	mov		rdx,FALSE
+	call	gtk_table_new
+	mov		[table],rax
+  
+	mov		rdi,[window]
+	mov		rsi,[table]
+	call	gtk_container_add
 
-     mov       rdi, r13
-     mov       rsi, logo
-     mov       edx, logo.size
-     xor       rcx, rcx
-     call      gdk_pixbuf_loader_write
+	mov		rdi,szName
+	call	gtk_label_new
+	mov		[label1],rax
+	mov		rdi,szAge
+	call	gtk_label_new
+	mov		[label2],rax
+	mov		rdi,szOccupation
+	call	gtk_label_new
+	mov		[label3],rax
 
-     mov       rdi, r13
-     call      gdk_pixbuf_loader_get_pixbuf
-     mov       r14, rax                                  ; pointer to pixbuffer in R14
+	mov		rdi,[table]
+	mov		rsi,[label1]
+	mov		rdx,0
+	mov		rcx,1
+	mov		r8,0
+	mov		r9,1
+	push	5
+	push	5
+	push	GTK_FILL | GTK_SHRINK
+	push	GTK_FILL | GTK_SHRINK
+	call	gtk_table_attach
+	
+	mov		rdi,[table]
+	mov		rsi,[label2]
+	mov		rdx,0
+	mov		rcx,1
+	mov		r8,1
+	mov		r9,2
+	push	5
+	push	5
+	push	GTK_FILL | GTK_SHRINK
+	push	GTK_FILL | GTK_SHRINK
+	call	gtk_table_attach
 
-     ; the main window
-     xor       rdi, rdi                                  ; GTK_WINDOW_TOPLEVEL = 0 in RDI
-     call      gtk_window_new
-     mov       r13, rax                                  ; pointer to window in R15
+	mov		rdi,[table]
+	mov		rsi,[label3]
+	mov		rdx,0
+	mov		rcx,1
+	mov		r8,2
+	mov		r9,3
+	push	5
+	push	5
+	push	GTK_FILL | GTK_SHRINK
+	push	GTK_FILL | GTK_SHRINK
+	call	gtk_table_attach
 
-     mov       rdi, r13                                  ; pointer to window in RDI
-     mov       rsi, window.title
-     call      gtk_window_set_title
+	call	gtk_entry_new
+	mov		[entry1],rax
+	call	gtk_entry_new
+	mov		[entry2],rax
+	call	gtk_entry_new
+	mov		[entry3],rax
 
-     mov       rdi, r13                                  ; pointer to window in RDI
-     mov       rsi, 200
-     mov       rdx, 10
-     call      gtk_window_set_default_size
+	mov		rdi,[table]
+	mov		rsi,[entry1]
+	mov		rdx,1
+	mov		rcx,2
+	mov		r8,0
+	mov		r9,1
+	push	5
+	push	5
+	push	GTK_FILL | GTK_SHRINK
+	push	GTK_FILL | GTK_SHRINK
+	call	gtk_table_attach
+  
+	mov		rdi,[table]
+	mov		rsi,[entry2]
+	mov		rdx,1
+	mov		rcx,2
+	mov		r8,1
+	mov		r9,2
+	push	5
+	push	5
+	push	GTK_FILL | GTK_SHRINK
+	push	GTK_FILL | GTK_SHRINK
+	call	gtk_table_attach
 
-     mov       rdi, r13                                  ; pointer to window in RDI
-     mov       rsi, GTK_WIN_POS_CENTER
-     call      gtk_window_set_position
+	mov		rdi,[table]
+	mov		rsi,[entry3]
+	mov		rdx,1
+	mov		rcx,2
+	mov		r8,2
+	mov		r9,3
+	push	5
+	push	5
+	push	GTK_FILL | GTK_SHRINK
+	push	GTK_FILL | GTK_SHRINK
+	call	gtk_table_attach
 
-     mov       rdi, r13                                  ; pointer to window instance in RDI
-     mov       rsi, r14                                  ; pointer to pixbuffer instance in RSI
-     call      gtk_window_set_icon
+	mov		rdi,[window]
+	call	gtk_widget_show_all
 
-     xor       r9d, r9d                        ; combination of GConnectFlags
-     xor       r8d, r8d                        ; a GClosureNotify for data
-     mov       rcx, r13                        ; pointer to window instance in RCX
-     mov       rdx, gtk_main_quit              ; pointer to the handler
-     mov       rsi, signal.destroy             ; pointer to the signal
-     mov       rdi, r13                        ; pointer to window instance in RDI
-     call      g_signal_connect_data           ; the value in RAX is the handler, but we don't store it now
+	mov		rdi,[window]
+	mov		rsi,szDestroy
+	mov		rdx,gtk_main_quit
+	xor		rcx,rcx
+	xor		r8,r8
+	xor		r9,r9
+	call	g_signal_connect_data
 
-     ; keep in mind R13 is the pointer to the window
-     mov       rdi, r13
-     mov       rsi, 20
-     call      gtk_container_set_border_width
-     
-     ; the table
-     mov       rdi, 1
-     mov       rsi, 2
-     mov       rdx, FALSE
-     call      gtk_table_new
-     mov       r14, rax                                     ; pointer to table
-     
-     mov       rdi, r13                                     ; pointer to window
-     mov       rsi, r14                                     ; pointer to table
-     call      gtk_container_add
+	call	gtk_main
 
-     mov       rdi, label.caption
-     call      gtk_label_new
-     mov       rsi, rax                                     ; pointer to label
-     mov       rdi, r14                                     ; pointer to table
-     xor       rdx, rdx
-     mov       rcx, 1
-     xor       r8, r8
-     mov       r9, rcx
-     ; last parameter first on stack
-     push      5
-     push      5
-     push      GTK_FILL | GTK_SHRINK
-     push      GTK_FILL | GTK_SHRINK
-     call      gtk_table_attach
-     
-     call      gtk_entry_new
-     mov       rsi, rax                                     ; pointer to entry
-     mov       rdi, r14                                     ; pointer to table
-     mov       rdx, 1
-     mov       rcx, 2
-     xor       r8, r8
-     mov       r9, 1
-     ; last parameter first on stack
-     push      5
-     push      5
-     push      GTK_FILL | GTK_SHRINK
-     push      GTK_FILL | GTK_SHRINK
-     call      gtk_table_attach
-          
-     mov       rdi, r13                                     ; pointer to window instance in RDI
-     call      gtk_widget_show_all
-
-     call      gtk_main
-Exit:
-     xor       rdi, rdi
-     call      exit
+	xor		rdi,rdi
+	call	exit
