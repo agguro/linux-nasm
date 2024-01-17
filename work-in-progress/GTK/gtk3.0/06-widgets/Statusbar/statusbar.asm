@@ -31,6 +31,7 @@ bits 64
      extern    gtk_main
      extern    gtk_main_quit
      extern    g_signal_connect_data
+     extern    g_free
      extern    gdk_pixbuf_new_from_file
      extern    gdk_pixbuf_loader_new
      extern    gdk_pixbuf_loader_write
@@ -213,33 +214,39 @@ Exit:
      
 button_pressed:
      ; this is an event, so create a stackframe
-     ; RDI has the pointer to the calling button
-     ; RSI the pointer to the statusbar
-int 3     
+     ; RDI has the pointer to the widget
+     ; RSI the pointer to the window
+     
      push      rbp
      mov       rbp, rsp
 
-;     mov       r15, rdi                                 ;save calling button pointer
-;     mov       r14, rsi                                 ;save pointer to statusbar
-     
-     call      gtk_button_get_label                     ;get pointer to label(text)
-     mov       rdi,rax
-     call      g_strdup_printf
-     mov       rsi,rax
-     mov       rdi,statusbar.caption
+     push      r14
+     push      r15
+     mov       r14, rsi                                 ;save pointer to window
 
-;     mov       rsi, rax
-;     xor       rax, rax
-;     mov       r12, rax                                     ; pointer to output string
+     ;rdi has the pointer to the clicked button
+     ;gtk_button_get_label(widget)     
+     call      gtk_button_get_label                     ;get pointer to label(text)        
+     mov       rsi,rax                                  ;save in rdi
      
-;     mov       rdi, r14                                     ; pointer to statusbar
-;     mov       rsi, r12                                     ; pointer to string
-;     call      gtk_statusbar_get_context_id
+     mov       rdi,statusbar.caption
+     call      g_strdup_printf                          ;copy string
+     mov       r15,rax                                  ;get address of copy
      
-;     mov       rdi, r14                                     ; pointer to statusbar
-;     mov       rsi, rax                                     ; context id
-;     mov       rdx, r12                                     ; pointer to string
-;     call      gtk_statusbar_push
+     mov       rdi,r14                                  ;pointer to the statusbar
+     mov       rsi,r15
+     call      gtk_statusbar_get_context_id             ;get the context id
+     
+     mov       rsi,rax                                  ;save the context id
+     mov       rdx,r15
+     mov       rdi,r14
+     call      gtk_statusbar_push
+     
+     mov        rdi,r15
+     call       g_free
+     
+     pop        r15
+     pop        r14
      
      mov        rsp,rbp
      pop        rbp
