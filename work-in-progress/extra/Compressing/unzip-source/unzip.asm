@@ -1,4 +1,3 @@
-<pre>
 ;name:        unzip.asm
 ;
 ;by:          agguro (2023)
@@ -20,7 +19,7 @@ section .data
 
     command:        db  "/usr/bin/unzip",0      ;full path!
     argv0:          db  "-o", 0                 ;force overwrite existing files
-    argv1:          db  "example.zip", 0
+    argv1:          db  "../testexcell.xlsx", 0
 
     argvPtr:        dq  command                 ;argument list
                     dq  argv0
@@ -64,4 +63,3 @@ _start:
     syscall write,stderr,execveerror,execveerror.len
 .exit:    
     syscall exit,0
-</pre>
