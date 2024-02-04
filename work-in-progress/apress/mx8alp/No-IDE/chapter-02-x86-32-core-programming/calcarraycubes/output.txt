@@ -1,3 +1,5 @@
+sudo apt-get install gcc-multilib g++-multilib
+
 i:    0 x:    2 y:    8
 i:    1 x:    7 y:  343
 i:    2 x:   -4 y:  -64
