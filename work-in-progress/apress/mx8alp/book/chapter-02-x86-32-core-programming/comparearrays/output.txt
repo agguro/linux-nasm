@@ -1,7 +1,0 @@
-
-Results for CompareArrays
-  Test #1 - expected:  -1  actual:  -1
-  Test #2 - expected:   0  actual:   0
-  Test #3 - expected:  10  actual:  10
-  Test #4 - expected:  20  actual:  20
-  Test #5 - expected:  21  actual:  21

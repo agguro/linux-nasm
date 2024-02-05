@@ -1,5 +1,0 @@
-Elements of x[]
-1 7 -3 5 2 9 -6 12 
-
-sum1: 27
-sum2: 27
