@@ -1,4 +1,3 @@
-<pre>
 ;name:        zip.asm
 ;
 ;by:          agguro (2023)
@@ -7,6 +6,7 @@
 ;             ld -s -melf_x86_64 -o zip zip.o
 ;
 ;description: example how to use the zip utility in nasm on Linux.
+;for docx: cd test.docx; zip -r -D ../test.docx ***; cd ..
 ;
 ;todo:        check for errors.
 
@@ -61,4 +61,3 @@ _start:
     syscall write,stderr,execveerror,execveerror.len
 .exit:    
     syscall exit,0
-</pre>

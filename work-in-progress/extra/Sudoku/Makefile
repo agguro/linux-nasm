@@ -1,4 +1,4 @@
-BIN=strlen_simd
+BIN=sudoku
 
 NASM=/usr/bin/nasm
 NASMOPTS=-felf64 -Fdwarf

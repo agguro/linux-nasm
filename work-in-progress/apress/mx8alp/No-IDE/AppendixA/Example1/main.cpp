@@ -1,3 +1,9 @@
+/*
+g++ -m32 -c main.cpp -o main.o
+nasm -f elf32 -o example1.o example1.asm
+g++ -m32 -o example1 example1.o main.o
+*/
+
 #include "stdio.h"
 
 extern "C" int calcresult1(int a, int b, int c);
