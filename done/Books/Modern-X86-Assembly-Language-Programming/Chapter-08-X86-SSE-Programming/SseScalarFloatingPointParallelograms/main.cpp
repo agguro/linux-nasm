@@ -7,7 +7,7 @@
 #define DISPLAY_PDATA_INFO
 
 // This structure must agree with the structure that's defined
-// in file SseScalarFloatingPointParallelograms_.asm.
+// in file SseScalarFloatingPointParallelograms.asm.
 typedef struct
 {
     double A;               // Length of left and right

@@ -67,6 +67,7 @@ SseSfpParallelograms:
     mov     ebp,esp
     sub     esp,16                      ;allocate space for local vars
     push    ebx
+
 ; Load arguments and validate n
     xor     eax,eax                     ;set error code
     mov     ebx,pdata                   ;ebx = pdata
@@ -74,11 +75,13 @@ SseSfpParallelograms:
     test    ecx,ecx
     jle     .done                       ;jump if n <= 0
 
+    
 ; Initialize constant values
 .loop1:  
     movsd   xmm6,qword[r8_180p0]        ;xmm6 = 180.0
     xorpd   xmm7,xmm7                   ;xmm7 = 0.0
     sub     esp,8                       ;space for sin/cos arg value
+    
 ; Load and validate A and B
     movsd   xmm0,qword[ebx+PDATA.A]     ;xmm0 = A
     movsd   xmm1,qword[ebx+PDATA.B]     ;xmm0 = B
@@ -147,9 +150,12 @@ SseSfpParallelograms:
     mov 	byte[ebx+PDATA.BadVal],0    ;set BadVal to false
 .nextItem:
     add 	ebx,PDATA.size              ;ebx = next element in array
+    
+    add 	esp,8                       ;restore ESP before exiting the loop
+                                        ;and before decrementing the loop counter
     dec 	ecx
     jnz 	.loop1                      ;repeat loop until done
-    add 	esp,8                       ;restore ESP
+    
 .done:
     pop 	ebx
     mov 	esp,ebp
