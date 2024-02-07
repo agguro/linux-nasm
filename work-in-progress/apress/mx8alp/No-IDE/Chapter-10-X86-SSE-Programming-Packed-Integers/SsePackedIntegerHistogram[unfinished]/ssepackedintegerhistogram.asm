@@ -2,7 +2,7 @@
 ;
 ; Build:    g++ -c -m32 main.cpp -o main.o
 ;           nasm -f elf32 -o ssepackedintegerhistogram.o ssepackedintegerhistogram.asm
-;           g++ -m32 -o ssepackedintegerhistogram ssepackedintegerhistogram.o main.o ../../commonfiles/xmmval.o
+;           g++ -m32 -o ssepackedintegerhistogram ssepackedintegerhistogram.o main.o ../../CommonFiles/xmmval.o
 ;
 ; Source:   Modern x86 Assembly Language Programming p. 279
 ;
