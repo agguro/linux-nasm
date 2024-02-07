@@ -101,13 +101,14 @@ SseSfpParallelograms:
 ; Compute Beta
     subsd   xmm6,xmm2                   ;Beta = 180.0 - Alpha
     movsd   qword[ebx+PDATA.Beta],xmm6  ;Save Beta
+    
 ; Compute sin(Alpha)
     mulsd   xmm2,[DegToRad]             ;convert Alpha to radians
     movsd 	qword[ebp-16],xmm2          ;save value for later
     movsd 	qword[esp],xmm2             ;copy Alpha onto stack
 ; save ecx into the location for n
     mov 	n,ecx                       ;n = ecx
-;    call 	sin
+    call 	sin
 ; restore ecx
     mov 	ecx,n                       ;ecx = n
     fstp 	qword[ebp-8]                ;save sin(Alpha)
@@ -122,7 +123,7 @@ SseSfpParallelograms:
     movsd 	[esp],xmm0                  ;copy Alpha onto stack
 ; save ecx into the location for n
     mov 	n,ecx                       ;n = ecx
-;    call 	cos
+    call 	cos
 ; restore ecx
     mov 	ecx,n                       ;ecx = n
     fstp 	qword[ebp-8]                ;save cos(Alpha)
