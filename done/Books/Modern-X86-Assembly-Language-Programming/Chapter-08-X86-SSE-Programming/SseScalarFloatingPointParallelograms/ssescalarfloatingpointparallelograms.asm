@@ -150,9 +150,10 @@ SseSfpParallelograms:
     mov 	byte[ebx+PDATA.BadVal],0    ;set BadVal to false
 .nextItem:
     add 	ebx,PDATA.size              ;ebx = next element in array
+    
     ;next instruction gives an segmentation fault in the books source code.
-    ;gives an 
     ;It must be excuted within the loop instead of outside the loop.
+    
     add 	esp,8                       ;restore ESP before exiting the loop
                                         ;and before decrementing the loop counter
     dec 	ecx
