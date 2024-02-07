@@ -2,7 +2,7 @@
 ;
 ; Build:    g++ -c -m32 main.cpp -o main.o -std=c++11
 ;           nasm -f elf32 -o ssepackedfloatingpointarithmetic.o ssepackedfloatingpointarithmetic.asm
-;           g++ -m32 -o ssepackedfloatingpointarithmetic ssepackedfloatingpointarithmetic.o main.o ../../commonfiles/xmmval.o
+;           g++ -m32 -o ssepackedfloatingpointarithmetic ssepackedfloatingpointarithmetic.o main.o ../../CommonFiles/xmmval.o
 ;
 ; Source:   Modern x86 Assembly Language Programming p. 238
 
