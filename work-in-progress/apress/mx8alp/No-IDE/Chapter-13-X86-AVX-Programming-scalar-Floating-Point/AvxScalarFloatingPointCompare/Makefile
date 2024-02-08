@@ -7,4 +7,4 @@ $(NAME).o: $(NAME).asm
 main.o: main.cpp
 	g++ -c -m32 main.cpp -o main.o
 clean:
-	rm $(NAME) *.o
+	@rm -f $(NAME) *.o
