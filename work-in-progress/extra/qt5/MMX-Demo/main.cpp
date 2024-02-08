@@ -13,7 +13,8 @@ int main()
     std::cout << std::hex << (long long)(a) << std::endl;
     std::cout << std::hex << (long long)(b) << std::endl;
     std::cout << std::hex << (long long)(c) << std::endl;
-    a[0] = 0x0A090B08; a[1] = 0x0C070D06;
+    a[0] = 0x0A090B08;
+    a[1] = 0x0C070D06;
     a = _mm_set_pi8('0','1','2','3','4','5','6','7');
     b = _mm_set_pi8('8','9','A','B','C','D','E','F');
     c = _mm_set_pi8('0','0','0','0','0','0','0','0');

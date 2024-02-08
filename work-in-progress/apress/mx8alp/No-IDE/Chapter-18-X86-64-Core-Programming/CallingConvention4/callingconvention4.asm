@@ -35,10 +35,10 @@ Cc4:
 ;            rcx    bsa1
 ;            r8     bsa2
 ;            r9     bsa3
-
+int 3
     push    rbp
     mov     rbp,rsp
-    sub     rsp,8                           ;align stack
+    sub     rsp,16                           ;align stack
     push    r12                             ;save non-volatile register
     push    r13
     push    r14
@@ -126,6 +126,7 @@ Cc4:
     mov     eax,1                           ;set success return code
 
 .done:
+int 3
     pop     rbx
     pop     r15
     pop     r14

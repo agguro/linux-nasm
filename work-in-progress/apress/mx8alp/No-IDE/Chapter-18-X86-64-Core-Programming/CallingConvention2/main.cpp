@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <inttypes.h>
-#include "../../commonfiles/miscdefs.h"
+#include "../../CommonFiles/miscdefs.h"
 
 extern "C" bool Cc2(const Int64* a, const Int64* b, Int32 n, Int64 * sum_a, Int64* sum_b, Int64* prod_a, Int64* prod_b);
 

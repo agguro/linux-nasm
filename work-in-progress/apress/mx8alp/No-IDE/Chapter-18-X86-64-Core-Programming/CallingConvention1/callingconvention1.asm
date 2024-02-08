@@ -4,17 +4,6 @@
 ;           nasm -f elf64 -o callingconvention1.o callingconvention1.asm
 ;           g++ -o callingconvention1 callingconvention1.o main.o
 ;
-; Remark:     Allthough this example was for VC++ and GCC uses a different ABI
-;           I converted this example to GCC to demonstrate the use of a
-;           stackframe to store the intermediate sum of a, b, c, d and 
-;           e, f, g and h.  At the end the program reads both intermediate sums,
-;           add them together and returns it to the calling routine.
-;             Another thought is that since this function is a leaf function,
-;           we don't need to push rbp onto the stack and save rsp.  We can use
-;           rsp to write directly into the memory below rsp to store the intermediate
-;           results as long as they don't exceed the 128 bytes of red zone.
-;           More on that in another example.
-;
 ; Source:   Modern x86 Assembly Language Programming p.524
 
 global Cc1

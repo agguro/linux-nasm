@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <inttypes.h>
-#include "../../commonfiles/miscdefs.h"
+#include "../../CommonFiles/miscdefs.h"
 
 extern "C" Int64 Cc1(Int8 a, Int16 b, Int32 c, Int64 d, Int8 e, Int16 f, Int32 g, Int64 h);
 
