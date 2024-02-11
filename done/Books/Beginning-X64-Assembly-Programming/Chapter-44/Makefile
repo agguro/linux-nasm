@@ -8,4 +8,4 @@ $(name1): $(name1).c
 $(name2): $(name2).c 
 	gcc -no-pie -o $(name2) $(name2).c -masm=intel
 clean:
-	@rm -rf $(name1) $(name2) *.o
+	@rm -f $(name1) $(name2) *.o
