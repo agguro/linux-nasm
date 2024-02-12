@@ -13,6 +13,6 @@ adouble.o: adouble.asm
 asum.o: asum.asm
 	nasm -f elf64 -g -F dwarf asum.asm -l asum.lst
 clean:
-	@rm $(name) *.o *.lst
+	@rm -f $(name) *.o *.lst
 	
 
