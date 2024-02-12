@@ -1,0 +1,31 @@
+     1                                  ; sreverse.asm
+     2                                  section .data							
+     3                                  section .bss							
+     4                                  section .text
+     5                                  
+     6                                  global sreverse
+     7                                  sreverse:
+     8                                  
+     9                                  pushing:
+    10                                  
+    11 00000000 4889F1                  		mov rcx, rsi
+    12 00000003 4889FB                  		mov rbx, rdi
+    13 00000006 41BC00000000            		mov r12, 0
+    14                                  	pushLoop:
+    15 0000000C 4A8B0423                		mov rax, qword [rbx+r12]
+    16 00000010 50                                      push rax
+    17 00000011 49FFC4                  		inc r12
+    18 00000014 E2F6                    		loop pushLoop
+    19                                  
+    20                                  popping:
+    21 00000016 4889F1                  		mov rcx, rsi
+    22 00000019 4889FB                  		mov rbx, rdi
+    23 0000001C 41BC00000000            		mov r12, 0
+    24                                  	popLoop:
+    25 00000022 58                      		pop rax
+    26 00000023 42880423                		mov byte [rbx+r12], al 
+    27 00000027 49FFC4                  		inc r12
+    28 0000002A E2F6                    		loop popLoop
+    29                                  
+    30 0000002C 4889F8                  exit:		mov rax, rdi
+    31 0000002F C3                      		ret

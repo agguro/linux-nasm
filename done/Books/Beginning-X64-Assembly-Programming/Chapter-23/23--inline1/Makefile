@@ -1,2 +1,7 @@
-inline1: inline1.c 
-	gcc -o inline1 inline1.c -masm=intel -no-pie
+name=inline1
+
+$(name): $(name).c
+	gcc -o $(name) $(name).c -masm=intel -no-pie
+clean:
+	@rm -f $(name) *.o *.lst
+

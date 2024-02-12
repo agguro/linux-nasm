@@ -1,3 +1,8 @@
 # makefile inline2.c
-inline2: inline2.c 
-	gcc -o inline2 inline2.c -masm=intel -no-pie
+name=inline2
+
+$(name): $(name).c
+	gcc -o $(name) $(name).c -masm=intel -no-pie
+clean:
+	@rm -f $(name) *.o *.lst
+
