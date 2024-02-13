@@ -38,14 +38,14 @@ int main()
     {
         for (int j = 0; j < ncols; j++)
         {
-            cout << "y1[" << setw(1) << i << "][" << setw(1) << j << "] = ";
-            cout << setw(4) << y1[i][j] << ' ' ;
+            cout << "y1[" << std::setw(1) << i << "][" << std::setw(1) << j << "] = ";
+            cout << std::setw(4) << y1[i][j] << ' ' ;
 
-            cout << "y2[" << setw(1) << i << "][" << setw(1) << j << "] = ";
-            cout << setw(4) << y2[i][j] << ' ';
+            cout << "y2[" << std::setw(1) << i << "][" << std::setw(1) << j << "] = ";
+            cout << std::setw(4) << y2[i][j] << ' ';
 
-            cout << "x[" << setw(1) << j << "][" << setw(1) << i << "] = ";
-            cout << setw(4) <<  x[j][i] << '\n';
+            cout << "x[" << std::setw(1) << j << "][" << std::setw(1) << i << "] = ";
+            cout << std::setw(4) << x[j][i] << '\n';
 
             if (y1[i][j] != y2[i][j])
                 cout << "Compare failed\n";
