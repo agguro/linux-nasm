@@ -32,7 +32,8 @@ section .bss
 section .text							
 	global main					
 main:
-    mov rbp, rsp; for correct debugging
+
+;    mov rbp, rsp; for correct debugging
 push rbp
 mov 	rbp,rsp
 
@@ -42,7 +43,9 @@ mov 	rbp,rsp
 	mov 	rsi,ten
 	mov 	rdx,two
 	mov 	ecx, [default_mxcsr]
+	sub     rsp,8
 	call apply_mxcsr
+	add     rsp,8
 ;----------------------------------------------
 ;division with precision error
 ;default mxcsr
@@ -50,35 +53,45 @@ mov 	rbp,rsp
 	mov 	rsi,ten
 	mov 	rdx,three
 	mov 	ecx, [default_mxcsr]
+	sub     rsp,8
 	call apply_mxcsr
+	add     rsp,8
 ;divide by zero
 ;default mxcsr
 	mov 	rdi,fmt2
 	mov 	rsi,ten
 	mov 	rdx,zero
 	mov 	ecx, [default_mxcsr]
+	sub     rsp,8
 	call apply_mxcsr
+	add     rsp,8
 ;division with precision error
 ;round up
 	mov 	rdi,fmt4
 	mov 	rsi,ten
 	mov 	rdx,three
 	mov 	ecx, [round_up]
+	sub     rsp,8
 	call apply_mxcsr
+	add     rsp,8
 ;division with precision error
 ;round up
 	mov 	rdi,fmt5
 	mov 	rsi,ten
 	mov 	rdx,three
 	mov 	ecx, [round_down]
+	sub     rsp,8
 	call apply_mxcsr
+	add     rsp,8
 ;division with precision error
 ;truncate
 	mov 	rdi,fmt6
 	mov 	rsi,ten
 	mov 	rdx,three
 	mov 	ecx, [truncate]
+	sub     rsp,8
 	call apply_mxcsr
+	add     rsp,8
 ;----------------------------------------------
 ;division with precision error
 ;default mxcsr
@@ -86,27 +99,36 @@ mov 	rbp,rsp
 	mov 	rsi,eleven
 	mov 	rdx,three
 	mov 	ecx, [default_mxcsr]
-	call apply_mxcsr;division with precision error
+	sub     rsp,8
+	call apply_mxcsr
+	add     rsp,8
+;division with precision error
 ;round up
 	mov 	rdi,fmt4
 	mov 	rsi,eleven
 	mov 	rdx,three
 	mov 	ecx, [round_up]
+	sub     rsp,8
 	call apply_mxcsr
+	add     rsp,8
 ;division with precision error
 ;round up
 	mov 	rdi,fmt5
 	mov 	rsi,eleven
 	mov 	rdx,three
 	mov 	ecx, [round_down]
+	sub     rsp,8
 	call apply_mxcsr
+	add     rsp,8
 ;division with precision error
 ;truncate
 	mov 	rdi,fmt6
 	mov 	rsi,eleven
 	mov 	rdx,three
 	mov 	ecx, [truncate]
+	sub     rsp,8
 	call apply_mxcsr
+	add     rsp,8
 leave
 ret                                                                                                                         
 
@@ -114,15 +136,18 @@ ret
 apply_mxcsr:   
 push	rbp
 mov 	rbp,rsp
+        sub     rsp,8
     	push rsi
     	push	rdx
     	push	rcx
     	push	rbp            ; one more for stack alignment
+
 	call	printf
     	pop 	rbp
     	pop 	rcx
     	pop 	rdx
     	pop 	rsi
+    	add     rsp,8
 
 	mov 		[mxcsr_before],ecx
     	ldmxcsr 	[mxcsr_before]
@@ -133,17 +158,32 @@ mov 	rbp,rsp
     	mov 		rdi,f_div
     	movsd	xmm0, [rsi]
     	movsd 	xmm1, [rdx]
+    	
+        sub     rsp,8
     	call 	printf
+    	add     rsp,8
+
+        sub     rsp,8    	
     	call 	print_xmm
+    	add     rsp,8
+    	
 ;print mxcsr
 	mov 		rdi,f_before
-	call 	printf
+        sub     rsp,8
+    	call 	printf
+    	add     rsp,8
 	mov 		rdi, [mxcsr_before]
+        sub     rsp,8
 	call 	print_mxcsr
+	    	add     rsp,8
 	mov 		rdi,f_after
-	call 	printf
+        sub     rsp,8
+    	call 	printf
+    	add     rsp,8
 	mov 		rdi, [mxcsr_after]
+	sub     rsp,8
 	call		print_mxcsr
+	add     rsp,8
 leave
 ret
 ;function ------------------------------------------------------------    
