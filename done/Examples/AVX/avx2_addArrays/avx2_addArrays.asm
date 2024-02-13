@@ -2,7 +2,7 @@
 ;
 ;description : add 2 arrays with AVX2 instructions
 ;
-;assemble    : nasm -felf64 -Fdwarf -o avx2_addArrays.o avx2_addArrays.asm
+;build       : nasm -felf64 -Fdwarf -o avx2_addArrays.o avx2_addArrays.asm
 ;
 ;C calling   : extern "C" void avx2_addArrays(float dest[], float arr1[], float arr2[]);
 ;

@@ -6,6 +6,8 @@
 * g++ -g -c -pipe -no-pie -O2 -std=gnu++1z -Wall -Wextra -fPIC -o main.o main.cpp
 * nasm -felf64 -g -Fdwarf -o avx_addArrays.o avx_addArrays.asm
 * g++ -no-pie -o avx_addArrays main.o avx_addArrays.o
+*
+* Source: https://www.physicsforums.com/insights/an-intro-to-avx-512-assembly-programming/
 */
 
 #include <iostream>
@@ -17,7 +19,7 @@ extern "C" void avx_addArrays(float dest[], float arr1[], float arr2[]);
 
 void printArray(float[], int count);
 
-// Data is aligned to 32-byte boundaries
+// Data is aligned to 16-byte boundaries
 float array1[] __attribute__((aligned(16))) =   // First source array
 {
 	1, 2, 3, 4

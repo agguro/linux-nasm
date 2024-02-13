@@ -5,6 +5,8 @@
 ;build       : nasm -felf64 -Fdwarf -o avx_addArrays.o avx_addArrays.asm
 ;
 ;C calling   : extern "C" void avx_addArrays(float dest[], float arr1[], float arr2[]);
+;
+;source      : https://www.physicsforums.com/insights/an-intro-to-avx-512-assembly-programming/
 
 bits 64
 

@@ -6,6 +6,8 @@
 * g++ -g -c -pipe -no-pie -O2 -std=gnu++1z -Wall -Wextra -fPIC -o main.o main.cpp
 * nasm -felf64 -g -Fdwarf -o avx512_addArrays.o avx512_addArrays.asm
 * g++ -no-pie -o avx512_addArrays main.o avx512_addArrays.o
+*
+* Source: https://www.physicsforums.com/insights/an-intro-to-avx-512-assembly-programming/
 */
 
 #include <iostream>

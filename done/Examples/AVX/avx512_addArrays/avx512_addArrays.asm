@@ -1,12 +1,12 @@
-;name : avx512_addArrays.asm
+;name        : avx512_addArrays.asm
 ;
 ;description : add 2 arrays with AVX512 instructions
 ;
-;build : nasm -felf64 -Fdwarf -o avx512_addArrays.o avx512_addArrays.asm
+;build       : nasm -felf64 -Fdwarf -o avx512_addArrays.o avx512_addArrays.asm
 ;
-;C calling : extern "C" void avx512_addArrays(float dest[], float arr1[], float arr2[]);
+;C calling   : extern "C" void avx512_addArrays(float dest[], float arr1[], float arr2[]);
 ;
-;source : https://www.physicsforums.com/insights/an-intro-to-avx-512-assembly-programming/
+;source      : https://www.physicsforums.com/insights/an-intro-to-avx-512-assembly-programming/
 
 bits 64
 
