@@ -1,5 +1,8 @@
-shuffle: shuffle.o
-	gcc -o shuffle shuffle.o -no-pie
-shuffle.o: shuffle.asm
-	nasm -f elf64 -g -F dwarf shuffle.asm -l shuffle.lst
+name=shuffle
 
+$(name): $(name).o
+	gcc -o $(name) $(name).o -no-pie
+$(name).o:$(name).asm
+	nasm -f elf64 -g -F dwarf $(name).asm -l $(name).lst
+clean:
+	@rm -f $(name) *.o *.lst

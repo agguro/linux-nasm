@@ -1,0 +1,57 @@
+     1                                  ; sse_string_length.asm
+     2                                  extern printf
+     3                                  
+     4                                  section .data
+     5                                  ;template			 0123456789abcdef0123456789abcdef0123456789abcd  e
+     6                                  ;template			 1234567890123456789012345678901234567890123456  7                 						
+     7 00000000 54686520717569636B-     	string1	db	"The quick brown fox jumps over the lazy river.",0       
+     7 00000009 2062726F776E20666F-
+     7 00000012 78206A756D7073206F-
+     7 0000001B 76657220746865206C-
+     7 00000024 617A79207269766572-
+     7 0000002D 2E00               
+     8 0000002F 54686973206973206F-     	fmt1 	db 	"This is our string: %s ",10,0                 
+     8 00000038 757220737472696E67-
+     8 00000041 3A202573200A00     
+     9 00000048 4F757220737472696E-     	fmt2 	db 	"Our string is %d characters long.",10,0
+     9 00000051 672069732025642063-
+     9 0000005A 686172616374657273-
+     9 00000063 206C6F6E672E0A00   
+    10                                  
+    11                                  section .bss
+    12                                  section .text							
+    13                                  	global main					
+    14                                  main:
+    15 00000000 55                      push	rbp
+    16 00000001 4889E5                  mov	rbp,rsp
+    17 00000004 48BF-                        mov rdi, fmt1
+    17 00000006 [2F00000000000000] 
+    18 0000000E 48BE-                       	mov rsi, string1
+    18 00000010 [0000000000000000] 
+    19 00000018 4831C0                      	xor rax,rax
+    20 0000001B E8(00000000)                	call printf   
+    21 00000020 48BF-                       	mov rdi, string1
+    21 00000022 [0000000000000000] 
+    22 0000002A E817000000                  	call pstrlen
+    23 0000002F 48BF-                       	mov rdi, fmt2
+    23 00000031 [4800000000000000] 
+    24 00000039 4889C6                      	mov rsi, rax
+    25 0000003C 4831C0                      	xor rax,rax
+    26 0000003F E8(00000000)                	call printf    
+    27 00000044 C9                      leave
+    28 00000045 C3                      ret
+    29                                  ;function to compute string lenghth-------------------------
+    30                                  pstrlen:
+    31 00000046 55                      push	rbp		
+    32 00000047 4889E5                  mov	rbp,rsp
+    33 0000004A 48C7C0F0FFFFFF              	mov	rax,		-16		; avoid changing ZF later	 
+    34 00000051 660FEFC0                	pxor	xmm0, 	xmm0		; 0 (end of string)
+    35                                  .not_found:	
+    36 00000055 4883C010                	add        	rax, 16	; avoid changing ZF later
+    37                                                             	; after pcmpistri
+    38 00000059 660F3A63040708          	pcmpistri		xmm0, [rdi + rax], 00001000b 	;'equal each'
+    39 00000060 75F3                    	jnz        	.not_found           	; 0 found?
+    40 00000062 4801C8                  	add			rax, rcx		; rcx contains the index of the 0
+    41 00000065 48FFC0                  	inc			rax			; correct for index 0 at start
+    42 00000068 C9                      leave
+    43 00000069 C3                      ret

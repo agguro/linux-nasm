@@ -1,4 +1,8 @@
-sse_string_length: sse_string_length.o
-	gcc -o sse_string_length sse_string_length.o -no-pie
-sse_string_length.o: sse_string_length.asm
-	nasm -f elf64 -g -F dwarf sse_string_length.asm -l sse_string_length.lst
+name=sse_string_length
+
+$(name): $(name).o
+	gcc -o $(name) $(name).o -no-pie
+$(name).o:$(name).asm
+	nasm -f elf64 -g -F dwarf $(name).asm -l $(name).lst
+clean:
+	@rm -f $(name) *.o *.lst

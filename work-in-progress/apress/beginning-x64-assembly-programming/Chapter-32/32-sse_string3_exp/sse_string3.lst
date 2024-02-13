@@ -1,0 +1,186 @@
+     1                                  ; sse_string3_exp.asm
+     2                                  ; compare strings explicit length
+     3                                  extern printf
+     4                                  section .data					    
+     5 00000000 74686520717569636B-     	string1	db	"the quick brown fox jumps over the "
+     5 00000009 2062726F776E20666F-
+     5 00000012 78206A756D7073206F-
+     5 0000001B 7665722074686520   
+     6 00000023 6C617A792072697665-     			db	"lazy river" 
+     6 0000002C 72                 
+     7                                  	string1Len equ $ - string1
+     8 0000002D 74686520717569636B-     	string2	db	"the quick brown fox jumps over the "
+     8 00000036 2062726F776E20666F-
+     8 0000003F 78206A756D7073206F-
+     8 00000048 7665722074686520   
+     9 00000050 6C617A792072697665-     			db	"lazy river"
+     9 00000059 72                 
+    10                                  	string2Len equ $ - string2 
+    11 0000005A 636F6E667573652074-     	dummy	db "confuse the world"       
+    11 00000063 686520776F726C64   
+    12 0000006B 74686520717569636B-     	string3   db	"the quick brown fox jumps over the " 
+    12 00000074 2062726F776E20666F-
+    12 0000007D 78206A756D7073206F-
+    12 00000086 7665722074686520   
+    13 0000008E 6C617A7920646F67        			db	"lazy dog"     
+    14                                  	string3Len  equ $ - string3  
+    15                                               
+    16 00000096 537472696E67732031-     	fmt1 	db "Strings 1 and 2 are equal.",10,0
+    16 0000009F 20616E642032206172-
+    16 000000A8 6520657175616C2E0A-
+    16 000000B1 00                 
+    17 000000B2 537472696E67732031-     	fmt11   	db "Strings 1 and 2 differ at position %i.",10,0               
+    17 000000BB 20616E642032206469-
+    17 000000C4 666665722061742070-
+    17 000000CD 6F736974696F6E2025-
+    17 000000D6 692E0A00           
+    18 000000DA 537472696E67732032-     	fmt2 	db "Strings 2 and 3 are equal.",10,0
+    18 000000E3 20616E642033206172-
+    18 000000EC 6520657175616C2E0A-
+    18 000000F5 00                 
+    19 000000F6 537472696E67732032-     	fmt22   	db "Strings 2 and 3 differ at position %i.",10,0   
+    19 000000FF 20616E642033206469-
+    19 00000108 666665722061742070-
+    19 00000111 6F736974696F6E2025-
+    19 0000011A 692E0A00           
+    20                                   
+    21                                  section .bss
+    22 00000000 <res 40h>                       buffer resb 64
+    23                                  section .text							
+    24                                  	global main					
+    25                                  main:
+    26 00000000 55                      push	rbp
+    27 00000001 4889E5                  mov	rbp,rsp
+    28                                    
+    29                                  ; compare string 1 and 2
+    30 00000004 48BF-                       mov 	rdi, string1
+    30 00000006 [0000000000000000] 
+    31 0000000E 48BE-                       mov 	rsi, string2
+    31 00000010 [2D00000000000000] 
+    32 00000018 BA2D000000                  mov 	rdx, string1Len
+    33 0000001D B92D000000                  mov 	rcx, string2Len
+    34 00000022 E815010000                  call 	pstrcmp
+    35 00000027 50                          push 	rax    ;push result on stack for later use
+    36                                  
+    37                                  ; print the string1 and 2 and the result
+    38                                  ;-------------------------------------------------------------
+    39                                  ; first build the string with newline and terminating 0
+    40                                  ; string1
+    41 00000028 48BE-                       mov 	rsi,string1
+    41 0000002A [0000000000000000] 
+    42 00000032 48BF-                       mov 	rdi,buffer
+    42 00000034 [0000000000000000] 
+    43 0000003C B92D000000                  mov 	rcx,string1Len
+    44 00000041 F3A4                        rep 	movsb        
+    45 00000043 C6070A                      mov 	byte[rdi],10	; add NL to buffer
+    46 00000046 48FFC7                      inc 	rdi         	; add terminating 0 to buffer
+    47 00000049 C60700                      mov 	byte[rdi],0
+    48                                  ;print
+    49 0000004C 48BF-                       mov 	rdi, buffer
+    49 0000004E [0000000000000000] 
+    50 00000056 4831C0                      xor 	rax,rax
+    51 00000059 E8(00000000)                call 	printf 
+    52                                  ; string2
+    53 0000005E 48BE-                       mov 	rsi,string2
+    53 00000060 [2D00000000000000] 
+    54 00000068 48BF-                       mov 	rdi,buffer
+    54 0000006A [0000000000000000] 
+    55 00000072 B92D000000                  mov 	rcx,string2Len
+    56 00000077 F3A4                        rep 	movsb        
+    57 00000079 C6070A                      mov 	byte[rdi],10	; add NL to buffer
+    58 0000007C 48FFC7                      inc 	rdi         	; add terminating 0 to buffer
+    59 0000007F C60700                      mov 	byte[rdi],0
+    60                                  ;print
+    61 00000082 48BF-                       mov 	rdi, buffer
+    61 00000084 [0000000000000000] 
+    62 0000008C 4831C0                      xor 	rax,rax
+    63 0000008F E8(00000000)                call 	printf     
+    64                                  ;-------------------------------------------------------------       
+    65                                  ; now print the result of the comparison
+    66 00000094 58                          pop 	rax     ;recall the return value      
+    67 00000095 48BF-                       mov 	rdi,fmt1
+    67 00000097 [9600000000000000] 
+    68 0000009F 4883F800                    cmp 	rax,0
+    69 000000A3 740A                        je 	eql1
+    70 000000A5 48BF-                       mov 	rdi,fmt11
+    70 000000A7 [B200000000000000] 
+    71                                   eql1:
+    72 000000AF 4889C6                      mov 	rsi, rax
+    73 000000B2 4831C0                      xor 	rax,rax
+    74 000000B5 E8(00000000)                call 	printf
+    75                                  ;-------------------------------------------------------------
+    76                                  ;-------------------------------------------------------------
+    77                                  ; compare string 2 and 3
+    78 000000BA 48BF-                       mov 	rdi, string2
+    78 000000BC [2D00000000000000] 
+    79 000000C4 48BE-                       mov 	rsi, string3
+    79 000000C6 [6B00000000000000] 
+    80 000000CE BA2D000000                  mov 	rdx, string2Len
+    81 000000D3 B92B000000                  mov 	rcx, string3Len
+    82 000000D8 E85F000000                  call 	pstrcmp
+    83 000000DD 50                          push 	rax
+    84                                  
+    85                                  ; print the string3 and the result
+    86                                  ;-------------------------------------------------------------
+    87                                  ; first build the string with newline and terminating 0
+    88                                  ; string3
+    89 000000DE 48BE-                       mov 	rsi,string3
+    89 000000E0 [6B00000000000000] 
+    90 000000E8 48BF-                       mov 	rdi,buffer
+    90 000000EA [0000000000000000] 
+    91 000000F2 B92B000000                  mov 	rcx,string3Len
+    92 000000F7 F3A4                        rep 	movsb        
+    93 000000F9 C6070A                      mov 	byte[rdi],10	; add NL to buffer
+    94 000000FC 48FFC7                      inc 	rdi         	; add terminating 0 to buffer
+    95 000000FF C60700                      mov 	byte[rdi],0
+    96                                  ;print
+    97 00000102 48BF-                       mov 	rdi, buffer
+    97 00000104 [0000000000000000] 
+    98 0000010C 4831C0                      xor 	rax,rax
+    99 0000010F E8(00000000)                call 	printf
+   100                                  ;-------------------------------------------------------------       
+   101                                  ; now print the result of the comparison
+   102 00000114 58                          pop 	rax     		; recall the return value               
+   103 00000115 48BF-                       mov 	rdi,fmt2
+   103 00000117 [DA00000000000000] 
+   104 0000011F 4883F800                    cmp 	rax,0
+   105 00000123 740A                        je 	eql2
+   106 00000125 48BF-                       mov 	rdi,fmt22
+   106 00000127 [F600000000000000] 
+   107                                   eql2:
+   108 0000012F 4889C6                      mov 	rsi, rax
+   109 00000132 4831C0                      xor 	rax,rax
+   110 00000135 E8(00000000)                call 	printf   
+   111                                  
+   112                                  ; exit
+   113 0000013A C9                      leave
+   114 0000013B C3                      ret
+   115                                  ;-------------------------------------------------------------  
+   116                                  
+   117                                  pstrcmp:
+   118 0000013C 55                      push	rbp		
+   119 0000013D 4889E5                  mov	rbp,rsp
+   120 00000140 4831DB                  	xor     rbx, rbx
+   121 00000143 4889D0                  	mov     rax, rdx         ;rax contains length of 1st string
+   122 00000146 4889CA                  	mov     rdx, rcx         ;rdx contains length of 2nd string    
+   123 00000149 4831C9                  	xor     rcx, rcx         ;rcx as index
+   124                                  .loop:      
+   125 0000014C F30F6F0C1F              	movdqu   	xmm1, [rdi + rbx]
+   126 00000151 660F3A610C1E18          	pcmpestri	xmm1, [rsi + rbx], 0x18	; equal each | neg. polarity
+   127 00000158 7210                    	jc      	.differ
+   128 0000015A 7419                    	jz      	.equal
+   129 0000015C 4883C310                	add      	rbx, 16
+   130 00000160 4883E810                	sub     	rax, 16
+   131 00000164 4883EA10                	sub      	rdx, 16
+   132 00000168 EBE2                    	jmp     	.loop
+   133                                  
+   134                                  .differ:
+   135 0000016A 4889D8                      	mov 	rax,rbx         
+   136 0000016D 4801C8                      	add 	rax,rcx			; rcx contains the differing position
+   137 00000170 48FFC0                      	inc 	rax                 ; because the counter starts at 0
+   138 00000173 EB03                        	jmp 	exit
+   139                                  .equal: 
+   140 00000175 4831C0                      	xor 	rax,rax
+   141                                  exit:
+   142 00000178 C9                      leave
+   143 00000179 C3                      ret

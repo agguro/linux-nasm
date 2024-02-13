@@ -1,0 +1,142 @@
+     1                                  ; sse_string_search.asm
+     2                                  extern printf
+     3                                  section .data
+     4                                  ;template		 123456789012345678901234567890123456789012345  6 
+     5                                  ;template		 0123456789abcdef0123456789abcdef0123456789abc  d  
+     6 00000000 74686520717569636B-     string1	db	"the quick brown fox jumps over the lazy river",0 
+     6 00000009 2062726F776E20666F-
+     6 00000012 78206A756D7073206F-
+     6 0000001B 76657220746865206C-
+     6 00000024 617A79207269766572-
+     6 0000002D 00                 
+     7                                  
+     8 0000002E 6500                    string2	db	"e",0     
+     9 00000030 54686973206973206F-     fmt1 	db 	"This is our string: %s ",10,0                 
+     9 00000039 757220737472696E67-
+     9 00000042 3A202573200A00     
+    10 00000049 546865206669727374-     fmt2 	db 	"The first '%s' is at position %d.",10,0
+    10 00000052 202725732720697320-
+    10 0000005B 617420706F73697469-
+    10 00000064 6F6E2025642E0A00   
+    11 0000006C 546865206C61737420-     fmt3 	db 	"The last '%s' is at position %d.",10,0
+    11 00000075 272573272069732061-
+    11 0000007E 7420706F736974696F-
+    11 00000087 6E2025642E0A00     
+    12 0000008E 546865206368617261-     fmt4 	db 	"The character '%s' didn't show up!.",10,0
+    12 00000097 637465722027257327-
+    12 000000A0 206469646E27742073-
+    12 000000A9 686F77207570212E0A-
+    12 000000B2 00                 
+    13                                  
+    14                                  section .bss
+    15                                  section .text							
+    16                                  	global main					 
+    17                                  main:
+    18 00000000 55                      push	rbp
+    19 00000001 4889E5                  mov	rbp,rsp
+    20 00000004 48BF-                   	mov 	rdi, fmt1
+    20 00000006 [3000000000000000] 
+    21 0000000E 48BE-                       	mov 	rsi, string1
+    21 00000010 [0000000000000000] 
+    22 00000018 4831C0                      	xor 	rax,rax
+    23 0000001B E8(00000000)                	call printf 
+    24                                  
+    25                                  ; find the first occurance  
+    26 00000020 48BF-                       	mov 	rdi, string1
+    26 00000022 [0000000000000000] 
+    27 0000002A 48BE-                      	mov  rsi, string2
+    27 0000002C [2E00000000000000] 
+    28 00000034 E87D000000                  	call pstrscan_f
+    29 00000039 4883F800                	cmp	rax,0
+    30 0000003D 7459                    	je	no_show
+    31 0000003F 48BF-                       	mov 	rdi, fmt2
+    31 00000041 [4900000000000000] 
+    32 00000049 48BE-                   	mov	rsi, string2
+    32 0000004B [2E00000000000000] 
+    33 00000053 4889C2                      	mov 	rdx, rax
+    34 00000056 4831C0                      	xor 	rax,rax
+    35 00000059 E8(00000000)                	call	printf 
+    36                                  
+    37                                  ; find the last occurance  
+    38 0000005E 48BF-                       	mov 	rdi, string1
+    38 00000060 [0000000000000000] 
+    39 00000068 48BE-                     	mov  rsi, string2
+    39 0000006A [2E00000000000000] 
+    40 00000072 E86E000000                  	call pstrscan_l
+    41 00000077 48BF-                       	mov 	rdi, fmt3
+    41 00000079 [6C00000000000000] 
+    42 00000081 48BE-                   	mov	rsi, string2
+    42 00000083 [2E00000000000000] 
+    43 0000008B 4889C2                      	mov 	rdx, rax
+    44 0000008E 4831C0                      	xor 	rax,rax
+    45 00000091 E8(00000000)                	call printf
+    46 00000096 EB1C                    	jmp	exit
+    47                                  no_show:
+    48 00000098 48BF-                   	mov	rdi, fmt4
+    48 0000009A [8E00000000000000] 
+    49 000000A2 48BE-                   	mov	rsi, string2
+    49 000000A4 [2E00000000000000] 
+    50 000000AC 4831C0                  	xor	rax, rax
+    51 000000AF E8(00000000)            	call	printf     
+    52                                  exit:
+    53 000000B4 C9                      leave
+    54 000000B5 C3                      ret
+    55                                  ;------ find the first occurrence ----------------------
+    56                                  pstrscan_f:
+    57 000000B6 55                      push	rbp		
+    58 000000B7 4889E5                  mov	rbp,rsp
+    59 000000BA 4831C0                  	xor		rax, rax		
+    60 000000BD 660FEFC0                	pxor  	xmm0, xmm0		
+    61 000000C1 660F3A200600            	pinsrb	xmm0, [rsi],0
+    62                                  .block_loop:	
+    63 000000C7 660F3A63040700          	pcmpistri  xmm0, [rdi + rax], 00000000b    
+    64 000000CE 7208                    	jc	.found
+    65 000000D0 740E                    	jz	.none
+    66 000000D2 4883C010                	add	rax, 16
+    67 000000D6 EBEF                    	jmp	.block_loop
+    68                                  .found:		                   
+    69 000000D8 4801C8                  	add 	rax, rcx		; rcx contains the position of the char
+    70 000000DB 48FFC0                  	inc	rax			; start counting from 1 instead of 0
+    71 000000DE C9                      leave
+    72 000000DF C3                      ret
+    73                                  .none:
+    74 000000E0 4831C0                  	xor	rax,rax			; nothing found, return 0
+    75 000000E3 C9                      leave
+    76 000000E4 C3                      ret
+    77                                  
+    78                                  ;------ find the last occurrence ----------------------	
+    79                                  pstrscan_l:
+    80 000000E5 55                      push	rbp		
+    81 000000E6 4889E5                  mov	rbp,rsp
+    82 000000E9 53                      push rbx			; callee saved
+    83 000000EA 4154                    push r12			; callee saved
+    84 000000EC 4831C0                  	xor		rax, rax
+    85 000000EF 660FEFC0                	pxor  	xmm0, xmm0		
+    86 000000F3 660F3A200600            	pinsrb	xmm0, [rsi],0
+    87 000000F9 4D31E4                  	xor		r12,r12
+    88                                  .block_loop:	
+    89 000000FC 660F3A63040740          	pcmpistri  xmm0, [rdi + rax], 01000000b    
+    90 00000103 0F94C3                  	setz	bl
+    91 00000106 7208                    	jc	.found
+    92 00000108 741F                    	jz   .done
+    93 0000010A 4883C010                	add	rax, 16
+    94 0000010E EBEC                       	jmp .block_loop
+    95                                  .found:	
+    96 00000110 4989C4                  	mov	r12, rax	                   
+    97 00000113 4901CC                  	add  r12, rcx		; rcx contains the position of the char
+    98 00000116 49FFC4                  	inc	r12
+    99 00000119 80FB01                  	cmp	bl,1
+   100 0000011C 740B                    	je	.done
+   101 0000011E 4883C010                    	add  rax,16
+   102 00000122 EBD8                    	jmp	.block_loop
+   103 00000124 415C                    pop r12			; callee saved
+   104 00000126 5B                      pop rbx			; callee saved
+   105 00000127 C9                      leave
+   106 00000128 C3                      ret
+   107                                  .done:
+   108 00000129 4C89E0                  	mov	rax,r12	
+   109 0000012C 415C                    pop r12			; callee saved
+   110 0000012E 5B                      pop rbx			; callee saved
+   111 0000012F C9                      leave
+   112 00000130 C3                      ret
+   113                                  
