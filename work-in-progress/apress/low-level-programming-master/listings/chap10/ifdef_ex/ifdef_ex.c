@@ -1,3 +1,0 @@
-#ifdef SYMBOL
-/*code*/
-#endif
