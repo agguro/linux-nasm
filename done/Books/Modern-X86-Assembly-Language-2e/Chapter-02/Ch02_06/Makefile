@@ -1,0 +1,13 @@
+name=ch02_06
+asmfile=memoryaddressing
+cppfile=main
+libs=
+
+$(name):$(asmfile).o $(cppfile).o
+	g++ -no-pie -o $(name) $(asmfile).o $(cppfile).o $(libs)
+$(asmfile).o:$(asmfile).asm
+	nasm -f elf64 -g -F dwarf -o $(asmfile).o $(asmfile).asm -l $(asmfile).lst
+$(cppfile).o:$(cppfile).cpp
+	g++ -c -pipe -o $(cppfile).o $(cppfile).cpp
+clean:
+	@rm -rf $(name) *.o *.lst
