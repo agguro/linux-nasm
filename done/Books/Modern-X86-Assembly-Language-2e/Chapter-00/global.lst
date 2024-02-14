@@ -1,0 +1,71 @@
+     1                                  ;name        : global.asm
+     2                                  ;description : additional chapter to use the examples in the book
+     3                                  ;              Modern X86 Assembly Language Programming 2nd Edition with g++, Nasm and Linux
+     4                                  ;build       : mkdir build && cd build && qmake .. && make
+     5                                  ;use         : extern "C" int get_variable_from_asm_();
+     6                                  ;              extern "C" int get_variable_from_c_();
+     7                                  ;              extern "C" void run_c_function_(void(*function)());
+     8                                  ;              extern "C" void* function_from_asm_();
+     9                                  ;              extern "C" int variable_from_asm_;
+    10                                  
+    11                                  bits 64
+    12                                  
+    13                                  [list -]
+    16                                  
+    17                                  ; variables originating from C/C++ source
+    18                                  extern variable_from_c:data
+    19                                  
+    20                                  ; variable originting from assembly source
+    21                                  global variable_from_asm_:data variable_from_asm_.end - variable_from_asm_
+    22                                  global constant_from_asm_:data constant_from_asm_.end - constant_from_asm_
+    23                                  
+    24                                  ; routines exposed to C/C++
+    25                                  global get_variable_from_c_:function
+    26                                  global get_variable_from_asm_:function
+    27                                  global run_c_function_:function
+    28                                  global function_from_asm_:function
+    29                                  
+    30                                  ;contant values
+    31                                  section .rodata
+    32 00000000 9426000000000000            constant_from_asm_:   dq  9876
+    33                                      .end:
+    34 00000008 74686973206F757470-         message:    db   "this output came from a asm function ran in C/C++ using his pointer",0x0a
+    34 00000011 75742063616D652066-
+    34 0000001A 726F6D20612061736D-
+    34 00000023 2066756E6374696F6E-
+    34 0000002C 2072616E20696E2043-
+    34 00000035 2F432B2B207573696E-
+    34 0000003E 672068697320706F69-
+    34 00000047 6E7465720A         
+    35                                      .length:    equ  $-message
+    36                                  
+    37                                  ; variables
+    38                                  section .data
+    39 00000000 31D4000000000000            variable_from_asm_:   dq  54321
+    40                                      .end:
+    41                                  
+    42                                  section .text
+    43                                  
+    44                                  get_variable_from_asm_:
+    45 00000000 48B8-                       mov     rax,variable_from_asm_
+    45 00000002 [0000000000000000] 
+    46 0000000A 488B00                      mov     rax,[rax]
+    47 0000000D C3                          ret
+    48                                  
+    49                                  get_variable_from_c_:
+    50 0000000E 48B8-                       mov     rax,variable_from_c
+    50 00000010 [0000000000000000] 
+    51 00000018 488B00                      mov     rax,[rax]
+    52 0000001B C3                          ret
+    53                                  
+    54                                  run_c_function_:
+    55 0000001C 4889F8                      mov     rax,rdi
+    56 0000001F FFD0                        call    rax
+    57 00000021 C3                          ret
+    58                                  
+    59                                  function_from_asm_:
+    60 00000022 BA4400000048BE-             syscall write,stdout,message,message.length
+    60 00000029 [0800000000000000]-
+    60 00000031 BF01000000B8010000-
+    60 0000003A 000F05             
+    61 0000003D C3                          ret
