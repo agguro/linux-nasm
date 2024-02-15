@@ -5,4 +5,4 @@ This repository accompanies [*Modern X86 Assembly Language Programming*](https:/
 [comment]: #cover
 ![Cover image](https://github.com/agguro/linux-nasm/blob/master/done/Books/Modern-X86-Assembly-Language-Programming-1e/9781484200650.jpg)
 
-This repository is moved to his own space [*Modern X86 Assembly Language Programming - Linux/Nasm*]([https://github.com/agguro/modern-x86-assembly-language-programming-1e/tree/linux](https://github.com/agguro/modern-x86-assembly-language-programming)https://github.com/agguro/modern-x86-assembly-language-programming)
+This repository is moved to his own space [*Modern X86 Assembly Language Programming - Linux/Nasm*](https://github.com/agguro/modern-x86-assembly-language-programming)
