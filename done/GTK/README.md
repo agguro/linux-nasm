@@ -4,7 +4,7 @@ The source code for GTK programming on Linux with NASM is moved to his own repos
 
 GTK1 : is obsolete but I've add examples from the internet, just to have some nioce ideas.
 can be found in the [*repository of steshaw*](https://github.com/steshaw/gtk-examples)
-or on my github [*here](https://github.com/agguro/gtk-nasm/tree/GTK1)
+or on my github here.
 
 GTK2 : examples from ZetCode, myself, the internet etc...
 (https://github.com/agguro/gtk-nasm/tree/GTK2)
