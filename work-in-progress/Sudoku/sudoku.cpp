@@ -20,8 +20,9 @@ void print_grid(int grid[DIM][DIM])
 	{
 		cout << SPACE << SPACE << SPACE << SPACE << endl;
 		cout << NEW_ROW << endl;
+		cout << LINE;
 		for (int j = 0; j < DIM; j++)
-		{
+		{	
 			cout << SPACE;
 			if (BLANK == grid[i][j])
 			{
